@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - הזמנה להקלטה</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.svgrepo.com/show/106976/whatsapp.svg"
+    />
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+  
+        .loader {
+          border: 4px solid #f3f3f3;
+          border-radius: 50%;
+          border-top: 4px solid #3498db;
+          width: 20px;
+          height: 20px;
+          animation: spin 2s linear infinite;
+        }
+        @keyframes spin {
+          0% {
+            transform: rotate(0deg);
+          }
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      var collapseElementList = [].slice.call(
+        document.querySelectorAll(".collapse")
+      );
+      var collapseList = collapseElementList.map(function (collapseEl) {
+        return new bootstrap.Collapse(collapseEl);
+      });
+
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+
+<div class="container">
+  <div class="input-group mb-3">
+   
+   <span class="input-group-text">חברת צוות:</span>
+   <input
+   type="text"
+   id="crewList"
+   list="crew"
+   autocomplete="off"
+   class="form-control"
+ />
+ <datalist id="crew"> </datalist>
+   </div>
+  </div>
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <span class="position-relative start-50 input-group-text mb-3" text-align="center">תמלאי את הפרטים של המראיין והאורח</span>
+        <div class="input-group mb-3">
+            <span class="input-group-text">או בחרי את האורח</span>
+            <div id="loader" class="loader"></div>
+            <input
+            type="text"
+            id="peopleList"
+            list="people"
+            autocomplete="off"
+            class="form-control"
+          />
+          <datalist id="people"> </datalist>
+          
+          <button onclick="submitData()" class="btn form-control btn-outline-secondary" id="submitData">
+            לבחירה
+          </button>
+       </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">טלפון המראיין</span>
+          <input type="tel" id="interviewerPhone" class="form-control" placeholder="המראיין" autocomplete="off"/>
+          <input class="form-check-input" type="checkbox" id="fixInterPhone" checked>
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">טלפון האורח</span>
+          <input type="tel" id="guestPhone" class="form-control" placeholder="האורח" autocomplete="off"/>
+          <input class="form-check-input" type="checkbox" id="fixGuestPhone" checked>
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">שם השרשרת</span>
+          <input class="form-control" list="chainsNames" id="chainName" placeholder="תתחילי להקליד את שם השרשרת..." autocomplete="off"/>
+          <datalist id="chainsNames">
+            
+          </datalist>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">תאריך ושעת ההקלטה</span>
+          <input class="form-control" type="datetime-local" id="dateAndHour" autocomplete="off"/>
+        </div>
+        <div class="form-control input-group-text" role="group">
+          <button onclick="submit()" class="btn form-control btn-outline-secondary" id="submit">
+            הזנת פרטים
+          </button>
+          <button onclick="reset()" class="btn form-control btn-outline-secondary" id="reset">
+              מחיקת נתונים
+            </button>
+        </div>
+        <div class="col-4 text-center"></div>
+        <div class="col-4 d-flex justify-content-end align-items-center"></div>
+      </header>
+      <div class="container blog-post-meta py-3" id="preMes">
+        <div class="col-auto">
+          <h3 class="mb-0"><u>אישור רישום להקלטה</u></h3>
+          <h6 class="mb-1 text-muted">לאחר מילוי הטופס<h6>
+            <div id="confirmText"></div>
+            <div class="form-control input-group-text col-auto" role="group">
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendConfirmText" onclick="whatsAppMes('confirmText')">שליחת הודעה למראיין</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="copyConfirmText" onclick="copy('confirmText')">העתקת ההודעה</button>                 
+              </div>  
+        </div>
+          <div class="col-auto">
+
+            <h3 class="mb-0"><u>הזמנה להקלטה</u></h3>
+            <h6 class="mb-1 text-muted">יום לפני ההקלטה<h6>
+           <!--<h4 class="mb-0">היי<a id="nameOfPeople"></a>,</h4>
+            <h4 class="mb-0"><strong>תודה</strong> שבחרת להתארח בזום <strong>סיפור555</strong></h4>
+            <h4 class="mb-3">בשרשרת <a id="nameOfChain"> שםשרשרת </a>.</h4>
+            <h4 class="mb-0">נפגש בתאריך <a id="dateOfRecording"> תאריך </a> בשעה <a id="hourOfRecording"> שעה </a></h4>
+            <h4 class="mb-3">בהקלטת סיפור555 של <a id="nameOfPerson"></a>.</h4>
+            <h4 class="mb-0">לינק לזום מצורף בהודעה הבאה. </h4>
+            <h4 class="mb-3">הזום יפתח 10 דק' לפני מועד השידור. </h4>
+            <h4 class="mb-0">הודעה זו תשלח <a id="nameOfPerson2"></a> במייל, חצי שעה לפני מועד ההקלטה.</h4>
+            <h4 class="mb-0">בבקשה לאשר קבלת הודעה זו.</h4>
+            <h4 class="mb-2"><strong>בהצלחה!<strong></h4>   -->      
+              <div id="inviteText"></div>
+            <div class="form-control input-group-text col-auto" role="group">
+              <span class="input-group-text">שליחת הזמנה</span>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToInterviewer" onclick="whatsAppMes('preMesInter')">למראיין</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToGuest" onclick="whatsAppMes('preMesGuest')">לאורח</button>
+            <!--  <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToGuest" onclick="whatsAppMes('preMesCreator')">ליוצר השרשרת</button> -->
+              <button type="button" class="btn form-control helper btn-outline-secondary" id="sendPreMesToBoth" onclick="sendBothPreMes()">לשניהם</button>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn form-control helper btn-outline-secondary" id="sendShort55info" onclick="window.open('https://www.howtogeek.com/wp-content/uploads/2019/04/2019-04-17_12h32_07-2.png', '_blank');">*</button>
+            </div>
+            </div>
+            <div class="form-control input-group-text col-auto" role="group">
+                <span class="input-group-text">שליחת לינק לזום</span>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendZoomToInterviewer" onclick="whatsAppMes('zoomInter')">למראיין</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendZoomToGuest" onclick="whatsAppMes('zoomGuest')">לאורח</button>
+                <button type="button" class="btn form-control helper btn-outline-secondary" id="sendPreMesToBoth" onclick="sendBothZoom()">לשניהם</button>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn form-control helper btn-outline-secondary" id="sendShort55info" onclick="window.open('https://www.howtogeek.com/wp-content/uploads/2019/04/2019-04-17_12h32_07-2.png', '_blank');">*</button>
+              </div>
+              </div>
+              <div class="form-control input-group-text col-auto" role="group">
+                  <span class="input-group-text">העתקת</span>
+                  <button type="button" class="btn form-control btn-outline-secondary" id="copyPreMes" onclick="copy('preMes')">תוכן ההזמנה</button>
+                  <button type="button" class="btn form-control btn-outline-secondary" id="copyZoom" onclick="copy('zoom')">לינק לזום</button>
+                </div>
+            </div>
+            <div id="test" ></div>
+      </div>
+    <script
+    
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+    <script src="preMes.js"></script> 
+  </body>
+</html>

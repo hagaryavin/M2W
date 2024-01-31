@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - הכנסת תוצרים ותיקונים</title>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+    crossorigin="anonymous"
+  />
+  <link href="./style.css" rel="stylesheet" />
+  <link
+    rel="icon"
+    href="https://www.svgrepo.com/show/106976/whatsapp.svg"
+  />
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <link
+    href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+    rel="stylesheet"
+/>
+</head>
+<body>
+  
+  <script>
+    var collapseElementList = [].slice.call(
+      document.querySelectorAll(".collapse")
+    );
+    var collapseList = collapseElementList.map(function (collapseEl) {
+      return new bootstrap.Collapse(collapseEl);
+    });
+
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
+   <div class="container">
+    <header class="blog-header py-3 ">
+        <span class="input-group-text">נא לבחור חרוז</span>
+      <div class="input-group mb-3">
+        
+        <div id="loader" class="loader"></div>
+        <input
+        type="text"
+        id="peopleList"
+        list="people"
+        autocomplete="off"
+        class="form-control"
+      />
+      <datalist id="people"> </datalist>
+      
+   </div>
+   <div class="form-control input-group-text mb-0" role="group">
+   <button onclick="submitData()" class="btn btn-outline-secondary form-control input-group-text" id="submitData">
+      לבחירה
+    </button>
+   </div>
+  </div>
+   <div class="container">
+      <div class="col-auto">
+          <h2 class="mb-2"><u>הוספת תוצר</u></h2>
+      </div>
+      <div class="form-control mb-3">
+        <p class="fs-5 fw-normal text-start" id="linkfullB4"></p>
+        <div class="input-group-text" role="group">
+          <input type="text" id="linkfull" class="form-control" placeholder="הוספת הראיון המלא" autocomplete="off"/>
+          <button
+            onclick="linkfullChange()"
+            class="btn form-control btn-outline-secondary"
+            id="linkfullChange"
+          >
+          הוספת הראיון המלא
+        </button>
+      </div>
+    </div>
+      <div class="form-control mb-3">
+        <p class="fs-5 fw-normal text-start" id="link555B4"></p>
+        <div class="input-group-text" role="group">
+          <input type="text" id="link555" class="form-control" placeholder="הוספת סרט555" autocomplete="off"/>
+          <button
+            onclick="link555Change()"
+            class="btn form-control btn-outline-secondary"
+            id="link555Change"
+          >
+          הוספת סרט555
+        </button>
+      </div>
+    </div>
+  <div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="link55ytB4"></p>
+    <div class="input-group-text" role="group">
+      <input type="text" id="link55yt" class="form-control" placeholder="הוספת סרט קצר 55-יוטיוב" autocomplete="off"/>
+      <button
+        onclick="link55ytChange()"
+        class="btn form-control btn-outline-secondary"
+        id="link55ytChange"
+      >
+      הוספת סרט קצר 55-יוטיוב
+    </button>
+  </div>
+  </div>
+  <div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="link55driveB4"></p>
+    <div class="input-group-text" role="group">
+      <input type="text" id="link55drive" class="form-control" placeholder="הוספת לינק לסרט 55-דרייב" autocomplete="off"/>
+      <button
+        onclick="link55driveChange()"
+        class="btn form-control btn-outline-secondary"
+        id="link55driveChange"
+      >
+      הוספת לינק לסרט 55-דרייב
+    </button>
+  </div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="linkscB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="linksc" class="form-control" placeholder="הוספת לינק לסאונדקלאוד" autocomplete="off"/>
+    <button
+      onclick="linkscChange()"
+      class="btn form-control btn-outline-secondary"
+      id="linkscChange"
+    >
+    הוספת לינק לסאונדקלאוד
+  </button>
+</div>
+</div>
+
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="linkspotifyB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="linkspotify" class="form-control" placeholder="הוספת לינק לספוטיפיי" autocomplete="off"/>
+    <button
+      onclick="linkspotifyChange()"
+      class="btn form-control btn-outline-secondary"
+      id="linkspotifyChange"
+    >
+    הוספת לינק לספוטיפיי
+  </button>
+</div>
+</div>
+
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="idB4"></p>
+  <div class="input-group-text" role="group">
+    <input  id="id" class="form-control" placeholder="הוספת ID" autocomplete="off" type="number" min="1"/>
+    <button
+      onclick="idChange()"
+      class="btn form-control btn-outline-secondary"
+      id="idChange"
+    >
+     הוספת מספר פרק פודקאסט
+  </button>
+</div>
+  </div>
+  <div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="orderB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="number" id="order" class="form-control" placeholder="הוספת מספר חרוז בשרשרת" autocomplete="off" min="1"/>
+    <button
+      onclick="orderChange()"
+      class="btn form-control btn-outline-secondary"
+      id="orderChange" 
+    >
+    הוספת מספר חרוז בשרשרת
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="messB4"></p>
+  <div class="input-group-text" role="group">
+<input type="text" id="mess" class="form-control" placeholder="הוספת הודעה לחרוז אחרון" autocomplete="off"/>
+<button
+  onclick="messChange()"
+  class="btn form-control btn-outline-secondary"
+  id="messChange"
+>
+הוספת הודעה לחרוז אחרון
+</button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="clip1B4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="clip1" class="form-control" placeholder="הוספת קליפ1" autocomplete="off"/>
+    <button
+      onclick="clip1Change()"
+      class="btn form-control btn-outline-secondary"
+      id="clip1Change"
+    >
+    הוספת קליפ1
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="clip2B4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="clip2" class="form-control" placeholder="הוספת קליפ2" autocomplete="off"/>
+    <button
+      onclick="clip2Change()"
+      class="btn form-control btn-outline-secondary"
+      id="clip2Change"
+    >
+    הוספת קליפ2
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="linkexplainB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="linkexplain" class="form-control" placeholder="הוספת סרט הסבר לשרשרת" autocomplete="off"/>
+    <button
+      onclick="linkexplainChange()"
+      class="btn form-control btn-outline-secondary"
+      id="linkexplainChange"
+    >
+    הוספת סרט הסבר לשרשרת
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="linkpreB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="linkpre" class="form-control" placeholder="הוספת סרט הכנה לפתיחת שרשרת" autocomplete="off"/>
+    <button
+      onclick="linkpreChange()"
+      class="btn form-control btn-outline-secondary"
+      id="linkpreChange"
+    >
+     הוספת סרט הכנה לפתיחת שרשרת
+  </button>
+</div>
+</div>
+ 
+  <div class="col-auto">
+      <h2 class="mb-2"><u>תיקון פרטים</u></h2>
+  </div>
+  <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="nameB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="name" class="form-control" placeholder="תיקון שם" autocomplete="off"/>
+    <button
+      onclick="nameChange()"
+      class="btn form-control btn-outline-secondary"
+      id="nameChange"
+    >
+    תיקון שם
+  </button>
+</div>
+  </div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start" id="guestPhoneB4"></p>
+      <div class="input-group-text" role="group">
+  <input type="tel" id="guestPhone" class="form-control" placeholder="תיקון נייד אורח" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+  <button
+    onclick="guestPhoneChange()"
+    class="btn form-control btn-outline-secondary"
+    id="guestPhoneChange"
+  >
+  תיקון נייד אורח
+</button>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="emailB4"></p>
+    <div class="input-group-text" role="group">
+ <input type="text" id="email" class="form-control" placeholder="תיקון כתובת מייל" autocomplete="off"/>
+<button
+  onclick="emailChange()"
+  class="btn form-control btn-outline-secondary"
+  id="emailChange"
+>
+תיקון כתובת מייל
+</button>
+</div>
+</div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start" id="chainB4"></p>
+      <div class="input-group-text" role="group">
+  <input class="form-control" list="chainsNames" id="chainName" placeholder="תיקון שרשרת" autocomplete="off"/>
+  <datalist id="chainsNames">
+  </datalist>
+  <button
+      onclick="chainChange()"
+      class="btn form-control btn-outline-secondary"
+      id="chainChange"
+    >
+    תיקון שרשרת
+  </button>
+</div>
+</div>
+
+
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="titleB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="title" class="form-control" placeholder="תיקון כותרת" autocomplete="off"/>
+    <button
+      onclick="titleChange()"
+      class="btn form-control btn-outline-secondary"
+      id="titleChange"
+    >
+    תיקון כותרת
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="subtitleB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="subtitle" class="form-control" placeholder="תיקון מסר" autocomplete="off"/>
+    <button
+      onclick="subtitleChange()"
+      class="btn form-control btn-outline-secondary"
+      id="subtitleChange"
+    >
+    תיקון מסר
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="aboutB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="about" class="form-control" placeholder="תיקון הצגה" autocomplete="off"/>
+    <button
+      onclick="aboutChange()"
+      class="btn form-control btn-outline-secondary"
+      id="aboutChange"
+    >
+    תיקון הצגה
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="internameB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="intername" class="form-control" placeholder="תיקון שם מראיין" autocomplete="off"/>
+    <button
+      onclick="internameChange()"
+      class="btn form-control btn-outline-secondary"
+      id="internameChange"
+    >
+    תיקון שם מראיין
+  </button>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="interPhoneB4"  style="direction:rtl"></p>
+    <div class="input-group-text" role="group">
+    <input type="tel" id="interPhone" class="form-control" placeholder="תיקון נייד מראיין" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+    <button
+      onclick="interPhoneChange()"
+      class="btn form-control btn-outline-secondary"
+      id="interPhoneChange"
+    >
+    תיקון נייד מראיין
+  </button>
+  </div>
+</div>
+
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="dateB4"></p>
+    <div class="input-group-text" role="group">
+      <input type="date" id="date" class="form-control" placeholder="תיקון תאריך" autocomplete="off"/>
+      <button
+        onclick="dateChange()"
+        class="btn form-control btn-outline-secondary"
+        id="dateChange"
+      >
+      תיקון תאריך
+    </button>
+    </div>
+</div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="hourB4"></p>
+    <div class="input-group-text" role="group">
+        <input type="time" id="hour" class="form-control" placeholder="תיקון שעה" autocomplete="off"/>
+        <button
+          onclick="hourChange()"
+          class="btn form-control btn-outline-secondary"
+          id="hourChange"
+        >
+        תיקון שעה
+      </button>
+      </div>
+</div>
+   <script
+   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+   integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+   crossorigin="anonymous"
+ ></script>
+ <script
+   src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+   integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+   crossorigin="anonymous"
+ ></script>
+ <script type="text/javascript" src='./changeCRM2.js'></script>
+</body>
+</html>
