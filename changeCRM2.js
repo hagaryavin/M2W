@@ -215,7 +215,6 @@ function sendData(obj, ele) {
       console.log(obj);
       console.log(json);
     });
-  alert("בוצע שינוי! ניתן לראות את השינוי בCRM");
 }
 
 function changeLink555() {
