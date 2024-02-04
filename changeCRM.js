@@ -5,7 +5,7 @@ var rowCount = 2;
 var size = 0;
 var chosenCol = "";
 var chosenRow = 0;
-const url =
+var url =
   "https://script.google.com/macros/s/AKfycbzgSi44PK_EEUpjWn9dzVs_aWQcr0CRoUdQPKSEOk1M39EalLpSal6lHQeEP0PE0uc_uA/exec";
 var newPerson = {};
 var chainOption;
@@ -215,7 +215,6 @@ function sendData(obj, ele) {
       console.log(obj);
       console.log(json);
     });
-  alert("בוצע שינוי! ניתן לראות את השינוי בCRM");
 }
 
 function changeLink555() {
