@@ -152,6 +152,7 @@ function getData() {
                         if (
                             newPerson.chainCreatorEmail !== "" &&
                             newPerson.name !== newPerson.chainCreator &&
+                            newPerson.interviewername!==newPerson.chainCreator&&
                             getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
                             "not yet"
                         ) {
