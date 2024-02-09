@@ -4,14 +4,23 @@ var allPeople = [];
 var rowCount = 2;
 var size = 0;
 var firstName = "";
+var interFirstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = "";
+var currCrew = {};
 var newCrewMem;
-var fullText1 = "";
-var fullText2 = "";
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] }  
+];
+var fullTexts = [[], [], [], [], [], []];
 var wannaFixGuestPhone = true;
+var wannaFixInterPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var crewDataURL =
@@ -28,19 +37,37 @@ function getData() {
       json.data.forEach((ele) => {
         newPerson = {
           name: ele.name,
+         interviewername: ele.interviewername,
           phone: ele.phone,
+        interviewerphone: ele.interviewerphone,
           row: rowCount,
           email: ele.email,
+        chain: ele.chain
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
+        if (ele.fixedinterviewername !== "")
+          newPerson.interviewername = ele.fixedinterviewername;
         if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
+        if (ele.fixedinterviewerphone !== "")
+          newPerson.interviewerphone = ele.fixedinterviewerphone;
         if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;
+        if (newPerson.chain === "") {
+          if (ele.chaintwo !== "") {
+            newPerson.chain = ele.chaintwo;
+            newPerson.chaintype = "short";
+          }
+          if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+        }
+        if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         allPeople.push(newPerson);
         console.log(allPeople[size]);
         personOption = document.createElement("option");
-        personOption.value = newPerson.name;
+        personOption.value =
+          newPerson.name + " + " + fixChainFromData(newPerson.chain);
         personOption.id = rowCount;
-        options.append(personOption);
+        if (newPerson.name !== "" || newPerson.chain !== "") {
+          options.append(personOption);
+        }
         rowCount++;
         size++;
       });
@@ -56,6 +83,7 @@ function getCrewData() {
       json.data.crew.forEach((ele) => {
         newCrewMem = {
           name: ele.name,
+          phone: ele.phone,
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
@@ -100,30 +128,27 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("הזמנה לווטסאפ חרוזים 1")) {
-          messes1.push(newMess);
-        }
-        if (newMess.name.includes("הזמנה לווטסאפ חרוזים 2")) {
-          messes2.push(newMess);
+       for (var i = 1; i <= 6; i++) {
+          if (newMess.name.includes("הזמנה לווטסאפ חרוזים " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < messes1.length; j++) {
-        cutMess(messes1[j].lines, "one");
-      }
-      for (var k = 0; k < messes2.length; k++) {
-        cutMess(messes2[k].lines, "two");
+      for (var i = 0; i <= 5; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
 }
 function cutMess(linesArr, messType) {
+    
+ var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv;
-  if (messType === "one") {
-    testDiv = document.getElementById("text1");
-  }
-  if (messType === "two") {
-    testDiv = document.getElementById("text2");
-  }
+  var testDiv = document.getElementById("text" + messType);
   removeAllChildNodes(testDiv);
   var i = 0;
   var firstName2 = firstName;
@@ -131,11 +156,20 @@ function cutMess(linesArr, messType) {
     if (linesArr[i].includes("firstNameOfGuest")) {
       linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName2);
     }
+    if (linesArr[i].includes("firstNameOfInterviewer")) {
+      linesArr[i] = linesArr[i].replace(
+        "firstNameOfInterviewer",
+        interFirstName
+      );
+    }
     if (linesArr[i].includes("fullNameOfGuest")) {
       linesArr[i] = linesArr[i].replace(
         "fullNameOfGuest",
         document.getElementById("peopleList").value
-      );
+      )
+    }
+      if (linesArr[i].includes("crewName")) {
+      linesArr[i] = linesArr[i].replace("crewName", currCrew.name);
     }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
@@ -171,17 +205,25 @@ function cutMess(linesArr, messType) {
     }
     i++;
   }
-  if (messType === "one") {
-    fullText1 = currText;
-  }
-  if (messType === "two") {
-    fullText2 = currText;
-  }
+ fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
+}
+function fixChainFromData(chain) {
+  var splittedChain; //
+  if (chain.includes(" (") || chain.includes("-")) {
+    splittedChain = chain.split(" (");
+    var moresplitted;
+    if (splittedChain[0].includes("-")) {
+      moresplitted = splittedChain[0].split("-");
+      return moresplitted[1].trim();
+    }
+    return splittedChain[0].trim();
+  }
+  return chain;
 }
 setTimeout(() => {
   const loader = document.getElementById("loader");
@@ -191,15 +233,23 @@ setTimeout(() => {
 function reset() {
   document.location.reload();
 }
-function checkPhone(phone) {
+function checkPhoneGuest(phone) {
   if (wannaFixGuestPhone === true) {
     if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
       return true;
     return false;
   } else return true;
 }
+function checkPhoneInter(phone) {
+  if (wannaFixInterPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
 function checkInputs() {
-  if (checkPhone(document.getElementById("guestPhone").value)) {
+  if (checkPhoneGuest(document.getElementById("guestPhone").value) &&
+ checkPhoneInter(document.getElementById("interviewerPhone").value)) {
     return true;
   }
   alert("ייתכן שמספר הטלפון אינו תקין!");
@@ -208,40 +258,16 @@ function checkInputs() {
 function submit() {
   toFixGuestPhone();
   crewChosen();
+
   document.getElementById("afterMes").style.visibility = "hidden";
   if (checkInputs()) {
     document.getElementById("afterMes").style.visibility = "visible";
     getMessData();
   }
 }
-function textToCopy(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = currCrew + ", ";
-  if (currCrew === "") crewMem = "";
-  var textMes1 = fullText1; /*=
-    "היי " +
-    firstName +
-    ", צוות *סיפור555* שמח לצרף אותך לקבוצת *החרוזים* המשתתפים בפרויקט. אלה הודעות הפתיחה של הקבוצה --->";*/
-  var textMes2 = fullText2;
-  /*
-    "*סיפור555* שלך הוקלט ומפורסם ברשתות החברתיות, יוטיוב, פייסבוק, אינסטגרם וספוטיפיי. המיזם הוא מיזם חברתי, חדשני וטכנולוגי המבוסס על סיפורי החיים שלנו! לכל אחד/ת סיפור וכל סיפור משפיע. יצרנו קבוצה שקטה זו, של כל המשתתפים/ות, כדי לייצר תנועה של שיתוף, קידום ופרסום הפרויקט. כדי לקדם ולהפיץ את הפרויקט נפרסם בקבוצה זו כ-3 סרטים בכל שבוע בבקשה - לשתף, לתייג ובמיוחד - *להירשם* לערוץ היוטיוב (לינק מצורף). אתם/ן השותפים/ות שלנו לדרך. נמשיך להתגלגל, כולנו חרוזים בשרשרת.";
- */ var textMes3 =
-    "*לינק* רישום לערוץ היוטיוב -\nלתמיכה בפרויקט החברתי\n*סיפור555*\nתכנית שידור ראיונות בשרשרת\nhttps://tinyurl.com/story555subscribe";
-  var textMes5 =
-    "*חדשות555* - לצפייה בהודעות הקודמות https://tinyurl.com/story555news";
-  var textLastMes =
-    "תודה, בהצלחה ולהתראות בסיפור הבא! " + crewMem + "צוות *סיפור555*";
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "mes3") return textMes3;
-  if (id === "mes4")
-    return "לינק לעץ השרשראות של *סיפור555*\nhttps://www.youtube.com/@5story55/playlists";
-  if (id === "mes5") return textMes5;
-  if (id === "lastMes") return textLastMes;
-  return "";
-}
+
 function copy(id) {
-  var text = textToCopy(id);
+  var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -272,61 +298,46 @@ function crewChosen() {
   if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
       if (document.getElementById("crewList").value === crewList[j].name) {
-        currCrew = crewList[j].name;
+        currCrew = crewList[j];
       }
     }
-    document.getElementById("crewMem").innerHTML = currCrew + ", ";
   } else {
-    currCrew = "";
-    document.getElementById("crewMem").innerHTML = "";
+    currCrew.name = "";
+    currCrew.phone = "";
   }
+
 }
-function phoneForWA(phone) {
-  if (wannaFixGuestPhone === true) {
-    return "972" + phone.slice(1);
+function phoneForWA(phone, toWho) {
+  if (toWho === "guest") {
+    if (wannaFixGuestPhone === true) {
+      return "972" + phone.slice(1);
+    }
+      return phone;
   }
-  return phone;
+    if(toWho==="inter"){
+       if (wannaFixInterPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
+  return "972" + phone.slice(1);
 }
-function mesForWA(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = encodeURI(currCrew) + ", ";
-  if (currCrew === "") crewMem = "";
-  var textMes1 = encodeURI(fullText1);
-  /*  "%D7%94%D7%99%20" +
-    encodeURI(firstName) +
-    ",%0A%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%20%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A6%D7%A8%D7%A3%20%D7%90%D7%95%D7%AA%D7%9A%20%D7%9C%D7%A7%D7%91%D7%95%D7%A6%D7%AA%20*%D7%94%D7%97%D7%A8%D7%95%D7%96%D7%99%D7%9D*%20%D7%94%D7%9E%D7%A9%D7%AA%D7%AA%D7%A4%D7%99%D7%9D%20%D7%91%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98.%0A%D7%90%D7%9C%D7%94%20%D7%94%D7%95%D7%93%D7%A2%D7%95%D7%AA%20%D7%94%D7%A4%D7%AA%D7%99%D7%97%D7%94%20%D7%A9%D7%9C%20%D7%94%D7%A7%D7%91%D7%95%D7%A6%D7%94%20---%3E";
-  */ var textMes2 = encodeURI(fullText2);
-  /*
-    "*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%20%D7%A9%D7%9C%D7%9A%20%D7%94%D7%95%D7%A7%D7%9C%D7%98%20%D7%95%D7%9E%D7%A4%D7%95%D7%A8%D7%A1%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%D7%95%D7%AA%20%D7%94%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%95%D7%AA,%0A%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91,%20%D7%A4%D7%99%D7%99%D7%A1%D7%91%D7%95%D7%A7,%20%D7%90%D7%99%D7%A0%D7%A1%D7%98%D7%92%D7%A8%D7%9D%20%D7%95%D7%A1%D7%A4%D7%95%D7%98%D7%99%D7%A4%D7%99%D7%99.%0A%0A%D7%94%D7%9E%D7%99%D7%96%D7%9D%20%D7%94%D7%95%D7%90%20%D7%9E%D7%99%D7%96%D7%9D%20%D7%97%D7%91%D7%A8%D7%AA%D7%99,%20%D7%97%D7%93%D7%A9%D7%A0%D7%99%20%D7%95%D7%98%D7%9B%D7%A0%D7%95%D7%9C%D7%95%D7%92%D7%99%0A%D7%94%D7%9E%D7%91%D7%95%D7%A1%D7%A1%20%D7%A2%D7%9C%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8%D7%99%20%D7%94%D7%97%D7%99%D7%99%D7%9D%20%D7%A9%D7%9C%D7%A0%D7%95!%0A%D7%9C%D7%9B%D7%9C%20%D7%90%D7%97%D7%93/%D7%AA%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%95%D7%9B%D7%9C%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%9E%D7%A9%D7%A4%D7%99%D7%A2.%0A%0A%D7%99%D7%A6%D7%A8%D7%A0%D7%95%20%D7%A7%D7%91%D7%95%D7%A6%D7%94%20%D7%A9%D7%A7%D7%98%D7%94%20%D7%96%D7%95,%20%D7%A9%D7%9C%20%D7%9B%D7%9C%20%D7%94%D7%9E%D7%A9%D7%AA%D7%AA%D7%A4%D7%99%D7%9D/%D7%95%D7%AA,%0A%D7%9B%D7%93%D7%99%20%D7%9C%D7%99%D7%99%D7%A6%D7%A8%20%D7%AA%D7%A0%D7%95%D7%A2%D7%94%20%D7%A9%D7%9C%20%D7%A9%D7%99%D7%AA%D7%95%D7%A3,%20%D7%A7%D7%99%D7%93%D7%95%D7%9D%20%D7%95%D7%A4%D7%A8%D7%A1%D7%95%D7%9D%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98.%0A%0A%D7%9B%D7%93%D7%99%20%D7%9C%D7%A7%D7%93%D7%9D%20%D7%95%D7%9C%D7%94%D7%A4%D7%99%D7%A5%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%0A%D7%A0%D7%A4%D7%A8%D7%A1%D7%9D%20%D7%91%D7%A7%D7%91%D7%95%D7%A6%D7%94%20%D7%96%D7%95%20%D7%9B-3%20%D7%A1%D7%A8%D7%98%D7%99%D7%9D%20%D7%91%D7%9B%D7%9C%20%D7%A9%D7%91%D7%95%D7%A2%0A%D7%91%D7%91%D7%A7%D7%A9%D7%94%20-%20%D7%9C%D7%A9%D7%AA%D7%A3,%20%D7%9C%D7%AA%D7%99%D7%99%D7%92%20%D7%95%D7%91%D7%9E%D7%99%D7%95%D7%97%D7%93%20-%20*%D7%9C%D7%94%D7%99%D7%A8%D7%A9%D7%9D*%0A%D7%9C%D7%A2%D7%A8%D7%95%D7%A5%20%D7%94%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91%20(%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A3).%0A%D7%90%D7%AA%D7%9D/%D7%9F%20%D7%94%D7%A9%D7%95%D7%AA%D7%A4%D7%99%D7%9D/%D7%95%D7%AA%20%D7%A9%D7%9C%D7%A0%D7%95%20%D7%9C%D7%93%D7%A8%D7%9A.%0A%0A%D7%A0%D7%9E%D7%A9%D7%99%D7%9A%20%D7%9C%D7%94%D7%AA%D7%92%D7%9C%D7%92%D7%9C,%20%D7%9B%D7%95%D7%9C%D7%A0%D7%95%20%D7%97%D7%A8%D7%95%D7%96%D7%99%D7%9D%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA.";
- */ var textMes3 =
-    "*%D7%9C%D7%99%D7%A0%D7%A7*%20%D7%A8%D7%99%D7%A9%D7%95%D7%9D%20%D7%9C%D7%A2%D7%A8%D7%95%D7%A5%20%D7%94%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91%20-%0A%D7%9C%D7%AA%D7%9E%D7%99%D7%9B%D7%94%20%D7%91%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%20%D7%94%D7%97%D7%91%D7%A8%D7%AA%D7%99%0A*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A%D7%AA%D7%9B%D7%A0%D7%99%D7%AA%20%D7%A9%D7%99%D7%93%D7%95%D7%A8%20%D7%A8%D7%90%D7%99%D7%95%D7%A0%D7%95%D7%AA%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%0Ahttps://tinyurl.com/story555subscribe";
-  var textMes5 =
-    "*%D7%97%D7%93%D7%A9%D7%95%D7%AA555*%20-%20%D7%9C%D7%A6%D7%A4%D7%99%D7%99%D7%94%20%D7%91%D7%94%D7%95%D7%93%D7%A2%D7%95%D7%AA%20%D7%94%D7%A7%D7%95%D7%93%D7%9E%D7%95%D7%AA%20%0Ahttps://tinyurl.com/story555news";
-  var textLastMes =
-    "%D7%AA%D7%95%D7%93%D7%94,%20%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94%20%D7%95%D7%9C%D7%94%D7%AA%D7%A8%D7%90%D7%95%D7%AA%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90!%0A" +
-    crewMem +
-    "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*";
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "mes3") return textMes3;
-  if (id === "mes4")
-    return encodeURI(
-      "לינק לעץ השרשראות של *סיפור555*\nhttps://www.youtube.com/@5story55/playlists"
-    );
-  if (id === "mes5") return textMes5;
-  if (id === "lastMes") return textLastMes;
-  return "";
-}
-function whatsAppMes(id) {
-  var phone = document.getElementById("guestPhone").value;
+
+function whatsAppMes(id) { 
+ const splittedId = id.split("_");
+  var whichMes = splittedId[0];
+  var toWho = splittedId[1];
+  var phone;
+  if (toWho === "guest") phone = document.getElementById("guestPhone").value;
+  if (toWho === "inter") phone = document.getElementById("interviewerPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(phone) +
+   phoneForWA(phone, toWho)+
     "&text=" +
-    mesForWA(id);
-  window.open(link, "_blank");
+    encodeURI(fullTexts[whichMes - 1]);
+  window.open(link, "_blank");  
 }
-function fixPhoneData(phone) {
+function fixPhoneDataGuest(phone) {
   if (wannaFixGuestPhone === true) {
     if (phone.includes("-")) {
       console.log("in");
@@ -334,6 +345,29 @@ function fixPhoneData(phone) {
     }
     if (phone.includes(" ")) {
       phone = phone.replace(" ", "");
+    }
+  }
+  return phone;
+}
+function fixPhoneDataInter(phone) {
+  if (wannaFixInterPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
     }
   }
   return phone;
@@ -357,21 +391,59 @@ function fixFirstName(phoneNum) {
   return splittedName[0];
 }
 function submitData() {
-  document.getElementById("guestPhone").value = "";
   toFixGuestPhone();
+  toFixInterPhone();
   for (var i = 0; i < allPeople.length; i++) {
-    if (allPeople[i].name === document.getElementById("peopleList").value) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    ) {
       console.log("row num:" + allPeople[i].row);
-      document.getElementById("guestPhone").value = fixPhoneData(
+      document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].phone
       );
+    document.getElementById("interviewerPhone").value = fixPhoneDataInter(
+        allPeople[i].interviewerphone
+      );
       firstName = fixFirstName(allPeople[i].phone);
+     interFirstName = fixInterviewerFirstName(allPeople[i].phone);
       //document.getElementById("nameOfPerson").innerHTML = " " + firstName;
     }
   }
+}
+ function fixInterviewerFirstName(phoneNum) {
+  var fullName = "";
+  for (var i = 0; i < size; i++) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].phone === phoneNum &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    )
+      fullName = allPeople[i].interviewername;
+  }
+  const splittedName = fullName.split(" ");
+  if (
+    splittedName[0] === "דר." ||
+    splittedName[0] === "דר" ||
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
 }
 function toFixGuestPhone() {
   if (document.getElementById("fixGuestPhone").checked === true) {
     wannaFixGuestPhone = true;
   } else wannaFixGuestPhone = false;
+}
+function toFixInterPhone() {
+  if (document.getElementById("fixInterPhone").checked === true) {
+    wannaFixInterPhone = true;
+  } else wannaFixInterPhone = false;
 }
