@@ -10,6 +10,10 @@ var crewOption;
 var crewList = [];
 var currCrew = "";
 var newCrewMem;
+var messes = [
+  { name: "", lines: [] }
+];
+var fullTexts = [[]];
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var newPerson = {};
@@ -95,8 +99,7 @@ function getCrewData() {
     });
 }
 function getMessData() {
-  var newMess;
-  var newChainMess = [];
+ var newMess;
   fetch(chainDataURL)
     .then((res) => {
       return res.json();
@@ -129,19 +132,26 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("שרשרת חדשה 1")) {
-          newChainMess.push(newMess);
+       for (var i = 1; i <2 ; i++) {
+          if (newMess.name.includes("שרשרת חדשה " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < newChainMess.length; j++) {
-        cutMess(newChainMess[j].lines);
+      for (var i = 0; i < 1; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
 }
-function cutMess(linesArr) {
+function cutMess(linesArr, messType) {
+  var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv = document.getElementById("text");
-
+  var testDiv = document.getElementById("text" + messType);
   removeAllChildNodes(testDiv);
   var i = 0;
   var firstName2 = firstName;
@@ -209,7 +219,7 @@ function cutMess(linesArr) {
     }
     i++;
   }
-  fullText = currText;
+  fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -303,9 +313,7 @@ function fixChain() {
   }
 }
 function crewChosen() {
-  document.getElementById("sendToCrew").disabled = true;
-  if (document.getElementById("crewList").value !== "") {
-    document.getElementById("sendToCrew").disabled = false;
+    if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
       if (document.getElementById("crewList").value === crewList[j].name) {
         currCrew = crewList[j];
@@ -316,12 +324,9 @@ function crewChosen() {
     currCrew.phone = "";
   }
 }
-function textToCopy(id) {
-  var chainName = document.getElementById("chainName").value;
-  return fullText;
-}
+
 function copy(id) {
-  var text = textToCopy(id);
+  var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -333,21 +338,14 @@ function copy(id) {
 function phoneForWA(phone) {
   return "972" + phone.slice(1);
 }
-function mesForWA(id) {
-  var chainName = document.getElementById("chainName").value;
 
-  var transChainName = encodeURI(chainName);
-
-  var text = encodeURI(fullText);
-  return text;
-}
 function whatsAppMes(id) {
-  var phone = currCrew.phone;
+  var phone=currCrew.phone;
   var link =
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone) +
     "&text=" +
-    mesForWA(id);
+    encodeURI(fullTexts[id - 1]);
   window.open(link, "_blank");
 }
 function submitData() {}
