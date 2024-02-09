@@ -8,10 +8,15 @@ var firstNameInterviewer = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = "";
+var currCrew = {};
 var newCrewMem;
-var fullTextConfirm = "";
-var fullTextInvite = "";
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] } 
+];
+var fullTexts = [[], [], [], []];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 const url =
@@ -88,6 +93,7 @@ function getCrewData() {
       json.data.crew.forEach((ele) => {
         newCrewMem = {
           name: ele.name,
+          phone: ele.phone,
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
@@ -119,8 +125,6 @@ function getChainData() {
 }
 function getMessData() {
   var newMess;
-  var messesConfirm = [];
-  var messesInvite = [];
   fetch(chainDataURL)
     .then((res) => {
       return res.json();
@@ -153,18 +157,17 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("אישור רישום להקלטה")) {
-          messesConfirm.push(newMess);
-        }
-        if (newMess.name.includes("הזמנה להקלטה 1")) {
-          messesInvite.push(newMess);
+       for (var i = 1; i <= 4; i++) {
+          if (newMess.name.includes("הזמנה להקלטה " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < messesConfirm.length; j++) {
-        cutMess(messesConfirm[j].lines, "confirm", "both");
-      }
-      for (var k = 0; k < messesInvite.length; k++) {
-        cutMess(messesInvite[k].lines, "invite", "both");
+      for (var i = 0; i <= 3; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
 }
@@ -191,19 +194,13 @@ function changeNameS(who) {
   }
   return firstNameSwitch;
 }
-function cutMess(linesArr, messType, who) {
+function cutMess(linesArr, messType) {
+ var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv;
-  if (messType === "confirm") {
-    testDiv = document.getElementById("confirmText");
-  }
-  if (messType === "invite") {
-    testDiv = document.getElementById("inviteText");
-  }
+  var testDiv = document.getElementById("text" + messType);
   removeAllChildNodes(testDiv);
-  var crewMem;
-  if (currCrew !== "") crewMem = currCrew + ", ";
-  if (currCrew === "") crewMem = "";
   var i = 0;
   var firstName2 = fixFirstName(currPerson.guestphone);
   var firstNameInterviewer2 = fixInterviewerFirstName(currPerson.guestphone);
@@ -275,12 +272,7 @@ function cutMess(linesArr, messType, who) {
     }
     i++;
   }
-  if (messType === "confirm") {
-    fullTextConfirm = currText;
-  }
-  if (messType === "invite") {
-    fullTextInvite = currText;
-  }
+  fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -315,12 +307,14 @@ function crewChosen() {
   if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
       if (document.getElementById("crewList").value === crewList[j].name) {
-        currCrew = crewList[j].name;
+        currCrew = crewList[j];
       }
     }
   } else {
-    currCrew = "";
+    currCrew.name = "";
+    currCrew.phone = "";
   }
+
 }
 function checkPhoneGuest(phone) {
   if (wannaFixGuestPhone === true) {
@@ -449,33 +443,8 @@ function submit() {
   }
   console.log("left submit in pre");
 }
-function textToCopy(id) {
-  var chainName = document.getElementById("chainName").value;
-  var dateAndHourValue = document.getElementById("dateAndHour").value;
-  var myArray = dateAndHourValue.split("T");
-  var date = fixDate(myArray[0]);
-  var hour = myArray[1];
-  var textPreMes = fullTextInvite;
-  /* "היי, *תודה* שבחרת להתארח בזום *סיפור555* בשרשרת " +
-    chainName +
-    ". נפגש בתאריך " +
-    date +
-    " בשעה " +
-    hour +
-    " בהקלטת סיפור555 של " +
-    firstName +
-    ". לינק לזום מצורף בהודעה הבאה. הזום יפתח 10 דק' לפני מועד השידור. הודעה זו תשלח ל" +
-    firstName +
-    " במייל, חצי שעה לפני מועד ההקלטה. בבקשה לאשר קבלת הודעה זו. *בהצלחה!*";*/
-  var textZoom = "https://tinyurl.com/story555zoom";
-  var textConfirm = fullTextConfirm;
-  if (id === "confirmText") return textConfirm;
-  if (id === "preMes") return textPreMes;
-  if (id === "zoom") return textZoom;
-  return "";
-}
 function copy(id) {
-  var text = textToCopy(id);
+   var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -484,134 +453,47 @@ function copy(id) {
   document.body.removeChild(elem);
   alert("הטקסט הועתק!");
 }
-function phoneForWAGuest(phone) {
-  if (wannaFixGuestPhone === true) {
-    return "972" + phone.slice(1);
-  }
-  return phone;
-}
-function phoneForWAInter(phone) {
-  if (wannaFixInterPhone === true) {
-    return "972" + phone.slice(1);
-  }
-  return phone;
-}
-function mesForWA(id) {
-  var chainName = document.getElementById("chainName").value;
-  var dateAndHourValue = document.getElementById("dateAndHour").value;
-  var myArray = dateAndHourValue.split("T");
-  var date = fixDate(myArray[0]);
-  var hour = myArray[1];
-  var transChainName = encodeURI(chainName);
-  var transName = encodeURI(firstName);
-  var transInterName = encodeURI(firstNameInterviewer);
-  var transCreatorName = encodeURI(fixFirstName(currChainCreator.phone));
-  var textConfirm = encodeURI(fullTextConfirm);
-  var textPreMes = "";
-  var crewMem;
-  if (currCrew !== "") crewMem = encodeURI(currCrew) + ", ";
-  if (currCrew === "") crewMem = ""; //
-  // encodeURI(fullTextInvite);
-  if (id === "preMesGuest") {
-    //if (textPreMes.includes(fullTextInvite.replace(changeNameS("both"))))
-    textPreMes =
-      "%D7%94%D7%99%20" +
-      transName +
-      ",%0A" +
-      "%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%91%D7%97%D7%A8%D7%AA%20%D7%9C%D7%94%D7%AA%D7%90%D7%A8%D7%97%20%D7%91%D7%96%D7%95%D7%9D%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-      transChainName +
-      ".%0A%0A%D7%A0%D7%A4%D7%92%D7%A9%20%D7%91%D7%AA%D7%90%D7%A8%D7%99%D7%9A%20" +
-      date +
-      "%20%D7%91%D7%A9%D7%A2%D7%94%20" +
-      hour +
-      "%20(ISR)%0A%D7%91%D7%94%D7%A7%D7%9C%D7%98%D7%AA%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8555%20%D7%A9%D7%9C%D7%9A.%0A%0A%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%96%D7%95%D7%9D%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A3%20%D7%91%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%94%D7%91%D7%90%D7%94.%0A%D7%94%D7%96%D7%95%D7%9D%20%D7%99%D7%A4%D7%AA%D7%97%2010%20%D7%93%D7%A7'%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%A9%D7%99%D7%93%D7%95%D7%A8.%0A%0A%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95%20%D7%AA%D7%A9%D7%9C%D7%97%20%D7%91%D7%9E%D7%99%D7%99%D7%9C,%20%D7%97%D7%A6%D7%99%20%D7%A9%D7%A2%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%94.%0A%D7%91%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%90%D7%A9%D7%A8%20%D7%A7%D7%91%D7%9C%D7%AA%20%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95.%0A" +
-      crewMem +
-      "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A*%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94!*";
 
-    /*encodeURI(
-        fullTextInvite.replace(
-          "הי " + changeNameS("both"),
-          changeNameS("guest")
-        )
-      );
-    if (textPreMes.includes(fullTextInvite.replace(changeNameS("interviewer"))))
-      textPreMes = encodeURI(
-        fullTextInvite.replace(changeNameS("interviewer"), changeNameS("guest"))
-      );*/
-    //=
+function phoneForWA(phone, toWho) {
+  if (toWho === "guest") {
+    if (wannaFixGuestPhone === true) {
+      return "972" + phone.slice(1);
+    }
+      return phone;
   }
-  if (id === "preMesInter") {
-    /* if (textPreMes.includes(fullTextInvite.replace(changeNameS("both"))))
-      textPreMes = encodeURI(
-        fullTextInvite.replace(changeNameS("both"), changeNameS("interviewer"))
-      );
-    if (textPreMes.includes(fullTextInvite.replace(changeNameS("guest"))))
-      textPreMes = encodeURI(
-        fullTextInvite.replace(changeNameS("guest"), changeNameS("interviewer"))
-      );*/
-    textPreMes =
-      "%D7%94%D7%99%20" +
-      transInterName +
-      ",%0A" +
-      "%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%91%D7%97%D7%A8%D7%AA%20%D7%9C%D7%94%D7%AA%D7%90%D7%A8%D7%97%20%D7%91%D7%96%D7%95%D7%9D%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-      transChainName +
-      ".%0A%0A%D7%A0%D7%A4%D7%92%D7%A9%20%D7%91%D7%AA%D7%90%D7%A8%D7%99%D7%9A%20" +
-      date +
-      "%20%D7%91%D7%A9%D7%A2%D7%94%20" +
-      hour +
-      "%20(ISR).%0A%D7%91%D7%94%D7%A7%D7%9C%D7%98%D7%AA%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8555%20%D7%A9%D7%9C%20" +
-      transName +
-      ".%0A%0A%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%96%D7%95%D7%9D%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A3%20%D7%91%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%94%D7%91%D7%90%D7%94.%0A%D7%94%D7%96%D7%95%D7%9D%20%D7%99%D7%A4%D7%AA%D7%97%2010%20%D7%93%D7%A7'%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%A9%D7%99%D7%93%D7%95%D7%A8.%0A%0A%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95%20%D7%AA%D7%A9%D7%9C%D7%97%20%D7%9C" +
-      transName +
-      "%20%D7%91%D7%9E%D7%99%D7%99%D7%9C%20%D7%97%D7%A6%D7%99%20%D7%A9%D7%A2%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%94.%0A%D7%91%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%90%D7%A9%D7%A8%20%D7%A7%D7%91%D7%9C%D7%AA%20%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95.%0A" +
-      crewMem +
-      "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A*%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94!*";
-  }
-  if (id === "preMesCreator") {
-    textPreMes =
-      "%D7%94%D7%99%20" +
-      transCreatorName +
-      ",%0A" +
-      "%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%91%D7%97%D7%A8%D7%AA%20%D7%9C%D7%94%D7%AA%D7%90%D7%A8%D7%97%20%D7%91%D7%96%D7%95%D7%9D%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-      transChainName +
-      ".%0A%0A%D7%A0%D7%A4%D7%92%D7%A9%20%D7%91%D7%AA%D7%90%D7%A8%D7%99%D7%9A%20" +
-      date +
-      "%20%D7%91%D7%A9%D7%A2%D7%94%20" +
-      hour +
-      ".%0A%D7%91%D7%94%D7%A7%D7%9C%D7%98%D7%AA%20%D7%A1%D7%99%D7%A4%D7%95%D7%A8555%20%D7%A9%D7%9C%20" +
-      transName +
-      ".%0A%0A%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%96%D7%95%D7%9D%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A3%20%D7%91%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%94%D7%91%D7%90%D7%94.%0A%D7%94%D7%96%D7%95%D7%9D%20%D7%99%D7%A4%D7%AA%D7%97%2010%20%D7%93%D7%A7'%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%A9%D7%99%D7%93%D7%95%D7%A8.%0A%0A%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95%20%D7%AA%D7%A9%D7%9C%D7%97%20%D7%9C" +
-      transName +
-      "%20%D7%91%D7%9E%D7%99%D7%99%D7%9C%20%D7%97%D7%A6%D7%99%20%D7%A9%D7%A2%D7%94%20%D7%9C%D7%A4%D7%A0%D7%99%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%94.%0A%D7%91%D7%91%D7%A7%D7%A9%D7%94%20%D7%9C%D7%90%D7%A9%D7%A8%20%D7%A7%D7%91%D7%9C%D7%AA%20%D7%94%D7%95%D7%93%D7%A2%D7%94%20%D7%96%D7%95.%0A" +
-      crewMem +
-      "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*%0A*%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94!*";
-  }
-  var textZoom = "https://tinyurl.com/story555zoom";
-  if (id === "confirmText") return textConfirm;
-  if (id === "preMesInter" || id === "preMesGuest" || id === "preMesCreator")
-    return textPreMes;
-  if (id === "zoomInter" || id === "zoomGuest" || id === "zoomCreator")
-    return textZoom;
-  return "";
+    if(toWho==="inter"){
+       if (wannaFixInterPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
+  return "972" + phone.slice(1);
 }
 function whatsAppMes(id) {
-  var phone = document.getElementById("guestPhone").value;
+ const splittedId = id.split("_");
+  var whichMes = splittedId[0];
+  var toWho = splittedId[1];
+  var phone;
+  if (toWho === "guest") phone = document.getElementById("guestPhone").value;
+  if (toWho === "inter") phone = document.getElementById("interviewerPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
-    phoneForWAGuest(phone) +
+    phoneForWA(phone, toWho) +
     "&text=" +
-    mesForWA(id);
-  if (id === "preMesInter" || id === "zoomInter" || id === "confirmText") {
-    phone = document.getElementById("interviewerPhone").value;
-    var link =
-      "https://api.whatsapp.com/send?phone=" +
-      phoneForWAInter(phone) +
-      "&text=" +
-      mesForWA(id);
-  }
-  if (id === "preMesCreator" || id === "zoomCreator") {
-  }
+    encodeURI(fullTexts[whichMes - 1]);
   window.open(link, "_blank");
+}
+function fixPhoneData(phone) {
+  if (wannaFixGuestPhone === true) {
+    if (phone.includes("-")) {
+      console.log("in");
+      phone = phone.replace("-", "");
+    }
+    if (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+  }
+  return phone;
 }
 function sendBothPreMes() {
   whatsAppMes("preMesInter");
