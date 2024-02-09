@@ -70,7 +70,7 @@
       <div class="form-control input-group-text" role="group">
         
         <h3 class="mb-0"><u>גישה מהירה:</u></h3>
-        <br></br>
+        <br>
       
         <div id="loader0" class="loader"></div>
         <input
@@ -81,7 +81,7 @@
           class="form-control"
         />
         <datalist id="people0"> </datalist>
-        <br></br>
+        <br>
         <button
           onclick="quickChange()"
           class="btn form-control btn-outline-secondary"
@@ -91,7 +91,7 @@
         </button>
       
     </div>
-
+    </div>
     <div class="border-0">
       <br>
       <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
@@ -165,12 +165,7 @@
       <div class="col-auto">
         <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
         <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
-        <div id="inviteText"></div>
-        <!--   <h4 class="mb-0">היי<a id="nameOfPerson"></a>, נשמח לעזור לך לקדם</h4>
-        <h4 class="mb-0">את הסיפור הבא <strong>בשרשרת שלך</strong></h4>
-        <h4 class="mb-3">ולתאם הקלטה לשבוע הקרוב.</h4>
-        <h4 class="mb-0">מצורף לוח ההקלטות לבחירת המועד המתאים.</h4>
-        <h4 class="mb-2"><a id="crewMem"></a>צוות <strong>סיפור555</strong></h4>-->
+        <div id="text1"></div>
       </div>
       <textarea
         class="form-control mb-2"
@@ -182,7 +177,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendMes1"
-          onclick="whatsAppMes('textStuck1')"
+          onclick="whatsAppMes('1')"
         >
           שליחת הודעה ראשונה
         </button>
@@ -190,7 +185,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyMes1"
-          onclick="copy('textStuck1')"
+          onclick="copy('1')"
         >
           העתקת הודעה ראשונה
         </button>
@@ -200,7 +195,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendCalenderLink"
-          onclick="whatsAppMes('calender')"
+          onclick="whatsAppMes('2')"
         >
           שליחת לינק ללוח ההקלטות
         </button>
@@ -208,22 +203,20 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyCalenderLink"
-          onclick="copy('calender')"
+          onclick="copy('2')"
         >
           העתקת לינק ללוח ההקלטות
         </button>
       </div>
 
       <div class="col-auto">
-        <h4 class="mb-0">מומלץ לשלוח את ההזמנה עם תיאור הפרויקט</h4>
-        <h4 class="mb-2">לאורח/ת הבא/ה שלך. (מצורף לינק להזמנה)</h4>
-      </div>
+      <div id="text3"></div>
       <div class="form-control input-group-text col-auto mb-2" role="group">
         <button
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendMes1"
-          onclick="whatsAppMes('textStuck2')"
+          onclick="whatsAppMes('3')"
         >
           שליחת הודעה שנייה
         </button>
@@ -231,7 +224,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyMes1"
-          onclick="copy('textStuck2')"
+          onclick="copy('3')"
         >
           העתקת הודעה שנייה
         </button>
@@ -241,7 +234,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendInviteLink"
-          onclick="whatsAppMes('invite')"
+          onclick="whatsAppMes('4')"
         >
           שליחת לינק להזמנה
         </button>
@@ -249,7 +242,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyInviteLink"
-          onclick="copy('invite')"
+          onclick="copy('4')"
         >
           העתקת לינק להזמנה
         </button>
