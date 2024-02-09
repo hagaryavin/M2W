@@ -14,15 +14,22 @@ var tableRow = 2;
 var chosenRow = 0;
 var firstName = "";
 var fullTextInvite = "";
-var personalMess = document.getElementById("personalMess");
+var personalMess =document.getElementById("personalMess");
 var wannaFixGuestPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = "";
+var currCrew = {};
 var newCrewMem;
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] }
+];
+var fullTexts = [[], [], [], []];
 var chosenPersonRow = 0;
 var crewDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
@@ -111,7 +118,7 @@ function getData() {
     });
 }
 function getCrewData() {
-  fetch(crewDataURL)
+fetch(crewDataURL)
     .then((res) => {
       return res.json();
     })
@@ -119,6 +126,7 @@ function getCrewData() {
       json.data.crew.forEach((ele) => {
         newCrewMem = {
           name: ele.name,
+          phone: ele.phone,
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
@@ -128,8 +136,7 @@ function getCrewData() {
     });
 }
 function getMessData() {
-  var newMess;
-  var messesInvite = [];
+ var newMess;
   fetch(crewDataURL)
     .then((res) => {
       return res.json();
@@ -162,20 +169,29 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("חרוזים אחרונים 1")) {
-          messesInvite.push(newMess);
+      for (var i = 1; i <= 4; i++) {
+          if (newMess.name.includes("חרוזים אחרונים " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < messesInvite.length; j++) {
-        cutMess(messesInvite[j].lines);
+      for (var i = 0; i <= 3; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
-}
-function cutMess(linesArr) {
+}function cutMess(linesArr, messType) {
+  var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv = document.getElementById("inviteText");
-
-  removeAllChildNodes(testDiv);
+  var testDiv = document.getElementById("text" + messType);
+  if(messType===1||messType===3){
+  
+        removeAllChildNodes(testDiv);
+    }
   var i = 0;
   while (linesArr[i] !== "end") {
     if (linesArr[i].includes("firstNameOfGuest")) {
@@ -216,12 +232,14 @@ function cutMess(linesArr) {
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
+      if(messType===1||messType===3){
       testDiv.append(testH4);
+        }
     }
     i++;
   }
 
-  fullTextInvite = currText;
+  fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -392,31 +410,12 @@ function phoneForWA(phone) {
   }
   return phone;
 }
-function textToCopy(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = currCrew + ", ";
-  if (currCrew === "") crewMem = "";
-  var textStuck1 = fullTextInvite; /*
-    "היי " +
-    firstName +
-    ", נשמח מאד לעזור לך לקדם את הסיפור הבא *בשרשרת שלך*. ולתאם הקלטה לשבוע הקרוב. מצורף לוח ההקלטות לבחירת המועד המתאים. " +
-    crewMem +
-    "צוות *סיפור555*";*/
-  if (personalMess.value !== "") {
-    textStuck1 = personalMess.value;
-  }
-  var textStuck2 =
-    "מומלץ לשלוח את ההזמנה עם תיאור הפרויקט לאורח/ת הבא/ה שלך. (מצורף לינק להזמנה)";
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  if (id === "textStuck1") return textStuck1;
-  if (id === "textStuck2") return textStuck2;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  return "";
-}
+
 function copy(id) {
-  var text = textToCopy(id);
+    var text = fullTexts[id - 1];
+    if(personalMess.value !== ""&&id==='1'){
+        text=personalMess.value;
+    }
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -425,38 +424,17 @@ function copy(id) {
   document.body.removeChild(elem);
   alert("הטקסט הועתק!");
 }
-function mesForWA(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = encodeURI(currCrew) + ", ";
-  if (currCrew === "") crewMem = "";
-  var textStuck1 = encodeURI(fullTextInvite); /*
-    "%D7%94%D7%99%D7%99%20" +
-    encodeURI(firstName) +
-    ",%20%D7%A0%D7%A9%D7%9E%D7%97%20%D7%9E%D7%90%D7%93%20%D7%9C%D7%A2%D7%96%D7%95%D7%A8%20%D7%9C%D7%9A%20%D7%9C%D7%A7%D7%93%D7%9D%0A%D7%90%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90%20*%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A9%D7%9C%D7%9A*.%0A%D7%95%D7%9C%D7%AA%D7%90%D7%9D%20%D7%94%D7%A7%D7%9C%D7%98%D7%94%20%D7%9C%D7%A9%D7%91%D7%95%D7%A2%20%D7%94%D7%A7%D7%A8%D7%95%D7%91.%0A%0A%D7%9E%D7%A6%D7%95%D7%A8%D7%A3%20%D7%9C%D7%95%D7%97%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA%20%D7%9C%D7%91%D7%97%D7%99%D7%A8%D7%AA%20%D7%94%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%9E%D7%AA%D7%90%D7%99%D7%9D.%0A" +
-    crewMem +
-    "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*";*/
-  if (personalMess.value !== "") {
-    textStuck1 = encodeURI(personalMess.value);
-  }
-  var textStuck2 =
-    "%D7%9E%D7%95%D7%9E%D7%9C%D7%A5%20%D7%9C%D7%A9%D7%9C%D7%95%D7%97%20%D7%90%D7%AA%20%D7%94%D7%94%D7%96%D7%9E%D7%A0%D7%94%20%D7%A2%D7%9D%20%D7%AA%D7%99%D7%90%D7%95%D7%A8%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98%0A%D7%9C%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%94%D7%91%D7%90/%D7%94%20%D7%A9%D7%9C%D7%9A.%20(%D7%9E%D7%A6%D7%95%D7%A8%D7%A3%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%94%D7%96%D7%9E%D7%A0%D7%94)";
-
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  if (id === "textStuck1") return textStuck1;
-  if (id === "textStuck2") return textStuck2;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  return "";
-}
 function whatsAppMes(id) {
   checkOptions();
-  var phone = chosenPhone;
+ var text = fullTexts[id - 1];
+ if(personalMess.value !== ""&&id==='1'){
+        text=personalMess.value;
+    }
   var link =
     "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(phone) +
+    phoneForWA(chosenPhone) +
     "&text=" +
-    mesForWA(id);
+    encodeURI(text);
   window.open(link, "_blank");
 }
 function submit() {
