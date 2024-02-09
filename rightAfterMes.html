@@ -105,10 +105,56 @@
           לבחירה
         </button>
      </div>
+       <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון המראיין</span
+          >
+          <input
+            type="tel"
+            id="interviewerPhone"
+            class="form-control"
+            placeholder="המראיין"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixInterPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
         <div class="input-group mb-3">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">מספר טלפון</span>
-          <input type="tel" id="guestPhone" class="form-control" placeholder="האורח" autocomplete="off"/>
-          <input class="form-check-input" type="checkbox" id="fixGuestPhone" checked>
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון האורח</span
+          >
+          <input
+            type="tel"
+            id="guestPhone"
+            class="form-control"
+            placeholder="האורח"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixGuestPhone"
+            checked
+          />
           <label class="form-check-label" for="flexCheckChecked">
             מספר ישראלי
           </label>
@@ -131,76 +177,42 @@
           <div class="col-auto">
               <h3 class="mb-0"><u>הזמנה לוואטסאפ חרוזים</u></h3>
             <h6 class="mb-1 text-muted">מיד אחרי ההקלטה</h6>
-            <!--<h4 class="mb-0">היי<a id="nameOfPerson"></a>,</h4>
-            <h4 class="mb-0">צוות <strong>סיפור555</strong> שמח לצרף אותך לקבוצת <strong>החרוזים</strong> המשתתפים בפרויקט.</h4>
-            <h4 class="mb-2">אלה הודעות הפתיחה של הקבוצה</h4> --> 
             <div id="text1"></div>
             <div class="form-control input-group-text col-auto mb-2" role="group">
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendMes1" onclick="whatsAppMes('mes1')">שליחת הודעה ראשונה לאורח</button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="copyMes1" onclick="copy('mes1')">העתקת הודעה ראשונה</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendMes1" onclick="whatsAppMes('1_guest')">שליחת הודעה לאורח</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="copyMes1" onclick="copy('1')">העתקת הודעה </button>
               </div>
               <div id="text2"></div>
-            <!--  <h4 class="mb-0"><strong>סיפור555</strong> שלך הוקלט ומפורסם ברשתות החברתיות,</h4>
-              <h4 class="mb-3">יוטיוב, פייסבוק, אינסטגרם וספוטיפיי.</h4>
-              <h4 class="mb-0">המיזם הוא מיזם חברתי, חדשני וטכנולוגי</h4>
-              <h4 class="mb-0">המבוסס על סיפורי החיים שלנו!</h4>
-              <h4 class="mb-3">לכל אחד/ת סיפור וכל סיפור משפיע.</h4>
-              <h4 class="mb-0">יצרנו קבוצה שקטה זו, של כל המשתתפים/ות,</h4>
-              <h4 class="mb-3">כדי לייצר תנועה של שיתוף, קידום ופרסום הפרויקט.</h4>
-              <h4 class="mb-0">כדי לקדם ולהפיץ את הפרויקט</h4>
-              <h4 class="mb-0">נפרסם בקבוצה זו כ-3 סרטים בכל שבוע</h4>
-              <h4 class="mb-0">בבקשה - לשתף, לתייג ובמיוחד - <strong>להירשם</strong></h4>
-              <h4 class="mb-0">לערוץ היוטיוב (לינק מצורף).</h4>
-              <h4 class="mb-3">אתם/ן השותפים/ות שלנו לדרך.</h4>
-              <h4 class="mb-2">נמשיך להתגלגל, כולנו חרוזים בשרשרת.</h4>--> 
+          
               <div class="form-control input-group-text col-auto mb-2" role="group">
-                  <button type="button" class="btn form-control btn-outline-secondary" id="sendMes2" onclick="whatsAppMes('mes2')">שליחת הודעה שנייה לאורח</button>
-                   <button type="button" class="btn form-control btn-outline-secondary" id="emailMes2" onclick="email('mes2')"> במייל שליחת הודעה שנייה לאורח</button>
-                  <button type="button" class="btn form-control btn-outline-secondary" id="copyMes2" onclick="copy('mes2')">העתקת הודעה שנייה</button>
+                  <button type="button" class="btn form-control btn-outline-secondary" id="sendMes2" onclick="whatsAppMes('2_inter')">שליחת הודעה למראיין</button>
+                  <button type="button" class="btn form-control btn-outline-secondary" id="copyMes2" onclick="copy('2')">העתקת הודעה </button>
                 </div>
-                <h4 class="mb-0"><strong>לינק</strong> רישום לערוץ היוטיוב - </h4>
-                <h4 class="mb-0">לתמיכה בפרויקט החברתי</h4>
-                <h4 class="mb-0"><strong>סיפור555</strong></h4>
-                <h4 class="mb-0">תכנית שידור ראיונות בשרשרת</h4>
-                <h4 class="mb-2">https://tinyurl.com/story555subscribe</h4>
+              <div id="text3"></div>
                 <div class="form-control input-group-text col-auto mb-2" role="group">
-                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes3" onclick="whatsAppMes('mes3')">שליחת הודעה שלישית לאורח</button>
-                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes3" onclick="copy('mes3')">העתקת הודעה שלישית</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes3" onclick="whatsAppMes('3_guest')">שליחת הודעה לאורח</button>
+                     <button type="button" class="btn form-control btn-outline-secondary" id="sendMes3" onclick="whatsAppMes('3_inter')">שליחת הודעה למראיין</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes3" onclick="copy('3')">העתקת הודעה</button>
                   </div>
-                
-                  <h4 class="mb-0">לינק לעץ השרשראות של <strong>סיפור555</strong></h4>
-                  <h4 class="mb-2">https://www.youtube.com/@5story55/playlists</h4>
+                <div id="text4"></div>
+                 
                 <div class="form-control input-group-text col-auto mb-2" role="group">
-                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes4" onclick="whatsAppMes('mes4')">שליחת הודעה רביעית לאורח</button>
-                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes4" onclick="copy('mes4')">העתקת הודעה רביעית</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes4" onclick="whatsAppMes('4_guest')">שליחת הודעה לאורח</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes4" onclick="whatsAppMes('4_inter')">שליחת הודעה למראיין</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes4" onclick="copy('4')">העתקת הודעה</button>
                   </div>
-                  <h4 class="mb-0"><strong>חדשות555</strong> - לצפייה בהודעות הקודמות</h4>
-                  <h4 class="mb-2">https://tinyurl.com/story555news</h4>
+                  
+                <div id="text5"></div>
                 <div class="form-control input-group-text col-auto mb-2" role="group">
-                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes5" onclick="whatsAppMes('mes5')">שליחת הודעה חמישית לאורח</button>
-                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes5" onclick="copy('mes5')">העתקת הודעה חמישית</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes5" onclick="whatsAppMes('5_guest')">שליחת הודעה לאורח</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes5" onclick="whatsAppMes('5_inter')">שליחת הודעה למראיין</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes5" onclick="copy('5')">העתקת הודעה</button>
                   </div>
-                  <div class="col-auto">
-                    <h4 class="mb-0">תודה, בהצלחה ולהתראות בסיפור הבא!</h4>
-                    <h4 class="mb-2"><a id="crewMem"></a>צוות <strong>סיפור555</strong></h4>
-                  </div>
-                  <div class="form-control input-group-text col-auto mb-2" role="group">
-                    <button
-                      type="button"
-                      class="btn form-control btn-outline-secondary"
-                      id="sendLastMes"
-                      onclick="whatsAppMes('lastMes')"
-                    >
-                      שליחת הודעה אחרונה
-                    </button>
-                    <button
-                      type="button"
-                      class="btn form-control btn-outline-secondary"
-                      id="copyLastMes"
-                      onclick="copy('lastMes')"
-                    >
-                      העתקת הודעה אחרונה
-                    </button>
+                  <div id="text6"></div>
+                <div class="form-control input-group-text col-auto mb-2" role="group">
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes5" onclick="whatsAppMes('6_guest')">שליחת הודעה לאורח</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="sendMes6" onclick="whatsAppMes('6_inter')">שליחת הודעה למראיין</button>
+                    <button type="button" class="btn form-control btn-outline-secondary" id="copyMes5" onclick="copy('6')">העתקת הודעה</button>
                   </div>
             </div>
           </div>
