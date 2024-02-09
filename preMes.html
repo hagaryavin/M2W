@@ -146,55 +146,94 @@
       <div class="container blog-post-meta py-3" id="preMes">
         <div class="col-auto">
           <h3 class="mb-0"><u>אישור רישום להקלטה</u></h3>
-          <h6 class="mb-1 text-muted">לאחר מילוי הטופס<h6>
-            <div id="confirmText"></div>
-            <div class="form-control input-group-text col-auto" role="group">
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendConfirmText" onclick="whatsAppMes('confirmText')">שליחת הודעה למראיין</button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="copyConfirmText" onclick="copy('confirmText')">העתקת ההודעה</button>                 
-              </div>  
+            <h6 class="mb-1 text-muted">לאחר מילוי הטופס</h6>
+           <div id="text1"></div>
+        <div class="form-control input-group-text col-auto mb-2" role="group">
+          
+          <button
+            type="button"
+            class="btn form-control btn-outline-secondary"
+            id="sendMes1"
+            onclick="whatsAppMes('1_inter')"
+          >
+            שליחת הודעה למראיין
+          </button>
+          <button
+            type="button"
+            class="btn form-control btn-outline-secondary"
+            id="copyMes1"
+            onclick="copy('1')"
+          >
+            העתקת הודעה
+          </button>
         </div>
-          <div class="col-auto">
+        
+           
 
             <h3 class="mb-0"><u>הזמנה להקלטה</u></h3>
-            <h6 class="mb-1 text-muted">יום לפני ההקלטה<h6>
-           <!--<h4 class="mb-0">היי<a id="nameOfPeople"></a>,</h4>
-            <h4 class="mb-0"><strong>תודה</strong> שבחרת להתארח בזום <strong>סיפור555</strong></h4>
-            <h4 class="mb-3">בשרשרת <a id="nameOfChain"> שםשרשרת </a>.</h4>
-            <h4 class="mb-0">נפגש בתאריך <a id="dateOfRecording"> תאריך </a> בשעה <a id="hourOfRecording"> שעה </a></h4>
-            <h4 class="mb-3">בהקלטת סיפור555 של <a id="nameOfPerson"></a>.</h4>
-            <h4 class="mb-0">לינק לזום מצורף בהודעה הבאה. </h4>
-            <h4 class="mb-3">הזום יפתח 10 דק' לפני מועד השידור. </h4>
-            <h4 class="mb-0">הודעה זו תשלח <a id="nameOfPerson2"></a> במייל, חצי שעה לפני מועד ההקלטה.</h4>
-            <h4 class="mb-0">בבקשה לאשר קבלת הודעה זו.</h4>
-            <h4 class="mb-2"><strong>בהצלחה!<strong></h4>   -->      
-              <div id="inviteText"></div>
-            <div class="form-control input-group-text col-auto" role="group">
-              <span class="input-group-text">שליחת הזמנה</span>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToInterviewer" onclick="whatsAppMes('preMesInter')">למראיין</button>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToGuest" onclick="whatsAppMes('preMesGuest')">לאורח</button>
-            <!--  <button type="button" class="btn form-control btn-outline-secondary" id="sendPreMesToGuest" onclick="whatsAppMes('preMesCreator')">ליוצר השרשרת</button> -->
-              <button type="button" class="btn form-control helper btn-outline-secondary" id="sendPreMesToBoth" onclick="sendBothPreMes()">לשניהם</button>
-              <div class="btn-group" role="group">
-                <button type="button" class="btn form-control helper btn-outline-secondary" id="sendShort55info" onclick="window.open('https://www.howtogeek.com/wp-content/uploads/2019/04/2019-04-17_12h32_07-2.png', '_blank');">*</button>
-            </div>
-            </div>
-            <div class="form-control input-group-text col-auto" role="group">
-                <span class="input-group-text">שליחת לינק לזום</span>
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendZoomToInterviewer" onclick="whatsAppMes('zoomInter')">למראיין</button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendZoomToGuest" onclick="whatsAppMes('zoomGuest')">לאורח</button>
-                <button type="button" class="btn form-control helper btn-outline-secondary" id="sendPreMesToBoth" onclick="sendBothZoom()">לשניהם</button>
-                <div class="btn-group" role="group">
-                  <button type="button" class="btn form-control helper btn-outline-secondary" id="sendShort55info" onclick="window.open('https://www.howtogeek.com/wp-content/uploads/2019/04/2019-04-17_12h32_07-2.png', '_blank');">*</button>
-              </div>
-              </div>
-              <div class="form-control input-group-text col-auto" role="group">
-                  <span class="input-group-text">העתקת</span>
-                  <button type="button" class="btn form-control btn-outline-secondary" id="copyPreMes" onclick="copy('preMes')">תוכן ההזמנה</button>
-                  <button type="button" class="btn form-control btn-outline-secondary" id="copyZoom" onclick="copy('zoom')">לינק לזום</button>
+              <h6 class="mb-1 text-muted">יום לפני ההקלטה</h6>
+              <div class="row align-items-center">
+    <div class="col">
+           <div id="text2"></div>
+                  </div>
+                  <div class="col">
+           <div id="text3"></div>
+                  </div>
                 </div>
-            </div>
-            <div id="test" ></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('2_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes2"
+              onclick="whatsAppMes('3_inter')"
+            >
+              שליחת הודעה למראיין</button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes2"
+              onclick="copy('3')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+          <div id="text4"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes3"
+              onclick="copy('4')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
       </div>
+    </div>
     <script
     
       src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
