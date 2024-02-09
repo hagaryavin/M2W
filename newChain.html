@@ -99,34 +99,39 @@
      </div>
     </div>
    
-        <div class="input-group-text input-group mb-3 role="group">
-          
-          <button onclick="submit()" class="btn form-control btn-outline-secondary" id="submit">
+        <div class="form-control input-group-text" role="group">
+          <button
+            onclick="submit()"
+            class="btn form-control btn-outline-secondary"
+            id="submit"
+          >
             הזנת פרטים
           </button>
-          <button onclick="reset()" class="btn form-control btn-outline-secondary" id="reset">
-              מחיקת נתונים
-            </button>
-           
+          <button
+            onclick="reset()"
+            class="btn form-control btn-outline-secondary"
+            id="reset"
+          >
+            מחיקת נתונים
+          </button>
         </div>
-        <div class="col-4 text-center"></div>
-        <div class="col-4 d-flex justify-content-end align-items-center"></div>
-      </header>    
+        
+        
       <div class="container blog-post-meta py-3" id="newChain">
           <div class="col-auto">
               <h3 class="mb-0"><u>פתיחת שרשרת חדשה</u></h3>
             <h6 class="mb-1 text-muted">לשליחה בקבוצת החרוזים</h6>
-            <div id="text"></div>
+            <div id="text1"></div>
             <div class="form-control input-group-text col-auto mb-2" role="group">
                  <button
                 type="button"
                 class="btn form-control btn-outline-secondary"
-                id="sendToCrew"
-                onclick="whatsAppMes('postCrew')"
+                id="send1"
+                onclick="whatsAppMes('1')"
               >
                 לחברת הצוות
               </button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="copyMes1" onclick="copy('mes1')">להעתקת ההודעה</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="copyMes1" onclick="copy('1')">להעתקת ההודעה</button>
                 <button type="button" onclick="window.location.href='./socialPost.html';" class="btn form-control btn-outline-secondary" id="toPost">לשליחת הפוסט של</button>
           
               </div>
