@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>M2W - חרוזים אחרונים</title>
+    <title>M2W - פוסט</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -29,11 +29,11 @@
       }
 
       .loader {
-        border: 16px solid #f3f3f3;
+        border: 4px solid #f3f3f3;
         border-radius: 50%;
-        border-top: 16px solid #3498db;
-        width: 120px;
-        height: 120px;
+        border-top: 4px solid #3498db;
+        width: 20px;
+        height: 20px;
         animation: spin 2s linear infinite;
       }
       @keyframes spin {
@@ -66,38 +66,7 @@
         return new bootstrap.Tooltip(tooltipTriggerEl);
       });
     </script>
-    <div class="container mb-5">
-      <div class="form-control input-group-text" role="group">
-        
-        <h3 class="mb-0"><u>גישה מהירה:</u></h3>
-        <br>
-      
-        <div id="loader0" class="loader"></div>
-        <input
-          type="text"
-          id="peopleList0"
-          list="people0"
-          autocomplete="off"
-          class="form-control"
-        />
-        <datalist id="people0"> </datalist>
-        <br>
-        <button
-          onclick="quickChange()"
-          class="btn form-control btn-outline-secondary"
-          id="quickChange"
-        >
-        ניקוי שדה ההודעה האחרונה ושמירה בקובץ
-        </button>
-      
-    </div>
-    </div>
-    <div class="border-0">
-      <br>
-      <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
-    </div>
     <div class="container">
-      
       <div class="input-group mb-3">
         <span class="input-group-text">חברת צוות:</span>
         <input
@@ -111,162 +80,304 @@
       </div>
     </div>
     <div class="container">
-      <div class="form-control input-group-text mb-3" role="group">
-        <button
-          onclick="reset()"
-          class="btn form-control btn-outline-secondary"
-          id="reset"
+      <header class="blog-header py-3">
+        <span
+          class="position-relative start-50 input-group-text mb-3"
+          text-align="center"
+          >תמלאי את הפרטים של האורח</span
         >
-          נקה שדות
-        </button>
-      </div>
-      <span
-        class="position-relative start-50 input-group-text mb-3"
-        data-bs-toggle="popover"
-        data-bs-trigger="hover focus"
-        data-bs-toggle="tooltip"
-        data-bs-placement="bottom"
-        title="05_ _ _ _ _ _ _ _"
-        >בחרי למי לשלוח הודעה:</span
-      >
+        <div class="input-group mb-3">
+          <span class="input-group-text">או בחרי מהטבלה</span>
+          <div id="loader" class="loader"></div>
+          <input
+            type="text"
+            id="peopleList"
+            list="people"
+            autocomplete="off"
+            class="form-control"
+          />
+          <datalist id="people"> </datalist>
 
-      <div class="form-control mb-3" role="group" id="options">
-        <div id="loader" class="loader"></div>
-      </div>
-      <div class="input-group mb-3">
-        <input
-          type="tel"
-          id="phone"
-          class="form-control mb-3"
-          placeholder="או תקלידי מספר טלפון"
-          autocomplete="off"
-        />
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="fixGuestPhone"
-          checked
-        />
-        <label class="form-check-label" for="flexCheckChecked">
-          מספר ישראלי
-        </label>
-      </div>
-      <div class="form-control input-group-text mb-3" role="group">
-        <button
-          onclick="submit()"
-          class="btn form-control btn-outline-secondary"
-          id="submit"
-        >
-          הזנת פרטים
-        </button>
-      </div>
-    </div>
-    <div class="container blog-post-meta py-3" id="stuckMes">
-      <div class="col-auto">
-        <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
-        <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
-        <div id="text1"></div>
-      </div>
-      <textarea
-        class="form-control mb-2"
-        placeholder="או תקלידי הודעה כאן"
-        id="personalMess"
-      ></textarea>
-      <div class="form-control input-group-text col-auto mb-2" role="group">
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendMes1"
-          onclick="whatsAppMes('1')"
-        >
-          שליחת הודעה ראשונה
-        </button>
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="copyMes1"
-          onclick="copy('1')"
-        >
-          העתקת הודעה ראשונה
-        </button>
-      </div>
-      <div class="form-control input-group-text col-auto mb-2" role="group">
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendCalenderLink"
-          onclick="whatsAppMes('2')"
-        >
-          שליחת לינק ללוח ההקלטות
-        </button>
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="copyCalenderLink"
-          onclick="copy('2')"
-        >
-          העתקת לינק ללוח ההקלטות
-        </button>
-      </div>
-
-      <div class="col-auto">
-      <div id="text3"></div>
-      <div class="form-control input-group-text col-auto mb-2" role="group">
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendMes1"
-          onclick="whatsAppMes('3')"
-        >
-          שליחת הודעה שנייה
-        </button>
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="copyMes1"
-          onclick="copy('3')"
-        >
-          העתקת הודעה שנייה
-        </button>
-      </div>
-      <div class="form-control input-group-text col-auto mb-2" role="group">
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendInviteLink"
-          onclick="whatsAppMes('4')"
-        >
-          שליחת לינק להזמנה
-        </button>
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="copyInviteLink"
-          onclick="copy('4')"
-        >
-          העתקת לינק להזמנה
-        </button>
-      </div>
-
-      <div
-        id="change"
-        class="form-control input-group-text col-auto"
-        role="group"
-      >
-        <input
-          type="text"
-          id="newInfo"
-          class="form-control"
-          autocomplete="off"
-        />
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendData"
-          onclick="changeLastMess()"
-        >
-          לשינוי התאריך בו נשלחה ההודעה האחרונה
-        </button>
+          <button
+            onclick="submitData()"
+            class="btn form-control btn-outline-secondary"
+            id="submitData"
+          >
+            לבחירה
+          </button>
+        </div>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון המראיין</span
+          >
+          <input
+            type="tel"
+            id="interviewerPhone"
+            class="form-control"
+            placeholder="המראיין"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixInterPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון האורח</span
+          >
+          <input
+            type="tel"
+            id="guestPhone"
+            class="form-control"
+            placeholder="האורח"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixGuestPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">שם השרשרת</span>
+          <input
+            class="form-control"
+            list="chainsNames"
+            id="chainName"
+            placeholder="תתחילי להקליד את שם השרשרת..."
+            autocomplete="off"
+          />
+          <datalist id="chainsNames"> </datalist>
+        </div>
+        <div class="form-control input-group-text" role="group">
+          <button
+            onclick="submit()"
+            class="btn form-control btn-outline-secondary"
+            id="submit"
+          >
+            הזנת פרטים
+          </button>
+          <button
+            onclick="reset()"
+            class="btn form-control btn-outline-secondary"
+            id="reset"
+          >
+            מחיקת נתונים
+          </button>
+        </div>
+        <div class="col-4 text-center"></div>
+        <div class="col-4 d-flex justify-content-end align-items-center"></div>
+      </header>
+      <div class="container blog-post-meta py-3" id="post">
+        <div class="col-auto">
+          <h3 class="mb-0"><u>פוסט</u></h3>
+          <h6 class="mb-1 text-muted">כמו בלוח פרסום</h6>
+          <div id="text1"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('1_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes1"
+              onclick="copy('1')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+           <div id="text2"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes2"
+              onclick="whatsAppMes('2_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes2"
+              onclick="copy('2')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+           <div id="text3"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes3"
+              onclick="whatsAppMes('3_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes3"
+              onclick="whatsAppMes('3_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes3"
+              onclick="whatsAppMes('3_crew')"
+            >
+              שליחת הודעה לחברת הצוות
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes3"
+              onclick="copy('3')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+         <div id="text4"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_crew')"
+            >
+              שליחת הודעה לחברת הצוות
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes4"
+              onclick="copy('4')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+            <div id="text5"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_crew')"
+            >
+              שליחת הודעה לחברת הצוות
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes5"
+              onclick="copy('5')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+          <h3 class="mb-0"><u>הודעה משתנה</u></h3>
+          <h6 class="mb-1 text-muted">לשליחה בחגים ומועדים</h6>
+             <div id="text6"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes6"
+              onclick="whatsAppMes('6_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes6"
+              onclick="copy('6')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+           <div id="text7"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes7"
+              onclick="whatsAppMes('7_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes7"
+              onclick="copy('7')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -280,6 +391,6 @@
       integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
       crossorigin="anonymous"
     ></script>
-    <script src="stuckMes.js"></script>
+    <script type="text/javascript" src="./socialPost.js"></script>
   </body>
 </html>
