@@ -8,10 +8,20 @@ var firstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = "";
+var currCrew = {};
 var newCrewMem;
-var fullText1 = "";
-var fullText2 = "";
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }  
+];
+var fullTexts = [[], [], [], [], [], [],[],[],[]];
 var wannaFixGuestPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
@@ -93,6 +103,7 @@ function getCrewData() {
       json.data.crew.forEach((ele) => {
         newCrewMem = {
           name: ele.name,
+          phone: ele.phone,
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
@@ -137,31 +148,30 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("לינקים לתוצרים 1")) {
-          messes1.push(newMess);
-        }
-        if (newMess.name.includes("לינקים לתוצרים 2")) {
-          messes2.push(newMess);
+      for (var i = 1; i <= 9; i++) {
+          if (newMess.name.includes("לינקים לתוצרים " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < messes1.length; j++) {
-        cutMess(messes1[j].lines, "one");
-      }
-      for (var k = 0; k < messes2.length; k++) {
-        cutMess(messes2[k].lines, "two");
+      for (var i = 0; i <= 8; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
 }
 function cutMess(linesArr, messType) {
+var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv;
-  if (messType === "one") {
-    testDiv = document.getElementById("text1");
-  }
-  if (messType === "two") {
-    testDiv = document.getElementById("text2");
-  }
-  removeAllChildNodes(testDiv);
+    var testDiv = document.getElementById("text" + messType);
+  if(messType===1||messType===2||messType===7||messType===9){
+  
+        removeAllChildNodes(testDiv);
+    }
   var i = 0;
   var firstName2 = firstName;
   while (linesArr[i] !== "end") {
@@ -179,6 +189,24 @@ function cutMess(linesArr, messType) {
         .getElementById("peopleList")
         .value.split(" + ");
       linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
+    }
+    if (linesArr[i].includes("link555")) {
+      linesArr[i] = linesArr[i].replace("link555", document.getElementById("link555").value);
+    }
+     if (linesArr[i].includes("fullLink")) {
+      linesArr[i] = linesArr[i].replace("fullLink", document.getElementById("full555").value);
+    }
+     if (linesArr[i].includes("linkSpotify")) {
+      linesArr[i] = linesArr[i].replace("linkSpotify", document.getElementById("spotify").value);
+    }
+    if (linesArr[i].includes("link55")) {
+      linesArr[i] = linesArr[i].replace("link55", document.getElementById("short55").value);
+    }
+    if (linesArr[i].includes("linkyoutube55")) {
+      linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
+    }
+    if (linesArr[i].includes("crewName")) {
+      linesArr[i] = linesArr[i].replace("crewName", crewMem);
     }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
@@ -210,16 +238,13 @@ function cutMess(linesArr, messType) {
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-      testDiv.append(testH4);
+        if(messType===1||messType===2||messType===7||messType===9){
+            testDiv.append(testH4);
+        }
     }
     i++;
   }
-  if (messType === "one") {
-    fullText1 = currText;
-  }
-  if (messType === "two") {
-    fullText2 = currText;
-  }
+  fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -290,75 +315,20 @@ function submit() {
   }
 }
 function crewChosen() {
-  if (document.getElementById("crewList").value !== "") {
+   if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
       if (document.getElementById("crewList").value === crewList[j].name) {
-        currCrew = crewList[j].name;
+        currCrew = crewList[j];
       }
     }
-    document.getElementById("crewMem").innerHTML = currCrew + ", ";
   } else {
-    currCrew = "";
-    document.getElementById("crewMem").innerHTML = "";
+    currCrew.name = "";
+    currCrew.phone = "";
   }
 }
-function textToCopy(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = currCrew + ", ";
-  if (currCrew === "") crewMem = "";
-  var chainName = document.getElementById("chainName").value;
-  var textMes1 = fullText1;
-  /*=
-    "היי " +
-    firstName +
-    ", היה מקסים להכיר אותך. מצורפות ההודעות להמשך השרשרת. יום טוב.";
- */ var textMes2 = fullText2;
-  /* "תודה שהצטרפת *לשרשרת " +
-    chainName +
-    "* בסיפור555. הסיפור שלך מתפרסם בלינקים המצורפים ביוטיוב ובפודקאסט. הנך מוזמנ/ת לפרסם את ההקלטות במדיות החברתיות שלך ולספר על הפרויקט. מצורפים לינקים לפרסום ברשתות שלך. ";
- */ var textLastMes =
-    "תודה, בהצלחה ולהתראות בסיפור הבא! " + crewMem + "צוות *סיפור555*";
-  var textTagUs = "לתיוג הפרויקט בפייסבוק *@סיפור555*";
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "lastMes") return textLastMes;
-  if (id === "tagUsMes") return textTagUs;
-  if (id === "link555")
-    return (
-      "סיפור555 של " +
-      fullName +
-      " ביוטיוב: \n" +
-      document.getElementById("link555").value
-    );
-  if (id === "short55")
-    return (
-      "לינק לפרומו 55 שניות להורדה לפרסום ברשתות: \n" +
-      document.getElementById("short55").value
-    );
 
-  if (id === "short55yt")
-    return (
-      "לינק לפרומו 55 שניות ביוטיוב: \n" +
-      document.getElementById("short55yt").value
-    );
-  if (id === "full555")
-    return (
-      "הראיון המלא של " +
-      fullName +
-      " ביוטיוב: \n" +
-      document.getElementById("full555").value
-    );
-  if (id === "spotify")
-    return (
-      "לינק לפודקאסט של " +
-      fullName +
-      " בספוטיפיי: \n" +
-      document.getElementById("spotify").value
-    );
-  return "";
-}
 function copy(id) {
-  var text = textToCopy(id);
+   var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -373,74 +343,13 @@ function phoneForWA(phone) {
   }
   return phone;
 }
-function mesForWA(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = encodeURI(currCrew) + ", ";
-  if (currCrew === "") crewMem = "";
-  var chainName = document.getElementById("chainName").value;
-  var transChainName = encodeURI(chainName);
-  var textMes1 = encodeURI(fullText1);
-  /*
-    "%D7%94%D7%99%D7%99%20" +
-    encodeURI(firstName) +
-    ",%20%D7%94%D7%99%D7%94%20%D7%9E%D7%A7%D7%A1%D7%99%D7%9D%20%D7%9C%D7%94%D7%9B%D7%99%D7%A8%20%D7%90%D7%95%D7%AA%D7%9A.%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%95%D7%AA%20%D7%94%D7%94%D7%95%D7%93%D7%A2%D7%95%D7%AA%20%D7%9C%D7%94%D7%9E%D7%A9%D7%9A%20%D7%94%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA.%20%D7%99%D7%95%D7%9D%20%D7%98%D7%95%D7%91.";
- */ var textMes2 = encodeURI(fullText2);
-  /*
-    "%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%AA%20*%D7%9C%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-    transChainName +
-    "*%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8555.%0A%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%D7%9A%20%D7%9E%D7%AA%D7%A4%D7%A8%D7%A1%D7%9D%20%D7%91%D7%9C%D7%99%D7%A0%D7%A7%D7%99%D7%9D%20%D7%94%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%99%D7%9D%20%D7%91%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91%20%D7%95%D7%91%D7%A4%D7%95%D7%93%D7%A7%D7%90%D7%A1%D7%98.%0A%0A%D7%94%D7%A0%D7%9A%20%D7%9E%D7%95%D7%96%D7%9E%D7%A0/%D7%AA%20%D7%9C%D7%A4%D7%A8%D7%A1%D7%9D%20%D7%90%D7%AA%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA%0A%D7%91%D7%9E%D7%93%D7%99%D7%95%D7%AA%20%D7%94%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%95%D7%AA%20%D7%A9%D7%9C%D7%9A%20%D7%95%D7%9C%D7%A1%D7%A4%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98.%0A%0A%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%99%D7%9D%20%D7%9C%D7%99%D7%A0%D7%A7%D7%99%D7%9D%20%D7%9C%D7%A4%D7%A8%D7%A1%D7%95%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%D7%95%D7%AA%20%D7%A9%D7%9C%D7%9A.";
- */ var textLastMes =
-    "%D7%AA%D7%95%D7%93%D7%94,%20%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94%20%D7%95%D7%9C%D7%94%D7%AA%D7%A8%D7%90%D7%95%D7%AA%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90!%0A" +
-    crewMem +
-    "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*";
-  var textLink555;
-  if (document.getElementById("link555").value !== "")
-    textLink555 =
-      encodeURI("סיפור555 של " + fullName + " ביוטיוב: \n") +
-      document.getElementById("link555").value;
-  var textShort55;
-  if (document.getElementById("short55").value !== "")
-    textShort55 =
-      encodeURI("לינק לפרומו 55 שניות להורדה לפרסום ברשתות: \n") +
-      document.getElementById("short55").value;
-  var textShort55yt;
-  if (document.getElementById("short55yt").value !== "")
-    textShort55yt =
-      encodeURI("לינק לפרומו 55 שניות ביוטיוב: \n") +
-      document.getElementById("short55yt").value;
-  var textFull555;
-  if (document.getElementById("full555").value !== "")
-    textFull555 =
-      encodeURI("הראיון המלא של " + fullName + " ביוטיוב: \n") +
-      document.getElementById("full555").value;
-  var textSpotify;
-  if (document.getElementById("spotify").value !== "")
-    textSpotify =
-      encodeURI("לינק לפודקאסט של " + fullName + " בספוטיפיי: \n") +
-      document.getElementById("spotify").value;
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "lastMes") return textLastMes;
-  if (id === "tagUsMes") return encodeURI("לתיוג הפרויקט בפייסבוק *@סיפור555*");
-  if (id === "link555" && document.getElementById("link555").value !== "")
-    return textLink555;
-  if (id === "short55" && document.getElementById("short55").value !== "")
-    return textShort55;
-  if (id === "short55yt" && document.getElementById("short55yt").value !== "")
-    return textShort55yt;
-  if (id === "full555" && document.getElementById("full555").value !== "")
-    return textFull555;
-  if (id === "spotify" && document.getElementById("spotify").value !== "")
-    return textSpotify;
-  return "";
-}
 function whatsAppMes(id) {
   var phone = document.getElementById("guestPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone) +
     "&text=" +
-    mesForWA(id);
+    encodeURI(fullTexts[id - 1]);
   window.open(link, "_blank");
 }
 function fixPhoneData(phone) {
