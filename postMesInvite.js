@@ -18,8 +18,17 @@ var currChain = {};
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = "";
+var currCrew = {};
 var newCrewMem;
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] }  
+];
+var fullTexts = [[], [], [], [], [], []];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
 getChainData();
@@ -99,6 +108,7 @@ function getCrewData() {
       json.data.crew.forEach((ele) => {
         newCrewMem = {
           name: ele.name,
+          phone: ele.phone,
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
@@ -142,19 +152,34 @@ function getMessData() {
           ],
         };
 
-        if (newMess.name.includes("לינקים להזמנת אורח 1")) {
-          messesInvite.push(newMess);
+      for (var i = 1; i <= 6; i++) {
+          if (newMess.name.includes("לינקים להזמנת אורח " + i)) {
+            messes[i - 1] = newMess;
+          }
         }
       });
-      for (var j = 0; j < messesInvite.length; j++) {
-        cutMess(messesInvite[j].lines, chainType);
+      for (var i = 0; i <= 5; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
       }
     });
 }
-function cutMess(linesArr, messType, who) {
+function cutMess(linesArr, messType) {
+  var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
   var currText = "";
-  var testDiv = document.getElementById("inviteText");
-  removeAllChildNodes(testDiv);
+    var testDiv = document.getElementById("text" + messType);
+    if(messType===1||messType===6){
+  
+        removeAllChildNodes(testDiv);
+    }
+    //if(messType!==1||messType!==6){
+      //  testDiv=document.createElement("div");
+    //}
+  
   var i = 0;
   //var firstName2 = fixFirstName(document.getElementById("guestPhone").value);
   var firstNameInterviewer2 = fixInterviewerFirstName(
@@ -181,6 +206,9 @@ function cutMess(linesArr, messType, who) {
 
       linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
     }
+    if (linesArr[i].includes("crewName")) {
+      linesArr[i] = linesArr[i].replace("crewName", currCrew.name);
+    }
     if (linesArr[i].includes("firstNameOfInterviewer")) {
       linesArr[i] = linesArr[i].replace(
         "firstNameOfInterviewer",
@@ -198,6 +226,9 @@ function cutMess(linesArr, messType, who) {
         "chainDescription",
         currChain.description
       );
+    }
+    if (linesArr[i].includes("chainPlaylist")) {
+      linesArr[i] = linesArr[i].replace("chainPlaylist", currChain.playlist);
     }
     if (
       chainType === "short" &&
@@ -241,12 +272,14 @@ function cutMess(linesArr, messType, who) {
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
+        if(messType===1||messType===6){
       testDiv.append(testH4);
+        }
     }
     i++;
   }
 
-  fullTextInvite = currText;
+  fullTexts[messType - 1] = currText;
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -353,62 +386,17 @@ function crewChosen() {
   if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
       if (document.getElementById("crewList").value === crewList[j].name) {
-        currCrew = crewList[j].name;
+        currCrew = crewList[j];
       }
     }
-    document.getElementById("crewMem").innerHTML = currCrew + ", ";
   } else {
-    currCrew = "";
-    document.getElementById("crewMem").innerHTML = "";
+    currCrew.name = "";
+    currCrew.phone = "";
   }
 }
-function textToCopy(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = currCrew + ", ";
-  if (currCrew === "") crewMem = "";
-  var chainName = document.getElementById("chainName").value;
-  var chainDesc = currChain.description;
-  var textMes = fullTextInvite;
-  /* if (chainType === "long") {
-    textMes =
-      "היי " +
-      firstName +
-      ", תודה שהצטרפת *לשרשרת " +
-      chainName +
-      "* בסיפור555. עכשיו תורך להזמין את האורח/ת הבאה. -" +
-      chainDesc +
-      " -לקבל אישור על בחירתך מהמראיינ/ת שלך. -לשלוח את ההזמנה וטופס הרישום לאורח/ת שלך. -לבחור את מועד ההקלטה דרך הלינק המצורף. -להיות המראיינ/ת של האורח/ת שלך בהקלטת הסיפור הבא בשרשרת. מצורפים: לינק להזמנה, לינק ללוח ההקלטות, לינק לטופס הרישום, לינק לפלייליסט של השרשרת שלך.";
-  }
-  if (chainType === "short") {
-    textMes =
-      "היי " +
-      firstName +
-      ", תודה שהצטרפת *לשרשרת " +
-      chainName +
-      "* בסיפור555. עכשיו תורך להזמין את האורח/ת הבאה. -" +
-      chainDesc +
-      " -לקבל אישור על בחירתך מהמראיינ/ת שלך. -לשלוח את ההזמנה וטופס הרישום לאורח/ת שלך. מצורפים: לינק להזמנה, לינק ללוח ההקלטות, לינק לטופס הרישום, לינק לפלייליסט של השרשרת שלך.";
-  }*/
-  var textLastMes =
-    "תודה, בהצלחה ולהתראות בסיפור הבא! " + crewMem + "צוות *סיפור555*";
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  var textRegister = "לינק לטופס הרישום: https://tinyurl.com/story555sign";
-  var textChain =
-    "לינק לפלייליסט של השרשרת\n*שרשרת " +
-    chainName +
-    "*:\n" +
-    currChain.playlist;
-  if (id === "mes") return textMes;
-  if (id === "lastMes") return textLastMes;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  if (id === "register") return textRegister;
-  if (id === "chain") return textChain;
-  return "";
-}
+
 function copy(id) {
-  var text = textToCopy(id);
+   var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -423,57 +411,7 @@ function phoneForWA(phone) {
   }
   return phone;
 }
-function mesForWA(id) {
-  var crewMem;
-  if (currCrew !== "") crewMem = encodeURI(currCrew) + ", ";
-  if (currCrew === "") crewMem = "";
-  var chainName = document.getElementById("chainName").value;
-  var chainDesc = currChain.description;
-  var transChainName = encodeURI(chainName);
-  var transChainDesc = encodeURI(chainDesc);
-  var textMes = encodeURI(fullTextInvite);
-  /*  if (chainType === "long") {
-    textMes =
-      "%D7%94%D7%99%20" +
-      encodeURI(firstName) +
-      ",%0A%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%AA%20*%D7%9C%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-      transChainName +
-      "*%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8555.%0A%D7%A2%D7%9B%D7%A9%D7%99%D7%95%20%D7%AA%D7%95%D7%A8%D7%9A%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%90%D7%AA%20%D7%94%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%94%D7%91%D7%90%D7%94.%0A%0A-" +
-      transChainDesc +
-      "%0A-%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%99%D7%A9%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%91%D7%97%D7%99%D7%A8%D7%AA%D7%9A%20%D7%9E%D7%94%D7%9E%D7%A8%D7%90%D7%99%D7%99%D7%A0/%D7%AA%20%D7%A9%D7%9C%D7%9A.%0A-%D7%9C%D7%A9%D7%9C%D7%95%D7%97%20%D7%90%D7%AA%20%D7%94%D7%94%D7%96%D7%9E%D7%A0%D7%94%20%D7%95%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D%20%D7%9C%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%A9%D7%9C%D7%9A.%0A-%D7%9C%D7%91%D7%97%D7%95%D7%A8%20%D7%90%D7%AA%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%94%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%9C%D7%99%D7%A0%D7%A7%20%D7%94%D7%9E%D7%A6%D7%95%D7%A8%D7%A3.%0A-%D7%9C%D7%94%D7%99%D7%95%D7%AA%20%D7%94%D7%9E%D7%A8%D7%90%D7%99%D7%99%D7%A0/%D7%AA%20%D7%A9%D7%9C%20%D7%94%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%A9%D7%9C%D7%9A%20%D7%91%D7%94%D7%A7%D7%9C%D7%98%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA.%0A%0A%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%99%D7%9D:%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%94%D7%96%D7%9E%D7%A0%D7%94,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%9C%D7%95%D7%97%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%A4%D7%9C%D7%99%D7%99%D7%9C%D7%99%D7%A1%D7%98%20%D7%A9%D7%9C%20%D7%94%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A9%D7%9C%D7%9A.";
-  }
-  if (chainType === "short") {
-    textMes =
-      "%D7%94%D7%99%20" +
-      encodeURI(firstName) +
-      ",%0A%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%AA%20*%D7%9C%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-      transChainName +
-      "*%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8555.%0A%D7%A2%D7%9B%D7%A9%D7%99%D7%95%20%D7%AA%D7%95%D7%A8%D7%9A%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%90%D7%AA%20%D7%94%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%94%D7%91%D7%90%D7%94.%0A%0A-" +
-      transChainDesc +
-      "%0A-%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%99%D7%A9%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%91%D7%97%D7%99%D7%A8%D7%AA%D7%9A%20%D7%9E%D7%94%D7%9E%D7%A8%D7%90%D7%99%D7%99%D7%A0/%D7%AA%20%D7%A9%D7%9C%D7%9A.%0A-%D7%9C%D7%A9%D7%9C%D7%95%D7%97%20%D7%90%D7%AA%20%D7%94%D7%94%D7%96%D7%9E%D7%A0%D7%94%20%D7%95%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D%20%D7%9C%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%A9%D7%9C%D7%9A.%0A%0A%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%99%D7%9D:%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%94%D7%96%D7%9E%D7%A0%D7%94,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%9C%D7%95%D7%97%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%A4%D7%9C%D7%99%D7%99%D7%9C%D7%99%D7%A1%D7%98%20%D7%A9%D7%9C%20%D7%94%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20%D7%A9%D7%9C%D7%9A.";
-  }*/
-  var textLastMes =
-    "%D7%AA%D7%95%D7%93%D7%94,%20%D7%91%D7%94%D7%A6%D7%9C%D7%97%D7%94%20%D7%95%D7%9C%D7%94%D7%AA%D7%A8%D7%90%D7%95%D7%AA%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90!%0A" +
-    crewMem +
-    "%D7%A6%D7%95%D7%95%D7%AA%20*%D7%A1%D7%99%D7%A4%D7%95%D7%A8555*";
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  var textRegister =
-    encodeURI("לינק לטופס הרישום: ") + "https://tinyurl.com/story555sign";
-  var textChain =
-    encodeURI(
-      "לינק לפלייליסט של השרשרת\n*שרשרת " +
-        document.getElementById("chainName").value +
-        "*:\n"
-    ) + currChain.playlist;
-  if (id === "mes") return textMes;
-  if (id === "lastMes") return textLastMes;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  if (id === "register") return textRegister;
-  if (id === "chain") return textChain;
-  return "";
-}
+
 function fixFirstName(phoneNum) {
   var fullName = "";
 
@@ -515,7 +453,7 @@ function whatsAppMes(id) {
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone) +
     "&text=" +
-    mesForWA(id);
+    encodeURI(fullTexts[id - 1]);
   window.open(link, "_blank");
 }
 function fixPhoneData(phone) {
