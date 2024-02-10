@@ -177,17 +177,40 @@
           <div class="col-auto">
               <h3 class="mb-0"><u>הזמנה לוואטסאפ חרוזים</u></h3>
             <h6 class="mb-1 text-muted">מיד אחרי ההקלטה</h6>
-            <div id="text1"></div>
+            <div class="row align-items-center">
+              
+             <div class="col">
+           <div id="text1"></div>
+                  </div>
+                  <div class="col">
+           <div id="text2"></div>
+                  </div>
+                </div> 
             <div class="form-control input-group-text col-auto mb-2" role="group">
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendMes1" onclick="whatsAppMes('1_guest')">שליחת הודעה לאורח</button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="copyMes1" onclick="copy('1')">העתקת הודעה </button>
-              </div>
-              <div id="text2"></div>
-          
-              <div class="form-control input-group-text col-auto mb-2" role="group">
-                  <button type="button" class="btn form-control btn-outline-secondary" id="sendMes2" onclick="whatsAppMes('2_inter')">שליחת הודעה למראיין</button>
-                  <button type="button" class="btn form-control btn-outline-secondary" id="copyMes2" onclick="copy('2')">העתקת הודעה </button>
-                </div>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('1_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes2"
+              onclick="whatsAppMes('2_inter')"
+            >
+              שליחת הודעה למראיין</button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes2"
+              onclick="copy('1')"
+            >
+              העתקת הודעה
+            </button>
+          </div>   
               <div id="text3"></div>
                 <div class="form-control input-group-text col-auto mb-2" role="group">
                     <button type="button" class="btn form-control btn-outline-secondary" id="sendMes3" onclick="whatsAppMes('3_guest')">שליחת הודעה לאורח</button>
