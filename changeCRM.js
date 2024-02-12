@@ -159,6 +159,7 @@ function submitData() {
         allPeople[i].linkexplain;
       document.getElementById("linkpreB4").innerHTML = allPeople[i].linkpre;
       document.getElementById("nameB4").innerHTML = allPeople[i].name;
+         document.getElementById("nameB4also").innerHTML = allPeople[i].name;
       document.getElementById("internameB4").innerHTML =
         allPeople[i].interviewername;
       document.getElementById("emailB4").innerHTML = allPeople[i].email;
