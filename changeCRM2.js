@@ -5,7 +5,7 @@ var rowCount = 2;
 var size = 0;
 var chosenCol = "";
 var chosenRow = 0;
-const url =
+var url =
   "https://script.google.com/macros/s/AKfycbzgSi44PK_EEUpjWn9dzVs_aWQcr0CRoUdQPKSEOk1M39EalLpSal6lHQeEP0PE0uc_uA/exec";
 var newPerson = {};
 var chainOption;
@@ -159,6 +159,7 @@ function submitData() {
         allPeople[i].linkexplain;
       document.getElementById("linkpreB4").innerHTML = allPeople[i].linkpre;
       document.getElementById("nameB4").innerHTML = allPeople[i].name;
+         document.getElementById("nameB4also").innerHTML = allPeople[i].name;
       document.getElementById("internameB4").innerHTML =
         allPeople[i].interviewername;
       document.getElementById("emailB4").innerHTML = allPeople[i].email;
