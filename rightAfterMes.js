@@ -16,9 +16,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
   { name: "", lines: [] },
-  { name: "", lines: [] }  
+  { name: "", lines: [] },
+    { name: "", lines: [] } 
 ];
-var fullTexts = [[], [], [], [], [], []];
+var fullTexts = [[], [], [], [], [], [],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 const url =
@@ -128,13 +129,13 @@ function getMessData() {
           ],
         };
 
-       for (var i = 1; i <= 6; i++) {
+       for (var i = 1; i <= 7; i++) {
           if (newMess.name.includes("הזמנה לווטסאפ חרוזים " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 5; i++) {
+      for (var i = 0; i <= 6; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
