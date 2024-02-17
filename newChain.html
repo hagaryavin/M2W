@@ -120,7 +120,32 @@
       <div class="container blog-post-meta py-3" id="newChain">
           <div class="col-auto">
               <h3 class="mb-0"><u>פתיחת שרשרת חדשה</u></h3>
-            <h6 class="mb-1 text-muted">לשליחה בקבוצת החרוזים</h6>
+             
+            <div class="form-control mb-3">
+        <p class="fs-5 fw-normal text-start" id="aboutB4"></p>
+        <div class="input-group-text" role="group">
+          <input type="text" id="about" class="form-control" placeholder="הוספת לינק לסרט הסבר שרשרת" autocomplete="off"/>
+          <button
+            onclick="change('about')"
+            class="btn form-control btn-outline-secondary"
+            id="aboutChange"
+          >הוספת לינק לסרט הסבר שרשרת</button>
+      </div>
+    </div>
+      <div class="form-control mb-3">
+        <p class="fs-5 fw-normal text-start" id="participantsB4"></p>
+        <div class="input-group-text" role="group">
+          <input type="text" id="participants" class="form-control" placeholder="הוספת תיאור משתתפים" autocomplete="off"/>
+          <button
+            onclick="change('participants')"
+            class="btn form-control btn-outline-secondary"
+            id="participantsChange"
+          >הוספת תיאור משתתפים</button>
+          </div>
+         </div>
+             <h3 class="mb-0"><u>לשליחה בקבוצת החרוזים</u></h3>
+          <div class="form-control mb-3">
+              
             <div id="text1"></div>
             <div class="form-control input-group-text col-auto mb-2" role="group">
                  <button
