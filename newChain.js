@@ -1,8 +1,11 @@
 var options = document.getElementById("people");
 var personOption;
 var allPeople = [];
-var rowCount = 2;
+var chainRowCount = 2;
+var chosenCol = "";
+var chosenRow = 0;
 var size = 0;
+var rowCount = 2;
 var firstName = "";
 var fullText = "";
 var optionsCrew = document.getElementById("crew");
@@ -23,7 +26,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+  "https://script.google.com/macros/s/AKfycbwmG6Vk--ZXihjCryWWRfN-HC5UNNRvypCCOtiHwi6Yi_KPKE3G8aslkzKJ3zY6dJYgew/exec";
 getChainData();
 getCrewData();
 getData();
@@ -71,11 +74,15 @@ function getChainData() {
           playlist: ele.playlist,
           description: ele.description,
           creator: ele.creator,
+        participants:ele.participants,
+            about:ele.about,
+            row:chainRowCount
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
         chainOption.value = newChain.name;
         document.getElementById("chainsNames").append(chainOption);
+          chainRowCount++;
       });
     });
 }
@@ -171,6 +178,18 @@ function cutMess(linesArr, messType) {
       linesArr[i] = linesArr[i].replace(
         "fullNameOfGuest",
         currPerson.guestname
+      );
+    }
+    if (linesArr[i].includes("chainParticipants")) {
+      linesArr[i] = linesArr[i].replace(
+        "chainParticipants",
+        currChain.participants
+      );
+    }
+     if (linesArr[i].includes("chainAbout")) {
+      linesArr[i] = linesArr[i].replace(
+        "chainAbout",
+        currChain.about
       );
     }
     if (currChain.creator !== "") {
@@ -308,6 +327,10 @@ function fixChain() {
     ) {
       if (document.getElementById("chainName").value !== "") {
         currChain = allChains[j];
+        document.getElementById("participantsB4").innerHTML = allChains[j].participants;
+      document.getElementById("aboutB4").innerHTML = allChains[j].about;
+        chosenRow=allChains[j].row;
+        console.log("row: "+chosenRow);
       }
     }
   }
@@ -349,3 +372,49 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function submitData() {}
+function change(id) {
+    var textEntered="";
+    var dataElement;
+    if(id==="participants"){
+        chosenCol = "participants";
+        textEntered=document.getElementById("participants").value;
+        dataElement=document.getElementById("participants");
+    }
+   if(id==="about"){
+        chosenCol = "about";
+        textEntered=document.getElementById("about").value;
+        dataElement=document.getElementById("about");
+   }
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: textEntered,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, dataElement);
+  }
+}
+function sendData(obj, ele) {
+    
+  console.log(obj);
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(obj));
+  console.log(obj);
+  fetch(chainDataURL, {
+    method: "POST",
+    body: formData,
+  })
+    .then((rep) => {
+      console.log(obj);
+      return rep.json();
+    })
+    .then((json) => {
+      console.log(obj);
+      console.log(json);
+    });
+  
+}
