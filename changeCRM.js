@@ -6,7 +6,7 @@ var size = 0;
 var chosenCol = "";
 var chosenRow = 0;
 var url =
-  "https://script.google.com/macros/s/AKfycbzgSi44PK_EEUpjWn9dzVs_aWQcr0CRoUdQPKSEOk1M39EalLpSal6lHQeEP0PE0uc_uA/exec";
+  "https://script.google.com/macros/s/AKfycbzojs9dIr-pr54z2zCEXxklX5h1wIRBHt1ktH8Wwg9KC62R4iDaaCftIK7rHJzrjC3nVQ/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -49,6 +49,10 @@ function getData() {
           id: ele.id,
           clip1: ele.clip1,
           clip2: ele.clip2,
+        clip3: ele.clip3,
+          clip4: ele.clip4,
+            clip5: ele.clip5,
+          clip6: ele.clip6,
           row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
@@ -122,6 +126,10 @@ function clearValues() {
   document.getElementById("linkpre").value = "";
   document.getElementById("clip1").value = "";
   document.getElementById("clip2").value = "";
+ document.getElementById("clip3").value = "";
+  document.getElementById("clip4").value = "";
+ document.getElementById("clip5").value = "";
+  document.getElementById("clip6").value = "";
   document.getElementById("name").value = "";
   document.getElementById("guestPhone").value = "";
   document.getElementById("email").value = "";
@@ -175,6 +183,10 @@ function submitData() {
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
+    document.getElementById("clip3B4").innerHTML = allPeople[i].clip3;
+      document.getElementById("clip4B4").innerHTML = allPeople[i].clip4;
+    document.getElementById("clip5B4").innerHTML = allPeople[i].clip5;
+      document.getElementById("clip6B4").innerHTML = allPeople[i].clip6;
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
         allPeople[i].interphone;
@@ -429,6 +441,78 @@ function changeClip2() {
 }
 function clip2Change() {
   changeClip2();
+}
+function changeClip3() {
+  chosenCol = "clip3";
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: document.getElementById("clip3").value,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("clip3"));
+  }
+}
+function clip3Change() {
+  changeClip3();
+}
+function changeClip4() {
+  chosenCol = "clip4";
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: document.getElementById("clip4").value,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("clip4"));
+  }
+}
+function clip4Change() {
+  changeClip4();
+}
+function changeClip5() {
+  chosenCol = "clip5";
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: document.getElementById("clip5").value,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("clip5"));
+  }
+}
+function clip5Change() {
+  changeClip5();
+}
+function changeClip6() {
+  chosenCol = "clip6";
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: document.getElementById("clip6").value,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("clip6"));
+  }
+}
+function clip6Change() {
+  changeClip6();
 }
 function changeName() {
   chosenCol = "name";
