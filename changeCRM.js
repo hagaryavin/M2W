@@ -126,10 +126,7 @@ function clearValues() {
   document.getElementById("linkpre").value = "";
   document.getElementById("clip1").value = "";
   document.getElementById("clip2").value = "";
- document.getElementById("clip3").value = "";
-  document.getElementById("clip4").value = "";
- document.getElementById("clip5").value = "";
-  document.getElementById("clip6").value = "";
+
   document.getElementById("name").value = "";
   document.getElementById("guestPhone").value = "";
   document.getElementById("email").value = "";
@@ -183,10 +180,7 @@ function submitData() {
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
-    document.getElementById("clip3B4").innerHTML = allPeople[i].clip3;
-      document.getElementById("clip4B4").innerHTML = allPeople[i].clip4;
-    document.getElementById("clip5B4").innerHTML = allPeople[i].clip5;
-      document.getElementById("clip6B4").innerHTML = allPeople[i].clip6;
+
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
         allPeople[i].interphone;
@@ -442,7 +436,7 @@ function changeClip2() {
 function clip2Change() {
   changeClip2();
 }
-function changeClip3() {
+/*function changeClip3() {
   chosenCol = "clip3";
   console.log("col: " + chosenCol);
   if (chosenRow === 0) {
@@ -528,7 +522,7 @@ function changeName() {
   if (chosenRow > 0) {
     sendData(temp, document.getElementById("name"));
   }
-}
+}*/
 function nameChange() {
   changeName();
 }
