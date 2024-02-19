@@ -507,7 +507,7 @@ function changeClip6() {
 }
 function clip6Change() {
   changeClip6();
-}
+}*/
 function changeName() {
   chosenCol = "name";
   console.log("col: " + chosenCol);
@@ -522,7 +522,7 @@ function changeName() {
   if (chosenRow > 0) {
     sendData(temp, document.getElementById("name"));
   }
-}*/
+}
 function nameChange() {
   changeName();
 }
