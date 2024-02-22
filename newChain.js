@@ -253,8 +253,7 @@ function checkInputs() {
     currPerson = findFirstInChain();
     console.log(currPerson);
     if (currPerson.guestname === "...") {
-      alert("אין משתתפים בשרשרת!");
-      return false;
+      //alert("אין משתתפים בשרשרת!");
     }
     return true;
   }
@@ -310,7 +309,10 @@ function submit() {
   fixChain();
   console.log(currChain);
   console.log(currCrew);
-
+    document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפים" ;
+   document.getElementById("aboutChange").innerHTML="הוספת לינק לסרט הסבר שרשרת";
+     document.getElementById("about").value="";
+     document.getElementById("participants").value="";
   document.getElementById("newChain").style.visibility = "hidden";
   if (checkInputs()) {
     document.getElementById("newChain").style.visibility = "visible";
@@ -378,12 +380,12 @@ function change(id) {
     if(id==="participants"){
         chosenCol = "participants";
         textEntered=document.getElementById("participants").value;
-        dataElement=document.getElementById("participants");
+        dataElement=document.getElementById("participantsChange");
     }
    if(id==="about"){
         chosenCol = "about";
         textEntered=document.getElementById("about").value;
-        dataElement=document.getElementById("about");
+        dataElement=document.getElementById("aboutChange");
    }
   console.log("col: " + chosenCol);
   if (chosenRow === 0) {
@@ -396,6 +398,7 @@ function change(id) {
   };
   if (chosenRow > 0) {
     sendData(temp, dataElement);
+    dataElement.innerHTML="התעדכן";
   }
 }
 function sendData(obj, ele) {
