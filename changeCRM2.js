@@ -128,19 +128,44 @@ function clearValues() {
   document.getElementById("clip2").value = "";
 
   document.getElementById("name").value = "";
-  document.getElementById("guestPhone").value = "";
+  document.getElementById("guestphone").value = "";
   document.getElementById("email").value = "";
-  document.getElementById("chainName").value = "";
+  document.getElementById("chain").value = "";
   document.getElementById("order").value = "";
   document.getElementById("mess").value = "";
   document.getElementById("title").value = "";
   document.getElementById("subtitle").value = "";
   document.getElementById("about").value = "";
   document.getElementById("intername").value = "";
-  document.getElementById("interPhone").value = "";
+  document.getElementById("interphone").value = "";
   document.getElementById("id").value = "";
   document.getElementById("date").value = "";
   document.getElementById("hour").value = "";
+    
+  document.getElementById("link555Change").innerHTML="הוספת סרט555";
+  document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
+  document.getElementById("link55driveChange").innerHTML="הוספת לינק לסרט 55-דרייב";
+   document.getElementById("link55ytChange").innerHTML="הוספת סרט קצר 55-יוטיוב"; 
+    document.getElementById("linkspotifyChange").innerHTML="הוספת לינק לספוטיפיי";
+     document.getElementById("linkscChange").innerHTML="הוספת לינק לסאונדקלאוד";
+    document.getElementById("linkexplainChange").innerHTML="הוספת סרט הסבר לשרשרת";
+    document.getElementById("linkpreChange").innerHTML="הוספת סרט הכנה לפתיחת שרשרת";
+     document.getElementById("clip1Change").innerHTML="הוספת קליפ1";
+    document.getElementById("clip2Change").innerHTML="הוספת קליפ2";
+    document.getElementById("nameChange").innerHTML="תיקון שם";
+     document.getElementById("guestphoneChange").innerHTML="תיקון נייד אורח";
+    document.getElementById("emailChange").innerHTML="תיקון כתובת מייל";
+    document.getElementById("chainChange").innerHTML="תיקון שרשרת";
+    document.getElementById("orderChange").innerHTML="הוספת מספר חרוז בשרשרת";
+    document.getElementById("titleChange").innerHTML="תיקון כותרת";
+    document.getElementById("subtitleChange").innerHTML="תיקון מסר";
+     document.getElementById("aboutChange").innerHTML="תיקון הצגה";
+    document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
+    document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
+    document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
+    document.getElementById("dateChange").innerHTML="תיקון תאריך";
+     document.getElementById("hourChange").innerHTML="תיקון שעה";
+    
 }
 function submitData() {
   clearValues();
@@ -159,7 +184,7 @@ function submitData() {
       document.getElementById("linkspotifyB4").innerHTML =
         allPeople[i].linkspotify;
       document.getElementById("linkscB4").innerHTML = allPeople[i].linksc;
-      //document.getElementById("linkpicB4").innerHTML = allPeople[i].linkpic;
+      
       document.getElementById("linkexplainB4").innerHTML =
         allPeople[i].linkexplain;
       document.getElementById("linkpreB4").innerHTML = allPeople[i].linkpre;
@@ -223,134 +248,25 @@ function sendData(obj, ele) {
       console.log(json);
     });
 }
+function change(id){
+    var dataElement=document.getElementById(id+"Change");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    const temp = {
+        text: document.getElementById(id).value,
+        row: chosenRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement);
+        dataElement.innerHTML="התעדכן";
+    }
+}
 
-function changeLink555() {
-  chosenCol = "link555";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("link555").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("link555"));
-  }
-}
-function link555Change() {
-  changeLink555();
-}
-function changeLinkfull() {
-  chosenCol = "linkfull";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linkfull").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linkfull"));
-  }
-}
-function linkfullChange() {
-  changeLinkfull();
-}
-function changeLink55drive() {
-  chosenCol = "link55drive";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("link55drive").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("link55drive"));
-  }
-}
-function link55driveChange() {
-  changeLink55drive();
-}
-function changeLink55yt() {
-  chosenCol = "link55yt";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("link55yt").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("link55yt"));
-  }
-}
-function link55ytChange() {
-  changeLink55yt();
-}
-function changeLinkspotify() {
-  chosenCol = "linkspotify";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linkspotify").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linkspotify"));
-  }
-}
-function linkspotifyChange() {
-  changeLinkspotify();
-}
-function changeLinksc() {
-  chosenCol = "linksc";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linksc").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linksc"));
-  }
-}
-function linkscChange() {
-  changeLinksc();
-}
-/*function changeLinkpic() {
-  chosenCol = "linkpic";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linkpic").value,
-    row: chosenRow,
-    col: chosenCol
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linkpic"));
-  }
-}
-function linkpicChange() {
-  submitData();
-  changeLinkpic();
-}*/
+
 function fixChainFromData(chain) {
   var splittedChain; //
   if (chain.includes(" (") || chain.includes("-")) {
@@ -364,404 +280,5 @@ function fixChainFromData(chain) {
   }
   return chain;
 }
-function changeLinkexplain() {
-  chosenCol = "linkexplain";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linkexplain").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linkexplain"));
-  }
-}
-function linkexplainChange() {
-  changeLinkexplain();
-}
-function changeLinkpre() {
-  chosenCol = "linkpre";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("linkpre").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("linkpre"));
-  }
-}
-function linkpreChange() {
-  changeLinkpre();
-}
-function changeClip1() {
-  chosenCol = "clip1";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip1").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip1"));
-  }
-}
-function clip1Change() {
-  changeClip1();
-}
-function changeClip2() {
-  chosenCol = "clip2";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip2").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip2"));
-  }
-}
-function clip2Change() {
-  changeClip2();
-}
-/*function changeClip3() {
-  chosenCol = "clip3";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip3").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip3"));
-  }
-}
-function clip3Change() {
-  changeClip3();
-}
-function changeClip4() {
-  chosenCol = "clip4";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip4").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip4"));
-  }
-}
-function clip4Change() {
-  changeClip4();
-}
-function changeClip5() {
-  chosenCol = "clip5";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip5").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip5"));
-  }
-}
-function clip5Change() {
-  changeClip5();
-}
-function changeClip6() {
-  chosenCol = "clip6";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("clip6").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("clip6"));
-  }
-}
-function clip6Change() {
-  changeClip6();
-}*/
-function changeName() {
-  chosenCol = "name";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("name").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("name"));
-  }
-}
-function nameChange() {
-  changeName();
-}
-function changeGuestPhone() {
-  chosenCol = "guestphone";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("guestPhone").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("guestPhone"));
-  }
-}
-function guestPhoneChange() {
-  changeGuestPhone();
-}
-function changeEmail() {
-  chosenCol = "email";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("email").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("email"));
-  }
-}
-function emailChange() {
-  changeEmail();
-}
-function changeChain() {
-  chosenCol = "chain";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("chainName").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("chainName"));
-  }
-}
-function chainChange() {
-  changeChain();
-}
-function changeOrder() {
-  chosenCol = "order";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("order").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("order"));
-  }
-}
-function orderChange() {
-  changeOrder();
-}
-function changeMess() {
-  chosenCol = "mess";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("mess").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("mess"));
-  }
-}
-function messChange() {
-  changeMess();
-}
-function changeTitle() {
-  chosenCol = "title";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("title").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("title"));
-  }
-}
-function titleChange() {
-  changeTitle();
-}
-function changeSubtitle() {
-  chosenCol = "subtitle";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("subtitle").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("subtitle"));
-  }
-}
-function subtitleChange() {
-  changeSubtitle();
-}
-function changeAbout() {
-  chosenCol = "about";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("about").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("about"));
-  }
-}
-function aboutChange() {
-  changeAbout();
-}
 
-function changeInterName() {
-  chosenCol = "intername";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("intername").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("intername"));
-  }
-}
-function internameChange() {
-  changeInterName();
-}
 
-function changeInterPhone() {
-  chosenCol = "interphone";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("interPhone").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("interPhone"));
-  }
-}
-function interPhoneChange() {
-  changeInterPhone();
-}
-
-function changeId() {
-  chosenCol = "id";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("id").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("id"));
-  }
-}
-function idChange() {
-  changeId();
-}
-function changeDate() {
-  chosenCol = "date";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("date").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  console.log(document.getElementById("date").value);
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("date"));
-  }
-}
-function dateChange() {
-  changeDate();
-}
-function changeHour() {
-  chosenCol = "hour";
-  console.log("col: " + chosenCol);
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("hour").value,
-    row: chosenRow,
-    col: chosenCol,
-  };
-  console.log(document.getElementById("hour").value);
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("hour"));
-  }
-}
-function hourChange() {
-  changeHour();
-}
