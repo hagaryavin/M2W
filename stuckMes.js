@@ -266,6 +266,7 @@ function changeLastMess() {
   };
   if (chosenRow > 0) {
     sendData(temp, document.getElementById("newInfo"));
+     document.getElementById("sendData").innerHTML="התעדכן";
   }
 }
 function quickChange() {
@@ -293,13 +294,13 @@ function quickChange() {
       col: "mess",
     };
     sendData(temp, document.getElementById("newInfo"));
+      document.getElementById("quickChange").innerHTML="התעדכן";
   }
 }
 const date = new Date();
 var day = date.getDate();
 var month = date.getMonth() + 1;
 var currentDate = day + "." + month;
-document.getElementById("newInfo").value = currentDate;
 console.log(currentDate);
 function sendData(obj, ele) {
   console.log(obj);
@@ -320,7 +321,6 @@ function sendData(obj, ele) {
       ele.innerHTML = json.val;
     });
 
-  alert("בוצע שינוי! ניתן לרענן ולראות את השינוי");
 }
 setTimeout(() => {
   const loader = document.getElementById("loader");
@@ -356,6 +356,7 @@ function checkOptions() {
   for (const radioButton of radioButtons) {
     if (radioButton.checked) {
       chosenPhone = radioButton.value;
+        document.getElementById("phone").value=radioButton.value;
       chosenRow = allPeople[num].row;
       firstName = fixFirstName(radioButton.value);
       //document.getElementById("nameOfPerson").innerHTML = " " + firstName;
@@ -438,8 +439,12 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function submit() {
+    document.getElementById("newInfo").value = currentDate;
+     document.getElementById("phone").value="";
   toFixGuestPhone();
   crewChosen();
+    document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
+    document.getElementById("quickChange").innerHTML="ניקוי שדה ההודעה האחרונה ושמירה בקובץ";
   document.getElementById("stuckMes").style.visibility = "hidden";
   if (checkOptions()) {
     console.log("phone corect");
