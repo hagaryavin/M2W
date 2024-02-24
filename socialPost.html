@@ -161,6 +161,33 @@
           </label>
         </div>
         <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון יוצר השרשרת</span
+          >
+          <input
+            type="tel"
+            id="creatorPhone"
+            class="form-control"
+            placeholder="יוצר השרשרת"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixCreatorPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
           <span class="input-group-text">שם השרשרת</span>
           <input
             class="form-control"
@@ -232,31 +259,15 @@
               העתקת הודעה
             </button>
           </div>
-           <div id="text3"></div>
+             <div id="text3"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
-              <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes3"
-              onclick="whatsAppMes('3_guest')"
-            >
-              שליחת הודעה לאורח
-            </button>
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes3"
-              onclick="whatsAppMes('3_inter')"
+              onclick="whatsAppMes('3_creator')"
             >
-              שליחת הודעה למראיין
-            </button>
-              <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes3"
-              onclick="whatsAppMes('3_crew')"
-            >
-              שליחת הודעה לחברת הצוות
+              שליחת הודעה ליוצר השרשרת
             </button>
             <button
               type="button"
@@ -267,7 +278,7 @@
               העתקת הודעה
             </button>
           </div>
-         <div id="text4"></div>
+           <div id="text4"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
               <button
               type="button"
@@ -284,6 +295,14 @@
               onclick="whatsAppMes('4_inter')"
             >
               שליחת הודעה למראיין
+            </button>
+               <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes4"
+              onclick="whatsAppMes('4_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת
             </button>
               <button
               type="button"
@@ -302,7 +321,7 @@
               העתקת הודעה
             </button>
           </div>
-            <div id="text5"></div>
+         <div id="text5"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
               <button
               type="button"
@@ -319,6 +338,14 @@
               onclick="whatsAppMes('5_inter')"
             >
               שליחת הודעה למראיין
+            </button>
+                 <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת
             </button>
               <button
               type="button"
@@ -337,11 +364,9 @@
               העתקת הודעה
             </button>
           </div>
-          <h3 class="mb-0"><u>הודעה משתנה</u></h3>
-          <h6 class="mb-1 text-muted">לשליחה בחגים ומועדים</h6>
-             <div id="text6"></div>
+            <div id="text6"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
-            <button
+              <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes6"
@@ -352,13 +377,39 @@
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
+              id="sendMes6"
+              onclick="whatsAppMes('6_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+                 <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes6"
+              onclick="whatsAppMes('6_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes6"
+              onclick="whatsAppMes('6_crew')"
+            >
+              שליחת הודעה לחברת הצוות
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
               id="copyMes6"
               onclick="copy('6')"
             >
               העתקת הודעה
             </button>
           </div>
-           <div id="text7"></div>
+          <h3 class="mb-0"><u>הודעה משתנה</u></h3>
+          <h6 class="mb-1 text-muted">לשליחה בחגים ומועדים</h6>
+             <div id="text7"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
               type="button"
@@ -373,6 +424,25 @@
               class="btn form-control btn-outline-secondary"
               id="copyMes7"
               onclick="copy('7')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+           <div id="text8"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes8"
+              onclick="whatsAppMes('8_guest')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes8"
+              onclick="copy('8')"
             >
               העתקת הודעה
             </button>
