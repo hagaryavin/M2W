@@ -2,9 +2,11 @@ var options = document.getElementById("people");
 var personOption;
 var allPeople = [];
 var rowCount = 2;
+var rowChainCount = 2;
 var size = 0;
 var chosenCol = "";
 var chosenRow = 0;
+var chosenChainRow=0;
 var url =
   "https://script.google.com/macros/s/AKfycbzojs9dIr-pr54z2zCEXxklX5h1wIRBHt1ktH8Wwg9KC62R4iDaaCftIK7rHJzrjC3nVQ/exec";
 var newPerson = {};
@@ -13,7 +15,7 @@ var allChains = [];
 var newChain = {};
 var currChain = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+  "https://script.google.com/macros/s/AKfycbwmG6Vk--ZXihjCryWWRfN-HC5UNNRvypCCOtiHwi6Yi_KPKE3G8aslkzKJ3zY6dJYgew/exec";
 getChainData();
 getData();
 function getData() {
@@ -102,12 +104,17 @@ function getChainData() {
     .then((json) => {
       json.data.chains.forEach((ele) => {
         newChain = {
-          name: ele.name,
+        name: ele.name,
+        altName:ele.othername,
+        participants:ele.participants,
+        chainExplain:ele.about,
+        row:rowChainCount
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
         chainOption.value = "555-" + newChain.name;
         document.getElementById("chainsNames").append(chainOption);
+        rowChainCount++;
       });
     });
 }
@@ -141,6 +148,7 @@ function clearValues() {
   document.getElementById("id").value = "";
   document.getElementById("date").value = "";
   document.getElementById("hour").value = "";
+  document.getElementById("participants").value = "";    
     
   document.getElementById("link555Change").innerHTML="הוספת סרט555";
   document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
@@ -165,6 +173,8 @@ function clearValues() {
     document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
     document.getElementById("dateChange").innerHTML="תיקון תאריך";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
+    document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
+
     
 }
 function submitData() {
@@ -176,6 +186,16 @@ function submitData() {
       fixChainFromData(allPeople[i].chain) === nameAndChain[1]
     ) {
       chosenRow = allPeople[i].row;
+      for(var j=0;j<allChains.length;j++){
+          if((allChains[j].name===fixChainFromData(allPeople[i].chain)||
+             allChains[j].altName===fixChainFromData(allPeople[i].chain))&&
+             allChains[j].name!==""){
+              currChain=allChains[j];
+             chosenChainRow=allChains[j].row;
+            console.log("chain row:"+chosenChainRow);
+          }
+            
+        }
       document.getElementById("link555B4").innerHTML = allPeople[i].link555;
       document.getElementById("linkfullB4").innerHTML = allPeople[i].linkfull;
       document.getElementById("link55driveB4").innerHTML =
@@ -184,9 +204,8 @@ function submitData() {
       document.getElementById("linkspotifyB4").innerHTML =
         allPeople[i].linkspotify;
       document.getElementById("linkscB4").innerHTML = allPeople[i].linksc;
-      
       document.getElementById("linkexplainB4").innerHTML =
-        allPeople[i].linkexplain;
+        currChain.chainExplain;
       document.getElementById("linkpreB4").innerHTML = allPeople[i].linkpre;
       document.getElementById("nameB4").innerHTML = allPeople[i].name;
          document.getElementById("nameB4also").innerHTML = allPeople[i].name;
@@ -205,7 +224,7 @@ function submitData() {
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
-
+      document.getElementById("participantsB4").innerHTML=currChain.participants;
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
         allPeople[i].interphone;
@@ -226,16 +245,24 @@ function submitData() {
             ":0" +
             allPeople[i].hour.getMinutes();
       }
+        
       console.log("row:" + chosenRow);
     }
   }
 }
-function sendData(obj, ele) {
+function sendData(obj, ele,whichSheet) {
   console.log(obj);
   let formData = new FormData();
   formData.append("data", JSON.stringify(obj));
   console.log(obj);
-  fetch(url, {
+    var urlUsed=url;
+    if(whichSheet==="crm"){
+        urlUsed=url;
+    }
+    if(whichSheet==="chains"){
+        urlUsed=chainDataURL;
+    }
+  fetch(urlUsed, {
     method: "POST",
     body: formData,
   })
@@ -261,12 +288,78 @@ function change(id){
         col: chosenCol,
     };
     if (chosenRow > 0) {
-        sendData(temp, dataElement);
+        sendData(temp, dataElement,"crm");
         dataElement.innerHTML="התעדכן";
     }
 }
+function changeChainInfo(id){
+    var dataElement=document.getElementById(id+"Change");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    const temp = {
+        text: document.getElementById(id).value,
+        row: chosenChainRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement,"chains");
+        dataElement.innerHTML="התעדכן";
+    }
+}
+function changeChainExplain(){
+    console.log("col: linkexplain");
+    console.log("col: about");
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    const obj1 = {
+        text: document.getElementById("linkexplain").value,
+        row: chosenRow,
+        col: "linkexplain",
+    };
+     const obj2 = {
+        text: document.getElementById("linkexplain").value,
+        row: chosenChainRow,
+        col: "about",
+    };
+    if (chosenRow > 0) {
+      console.log(obj1);
+     console.log(obj2);
+      let formData1 = new FormData();
+      formData1.append("data", JSON.stringify(obj1));
+      let formData2 = new FormData();
+      formData2.append("data", JSON.stringify(obj2));
+      fetch(url, {
+        method: "POST",
+        body: formData1,
+      })
+        .then((rep) => {
+          console.log(obj1);
+          return rep.json();
+        })
+        .then((json) => {
+          console.log(obj1);
+          console.log(json);
+        });
 
-
+        fetch(chainDataURL, {
+        method: "POST",
+        body: formData2,
+      })
+        .then((rep) => {
+          console.log(obj2);
+          return rep.json();
+        })
+        .then((json) => {
+          console.log(obj2);
+          console.log(json);
+        });
+        document.getElementById("linkexplainChange").innerHTML="התעדכן";
+    }
+}
 function fixChainFromData(chain) {
   var splittedChain; //
   if (chain.includes(" (") || chain.includes("-")) {
