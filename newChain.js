@@ -26,7 +26,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbwmG6Vk--ZXihjCryWWRfN-HC5UNNRvypCCOtiHwi6Yi_KPKE3G8aslkzKJ3zY6dJYgew/exec";
+  "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 getChainData();
 getCrewData();
 getData();
