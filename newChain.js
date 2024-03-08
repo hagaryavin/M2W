@@ -76,7 +76,9 @@ function getChainData() {
           creator: ele.creator,
         participants:ele.participants,
             about:ele.about,
-            row:chainRowCount
+            row:chainRowCount,
+            creatorPhone:ele.creatorphone,
+            creatorEmail:ele.creatoremail
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -311,6 +313,9 @@ function submit() {
   console.log(currCrew);
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפים" ;
    document.getElementById("aboutChange").innerHTML="הוספת לינק לסרט הסבר שרשרת";
+    document.getElementById("creatorChange").innerHTML="הוספת יוצר השרשרת";
+    document.getElementById("creatorphoneChange").innerHTML="הוספת טלפון יוצר השרשרת";
+    document.getElementById("creatoremailChange").innerHTML="הוספת מייל יוצר השרשרת";
      document.getElementById("about").value="";
      document.getElementById("participants").value="";
   document.getElementById("newChain").style.visibility = "hidden";
@@ -331,6 +336,9 @@ function fixChain() {
         currChain = allChains[j];
         document.getElementById("participantsB4").innerHTML = allChains[j].participants;
       document.getElementById("aboutB4").innerHTML = allChains[j].about;
+          document.getElementById("creatorB4").innerHTML = allChains[j].creator;
+           document.getElementById("creatorphoneB4").innerHTML = allChains[j].creatorPhone;
+           document.getElementById("creatoremailB4").innerHTML = allChains[j].creatorEmail;
         chosenRow=allChains[j].row;
         console.log("row: "+chosenRow);
       }
@@ -375,18 +383,9 @@ function whatsAppMes(id) {
 }
 function submitData() {}
 function change(id) {
-    var textEntered="";
-    var dataElement;
-    if(id==="participants"){
-        chosenCol = "participants";
-        textEntered=document.getElementById("participants").value;
-        dataElement=document.getElementById("participantsChange");
-    }
-   if(id==="about"){
-        chosenCol = "about";
-        textEntered=document.getElementById("about").value;
-        dataElement=document.getElementById("aboutChange");
-   }
+    var textEntered=document.getElementById(id).value;
+    var dataElement=document.getElementById(id+"Change");
+    chosenCol=id;
   console.log("col: " + chosenCol);
   if (chosenRow === 0) {
     alert("נא לבחור מישהו מהטבלה כדי לשנות");
