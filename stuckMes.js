@@ -348,7 +348,7 @@ function checkOptions() {
   if (checkPhone(phone)) {
     chosenPhone = phone;
     firstName = "";
-    chosenRow = 0;
+   //chosenRow = 0;
     // document.getElementById("nameOfPerson").innerHTML = "";
     return true;
   }
