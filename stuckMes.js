@@ -17,7 +17,7 @@ var fullTextInvite = "";
 var personalMess =document.getElementById("personalMess");
 var wannaFixGuestPhone = true;
 const url =
-  "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
+  "https://script.google.com/macros/s/AKfycbxiX5x1MR2HEabP2iuekhPxdCrtXfVEa0K3Jj7cVYBt6zJRNPUBhl6Gb_VE7vuplttDrw/exec";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
@@ -35,6 +35,11 @@ var crewDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
 getCrewData();
 getData();
+const date = new Date();
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var currentDate = day + "." + month;
+console.log(currentDate);
 function getData() {
   fetch(url)
     .then((res) => {
@@ -288,20 +293,22 @@ function quickChange() {
   }
 
   if (chosenPersonRow > 0) {
-    const temp = {
+    const temp1 = {
       text: "",
       row: chosenPersonRow,
       col: "mess",
     };
-    sendData(temp, document.getElementById("newInfo"));
+    sendData(temp1, document.getElementById("newInfo"));
+    const temp2 = {
+      text: (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear(),
+      row: chosenPersonRow,
+      col: "nextrecdate",
+    };
+    sendData(temp2, document.getElementById("newInfo")); 
       document.getElementById("quickChange").innerHTML="התעדכן";
   }
 }
-const date = new Date();
-var day = date.getDate();
-var month = date.getMonth() + 1;
-var currentDate = day + "." + month;
-console.log(currentDate);
+
 function sendData(obj, ele) {
   console.log(obj);
   let formData = new FormData();
@@ -348,7 +355,7 @@ function checkOptions() {
   if (checkPhone(phone)) {
     chosenPhone = phone;
     firstName = "";
-   //chosenRow = 0;
+    //chosenRow = 0;
     // document.getElementById("nameOfPerson").innerHTML = "";
     return true;
   }
