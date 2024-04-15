@@ -8,7 +8,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbzojs9dIr-pr54z2zCEXxklX5h1wIRBHt1ktH8Wwg9KC62R4iDaaCftIK7rHJzrjC3nVQ/exec";
+  "https://script.google.com/macros/s/AKfycbzXoN1d21aGDuS7dUEj9vz6v952hwbKmueQaPdJ20QbrDkH9X6485Vh2IxnYgTbVBR7kA/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -48,6 +48,7 @@ function getData() {
           linkpic: ele.linkpic,
           linkexplain: ele.linkexplain,
           linkpre: ele.preptalk,
+            meta:ele.meta,
           id: ele.id,
           clip1: ele.clip1,
           clip2: ele.clip2,
@@ -133,7 +134,7 @@ function clearValues() {
   document.getElementById("linkpre").value = "";
   document.getElementById("clip1").value = "";
   document.getElementById("clip2").value = "";
-
+document.getElementById("meta").value = ""
   document.getElementById("name").value = "";
   document.getElementById("guestphone").value = "";
   document.getElementById("email").value = "";
@@ -174,8 +175,7 @@ function clearValues() {
     document.getElementById("dateChange").innerHTML="תיקון תאריך";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
-
-    
+     document.getElementById("metaChange").innerHTML="תיקון סימון תכנון יומי מטא";
 }
 function submitData() {
   clearValues();
@@ -224,6 +224,7 @@ function submitData() {
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
+        document.getElementById("metaB4").innerHTML = allPeople[i].meta;
       document.getElementById("participantsB4").innerHTML=currChain.participants;
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
