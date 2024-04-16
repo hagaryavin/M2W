@@ -451,7 +451,7 @@ function submit() {
   toFixGuestPhone();
   crewChosen();
     document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
-    document.getElementById("quickChange").innerHTML="ניקוי שדה ההודעה האחרונה ושמירה בקובץ";
+    document.getElementById("quickChange").innerHTML="ניקוי שדה ההודעה האחרונה ועדכון תאריך הקלטת החרוז הבא ";
   document.getElementById("stuckMes").style.visibility = "hidden";
   if (checkOptions()) {
     console.log("phone corect");
