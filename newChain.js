@@ -14,9 +14,10 @@ var crewList = [];
 var currCrew = "";
 var newCrewMem;
 var messes = [
-  { name: "", lines: [] }
+  { name: "", lines: [] },
+    { name: "", lines: [] }
 ];
-var fullTexts = [[]];
+var fullTexts = [[],[]];
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var newPerson = {};
@@ -141,13 +142,13 @@ function getMessData() {
           ],
         };
 
-       for (var i = 1; i <2 ; i++) {
+       for (var i = 1; i <=2 ; i++) {
           if (newMess.name.includes("שרשרת חדשה " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i < 1; i++) {
+      for (var i = 0; i <=1; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
