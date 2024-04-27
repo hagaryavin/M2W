@@ -27,16 +27,42 @@ var todaysDay = today.getDate();
 var todaysMonth = today.getMonth() + 1;
 var todaysCurrentDate = todaysDay + "." + todaysMonth;
 console.log("today: " + today);
-getData();
 
-function getData() {
+function start(){
+    
+   /*  doSomething(getChainData() {
+  doSomethingElse(result,  {
+      }, failureCallback);
+}, failureCallback);*/
+
+   /* function doSomething(result) {
+        getChainData();
+  function doSomethingElse(result, function (newResult) {
+      getData();
+    
+  }, failureCallback);
+}, failureCallback);*/
+
+    
+      getChainData();
+       
+    setTimeout(() => {
+      getData();
+    }, 4000);   
+}
+
+
+function getData(x) {
+     
     getTasksDataFromPerson();
-    getChainData();
+    
     document.getElementById("today").innerHTML =
         "היום " + todaysCurrentDate + " לשלוח הודעות ל:";
     fetch(url)
         .then((res) => {
+           
             return res.json();
+            
         })
         .then((json) => {
             json.data.forEach((ele) => {
@@ -730,7 +756,7 @@ function createTasks() {
 setTimeout(() => {
     const loader = document.getElementById("loader");
     loader.style.display = "none";
-}, 2050);
+}, 5000);
 
 function taskAlreadyExist(task) {
     for (var i = 0; i < allTasks.length; i++) {
@@ -741,23 +767,7 @@ function taskAlreadyExist(task) {
 }
 
 function getChainData() {
-    var peopleEmails = [];
-    var newPersonEmail = {};
-    fetch(url)
-        .then((res) => {
-            return res.json();
-        })
-        .then((json) => {
-            json.data.forEach((ele) => {
-                newPersonEmail = {
-                    name: ele.name,
-                    email: ele.email,
-                };
-                if (ele.fixedname !== "") newPersonEmail.name = ele.fixedname;
-                if (ele.fixedemail !== "") newPersonEmail.email = ele.fixedemail;
-                peopleEmails.push(newPersonEmail);
-            });
-        });
+
     fetch(chainDataURL)
         .then((res) => {
             return res.json();
@@ -768,20 +778,14 @@ function getChainData() {
                     name: ele.name,
                     altName: ele.othername,
                     creator: ele.creator,
-                    creatorEmail: "",
+                    creatorEmail:ele.creatoremail
                 };
                 if (newChain.creator !== "") {
-                    for (var i = 0; i < peopleEmails.length; i++) {
-                        if (
-                            newChain.creator === peopleEmails[i].name &&
-                            peopleEmails[i].email !== ""
-                        ) {
-                            newChain.creatorEmail = peopleEmails[i].email;
-                        }
-                    }
                     allChains.push(newChain);
                 }
+                
             });
+            console.log(allChains);
         });
 }
 
@@ -885,4 +889,44 @@ function postMessInviteDate(date) {
     }
     next.setHours(0, 0, 0);
     return next;
+}
+function switchLang(){
+    if (document.getElementById("switch").checked === true){
+       document.getElementById("switchLabel").innerHTML="עברית";
+        document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה";
+        document.getElementById("toPreMes").onclick=function() { window.location.href='./preMes.html';};
+        document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ חרוזים";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='./rightAfterMes.html';};
+        document.getElementById("toPostMes").innerHTML="לינקים לתוצרים";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMes.html';};
+         document.getElementById("toPostMesInvite").innerHTML="לינקים להזמנת אורח";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
+        document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת חדשה";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
+       document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
+        document.getElementById("toChangeCRM").innerHTML="עדכון תוצרים ותיקונים";
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
+    }
+    else{
+       document.getElementById("switchLabel").innerHTML="אנגלית";
+        document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה-אנגלית";
+        document.getElementById("toPreMes").onclick=function() { console.log('hi'); };
+        document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ-אנגלית";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
+        document.getElementById("toPostMes").innerHTML="תוצרים-אנגלית";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='';};
+         document.getElementById("toPostMesInvite").innerHTML="הזמנת אורח-אנגלית";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='';};
+        document.getElementById("toSocialPost").innerHTML="פוסט-אנגלית";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='';};
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת-אנגלית";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='';};
+       document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים-אנגלית";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
+        document.getElementById("toChangeCRM").innerHTML="עדכון ותיקון תוצרים-אנגלית";
+        document.getElementById("toChangeCRM").onclick=function() {console.log('hi');};
+    }
 }
