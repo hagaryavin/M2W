@@ -77,6 +77,8 @@ function getData() {
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
           newPerson.date = new Date(ele.recordingdate);
+        if (ele.meta !== "")
+          newPerson.meta = new Date(ele.meta);
         if (ele.recordinghour !== "")
           newPerson.hour = new Date(ele.recordinghour);
         if (ele.fixedrecordingdate !== "")
@@ -134,7 +136,6 @@ function clearValues() {
   document.getElementById("linkpre").value = "";
   document.getElementById("clip1").value = "";
   document.getElementById("clip2").value = "";
-document.getElementById("meta").value = ""
   document.getElementById("name").value = "";
   document.getElementById("guestphone").value = "";
   document.getElementById("email").value = "";
@@ -175,7 +176,7 @@ document.getElementById("meta").value = ""
     document.getElementById("dateChange").innerHTML="תיקון תאריך";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
-     document.getElementById("metaChange").innerHTML="תיקון סימון תכנון יומי מטא";
+     document.getElementById("metaChange").innerHTML="ניקוי שדה פרסום מטא והחזרת החרוז להגרלה";
 }
 function submitData() {
   clearValues();
@@ -221,10 +222,17 @@ function submitData() {
       document.getElementById("subtitleB4").innerHTML = allPeople[i].subtitle;
       document.getElementById("aboutB4").innerHTML = allPeople[i].abouttheguest;
       document.getElementById("dateB4").innerHTML = allPeople[i].date;
+        document.getElementById("metaB4").innerHTML=allPeople[i].meta;
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
-        document.getElementById("metaB4").innerHTML = allPeople[i].meta;
+        if(allPeople[i].meta!==""){
+        document.getElementById("metaB4").innerHTML = allPeople[i].meta.getDate() +
+          "/" +
+          (allPeople[i].meta.getMonth() + 1) +
+          "/" +
+          allPeople[i].meta.getFullYear();
+        }
       document.getElementById("participantsB4").innerHTML=currChain.participants;
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
@@ -285,6 +293,23 @@ function change(id){
     }
     const temp = {
         text: document.getElementById(id).value,
+        row: chosenRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement,"crm");
+        dataElement.innerHTML="התעדכן";
+    }
+}
+function changeMeta(id){
+    var dataElement=document.getElementById(id+"Change");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    const temp = {
+        text: "",
         row: chosenRow,
         col: chosenCol,
     };
