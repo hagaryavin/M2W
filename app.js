@@ -155,7 +155,7 @@ function getData(x) {
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
                         //////6,7 condition
-                        if (
+                        if (newPerson.interviewername !== "יעל מילוא" &&
                             getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"
                         ) {
                             newTask = {
