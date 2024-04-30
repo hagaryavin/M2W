@@ -468,12 +468,14 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function submit() {
-    document.getElementById("newInfo").value = currentDate;
+    document.getElementById("newInfo").value = "מה קורה? "+currentDate;
      document.getElementById("phone").value="";
   toFixGuestPhone();
   crewChosen();
     document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
-    document.getElementById("quickChange").innerHTML="ניקוי שדה ההודעה האחרונה ועדכון תאריך הקלטת החרוז הבא ";
+    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה ";
+        document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
+
   document.getElementById("stuckMes").style.visibility = "hidden";
   if (checkOptions()) {
     console.log("phone corect");
