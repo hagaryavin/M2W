@@ -468,7 +468,7 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function submit() {
-    document.getElementById("newInfo").value = "מה קורה? "+currentDate;
+    document.getElementById("newInfo").value = currentDate+" מה קורה?";
      document.getElementById("phone").value="";
   toFixGuestPhone();
   crewChosen();
