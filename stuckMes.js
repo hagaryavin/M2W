@@ -274,7 +274,7 @@ function changeLastMess() {
      document.getElementById("sendData").innerHTML="התעדכן";
   }
 }
-function quickChange() {
+function quickChange1() {
   for (var i = 0; i < fullAllPeople.length; i++) {
     var nameAndChain = document
       .getElementById("peopleList0")
@@ -299,13 +299,35 @@ function quickChange() {
       col: "mess",
     };
     sendData(temp1, document.getElementById("newInfo"));
+    document.getElementById("quickChange1").innerHTML="התעדכן";
+  }
+}
+function quickChange2() {
+  for (var i = 0; i < fullAllPeople.length; i++) {
+    var nameAndChain = document
+      .getElementById("peopleList0")
+      .value.split(" + ");
+
+    if (
+      fullAllPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
+    ) {
+      console.log(nameAndChain);
+      chosenPersonRow = fullAllPeople[i].row;
+    }
+  }
+  if (chosenPersonRow === 0) {
+    alert("נא לבחור חרוז");
+  }
+
+  if (chosenPersonRow > 0) {
     const temp2 = {
       text: (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear(),
       row: chosenPersonRow,
       col: "nextrecdate",
     };
     sendData(temp2, document.getElementById("newInfo")); 
-      document.getElementById("quickChange").innerHTML="התעדכן";
+    document.getElementById("quickChange2").innerHTML="התעדכן";
   }
 }
 
