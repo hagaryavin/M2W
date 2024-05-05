@@ -90,6 +90,9 @@ function getCrewData() {
         crewOption = document.createElement("option");
         crewOption.value = newCrewMem.name;
         optionsCrew.append(crewOption);
+        if(newCrewMem.name==="יעל"){
+            document.getElementById("crewList").value = "יעל"; 
+        }
       });
     });
 }
@@ -375,6 +378,7 @@ function fixPhoneDataInter(phone) {
 }
 function fixFirstName(phoneNum) {
   var fullName = "";
+    
   for (var i = 0; i < size; i++) {
     if (allPeople[i].phone === phoneNum) fullName = allPeople[i].name;
   }
