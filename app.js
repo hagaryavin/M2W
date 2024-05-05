@@ -698,11 +698,12 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].interviewername +
+                allTasks[i].name
+                 +
                 " - " +
                 recDate +
-                " - אישור רישום של " +
-                allTasks[i].name;
+                " - לשלוח אישור רישום ל" +allTasks[i].interviewername
+                ;
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
