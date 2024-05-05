@@ -13,9 +13,14 @@ var fullSize = 0;
 var tableRow = 2;
 var chosenRow = 0;
 var firstName = "";
+var allChains = [];
+var newChain = {};
+var currChain = {};
 var fullTextInvite = "";
 var personalMess =document.getElementById("personalMess");
+personalMess.value="הי, מה שלומך?";
 var wannaFixGuestPhone = true;
+var wannaFixCreatorPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbxiX5x1MR2HEabP2iuekhPxdCrtXfVEa0K3Jj7cVYBt6zJRNPUBhl6Gb_VE7vuplttDrw/exec";
 var optionsCrew = document.getElementById("crew");
@@ -33,6 +38,7 @@ var fullTexts = [[], [], [], []];
 var chosenPersonRow = 0;
 var crewDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+getChainData();
 getCrewData();
 getData();
 const date = new Date();
@@ -119,6 +125,25 @@ function getData() {
           peopleOptions.append(personOption);
         }
         fullSize++;
+      });
+    });
+}
+function getChainData() {
+  fetch(crewDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.chains.forEach((ele) => {
+        newChain = {
+          name: ele.name,
+          altName: ele.othername,
+          playlist: ele.playlist,
+          description: ele.description,
+          creator:ele.creator,
+          creatorPhone:ele.creatorphone
+        };
+        allChains.push(newChain);
       });
     });
 }
@@ -370,7 +395,13 @@ function checkPhone(phone) {
   if (phone.length < 2) return false;
   return true;
 }
-
+function checkPhoneCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
 function checkOptions() {
   const radioButtons = document.querySelectorAll('input[name="person"]');
   var phone = document.getElementById("phone").value;
@@ -386,6 +417,7 @@ function checkOptions() {
     if (radioButton.checked) {
       chosenPhone = radioButton.value;
         document.getElementById("phone").value=radioButton.value;
+        fixChain(fixChainFromData(allPeople[num].chain));
       chosenRow = allPeople[num].row;
       firstName = fixFirstName(radioButton.value);
       //document.getElementById("nameOfPerson").innerHTML = " " + firstName;
@@ -455,33 +487,58 @@ function copy(id) {
   alert("הטקסט הועתק!");
 }
 function whatsAppMes(id) {
-  checkOptions();
- var text = fullTexts[id - 1];
- if(personalMess.value !== ""&&id==='1'){
-        text=personalMess.value;
-    }
+ const splittedId = id.split("_");
+  var whichMes = splittedId[0];
+  var toWho = splittedId[1];
+  var phone;
+    var textToSend=fullTexts[whichMes - 1];
+    console.log(personalMess.value);
+  if(personalMess.value !== ""&&whichMes==='1'){
+        textToSend=personalMess.value;
+    }  
+  if (toWho === "guest") phone = document.getElementById("phone").value;
+    if (toWho === "creator") phone = document.getElementById("creatorPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(chosenPhone) +
+    phoneForWA(phone, toWho) +
     "&text=" +
-    encodeURI(text);
+    encodeURI(textToSend);
   window.open(link, "_blank");
 }
 function submit() {
     document.getElementById("newInfo").value = currentDate+" מה קורה?";
      document.getElementById("phone").value="";
   toFixGuestPhone();
+      toFixCreatorPhone();
   crewChosen();
     document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
-    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה ";
+    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
         document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
 
   document.getElementById("stuckMes").style.visibility = "hidden";
   if (checkOptions()) {
     console.log("phone corect");
+    //fixChain();
     document.getElementById("stuckMes").style.visibility = "visible";
     getMessData();
   } else console.log("phone incorect");
+}
+function fixChain(chainName) {
+  if (chainName !== "") {
+    for (var j = 0; j < allChains.length; j++) {
+      if (
+        chainName === allChains[j].name ||
+        chainName === allChains[j].altName
+      ) {
+        currChain = allChains[j];
+        console.log(currChain);
+        
+      }
+    }
+  }
+    if(currChain.creatorPhone!=="")  {  
+         document.getElementById("creatorPhone").value = fixPhoneDataCreator(currChain.creatorPhone);
+    }
 }
 function crewChosen() {
   if (document.getElementById("crewList").value !== "") {
@@ -496,8 +553,36 @@ function crewChosen() {
     //  document.getElementById("crewMem").innerHTML = "";
   }
 }
+function fixPhoneDataCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
+    }
+  }
+  return phone;
+}
 function toFixGuestPhone() {
   if (document.getElementById("fixGuestPhone").checked === true) {
     wannaFixGuestPhone = true;
   } else wannaFixGuestPhone = false;
+}
+function toFixCreatorPhone() {
+  if (document.getElementById("fixCreatorPhone").checked === true) {
+    wannaFixCreatorPhone = true;
+  } else wannaFixCreatorPhone = false;
 }
