@@ -1,10 +1,39 @@
 var options = document.getElementById("people");
 var personOption;
 var allPeople = [];
+var rowCount = 2;
 var size = 0;
+var fullName = "";
+var firstName = "";
+var optionsCrew = document.getElementById("crew");
+var crewOption;
+var crewList = [];
+var currCrew = {};
+var newCrewMem;
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }  
+];
+var fullTexts = [[], [], [], [], [], [],[],[],[]];
+var wannaFixGuestPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var newPerson = {};
+var chainOption;
+var allChains = [];
+var newChain = {};
+var currChain = {};
+var chainDataURL =
+  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+getChainData();
+getCrewData();
 getData();
 function getData() {
   fetch(url)
@@ -16,25 +45,242 @@ function getData() {
         newPerson = {
           name: ele.name,
           phone: ele.phone,
-          chain: ele.chain
+          chain: ele.chain,
+          linkfive: ele.linkfive,
+          linkshort: ele.linkshort,
+          linkshortyt: ele.linkshortyt,
+          linkfull: ele.linkfull,
+          linkspotify: ele.linkspotify,
+          row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
         if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
+        if (newPerson.chain === "") {
+          if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
+          if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+        }
+        if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         allPeople.push(newPerson);
         console.log(allPeople[size]);
         personOption = document.createElement("option");
-        personOption.value = newPerson.name;
-        options.append(personOption);
+        personOption.value =
+          newPerson.name + " + " + fixChainFromData(newPerson.chain);
+        personOption.id = rowCount;
+        if (newPerson.name !== "" || newPerson.chain !== "") {
+          options.append(personOption);
+        }
+        rowCount++;
         size++;
       });
     });
 }
+function getChainData() {
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.chains.forEach((ele) => {
+        newChain = {
+          name: ele.name,
+          altName: ele.othername,
+          playlist: ele.playlist,
+          description: ele.description,
+        };
+        allChains.push(newChain);
+        chainOption = document.createElement("option");
+        chainOption.value = newChain.name;
+        document.getElementById("chainsNames").append(chainOption);
+      });
+    });
+}
+function getCrewData() {
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.crew.forEach((ele) => {
+        newCrewMem = {
+          name: ele.name,
+          phone: ele.phone,
+        };
+        crewList.push(newCrewMem);
+        crewOption = document.createElement("option");
+        crewOption.value = newCrewMem.name;
+        optionsCrew.append(crewOption);
+        if(newCrewMem.name==="יעל"){
+            document.getElementById("crewList").value = "יעל"; 
+        }  
+      });
+    });
+}
+function getMessData() {
+  var newMess;
+  var messes1 = [];
+  var messes2 = [];
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.messages.forEach((ele) => {
+        newMess = {
+          name: ele.name,
+          lines: [
+            ele.line1,
+            ele.line2,
+            ele.line3,
+            ele.line4,
+            ele.line5,
+            ele.line6,
+            ele.line7,
+            ele.line8,
+            ele.line9,
+            ele.line10,
+            ele.line11,
+            ele.line12,
+            ele.line13,
+            ele.line14,
+            ele.line15,
+            ele.line16,
+            ele.line17,
+            ele.line18,
+            ele.line19,
+            ele.line20,
+          ],
+        };
+
+      for (var i = 1; i <= 9; i++) {
+          if (newMess.name.includes("לינקים לתוצרים " + i)) {
+            messes[i - 1] = newMess;
+          }
+        }
+      });
+      for (var i = 0; i <= 8; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
+      }
+    });
+}
+function cutMess(linesArr, messType) {
+var crewMem;
+  if (currCrew.name !== "") crewMem = currCrew.name;
+  if (currCrew.name === "") crewMem = "";
+  var currText = "";
+    var testDiv = document.getElementById("text" + messType);
+  if(messType===1||messType===2||messType===7||messType===9){
+  
+        removeAllChildNodes(testDiv);
+    }
+  var i = 0;
+  var firstName2 = firstName;
+  while (linesArr[i] !== "end") {
+    if (linesArr[i].includes("nameOfChain")) {
+      linesArr[i] = linesArr[i].replace(
+        "nameOfChain",
+        document.getElementById("chainName").value
+      );
+    }
+    if (linesArr[i].includes("firstNameOfGuest")) {
+      linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName2);
+    }
+    if (linesArr[i].includes("fullNameOfGuest")) {
+      var nameAndChain = document
+        .getElementById("peopleList")
+        .value.split(" + ");
+      linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
+    }
+    if (linesArr[i].includes("link555")) {
+      linesArr[i] = linesArr[i].replace("link555", document.getElementById("link555").value);
+    }
+     if (linesArr[i].includes("fullLink")) {
+      linesArr[i] = linesArr[i].replace("fullLink", document.getElementById("full555").value);
+    }
+     if (linesArr[i].includes("linkSpotify")) {
+      linesArr[i] = linesArr[i].replace("linkSpotify", document.getElementById("spotify").value);
+    }
+    if (linesArr[i].includes("link55")) {
+      linesArr[i] = linesArr[i].replace("link55", document.getElementById("short55").value);
+    }
+    if (linesArr[i].includes("linkyoutube55")) {
+      linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
+    }
+    if (linesArr[i].includes("crewName")) {
+      linesArr[i] = linesArr[i].replace("crewName", crewMem);
+    }
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] !== "end") {
+        currText += linesArr[i] + "\n";
+      }
+      if (linesArr[i + 1] === "end") {
+        currText += linesArr[i];
+      }
+    }
+    if (linesArr[i] === "") {
+      currText += "\n";
+    }
+    var duplicateLine = linesArr[i];
+    while (duplicateLine.includes("*")) {
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "<strong>");
+      }
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "</strong>");
+      }
+    }
+
+    var testH4 = document.createElement("h4");
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] === "") {
+        testH4.classList.add("mb-3");
+      }
+      if (linesArr[i + 1] !== "") {
+        testH4.classList.add("mb-0");
+      }
+      testH4.innerHTML = duplicateLine;
+        if(messType===1||messType===2||messType===7||messType===9){
+            testDiv.append(testH4);
+        }
+    }
+    i++;
+  }
+  fullTexts[messType - 1] = currText;
+}
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+setTimeout(() => {
+  const loader = document.getElementById("loader");
+  loader.style.display = "none";
+}, 2050);
+
 function reset() {
   document.location.reload();
 }
 function checkPhone(phone) {
-  if (phone.length === 10 && phone[0] === "0" && phone[1] === "5") return true;
-  return false;
+  if (wannaFixGuestPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
+function fixChainFromData(chain) {
+  var splittedChain; //
+  if (chain.includes(" (") || chain.includes("-")) {
+    splittedChain = chain.split(" (");
+    var moresplitted;
+    if (splittedChain[0].includes("-")) {
+      moresplitted = splittedChain[0].split("-");
+      return moresplitted[1].trim();
+    }
+    return splittedChain[0].trim();
+  }
+  return chain;
 }
 function checkInputs() {
   if (
@@ -43,94 +289,49 @@ function checkInputs() {
   ) {
     return true;
   }
+  alert("ייתכן שמספר הטלפון אינו תקין!");
   return false;
 }
-function submitData() {
-  console.log("hi");
-}
-function chainDescriptions(name) {
-  if (name === "מדע ותודעה") {
-    return "לבחור מדענים וחוקרי תודעה.";
-  }
-  if (name === "מתנדבים") {
-    return "לבחור מאלה העוסקים ומקדמים התנדבות בקהילה.";
-  }
-  if (name === "ריפוי") {
-    return "לבחור מאלה העוסקים בריפוי כדרך חיים.";
-  }
-  if (name === "ספורט") {
-    return "לבחור אלה הבוחרים בספורט כדרך חיים.";
-  }
-  if (name === "נשים") {
-    return "לבחור נשים בלבד.";
-  }
-  if (name === "ים") {
-    return "לבחור מאלה הבוחרים בים כדרך חיים.";
-  }
-  if (name === "חכמת הדרך") {
-    return "לבחור מאלה הבוחרים בדרך. מה שקורה בדרך, זו הדרך.";
-  }
-  if (name === "אקלים" || name === "האקלים") {
-    return "לבחור מאלה העוסקים בנושא האקלים על כל רבדיו.";
-  }
-  if (name === "סרטים") {
-    return "לבחור מאלה העוסקים במקצועות אמנות הסרט.";
-  }
-  if (name === "תיאטרון") {
-    return "לבחור אנשים העוסקים בתיאטרון על כל מקצועותיו.";
-  }
-  if (name === "תקשורת") {
-    return "לבחור מאלה העוסקים בתקשורת, מה יש לך להגיד?";
-  }
-  if (name === "קיימות") {
-    return "לבחור מאלה העוסקים בקיימות מכל כיוון.";
-  }
-  if (name === "רעננה.1962" || name === "1962.רעננה") {
-    return "לבחור ממחזור 1962 מרעננה.";
-  }
-  if (name === "קפיטליזם.קשוב" || name === "קפיטליזם קשוב")
-    return "לבחור מהעוסקים והיוצרים של עתיד הקפיטליזם.";
 
-  return "לבחור אנשים שישמחו לספר את סיפורם.";
-}
 function fixChain() {
-  document.getElementById("nameOfChain2").innerHTML = document.getElementById(
-    "chainName"
-  ).value;
-  document.getElementById("descOfChain").innerHTML = chainDescriptions(
-    document.getElementById("chainName").value
-  );
+  if (document.getElementById("chainName").value !== "") {
+    for (var j = 0; j < allChains.length; j++) {
+      if (
+        document.getElementById("chainName").value === allChains[j].name ||
+        document.getElementById("chainName").value === allChains[j].altName
+      ) {
+        currChain = allChains[j];
+        console.log(currChain);
+      }
+    }
+  }
+  //document.getElementById("nameOfChain2").innerHTML = document.getElementById(  "chainName"  ).value;
 }
 function submit() {
+  toFixGuestPhone();
+  crewChosen();
   document.getElementById("postMes").style.visibility = "hidden";
   if (checkInputs()) {
     fixChain();
     document.getElementById("postMes").style.visibility = "visible";
+    getMessData();
   }
 }
-function textToCopy(id) {
-  var chainName = document.getElementById("chainName").value;
-  var chainDesc = chainDescriptions(document.getElementById("chainName").value);
-  var textMes1 =
-    "*בוקר אור*, היה מקסים להכיר אותך. מצורפות ההודעות להמשך השרשרת. יום טוב.";
-  var textMes2 =
-    "תודה שהצטרפת *לשרשרת " +
-    chainName +
-    "* בסיפור555. עכשיו תורך להזמין את האורח/ת הבאה. -" +
-    chainDesc +
-    " -לקבל אישור על בחירתך מהמראיינ/ת שלך. -לשלוח את ההזמנה וטופס הרישום לאורח/ת שלך. -לבחור את מועד ההקלטה דרך הלינק המצורף. -להיות המראיינ/ת של האורח/ת שלך בהקלטת הסיפור הבא בשרשרת. הסיפור שלך מתפרסם בלינקים המצורפים ביוטיוב ובפודקאסט. הנך מוזמנ/ת לפרסם את ההקלטות במדיות החברתיות שלך ולספר על הפרויקט. *להתראות בסיפור הבא!* הודעות מצורפות: לינק לסיפור שלך ביוטיוב, פרומו 55 שניות לפרסום ברשתות שלך, לינק להזמנה, לינק ללוח ההקלטות, לינק לטופס הרישום. (הלינק לראיון המלא נמצא בפריים הסיום של הסרט 5:55 שלך)";
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  var textRegister = "https://tinyurl.com/story555sign";
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  if (id === "register") return textRegister;
-  return "";
+function crewChosen() {
+   if (document.getElementById("crewList").value !== "") {
+    for (var j = 0; j < crewList.length; j++) {
+      if (document.getElementById("crewList").value === crewList[j].name) {
+        currCrew = crewList[j];
+      }
+    }
+  } else {
+    currCrew.name = "";
+    currCrew.phone = "";
+  }
 }
+
 function copy(id) {
-  var text = textToCopy(id);
+   var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
   document.body.appendChild(elem);
   elem.value = text;
@@ -140,40 +341,10 @@ function copy(id) {
   alert("הטקסט הועתק!");
 }
 function phoneForWA(phone) {
-  return "972" + phone.slice(1);
-}
-function mesForWA(id) {
-  var chainName = document.getElementById("chainName").value;
-  var chainDesc = chainDescriptions(document.getElementById("chainName").value);
-  var transChainName = encodeURI(chainName);
-  var transChainDesc = encodeURI(chainDesc);
-  var textMes1 =
-    "*%D7%91%D7%95%D7%A7%D7%A8%20%D7%90%D7%95%D7%A8*,%20%D7%94%D7%99%D7%94%20%D7%9E%D7%A7%D7%A1%D7%99%D7%9D%20%D7%9C%D7%94%D7%9B%D7%99%D7%A8%20%D7%90%D7%95%D7%AA%D7%9A.%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%95%D7%AA%20%D7%94%D7%94%D7%95%D7%93%D7%A2%D7%95%D7%AA%20%D7%9C%D7%94%D7%9E%D7%A9%D7%9A%20%D7%94%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA.%20%D7%99%D7%95%D7%9D%20%D7%98%D7%95%D7%91.";
-  var textMes2 =
-    "%D7%AA%D7%95%D7%93%D7%94%20%D7%A9%D7%94%D7%A6%D7%98%D7%A8%D7%A4%D7%AA%20*%D7%9C%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA%20" +
-    transChainName +
-    "*%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8555.%0A%D7%A2%D7%9B%D7%A9%D7%99%D7%95%20%D7%AA%D7%95%D7%A8%D7%9A%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%90%D7%AA%20%D7%94%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%94%D7%91%D7%90%D7%94.%0A%0A-" +
-    transChainDesc +
-    "%0A-%D7%9C%D7%A9%D7%9C%D7%95%D7%97%20%D7%90%D7%AA%20%D7%94%D7%94%D7%96%D7%9E%D7%A0%D7%94%20%D7%95%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D%20%D7%9C%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%A9%D7%9C%D7%9A.%0A-%D7%9C%D7%91%D7%97%D7%95%D7%A8%20%D7%90%D7%AA%20%D7%9E%D7%95%D7%A2%D7%93%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%94%20%D7%93%D7%A8%D7%9A%20%D7%94%D7%9C%D7%99%D7%A0%D7%A7%20%D7%94%D7%9E%D7%A6%D7%95%D7%A8%D7%A3.%0A-%D7%9C%D7%94%D7%99%D7%95%D7%AA%20%D7%94%D7%9E%D7%A8%D7%90%D7%99%D7%99%D7%A0/%D7%AA%20%D7%A9%D7%9C%20%D7%94%D7%90%D7%95%D7%A8%D7%97/%D7%AA%20%D7%A9%D7%9C%D7%9A%20%D7%91%D7%94%D7%A7%D7%9C%D7%98%D7%AA%20%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90%20%D7%91%D7%A9%D7%A8%D7%A9%D7%A8%D7%AA.%0A%0A*%D7%94%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%D7%9A%20%D7%9E%D7%AA%D7%A4%D7%A8%D7%A1%D7%9D*%20%D7%91%D7%9C%D7%99%D7%A0%D7%A7%D7%99%D7%9D%20%D7%94%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%99%D7%9D%20%D7%91%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91%20%D7%95%D7%91%D7%A4%D7%95%D7%93%D7%A7%D7%90%D7%A1%D7%98.%0A%D7%94%D7%A0%D7%9A%20%D7%9E%D7%95%D7%96%D7%9E%D7%A0/%D7%AA%20%D7%9C%D7%A4%D7%A8%D7%A1%D7%9D%20%D7%90%D7%AA%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA%20%D7%91%D7%9E%D7%93%D7%99%D7%95%D7%AA%20%D7%94%D7%97%D7%91%D7%A8%D7%AA%D7%99%D7%95%D7%AA%20%D7%A9%D7%9C%D7%9A%20%D7%95%D7%9C%D7%A1%D7%A4%D7%A8%20%D7%A2%D7%9C%20%D7%94%D7%A4%D7%A8%D7%95%D7%99%D7%A7%D7%98.%0A%0A*%D7%9C%D7%94%D7%AA%D7%A8%D7%90%D7%95%D7%AA%20%D7%91%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%94%D7%91%D7%90!*%0A%D7%94%D7%95%D7%93%D7%A2%D7%95%D7%AA%20%D7%9E%D7%A6%D7%95%D7%A8%D7%A4%D7%95%D7%AA:%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%A1%D7%99%D7%A4%D7%95%D7%A8%20%D7%A9%D7%9C%D7%9A%20%D7%91%D7%99%D7%95%D7%98%D7%99%D7%95%D7%91,%20%D7%A4%D7%A8%D7%95%D7%9E%D7%95%2055%20%D7%A9%D7%A0%D7%99%D7%95%D7%AA%20%D7%9C%D7%A4%D7%A8%D7%A1%D7%95%D7%9D%20%D7%91%D7%A8%D7%A9%D7%AA%D7%95%D7%AA%20%D7%A9%D7%9C%D7%9A,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%94%D7%96%D7%9E%D7%A0%D7%94,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%9C%D7%95%D7%97%20%D7%94%D7%94%D7%A7%D7%9C%D7%98%D7%95%D7%AA,%20%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%98%D7%95%D7%A4%D7%A1%20%D7%94%D7%A8%D7%99%D7%A9%D7%95%D7%9D.%0A(%D7%94%D7%9C%D7%99%D7%A0%D7%A7%20%D7%9C%D7%A8%D7%90%D7%99%D7%95%D7%9F%20%D7%94%D7%9E%D7%9C%D7%90%20%D7%A0%D7%9E%D7%A6%D7%90%20%D7%91%D7%A4%D7%A8%D7%99%D7%99%D7%9D%20%D7%94%D7%A1%D7%99%D7%95%D7%9D%20%D7%A9%D7%9C%20%D7%94%D7%A1%D7%A8%D7%98%205:55%20%D7%A9%D7%9C%D7%9A)";
-  var textInvite = "https://tinyurl.com/story555invite";
-  var textCalender = "https://bit.ly/story555Calendar";
-  var textRegister = "https://tinyurl.com/story555sign";
-  var textLink555;
-  if (document.getElementById("link555").value !== "")
-    textLink555 = document.getElementById("link555").value;
-  var textShort55;
-  if (document.getElementById("short55").value !== "")
-    textShort55 = document.getElementById("short55").value;
-  if (id === "mes1") return textMes1;
-  if (id === "mes2") return textMes2;
-  if (id === "link555" && document.getElementById("link555").value !== "")
-    return textLink555;
-  if (id === "short55" && document.getElementById("short55").value !== "")
-    return textShort55;
-  if (id === "invite") return textInvite;
-  if (id === "calender") return textCalender;
-  if (id === "register") return textRegister;
-  return "";
+  if (wannaFixGuestPhone === true) {
+    return "972" + phone.slice(1);
+  }
+  return phone;
 }
 function whatsAppMes(id) {
   var phone = document.getElementById("guestPhone").value;
@@ -181,6 +352,67 @@ function whatsAppMes(id) {
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone) +
     "&text=" +
-    mesForWA(id);
+    encodeURI(fullTexts[id - 1]);
   window.open(link, "_blank");
+}
+function fixPhoneData(phone) {
+  if (wannaFixGuestPhone === true) {
+    if (phone.includes("-")) {
+      console.log("in");
+      phone = phone.replace("-", "");
+    }
+    if (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+  }
+  return phone;
+}
+function fixFirstName(phoneNum) {
+  var fullName = "";
+  for (var i = 0; i < size; i++) {
+    if (allPeople[i].phone === phoneNum) fullName = allPeople[i].name;
+  }
+  const splittedName = fullName.split(" ");
+  if (
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+}
+function submitData() {
+  toFixGuestPhone();
+  for (var i = 0; i < allPeople.length; i++) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    ) {
+      console.log("row num:" + allPeople[i].row);
+      document.getElementById("chainName").value = fixChainFromData(
+        allPeople[i].chain
+      );
+      fullName = allPeople[i].name;
+      document.getElementById("guestPhone").value = fixPhoneData(
+        allPeople[i].phone
+      );
+      firstName = fixFirstName(allPeople[i].phone);
+      // document.getElementById("nameOfPerson").innerHTML = " " + firstName;
+      document.getElementById("link555").value = allPeople[i].linkfive;
+      document.getElementById("short55").value = allPeople[i].linkshort;
+      document.getElementById("short55yt").value = allPeople[i].linkshortyt;
+      document.getElementById("full555").value = allPeople[i].linkfull;
+      document.getElementById("spotify").value = allPeople[i].linkspotify;
+    }
+  }
+}
+function toFixGuestPhone() {
+  if (document.getElementById("fixGuestPhone").checked === true) {
+    wannaFixGuestPhone = true;
+  } else wannaFixGuestPhone = false;
 }
