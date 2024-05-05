@@ -172,6 +172,33 @@
       <div class="col-auto">
         <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
         <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון יוצר השרשרת</span
+          >
+          <input
+            type="tel"
+            id="creatorPhone"
+            class="form-control"
+            placeholder="יוצר השרשרת"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixCreatorPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
         <div id="text1"></div>
       </div>
       <textarea
@@ -184,9 +211,17 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendMes1"
-          onclick="whatsAppMes('1')"
+          onclick="whatsAppMes('1_guest')"
         >
-          שליחת הודעה ראשונה
+         שליחת הודעה ראשונה לאורח
+        </button>
+        <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('1_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת
         </button>
         <button
           type="button"
@@ -202,7 +237,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendCalenderLink"
-          onclick="whatsAppMes('2')"
+          onclick="whatsAppMes('2_guest')"
         >
           שליחת לינק ללוח ההקלטות
         </button>
@@ -223,7 +258,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendMes1"
-          onclick="whatsAppMes('3')"
+          onclick="whatsAppMes('3_guest')"
         >
           שליחת הודעה שנייה
         </button>
@@ -241,9 +276,9 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendInviteLink"
-          onclick="whatsAppMes('4')"
+          onclick="whatsAppMes('4_guest')"
         >
-          שליחת לינק להזמנה
+       שליחת לינק להזמנה
         </button>
         <button
           type="button"
