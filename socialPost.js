@@ -108,7 +108,8 @@ function getChainData() {
           altName: ele.othername,
           playlist: ele.playlist,
           description: ele.description,
-          creator:ele.creator
+          creator:ele.creator,
+          creatorPhone:ele.creatorphone
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -132,6 +133,9 @@ function getCrewData() {
         crewOption = document.createElement("option");
         crewOption.value = newCrewMem.name;
         optionsCrew.append(crewOption);
+        if(newCrewMem.name==="יעל"){
+            document.getElementById("crewList").value = "יעל"; 
+        }  
       });
     });
 }
@@ -352,21 +356,11 @@ function fixChain() {
       }
     }
   }
-        for(var i=0;i<allPeople.length;i++){
-            if(allPeople[i].guestname===currChain.creator&&
-               currChain.creator!==""&&
-              allPeople[i].guestphone!=="")
-               {
-                   document.getElementById("creatorPhone").value = fixPhoneDataCreator(allPeople[i].guestphone);
-               }
-             if(allPeople[i].interviewername===currChain.creator&&
-               currChain.creator!==""&&
-              allPeople[i].interviewerphone!=="")
-               {
-                   document.getElementById("creatorPhone").value = fixPhoneDataCreator(allPeople[i].interviewerphone);
+    if(currChain.creatorPhone!=="")    
+         document.getElementById("creatorPhone").value = fixPhoneDataCreator(currChain.creatorPhone);
 
-               }          
-        }
+                      
+        
 }
 function submit() {
   toFixGuestPhone();
