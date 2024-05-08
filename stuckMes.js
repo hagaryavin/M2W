@@ -18,7 +18,7 @@ var newChain = {};
 var currChain = {};
 var fullTextInvite = "";
 var personalMess =document.getElementById("personalMess");
-personalMess.value="הי, מה שלומך?";
+
 var wannaFixGuestPhone = true;
 var wannaFixCreatorPhone = true;
 const url =
@@ -509,6 +509,7 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function submit() {
+    
     document.getElementById("newInfo").value = currentDate+" מה קורה?";
      document.getElementById("phone").value="";
   toFixGuestPhone();
@@ -524,6 +525,7 @@ function submit() {
     //fixChain();
     document.getElementById("stuckMes").style.visibility = "visible";
     getMessData();
+    personalMess.value="הי "+firstName+", מה שלומך?";
   } else console.log("phone incorect");
 }
 function fixChain(chainName) {
