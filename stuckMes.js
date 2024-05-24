@@ -1,593 +1,368 @@
-var options = document.getElementById("options");
-var peopleOptions = document.getElementById("people0");
-var personOption;
-var newPerson = {};
-var optionDiv;
-var optionInput;
-var optionLabel;
-var chosenPhone;
-var allPeople = [];
-var fullAllPeople = [];
-var size = 0;
-var fullSize = 0;
-var tableRow = 2;
-var chosenRow = 0;
-var firstName = "";
-var allChains = [];
-var newChain = {};
-var currChain = {};
-var fullTextInvite = "";
-var personalMess =document.getElementById("personalMess");
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - חרוזים אחרונים</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link href="./style.css" rel="stylesheet" />
+    <link rel="icon" href="https://www.svgrepo.com/show/106976/whatsapp.svg" />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-var wannaFixGuestPhone = true;
-var wannaFixCreatorPhone = true;
-const url =
-  "https://script.google.com/macros/s/AKfycbxiX5x1MR2HEabP2iuekhPxdCrtXfVEa0K3Jj7cVYBt6zJRNPUBhl6Gb_VE7vuplttDrw/exec";
-var optionsCrew = document.getElementById("crew");
-var crewOption;
-var crewList = [];
-var currCrew = {};
-var newCrewMem;
-var messes = [
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] }
-];
-var fullTexts = [[], [], [], []];
-var chosenPersonRow = 0;
-var crewDataURL =
-  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
-getChainData();
-getCrewData();
-getData();
-const date = new Date();
-var day = date.getDate();
-var month = date.getMonth() + 1;
-var currentDate = day + "." + month;
-console.log(currentDate);
-function getData() {
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.forEach((ele) => {
-        newPerson = {
-          name: ele.name,
-          date: ele.datelastmess,
-          phone: ele.phone,
-          chain: ele.chain,
-          recordingdate: ele.recordingdate,
-          row: tableRow,
-        };
-        tableRow++;
-        if (ele.fixedname !== "") newPerson.name = ele.fixedname;
-        if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
-        if (newPerson.chain === "") {
-          if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
-          if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
-        if (ele.recordingdate !== "")
-          newPerson.recordingdate = new Date(ele.recordingdate);
-        if (ele.fixedrecordingdate !== "")
-          newPerson.recordingdate = new Date(ele.fixedrecordingdate); //new Date(ele.fixedrecordingdate);
-        if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
-        if (newPerson.date !== "") {
-          allPeople.push(newPerson);
-          console.log(allPeople[size]);
-          optionDiv = document.createElement("div");
-          optionDiv.classList.add("form-check");
+      }
 
-          //label > div
-          optionLabel = document.createElement("label");
-          optionLabel.classList.add("form-check-label");
-          optionLabel.id = "lab";
-          optionLabel.for = newPerson.name;
-          if (newPerson.recordingdate !== "") {
-            optionLabel.innerHTML =
-              fixChainFromData(newPerson.chain) +
-              " - " +
-              newPerson.recordingdate.getDate() +
-              "." +
-              (newPerson.recordingdate.getMonth() + 1) +
-              " - " +
-              newPerson.name +
-              " - " +
-              newPerson.date;
-          }
-          if (newPerson.recordingdate === "") {
-            optionLabel.innerHTML =
-              fixChainFromData(newPerson.chain) +
-              " - " +
-              newPerson.name +
-              " - " +
-              newPerson.date;
-          }
-          optionDiv.append(optionLabel);
-
-          //input > div
-          optionInput = document.createElement("input");
-          optionInput.classList.add("form-check-input");
-          optionInput.type = "radio";
-          optionInput.name = "person";
-          optionInput.id = newPerson.name;
-          optionInput.value = newPerson.phone;
-          optionDiv.append(optionInput);
-          options.append(optionDiv);
-          size++;
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        fullAllPeople.push(newPerson);
-        personOption = document.createElement("option");
-        personOption.value =
-          newPerson.name + " + " + fixChainFromData(newPerson.chain);
-        if (newPerson.name !== "" || newPerson.chain !== "") {
-          peopleOptions.append(personOption);
+        100% {
+          transform: rotate(360deg);
         }
-        fullSize++;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <script>
+      var collapseElementList = [].slice.call(
+        document.querySelectorAll(".collapse")
+      );
+      var collapseList = collapseElementList.map(function (collapseEl) {
+        return new bootstrap.Collapse(collapseEl);
       });
-    });
-}
-function getChainData() {
-  fetch(crewDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.chains.forEach((ele) => {
-        newChain = {
-          name: ele.name,
-          altName: ele.othername,
-          playlist: ele.playlist,
-          description: ele.description,
-          creator:ele.creator,
-          creatorPhone:ele.creatorphone
-        };
-        allChains.push(newChain);
+
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
       });
-    });
-}
-function getCrewData() {
-fetch(crewDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.crew.forEach((ele) => {
-        newCrewMem = {
-          name: ele.name,
-          phone: ele.phone,
-        };
-        crewList.push(newCrewMem);
-        crewOption = document.createElement("option");
-        crewOption.value = newCrewMem.name;
-        optionsCrew.append(crewOption);
-        if(newCrewMem.name==="יעל"){
-            document.getElementById("crewList").value = "יעל"; 
-        }  
-      });
-    });
-}
-function getMessData() {
- var newMess;
-  fetch(crewDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.messages.forEach((ele) => {
-        newMess = {
-          name: ele.name,
-          lines: [
-            ele.line1,
-            ele.line2,
-            ele.line3,
-            ele.line4,
-            ele.line5,
-            ele.line6,
-            ele.line7,
-            ele.line8,
-            ele.line9,
-            ele.line10,
-            ele.line11,
-            ele.line12,
-            ele.line13,
-            ele.line14,
-            ele.line15,
-            ele.line16,
-            ele.line17,
-            ele.line18,
-            ele.line19,
-            ele.line20,
-          ],
-        };
-
-      for (var i = 1; i <= 4; i++) {
-          if (newMess.name.includes("חרוזים אחרונים " + i)) {
-            messes[i - 1] = newMess;
-          }
-        }
-      });
-      for (var i = 0; i <= 3; i++) {
-        for (var j = 0; j < messes[i].lines.length; j++) {
-            
-          cutMess(messes[i].lines, i + 1);
-        }
-      }
-    });
-}function cutMess(linesArr, messType) {
-  var crewMem;
-  if (currCrew.name !== "") crewMem = currCrew.name;
-  if (currCrew.name === "") crewMem = "";
-  var currText = "";
-  var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===3){
-  
-        removeAllChildNodes(testDiv);
-    }
-  var i = 0;
-  while (linesArr[i] !== "end") {
-    if (linesArr[i].includes("firstNameOfGuest")) {
-      linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName);
-    }
-    if (linesArr[i].includes("crewName")) {
-      linesArr[i] = linesArr[i].replace("crewName", currCrew);
-    }
-
-    var testH4 = document.createElement("h4");
-
-    if (linesArr[i] !== "") {
-      if (linesArr[i + 1] !== "end") {
-        currText += linesArr[i] + "\n";
-      }
-      if (linesArr[i + 1] === "end") {
-        currText += linesArr[i];
-      }
-    }
-    if (linesArr[i] === "") {
-      currText += "\n";
-    }
-    var duplicateLine = linesArr[i];
-    while (duplicateLine.includes("*")) {
-      if (duplicateLine.includes("*")) {
-        duplicateLine = duplicateLine.replace("*", "<strong>");
-      }
-      if (duplicateLine.includes("*")) {
-        duplicateLine = duplicateLine.replace("*", "</strong>");
-      }
-    }
-
-    if (linesArr[i] !== "") {
-      if (linesArr[i + 1] === "") {
-        testH4.classList.add("mb-3");
-      }
-      if (linesArr[i + 1] !== "") {
-        testH4.classList.add("mb-0");
-      }
-      testH4.innerHTML = duplicateLine;
-      if(messType===1||messType===3){
-      testDiv.append(testH4);
-        }
-    }
-    i++;
-  }
-
-  fullTexts[messType - 1] = currText;
-}
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-function submitData() {}
-
-function fixDate(str) {
-  const fullDate = str.split("T");
-  const splitDate = fullDate[0].split("-");
-  var month = splitDate[1];
-  var day = splitDate[2];
-  return day + "." + month;
-}
-function changeLastMess() {
-  if (chosenRow === 0) {
-    alert("נא לבחור מישהו מהטבלה כדי לשנות");
-  }
-  const temp = {
-    text: document.getElementById("newInfo").value,
-    row: chosenRow,
-    col: "mess",
-  };
-  if (chosenRow > 0) {
-    sendData(temp, document.getElementById("newInfo"));
-     document.getElementById("sendData").innerHTML="התעדכן";
-  }
-}
-function quickChange1() {
-  for (var i = 0; i < fullAllPeople.length; i++) {
-    var nameAndChain = document
-      .getElementById("peopleList0")
-      .value.split(" + ");
-
-    if (
-      fullAllPeople[i].name === nameAndChain[0] &&
-      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
-    ) {
-      console.log(nameAndChain);
-      chosenPersonRow = fullAllPeople[i].row;
-    }
-  }
-  if (chosenPersonRow === 0) {
-    alert("נא לבחור חרוז");
-  }
-
-  if (chosenPersonRow > 0) {
-    const temp1 = {
-      text: "",
-      row: chosenPersonRow,
-      col: "mess",
-    };
-    sendData(temp1, document.getElementById("newInfo"));
-    document.getElementById("quickChange1").innerHTML="התעדכן";
-  }
-}
-function quickChange2() {
-  for (var i = 0; i < fullAllPeople.length; i++) {
-    var nameAndChain = document
-      .getElementById("peopleList0")
-      .value.split(" + ");
-
-    if (
-      fullAllPeople[i].name === nameAndChain[0] &&
-      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
-    ) {
-      console.log(nameAndChain);
-      chosenPersonRow = fullAllPeople[i].row;
-    }
-  }
-  if (chosenPersonRow === 0) {
-    alert("נא לבחור חרוז");
-  }
-
-  if (chosenPersonRow > 0) {
-    const temp2 = {
-      text: (date.getMonth()+1)+"/"+date.getDate()+"/"+date.getFullYear(),
-      row: chosenPersonRow,
-      col: "nextrecdate",
-    };
-    sendData(temp2, document.getElementById("newInfo")); 
-    document.getElementById("quickChange2").innerHTML="התעדכן";
-  }
-}
-
-function sendData(obj, ele) {
-  console.log(obj);
-  let formData = new FormData();
-  formData.append("data", JSON.stringify(obj));
-  console.log(obj);
-  fetch(url, {
-    method: "POST",
-    body: formData,
-  })
-    .then((rep) => {
-      console.log(obj);
-      return rep.json();
-    })
-    .then((json) => {
-      console.log(obj);
-      console.log(json);
-      ele.innerHTML = json.val;
-    });
-
-}
-setTimeout(() => {
-  const loader = document.getElementById("loader");
-  loader.style.display = "none";
-  const loader0 = document.getElementById("loader0");
-  loader0.style.display = "none";
-}, 2050);
-
-function reset() {
-  document.location.reload();
-}
-function checkPhone(phone) {
-  if (wannaFixGuestPhone === true) {
-    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
-      return true;
-    return false;
-  }
-  if (phone.length < 2) return false;
-  return true;
-}
-function checkPhoneCreator(phone) {
-  if (wannaFixCreatorPhone === true) {
-    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
-      return true;
-    return false;
-  } else return true;
-}
-function checkOptions() {
-  const radioButtons = document.querySelectorAll('input[name="person"]');
-  var phone = document.getElementById("phone").value;
-  if (checkPhone(phone)) {
-    chosenPhone = phone;
-    firstName = "";
-    //chosenRow = 0;
-    // document.getElementById("nameOfPerson").innerHTML = "";
-    return true;
-  }
-  var num = 0;
-  for (const radioButton of radioButtons) {
-    if (radioButton.checked) {
-      chosenPhone = radioButton.value;
-        document.getElementById("phone").value=radioButton.value;
-        fixChain(fixChainFromData(allPeople[num].chain));
-      chosenRow = allPeople[num].row;
-      firstName = fixFirstName(radioButton.value);
-      //document.getElementById("nameOfPerson").innerHTML = " " + firstName;
-
-      return true;
-    }
-    num++;
-  }
-  alert("ייתכן שמספר הטלפון אינו תקין!");
-  return false;
-}
-function fixChainFromData(chain) {
-  var splittedChain; //
-  if (chain.includes(" (") || chain.includes("-")) {
-    splittedChain = chain.split(" (");
-    var moresplitted;
-    if (splittedChain[0].includes("-")) {
-      moresplitted = splittedChain[0].split("-");
-      return moresplitted[1].trim();
-    }
-    return splittedChain[0].trim();
-  }
-  return chain;
-}
-function fixFirstName(phoneNum) {
-  var fullName = "";
-  for (var i = 0; i < size; i++) {
-    if (allPeople[i].phone === phoneNum) fullName = allPeople[i].name;
-  }
-  const splittedName = fullName.split(" ");
-  if (
-    splittedName[0] === 'ד"ר' ||
-    splittedName[0] === "ד״ר" ||
-    splittedName[0] === "דוקטור" ||
-    splittedName[0] === "פרופסור" ||
-    splittedName[0] === "פרופ'" ||
-    splittedName[0] === "Dr."
-  ) {
-    return splittedName[1];
-  }
-  return splittedName[0];
-}
-function phoneForWA(phone) {
-  if (wannaFixGuestPhone === true) {
-    if (phone.includes("-")) {
-      phone = phone.replace("-", "");
-    }
-    if (phone.includes(" ")) {
-      phone = phone.replace(" ", "");
-    }
-    return "972" + phone.slice(1);
-  }
-  return phone;
-}
-
-function copy(id) {
-    var text = fullTexts[id - 1];
-    if(personalMess.value !== ""&&id==='1'){
-        text=personalMess.value;
-    }
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
-  alert("הטקסט הועתק!");
-}
-function whatsAppMes(id) {
- const splittedId = id.split("_");
-  var whichMes = splittedId[0];
-  var toWho = splittedId[1];
-  var phone;
-    var textToSend=fullTexts[whichMes - 1];
-    console.log(personalMess.value);
-  if(personalMess.value !== ""&&whichMes==='1'){
-        textToSend=personalMess.value;
-    }  
-  if (toWho === "guest") phone = document.getElementById("phone").value;
-    if (toWho === "creator") phone = document.getElementById("creatorPhone").value;
-  var link =
-    "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(phone, toWho) +
-    "&text=" +
-    encodeURI(textToSend);
-  window.open(link, "_blank");
-}
-function submit() {
-    
-    document.getElementById("newInfo").value = currentDate+" מה קורה?";
-     document.getElementById("phone").value="";
-  toFixGuestPhone();
-      toFixCreatorPhone();
-  crewChosen();
-    document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
-    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
-        document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
-
-  document.getElementById("stuckMes").style.visibility = "hidden";
-  if (checkOptions()) {
-    console.log("phone corect");
-    //fixChain();
-    document.getElementById("stuckMes").style.visibility = "visible";
-    getMessData();
-    personalMess.value="הי "+firstName+", מה שלומך?";
-  } else console.log("phone incorect");
-}
-function fixChain(chainName) {
-  if (chainName !== "") {
-    for (var j = 0; j < allChains.length; j++) {
-      if (
-        chainName === allChains[j].name ||
-        chainName === allChains[j].altName
-      ) {
-        currChain = allChains[j];
-        console.log(currChain);
+    </script>
+    <div class="container mb-5">
+      <div class="form-control input-group-text" role="group">
         
-      }
-    }
-  }
-    if(currChain.creatorPhone!=="")  {  
-         document.getElementById("creatorPhone").value = fixPhoneDataCreator(currChain.creatorPhone);
-    }
-}
-function crewChosen() {
-  if (document.getElementById("crewList").value !== "") {
-    for (var j = 0; j < crewList.length; j++) {
-      if (document.getElementById("crewList").value === crewList[j].name) {
-        currCrew = crewList[j].name;
-      }
-    }
-    // document.getElementById("crewMem").innerHTML = currCrew + ", ";
-  } else {
-    currCrew = "";
-    //  document.getElementById("crewMem").innerHTML = "";
-  }
-}
-function fixPhoneDataCreator(phone) {
-  if (wannaFixCreatorPhone === true) {
-    if (phone.includes("+972 ")) {
-      phone = phone.replace("+972 ", "0");
-    }
-    if (phone.startsWith("972 ")) {
-      phone = phone.replace("972 ", "0");
-    }
-    while (phone.includes(" ")) {
-      phone = phone.replace(" ", "");
-    }
-    if (phone.includes("+")) {
-      phone = phone.replace("+", "");
-    }
-    if (!phone.startsWith("0")) {
-      phone = "0" + phone;
-    }
-    while (phone.includes("-")) {
-      phone = phone.replace("-", "");
-    }
-  }
-  return phone;
-}
-function toFixGuestPhone() {
-  if (document.getElementById("fixGuestPhone").checked === true) {
-    wannaFixGuestPhone = true;
-  } else wannaFixGuestPhone = false;
-}
-function toFixCreatorPhone() {
-  if (document.getElementById("fixCreatorPhone").checked === true) {
-    wannaFixCreatorPhone = true;
-  } else wannaFixCreatorPhone = false;
-}
+        <h3 class="mb-0"><u>גישה מהירה:</u></h3>
+        <br>
+      
+        <div id="loader0" class="loader"></div>
+        <input
+          type="text"
+          id="peopleList0"
+          list="people0"
+          autocomplete="off"
+          class="form-control"
+        />
+        <datalist id="people0"> </datalist>
+        <br>
+        <button
+          onclick="quickChange1()"
+          class="btn form-control btn-outline-secondary"
+          id="quickChange1"
+        >
+        ניקוי שדה ההודעה האחרונה 
+        </button>
+          <button
+          onclick="quickChange2()"
+          class="btn form-control btn-outline-secondary"
+          id="quickChange2"
+        >
+        עדכון תאריך הקלטת החרוז הבא 
+        </button>
+        <br>
+         
+    </div>
+              <div class="form-control input-group-text" role="group">
+                   <button
+          onclick="submit('quick')"
+          class="btn form-control btn-outline-secondary"
+          id="quickSubmit"
+        >
+        תצוגת פרטי החרוז 
+        </button>
+        </div>
+    </div>
+    <div class="border-0">
+      <br>
+      <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
+    </div>
+    <div class="container">
+      
+      <div class="input-group mb-3">
+        <span class="input-group-text">חברת צוות:</span>
+        <input
+          type="text"
+          id="crewList"
+          list="crew"
+          autocomplete="off"
+          class="form-control"
+        />
+        <datalist id="crew"> </datalist>
+      </div>
+    </div>
+    <div class="container">
+      <div class="form-control input-group-text mb-3" role="group">
+        <button
+          onclick="reset()"
+          class="btn form-control btn-outline-secondary"
+          id="reset"
+        >
+          נקה שדות
+        </button>
+      </div>
+      <span
+        class="position-relative start-50 input-group-text mb-3"
+        data-bs-toggle="popover"
+        data-bs-trigger="hover focus"
+        data-bs-toggle="tooltip"
+        data-bs-placement="bottom"
+        title="05_ _ _ _ _ _ _ _"
+        >בחרי למי לשלוח הודעה:</span
+      >
+
+      <div class="form-control mb-3" role="group" id="options">
+        <div id="loader" class="loader"></div>
+      </div>
+         <div class="form-control input-group-text mb-3" role="group">
+        <button
+          onclick="submit('main')"
+          class="btn form-control btn-outline-secondary"
+          id="submit"
+        >
+          תצוגת פרטי החרוז מהרשימה
+        </button>
+      </div>
+      
+     
+    </div>
+    <div class="container blog-post-meta py-3" id="stuckMes">
+      <div class="col-auto">
+        <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
+        <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
+          <div class="input-group mb-3">
+              <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון החרוז</span
+          >
+        <input
+          type="tel"
+          id="phone"
+          class="form-control"
+          placeholder="טלפון החרוז"
+          autocomplete="off"
+        />
+        <input
+          class="form-check-input"
+          type="checkbox"
+          id="fixGuestPhone"
+          checked
+        />
+        <label class="form-check-label" for="flexCheckChecked">
+          מספר ישראלי
+        </label>
+      </div>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון יוצר השרשרת</span
+          >
+          <input
+            type="tel"
+            id="creatorPhone"
+            class="form-control"
+            placeholder="יוצר השרשרת"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixCreatorPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+               <div class="row align-items-center">
+    <div class="col">
+           <div id="text1"></div>
+                  </div>
+                  <div class="col">
+          <div id="text3"></div>
+                  </div>
+                </div>
+        
+      </div>
+        <div class="row align-items-center">
+    <div class="col">
+           <textarea
+        class="form-control mb-2"
+        placeholder="או תקלידי הודעה כאן"
+        id="personalMessGuest"
+      ></textarea>
+                  </div>
+                  <div class="col">
+           <textarea
+        class="form-control mb-2"
+        placeholder="או תקלידי הודעה כאן"
+        id="personalMessInter"
+      ></textarea>
+                  </div>
+                </div>
+      
+      <div class="form-control input-group-text col-auto mb-2" role="group">
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendMes1"
+          onclick="whatsAppMes('1_guest')"
+        >
+         שליחת הודעה ראשונה לאורח
+        </button>
+        <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('3_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת
+        </button>
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="copyMes1"
+          onclick="copy('1')"
+        >
+          העתקת הודעה ראשונה
+        </button>
+      </div>
+      <div class="form-control input-group-text col-auto mb-2" role="group">
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendCalenderLink"
+          onclick="whatsAppMes('5_guest')"
+        >
+          שליחת לינק ללוח ההקלטות
+        </button>
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="copyCalenderLink"
+          onclick="copy('5')"
+        >
+          העתקת לינק ללוח ההקלטות
+        </button>
+      </div>
+
+      <div class="col-auto">
+      <div id="text6"></div>
+      <div class="form-control input-group-text col-auto mb-2" role="group">
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendMes6"
+          onclick="whatsAppMes('6_guest')"
+        >
+          שליחת הודעה שנייה
+        </button>
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="copyMes6"
+          onclick="copy('6')"
+        >
+          העתקת הודעה שנייה
+        </button>
+      </div>
+      <div class="form-control input-group-text col-auto mb-2" role="group">
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendInviteLink"
+          onclick="whatsAppMes('7_guest')"
+        >
+       שליחת לינק להזמנה
+        </button>
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="copyInviteLink"
+          onclick="copy('7')"
+        >
+          העתקת לינק להזמנה
+        </button>
+      </div>
+
+      <div
+        id="change"
+        class="form-control input-group-text col-auto"
+        role="group"
+      >
+        <input
+          type="text"
+          id="newInfo"
+          class="form-control"
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendData"
+          onclick="changeLastMess()"
+        >
+          לשינוי התאריך בו נשלחה ההודעה האחרונה
+        </button>
+      </div>
+    </div>
+  
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+    <script src="stuckMes.js"></script>
+  </body>
+</html>
