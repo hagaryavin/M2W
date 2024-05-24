@@ -562,6 +562,7 @@ function submit(id) {
     
     
      document.getElementById("phone").value="";
+    document.getElementById("creatorPhone").value="";
   toFixGuestPhone();
       toFixCreatorPhone();
   crewChosen();
