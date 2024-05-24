@@ -122,6 +122,33 @@
           </label>
         </div>
         <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון יוצר השרשרת</span
+          >
+          <input
+            type="tel"
+            id="creatorPhone"
+            class="form-control"
+            placeholder="יוצר השרשרת"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixCreatorPhone"
+            checked
+          />
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>  
+        <div class="input-group mb-3">
           <span class="input-group-text">שם השרשרת</span>
           <input class="form-control" list="chainsNames" id="chainName" placeholder="תתחילי להקליד את שם השרשרת..." autocomplete="off"/>
           <datalist id="chainsNames">
@@ -179,6 +206,9 @@
                   <div class="col">
            <div id="text3"></div>
                   </div>
+                  <div class="col">
+           <div id="text4"></div>
+                  </div>
                 </div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
@@ -192,42 +222,57 @@
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
-              id="sendMes2"
+              id="sendMes3"
               onclick="whatsAppMes('3_inter')"
             >
               שליחת הודעה למראיין</button>
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
-              id="copyMes2"
+              id="sendMes4"
+              onclick="whatsAppMes('4_creator')"
+            >
+              שליחת הודעה ליוצר השרשרת</button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes3"
               onclick="copy('3')"
             >
               העתקת הודעה
             </button>
           </div>
-          <div id="text4"></div>
+          <div id="text5"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
-              id="sendMes4"
-              onclick="whatsAppMes('4_guest')"
+              id="sendMes5"
+              onclick="whatsAppMes('5_guest')"
             >
               שליחת הודעה לאורח
             </button>
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
-              id="sendMes4"
-              onclick="whatsAppMes('4_inter')"
+              id="sendMes5"
+              onclick="whatsAppMes('5_inter')"
+            >
+              שליחת הודעה למראיין
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_creator')"
             >
               שליחת הודעה למראיין
             </button>
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
-              id="copyMes3"
-              onclick="copy('4')"
+              id="copyMes5"
+              onclick="copy('5')"
             >
               העתקת הודעה
             </button>
