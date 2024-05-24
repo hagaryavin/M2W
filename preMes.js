@@ -14,11 +14,13 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
   { name: "", lines: [] },
-  { name: "", lines: [] } 
+  { name: "", lines: [] },
+    { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], []];
+var fullTexts = [[], [], [], [],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
+var wannaFixCreatorPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
 var newPerson = {};
@@ -29,7 +31,7 @@ var currChain = {};
 var currPerson = {};
 var currChainCreator = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+  "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 getCrewData();
 getChainData();
 getData();
@@ -118,6 +120,7 @@ function getChainData() {
           playlist: ele.playlist,
           description: ele.description,
           creator: ele.creator,
+          creatorPhone:ele.creatorphone
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -156,17 +159,18 @@ function getMessData() {
             ele.line17,
             ele.line18,
             ele.line19,
-            ele.line20,
+            ele.line20
           ],
         };
-
-       for (var i = 1; i <= 4; i++) {
+          
+       for (var i = 1; i <= 5; i++) {
           if (newMess.name.includes("הזמנה להקלטה " + i)) {
             messes[i - 1] = newMess;
+              console.log(newMess);
           }
         }
       });
-      for (var i = 0; i <= 3; i++) {
+      for (var i = 0; i <= 4; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -238,6 +242,12 @@ function cutMess(linesArr, messType) {
         firstNameInterviewer2
       );
     }
+    if (linesArr[i].includes("firstNameOfCreator")) {
+      linesArr[i] = linesArr[i].replace(
+        "firstNameOfCreator",
+        fixCreatorFirstName()
+      );
+    }
     if (linesArr[i].includes("crewName")) {
       linesArr[i] = linesArr[i].replace("crewName", crewMem);
     }
@@ -276,6 +286,7 @@ function cutMess(linesArr, messType) {
     i++;
   }
   fullTexts[messType - 1] = currText;
+    
 }
 function removeAllChildNodes(parent) {
   while (parent.firstChild) {
@@ -333,6 +344,13 @@ function checkPhoneInter(phone) {
     return false;
   } else return true;
 }
+function checkPhoneCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
 function checkInputs() {
   if (
     checkPhoneGuest(document.getElementById("guestPhone").value) &&
@@ -371,9 +389,10 @@ function fixChain() {
       }
     }
   }
-  /* document.getElementById("nameOfChain").innerHTML = document.getElementById(
-    "chainName"
-  ).value;*/
+   if(currChain.creatorPhone!=="")    
+         document.getElementById("creatorPhone").value = fixPhoneDataCreator(currChain.creatorPhone);
+
+      
 }
 function findChainCreator() {
   for (var i = 0; i < allPeople.length; i++) {
@@ -435,6 +454,7 @@ function fixInterviewerFirstName(phoneNum) {
 function submit() {
   toFixGuestPhone();
   toFixInterPhone();
+  toFixCreatorPhone();
   console.log("entered the submit in pre");
   crewChosen();
   document.getElementById("preMes").style.visibility = "hidden";
@@ -470,6 +490,12 @@ function phoneForWA(phone, toWho) {
         } 
         return phone;
     }
+    if(toWho==="creator"){
+       if (wannaFixCreatorPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
   return "972" + phone.slice(1);
 }
 function whatsAppMes(id) {
@@ -479,6 +505,7 @@ function whatsAppMes(id) {
   var phone;
   if (toWho === "guest") phone = document.getElementById("guestPhone").value;
   if (toWho === "inter") phone = document.getElementById("interviewerPhone").value;
+  if (toWho === "creator") phone = document.getElementById("creatorPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone, toWho) +
@@ -518,6 +545,25 @@ function fixChainFromData(chain) {
     return splittedChain[0].trim();
   }
   return chain;
+}
+function fixCreatorFirstName() {
+   if(currChain.creator!==""){
+    const splittedName = currChain.creator.split(" ");
+  if (
+    splittedName[0] === "דר." ||
+    splittedName[0] === "דר" ||
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+    }
+    return "";
 }
 function fixPhoneDataGuest(phone) {
   if (wannaFixGuestPhone === true) {
@@ -565,6 +611,29 @@ function fixPhoneDataInter(phone) {
   }
   return phone;
 }
+function fixPhoneDataCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
+    }
+  }
+  return phone;
+}
 function getRowFromName(name) {
   var rowNum = 0;
   for (var i = 0; i < allPeople.length; i++) {
@@ -577,10 +646,13 @@ function getRowFromName(name) {
 function submitData() {
   document.getElementById("interviewerPhone").value = "";
   document.getElementById("guestPhone").value = "";
+    document.getElementById("creatorPhone").value = "";
   document.getElementById("chainName").value = "";
   document.getElementById("dateAndHour").value = "";
   toFixGuestPhone();
   toFixInterPhone();
+   toFixCreatorPhone();
+    
   for (var i = 0; i < allPeople.length; i++) {
     var nameAndChain = document.getElementById("peopleList").value.split(" + ");
     if (
@@ -604,6 +676,8 @@ function submitData() {
       document.getElementById("interviewerPhone").value = fixPhoneDataInter(
         allPeople[i].interviewerphone
       );
+     fixChain();
+
       var fixedMonth = allPeople[i].date.getMonth() + 1;
       var recordingDate =
         allPeople[i].date.getFullYear() +
@@ -693,4 +767,9 @@ function toFixInterPhone() {
   if (document.getElementById("fixInterPhone").checked === true) {
     wannaFixInterPhone = true;
   } else wannaFixInterPhone = false;
+}
+function toFixCreatorPhone() {
+  if (document.getElementById("fixCreatorPhone").checked === true) {
+    wannaFixCreatorPhone = true;
+  } else wannaFixCreatorPhone = false;
 }
