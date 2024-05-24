@@ -96,8 +96,18 @@
         >
         עדכון תאריך הקלטת החרוז הבא 
         </button>
-      
+        <br>
+         
     </div>
+              <div class="form-control input-group-text" role="group">
+                   <button
+          onclick="submit('quick')"
+          class="btn form-control btn-outline-secondary"
+          id="quickSubmit"
+        >
+        תצוגת פרטי החרוז 
+        </button>
+        </div>
     </div>
     <div class="border-0">
       <br>
@@ -140,12 +150,37 @@
       <div class="form-control mb-3" role="group" id="options">
         <div id="loader" class="loader"></div>
       </div>
-      <div class="input-group mb-3">
+         <div class="form-control input-group-text mb-3" role="group">
+        <button
+          onclick="submit('main')"
+          class="btn form-control btn-outline-secondary"
+          id="submit"
+        >
+          תצוגת פרטי החרוז מהרשימה
+        </button>
+      </div>
+      
+     
+    </div>
+    <div class="container blog-post-meta py-3" id="stuckMes">
+      <div class="col-auto">
+        <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
+        <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
+          <div class="input-group mb-3">
+              <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון החרוז</span
+          >
         <input
           type="tel"
           id="phone"
-          class="form-control mb-3"
-          placeholder="או תקלידי מספר טלפון"
+          class="form-control"
+          placeholder="טלפון החרוז"
           autocomplete="off"
         />
         <input
@@ -158,20 +193,6 @@
           מספר ישראלי
         </label>
       </div>
-      <div class="form-control input-group-text mb-3" role="group">
-        <button
-          onclick="submit()"
-          class="btn form-control btn-outline-secondary"
-          id="submit"
-        >
-          תצוגת פרטים
-        </button>
-      </div>
-    </div>
-    <div class="container blog-post-meta py-3" id="stuckMes">
-      <div class="col-auto">
-        <h3 class="mb-0"><u>חרוזים אחרונים</u></h3>
-        <h6 class="mb-1 text-muted">למי שמעל שבועיים לא יצר קשר</h6>
         <div class="input-group mb-3">
           <span
             class="input-group-text"
@@ -199,13 +220,33 @@
             מספר ישראלי
           </label>
         </div>
-        <div id="text1"></div>
+               <div class="row align-items-center">
+    <div class="col">
+           <div id="text1"></div>
+                  </div>
+                  <div class="col">
+          <div id="text3"></div>
+                  </div>
+                </div>
+        
       </div>
-      <textarea
+        <div class="row align-items-center">
+    <div class="col">
+           <textarea
         class="form-control mb-2"
         placeholder="או תקלידי הודעה כאן"
-        id="personalMess"
+        id="personalMessGuest"
       ></textarea>
+                  </div>
+                  <div class="col">
+           <textarea
+        class="form-control mb-2"
+        placeholder="או תקלידי הודעה כאן"
+        id="personalMessInter"
+      ></textarea>
+                  </div>
+                </div>
+      
       <div class="form-control input-group-text col-auto mb-2" role="group">
         <button
           type="button"
@@ -219,7 +260,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes1"
-              onclick="whatsAppMes('1_creator')"
+              onclick="whatsAppMes('3_creator')"
             >
               שליחת הודעה ליוצר השרשרת
         </button>
@@ -237,7 +278,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendCalenderLink"
-          onclick="whatsAppMes('2_guest')"
+          onclick="whatsAppMes('5_guest')"
         >
           שליחת לינק ללוח ההקלטות
         </button>
@@ -245,28 +286,28 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyCalenderLink"
-          onclick="copy('2')"
+          onclick="copy('5')"
         >
           העתקת לינק ללוח ההקלטות
         </button>
       </div>
 
       <div class="col-auto">
-      <div id="text3"></div>
+      <div id="text6"></div>
       <div class="form-control input-group-text col-auto mb-2" role="group">
         <button
           type="button"
           class="btn form-control btn-outline-secondary"
-          id="sendMes1"
-          onclick="whatsAppMes('3_guest')"
+          id="sendMes6"
+          onclick="whatsAppMes('6_guest')"
         >
           שליחת הודעה שנייה
         </button>
         <button
           type="button"
           class="btn form-control btn-outline-secondary"
-          id="copyMes1"
-          onclick="copy('3')"
+          id="copyMes6"
+          onclick="copy('6')"
         >
           העתקת הודעה שנייה
         </button>
@@ -276,7 +317,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="sendInviteLink"
-          onclick="whatsAppMes('4_guest')"
+          onclick="whatsAppMes('7_guest')"
         >
        שליחת לינק להזמנה
         </button>
@@ -284,7 +325,7 @@
           type="button"
           class="btn form-control btn-outline-secondary"
           id="copyInviteLink"
-          onclick="copy('4')"
+          onclick="copy('7')"
         >
           העתקת לינק להזמנה
         </button>
