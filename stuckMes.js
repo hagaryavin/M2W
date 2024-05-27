@@ -243,7 +243,9 @@ function getMessData() {
     if (linesArr[i].includes("crewName")) {
       linesArr[i] = linesArr[i].replace("crewName", currCrew);
     }
-
+    if (linesArr[i].includes("nameOfChain")) {
+      linesArr[i] = linesArr[i].replace("nameOfChain", currChain.name);
+    }  
     var testH4 = document.createElement("h4");
 
     if (linesArr[i] !== "") {
