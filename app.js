@@ -647,9 +647,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
-            optionList.innerHTML =allTasks[i].name+" - " +recDate +" - לשלוח פוסט ל"+allTasks[i].interviewername;
+            optionList.innerHTML =allTasks[i].name+" - " +recDate +" - פוסט ל"+allTasks[i].interviewername;
             if(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - לשלוח פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
             }
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
@@ -700,7 +700,7 @@ function createTasks() {
                  +
                 " - " +
                 recDate +
-                " - לשלוח אישור רישום ל" +allTasks[i].interviewername
+                " - אישור רישום ל" +allTasks[i].interviewername
                 ;
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
