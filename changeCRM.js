@@ -318,6 +318,28 @@ function changeMeta(id){
         dataElement.innerHTML="התעדכן";
     }
 }
+function changeMetaAll(id){
+    if(confirm("האם את באמת רוצה לאפס את מערכת הגרלת הפוסטים לפרסום?")){
+        var dataElement=document.getElementById(id+"Change");
+        chosenCol="meta";
+        console.log("col: "+chosenCol);
+        for(var j=0;j<3;j++){
+           for(var i=2;i<rowCount;i++){
+               const temp = {
+                         text: "",
+                         row: i,
+                         col: "meta",
+                     };
+                sendData(temp, dataElement,"crm");
+            }
+        }
+        dataElement.innerHTML="התעדכן";
+        console.log("בוצע");
+    }
+    else{
+        console.log("לא בוצע שינוי");
+    }
+}
 function changeChainInfo(id){
     var dataElement=document.getElementById(id+"Change");
     chosenCol=id;
