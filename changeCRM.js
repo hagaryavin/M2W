@@ -126,6 +126,8 @@ setTimeout(() => {
   loader.style.display = "none";
 }, 2050);
 function clearValues() {
+  document.getElementById("metaAllChange").style.visibility="hidden";
+    
   document.getElementById("link555").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
@@ -209,7 +211,7 @@ function submitData() {
         currChain.chainExplain;
       document.getElementById("linkpreB4").innerHTML = allPeople[i].linkpre;
       document.getElementById("nameB4").innerHTML = allPeople[i].name;
-         document.getElementById("nameB4also").innerHTML = allPeople[i].name;
+         document.getElementById("nameB4also").innerHTML = allPeople[i].name+" - "+fixChainFromData(allPeople[i].chain);
       document.getElementById("internameB4").innerHTML =
         allPeople[i].interviewername;
       document.getElementById("emailB4").innerHTML = allPeople[i].email;
