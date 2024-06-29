@@ -64,11 +64,14 @@ h4 {
 .display-4 {
   font-size: 2.5rem;
 }
-
+ 
 @media (min-width: 768px) {
   .display-4 {
     font-size: 3rem;
   }
+#optionsStuck{
+        text-align: left;
+    }
 }
 @media (max-width: 768px) {
   .input-group-text {
@@ -78,6 +81,9 @@ h4 {
   .helper {
     display: none;
   }
+#optionsStuck{
+        text-align:inherit;
+    }
 }
 
 .nav-scroller {
@@ -158,3 +164,4 @@ h4 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+
