@@ -1,4 +1,4 @@
-var options = document.getElementById("options");
+var options = document.getElementById("optionsStuck");
 var peopleOptions = document.getElementById("people0");
 var personOption;
 var newPerson = {};
@@ -82,7 +82,7 @@ function getData() {
           console.log(allPeople[size]);
           optionDiv = document.createElement("div");
           optionDiv.classList.add("form-check");
-
+           
           //label > div
           optionLabel = document.createElement("label");
           optionLabel.classList.add("form-check-label");
