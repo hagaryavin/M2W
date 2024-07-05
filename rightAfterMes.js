@@ -389,7 +389,9 @@ function fixFirstName(phoneNum) {
     splittedName[0] === "דוקטור" ||
     splittedName[0] === "פרופסור" ||
     splittedName[0] === "פרופ'" ||
-    splittedName[0] === "Dr."
+    splittedName[0] === "Dr."||
+     splittedName[0] === "הרב" ||
+     splittedName[0] === "ד״ר" 
   ) {
     return splittedName[1];
   }
@@ -436,7 +438,9 @@ function submitData() {
     splittedName[0] === "דוקטור" ||
     splittedName[0] === "פרופסור" ||
     splittedName[0] === "פרופ'" ||
-    splittedName[0] === "Dr."
+    splittedName[0] === "Dr."||
+     splittedName[0] === "הרב" ||
+     splittedName[0] === "ד״ר" 
   ) {
     return splittedName[1];
   }
