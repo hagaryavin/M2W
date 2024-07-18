@@ -916,7 +916,7 @@ function switchLang(){
         document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ-אנגלית";
         document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
         document.getElementById("toPostMes").innerHTML="תוצרים-אנגלית";
-        document.getElementById("toPostMes").onclick=function() { window.location.href='';};
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
          document.getElementById("toPostMesInvite").innerHTML="הזמנת אורח-אנגלית";
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='';};
         document.getElementById("toSocialPost").innerHTML="פוסט-אנגלית";
