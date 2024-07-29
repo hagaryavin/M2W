@@ -1,417 +1,256 @@
-var options = document.getElementById("people");
-var personOption;
-var allPeople = [];
-var rowCount = 2;
-var size = 0;
-var fullName = "";
-var firstName = "";
-var optionsCrew = document.getElementById("crew");
-var crewOption;
-var crewList = [];
-var currCrew = {};
-var newCrewMem;
-var messes = [
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-  { name: "", lines: [] },
-    { name: "", lines: [] }  ,
-    { name: "", lines: [] }  ,
-    { name: "", lines: [] }  
-];
-var fullTexts = [[], [], [], [], [], [],[],[],[]];
-var wannaFixGuestPhone = true;
-const url =
-  "https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
-var newPerson = {};
-var chainOption;
-var allChains = [];
-var newChain = {};
-var currChain = {};
-var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
-getChainData();
-getCrewData();
-getData();
-function getData() {
-  fetch(url)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.forEach((ele) => {
-        newPerson = {
-          name: ele.name,
-          phone: ele.phone,
-          chain: ele.chain,
-          linkfive: ele.linkfive,
-          linkshort: ele.linkshort,
-          linkshortyt: ele.linkshortyt,
-          linkfull: ele.linkfull,
-          linkspotify: ele.linkspotify,
-          row: rowCount,
-        };
-        if (ele.fixedname !== "") newPerson.name = ele.fixedname;
-        if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
-        if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
-        allPeople.push(newPerson);
-        console.log(allPeople[size]);
-        personOption = document.createElement("option");
-        personOption.value =
-          newPerson.name + " + " + fixChainFromData(newPerson.chain);
-        personOption.id = rowCount;
-        if (newPerson.name !== "" || newPerson.chain !== "") {
-          options.append(personOption);
-        }
-        rowCount++;
-        size++;
-      });
-    });
-}
-function getChainData() {
-  fetch(chainDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.chains.forEach((ele) => {
-        newChain = {
-          name: ele.name,
-          altName: ele.othername,
-          playlist: ele.playlist,
-          description: ele.description,
-        };
-        allChains.push(newChain);
-        chainOption = document.createElement("option");
-        chainOption.value = newChain.name;
-        document.getElementById("chainsNames").append(chainOption);
-      });
-    });
-}
-function getCrewData() {
-  fetch(chainDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.crew.forEach((ele) => {
-        newCrewMem = {
-          name: ele.name,
-          phone: ele.phone,
-          nameEnglish:ele.nameenglish
-        };
-        crewList.push(newCrewMem);
-        crewOption = document.createElement("option");
-        crewOption.value = newCrewMem.nameEnglish;
-        optionsCrew.append(crewOption);
-        if(newCrewMem.nameEnglish==="Yael"){
-            document.getElementById("crewList").value = "Yael"; 
-        }  
-      });
-    });
-}
-function getMessData() {
-  var newMess;
-  var messes1 = [];
-  var messes2 = [];
-  fetch(chainDataURL)
-    .then((res) => {
-      return res.json();
-    })
-    .then((json) => {
-      json.data.messagesEng.forEach((ele) => {
-        newMess = {
-          name: ele.name,
-          lines: [
-            ele.line1,
-            ele.line2,
-            ele.line3,
-            ele.line4,
-            ele.line5,
-            ele.line6,
-            ele.line7,
-            ele.line8,
-            ele.line9,
-            ele.line10,
-            ele.line11,
-            ele.line12,
-            ele.line13,
-            ele.line14,
-            ele.line15,
-            ele.line16,
-            ele.line17,
-            ele.line18,
-            ele.line19,
-            ele.line20,
-          ],
-        };
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - לינקים לתוצרים אנגלית</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link href="./style.css" rel="stylesheet" />
+    <link
+      rel="icon"
+      href="https://www.svgrepo.com/show/106976/whatsapp.svg"
+    />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-      for (var i = 1; i <= 9; i++) {
-          if (newMess.name.includes("לינקים לתוצרים " + i)) {
-            messes[i - 1] = newMess;
-          }
-        }
-      });
-      for (var i = 0; i <= 8; i++) {
-        for (var j = 0; j < messes[i].lines.length; j++) {
-            
-          cutMess(messes[i].lines, i + 1);
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
         }
       }
-    });
+        h4 {
+  text-align: left;
+              direction: ltr;
+
 }
-function cutMess(linesArr, messType) {
-var crewMem;
-  if (currCrew.nameEnglish !== "") crewMem = currCrew.nameEnglish;
-  if (currCrew.nameEnglish === "") crewMem = "";
-  var currText = "";
-    var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===7||messType===9){
-  
-        removeAllChildNodes(testDiv);
-    }
-  var i = 0;
-  var firstName2 = firstName;
-  while (linesArr[i] !== "end") {
-    if (linesArr[i].includes("nameOfChain")) {
-      linesArr[i] = linesArr[i].replace(
-        "nameOfChain",
-        document.getElementById("chainName").value
+      .loader {
+        border: 4px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 4px solid #3498db;
+        width: 20px;
+        height: 20px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+      rel="stylesheet"
+/>
+  </head>
+  <body>
+    
+    <script>
+      var collapseElementList = [].slice.call(
+        document.querySelectorAll(".collapse")
       );
-    }
-    if (linesArr[i].includes("firstNameOfGuest")) {
-      linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName2);
-    }
-    if (linesArr[i].includes("fullNameOfGuest")) {
-      var nameAndChain = document
-        .getElementById("peopleList")
-        .value.split(" + ");
-      linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
-    }
-    if (linesArr[i].includes("link555")) {
-      linesArr[i] = linesArr[i].replace("link555", document.getElementById("link555").value);
-    }
-     if (linesArr[i].includes("fullLink")) {
-      linesArr[i] = linesArr[i].replace("fullLink", document.getElementById("full555").value);
-    }
-     if (linesArr[i].includes("linkSpotify")) {
-      linesArr[i] = linesArr[i].replace("linkSpotify", document.getElementById("spotify").value);
-    }
-    if (linesArr[i].includes("link55")) {
-      linesArr[i] = linesArr[i].replace("link55", document.getElementById("short55").value);
-    }
-    if (linesArr[i].includes("linkyoutube55")) {
-      linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
-    }
-    if (linesArr[i].includes("crewNameEng")) {
-      linesArr[i] = linesArr[i].replace("crewNameEng", crewMem);
-    }
-    if (linesArr[i] !== "") {
-      if (linesArr[i + 1] !== "end") {
-        currText += linesArr[i] + "\n";
-      }
-      if (linesArr[i + 1] === "end") {
-        currText += linesArr[i];
-      }
-    }
-    if (linesArr[i] === "") {
-      currText += "\n";
-    }
-    var duplicateLine = linesArr[i];
-    while (duplicateLine.includes("*")) {
-      if (duplicateLine.includes("*")) {
-        duplicateLine = duplicateLine.replace("*", "<strong>");
-      }
-      if (duplicateLine.includes("*")) {
-        duplicateLine = duplicateLine.replace("*", "</strong>");
-      }
-    }
+      var collapseList = collapseElementList.map(function (collapseEl) {
+        return new bootstrap.Collapse(collapseEl);
+      });
 
-    var testH4 = document.createElement("h4");
-    if (linesArr[i] !== "") {
-      if (linesArr[i + 1] === "") {
-        testH4.classList.add("mb-3");
-      }
-      if (linesArr[i + 1] !== "") {
-        testH4.classList.add("mb-0");
-      }
-      testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===7||messType===9){
-            testDiv.append(testH4);
-        }
-    }
-    i++;
-  }
-  fullTexts[messType - 1] = currText;
-}
-function removeAllChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-setTimeout(() => {
-  const loader = document.getElementById("loader");
-  loader.style.display = "none";
-}, 2050);
-
-function reset() {
-  document.location.reload();
-}
-function checkPhone(phone) {
-  if (wannaFixGuestPhone === true) {
-    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
-      return true;
-    return false;
-  } else return true;
-}
-function fixChainFromData(chain) {
-  var splittedChain; //
-  if (chain.includes(" (") || chain.includes("-")) {
-    splittedChain = chain.split(" (");
-    var moresplitted;
-    if (splittedChain[0].includes("-")) {
-      moresplitted = splittedChain[0].split("-");
-      return moresplitted[1].trim();
-    }
-    return splittedChain[0].trim();
-  }
-  return chain;
-}
-function checkInputs() {
-  if (
-    checkPhone(document.getElementById("guestPhone").value) &&
-    document.getElementById("chainsNames").value !== ""
-  ) {
-    return true;
-  }
-  alert("ייתכן שמספר הטלפון אינו תקין!");
-  return false;
-}
-
-function fixChain() {
-  if (document.getElementById("chainName").value !== "") {
-    for (var j = 0; j < allChains.length; j++) {
-      if (
-        document.getElementById("chainName").value === allChains[j].name ||
-        document.getElementById("chainName").value === allChains[j].altName
-      ) {
-        currChain = allChains[j];
-        console.log(currChain);
-      }
-    }
-  }
-  //document.getElementById("nameOfChain2").innerHTML = document.getElementById(  "chainName"  ).value;
-}
-function submit() {
-  toFixGuestPhone();
-  crewChosen();
-  document.getElementById("postMes").style.visibility = "hidden";
-  if (checkInputs()) {
-    fixChain();
-    document.getElementById("postMes").style.visibility = "visible";
-    getMessData();
-  }
-}
-function crewChosen() {
-   if (document.getElementById("crewList").value !== "") {
-    for (var j = 0; j < crewList.length; j++) {
-      if (document.getElementById("crewList").value === crewList[j].nameEnglish) {
-        currCrew = crewList[j];
-      }
-    }
-  } else {
-    currCrew.nameEnglish = "";
-    currCrew.phone = "";
-  }
-}
-
-function copy(id) {
-   var text = fullTexts[id - 1];
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
-  alert("הטקסט הועתק!");
-}
-function phoneForWA(phone) {
-  if (wannaFixGuestPhone === true) {
-    return "972" + phone.slice(1);
-  }
-  return phone;
-}
-function whatsAppMes(id) {
-  var phone = document.getElementById("guestPhone").value;
-  var link =
-    "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(phone) +
-    "&text=" +
-    encodeURI(fullTexts[id - 1]);
-  window.open(link, "_blank");
-}
-function fixPhoneData(phone) {
-  if (wannaFixGuestPhone === true) {
-    if (phone.includes("-")) {
-      console.log("in");
-      phone = phone.replace("-", "");
-    }
-    if (phone.includes(" ")) {
-      phone = phone.replace(" ", "");
-    }
-  }
-  return phone;
-}
-function fixFirstName(phoneNum) {
-  var fullName = "";
-  for (var i = 0; i < size; i++) {
-    if (allPeople[i].phone === phoneNum) fullName = allPeople[i].name;
-  }
-  const splittedName = fullName.split(" ");
-  if (
-    splittedName[0] === 'ד"ר' ||
-    splittedName[0] === "ד״ר" ||
-    splittedName[0] === "דוקטור" ||
-    splittedName[0] === "פרופסור" ||
-    splittedName[0] === "פרופ'" ||
-    splittedName[0] === "Dr."||
-     splittedName[0] === "הרב" ||
-     splittedName[0] === "ד״ר" 
-  ) {
-    return splittedName[1];
-  }
-  return splittedName[0];
-}
-function submitData() {
-  toFixGuestPhone();
-  for (var i = 0; i < allPeople.length; i++) {
-    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
-    if (
-      allPeople[i].name === nameAndChain[0] &&
-      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
-    ) {
-      console.log("row num:" + allPeople[i].row);
-      document.getElementById("chainName").value = fixChainFromData(
-        allPeople[i].chain
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
       );
-      fullName = allPeople[i].name;
-      document.getElementById("guestPhone").value = fixPhoneData(
-        allPeople[i].phone
-      );
-      firstName = fixFirstName(allPeople[i].phone);
-      // document.getElementById("nameOfPerson").innerHTML = " " + firstName;
-      document.getElementById("link555").value = allPeople[i].linkfive;
-      document.getElementById("short55").value = allPeople[i].linkshort;
-      document.getElementById("short55yt").value = allPeople[i].linkshortyt;
-      document.getElementById("full555").value = allPeople[i].linkfull;
-      document.getElementById("spotify").value = allPeople[i].linkspotify;
-    }
-  }
-}
-function toFixGuestPhone() {
-  if (document.getElementById("fixGuestPhone").checked === true) {
-    wannaFixGuestPhone = true;
-  } else wannaFixGuestPhone = false;
-}
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>
+      <div class="container">
+          <div class="input-group mb-3">
+           
+           <span class="input-group-text">חברת צוות:</span>
+           <input
+           type="text"
+           id="crewList"
+           list="crew"
+           autocomplete="off"
+           class="form-control"
+         />
+         <datalist id="crew"> </datalist>
+           </div>
+          </div>
+    <div class="container">
+      <header class="blog-header py-3">
+        <span class="position-relative start-50 input-group-text mb-3" text-align="center">תמלאי את הפרטים של האורח</span>
+        <div class="input-group mb-3">
+          <span class="input-group-text">או בחרי מהטבלה</span>
+          <div id="loader" class="loader"></div>
+          <input
+          type="text"
+          id="peopleList"
+          list="people"
+          autocomplete="off"
+          class="form-control"
+        />
+        <datalist id="people"> </datalist>
+        
+        <button onclick="submitData()" class="btn form-control btn-outline-secondary" id="submitData">
+          לבחירה
+        </button>
+     </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">מספר טלפון</span>
+          <input type="tel" id="guestPhone" class="form-control" placeholder="האורח" autocomplete="off"/>
+          <input class="form-check-input" type="checkbox" id="fixGuestPhone">
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span class="input-group-text">שם השרשרת</span>
+          <input class="form-control" list="chainsNames" id="chainName" placeholder="תתחילי להקליד את שם השרשרת..." autocomplete="off"/>
+          <datalist id="chainsNames">
+          </datalist>
+        </div>
+        <div class="form-control input-group-text" role="group">
+          <button onclick="submit()" class="btn form-control btn-outline-secondary" id="submit">
+            תצוגת פרטים
+          </button>
+          <button onclick="reset()" class="btn form-control btn-outline-secondary" id="reset">
+              מחיקת נתונים
+            </button>
+        </div>
+        <div class="col-4 text-center"></div>
+        <div class="col-4 d-flex justify-content-end align-items-center"></div>
+      </header>    
+      <div class="container blog-post-meta py-3" id="postMes">
+          <div class="col-auto">
+              <h3 class="mb-0"><u>לינקים לתוצרים אנגלית</u></h3>
+            <h6 class="mb-1 text-muted">יום אחרי ההקלטה</h6>
+              <div id="text1"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes1"
+              onclick="whatsAppMes('1')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes1"
+              onclick="copy('1')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+               <div id="text2"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes2"
+              onclick="whatsAppMes('2')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes2"
+              onclick="copy('2')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+              <div class="form-control input-group-text col-auto mb-3">
+                <input type="text" id="link555" class="form-control" placeholder="תעתיקי לפה לינק לסרטון 5:55" autocomplete="off"/>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendLink555" onclick="whatsAppMes('3')">שליחת לינק ה5:55 לאורח</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="copyLink555" onclick="copy('3')">העתקת לינק ה5:55</button>
+              </div>
+              <div class="form-control input-group-text col-auto mb-3">
+                <input type="text" id="full555" class="form-control" placeholder="תעתיקי לפה לינק לראיון המלא" autocomplete="off"/>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendFull555" onclick="whatsAppMes('4')">שליחת לינק הראיון המלא לאורח</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="copyFull555" onclick="copy('4')">העתקת לינק הראיון המלא</button>
+            </div>
+            <div class="form-control input-group-text col-auto mb-3">
+              <input type="text" id="spotify" class="form-control" placeholder="תעתיקי לפה לינק לפודקאסט בספוטיפיי" autocomplete="off"/>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendSpotify" onclick="whatsAppMes('5')">שליחת לינק הפודקאסט בסופטיפיי לאורח</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="copySpotify" onclick="copy('5')">העתקת לינק הפודקאסט בספוטיפיי</button>
+            </div>
+            <div class="form-control input-group-text col-auto mb-3">
+              <input type="text" id="short55" class="form-control" placeholder="תעתיקי לפה לינק לקובץ short מהדרייב" autocomplete="off"/>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55" onclick="whatsAppMes('6')">שליחת לינק ה55 לאורח</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="copyShort555" onclick="copy('6')">העתקת לינק ה55</button>
+            </div>
+             <div id="text7"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes7"
+              onclick="whatsAppMes('7')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes7"
+              onclick="copy('7')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+            <div class="form-control input-group-text col-auto mb-3">
+              <input type="text" id="short55yt" class="form-control" placeholder="תעתיקי לפה לינק לקצר55 ביוטיוב" autocomplete="off"/>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55yt" onclick="whatsAppMes('8')">שליחת לינק ה55 ביוטיוב</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="copyShort55yt" onclick="copy('8')">העתקת לינק ה55 ביוטיוב</button>
+            </div>
+            <div id="text9"></div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes9"
+              onclick="whatsAppMes('9')"
+            >
+              שליחת הודעה לאורח
+            </button>
+            <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes9"
+              onclick="copy('9')"
+            >
+              העתקת הודעה
+            </button>
+          </div>
+          
+          </div>
+        </div>
+        
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src='./postMesEng.js'></script>
+  </body>
+</html>
