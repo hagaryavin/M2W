@@ -100,13 +100,14 @@ function getCrewData() {
         newCrewMem = {
           name: ele.name,
           phone: ele.phone,
+          nameEnglish:ele.nameenglish
         };
         crewList.push(newCrewMem);
         crewOption = document.createElement("option");
-        crewOption.value = newCrewMem.name;
+        crewOption.value = newCrewMem.nameEnglish;
         optionsCrew.append(crewOption);
-        if(newCrewMem.name==="יעל"){
-            document.getElementById("crewList").value = "יעל"; 
+        if(newCrewMem.nameEnglish==="Yael"){
+            document.getElementById("crewList").value = "Yael"; 
         }  
       });
     });
@@ -163,8 +164,8 @@ function getMessData() {
 }
 function cutMess(linesArr, messType) {
 var crewMem;
-  if (currCrew.name !== "") crewMem = currCrew.name;
-  if (currCrew.name === "") crewMem = "";
+  if (currCrew.nameEnglish !== "") crewMem = currCrew.nameEnglish;
+  if (currCrew.nameEnglish === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
   if(messType===1||messType===2||messType===7||messType===9){
@@ -204,8 +205,8 @@ var crewMem;
     if (linesArr[i].includes("linkyoutube55")) {
       linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
     }
-    if (linesArr[i].includes("crewName")) {
-      linesArr[i] = linesArr[i].replace("crewName", crewMem);
+    if (linesArr[i].includes("crewNameEng")) {
+      linesArr[i] = linesArr[i].replace("crewNameEng", crewMem);
     }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
@@ -316,12 +317,12 @@ function submit() {
 function crewChosen() {
    if (document.getElementById("crewList").value !== "") {
     for (var j = 0; j < crewList.length; j++) {
-      if (document.getElementById("crewList").value === crewList[j].name) {
+      if (document.getElementById("crewList").value === crewList[j].nameEnglish) {
         currCrew = crewList[j];
       }
     }
   } else {
-    currCrew.name = "";
+    currCrew.nameEnglish = "";
     currCrew.phone = "";
   }
 }
@@ -414,4 +415,3 @@ function toFixGuestPhone() {
     wannaFixGuestPhone = true;
   } else wannaFixGuestPhone = false;
 }
-
