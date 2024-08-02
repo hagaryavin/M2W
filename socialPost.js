@@ -334,7 +334,6 @@ function fixChainFromData(chain) {
 function checkInputs() {
   if (
     checkPhoneGuest(document.getElementById("guestPhone").value) &&
-    checkPhoneInter(document.getElementById("interviewerPhone").value) &&
     document.getElementById("chainsNames").value !== ""
   ) {
     return true;
@@ -607,9 +606,11 @@ function submitData() {
       document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].guestphone
       );
+    if(allPeople[i].interviewerphone!==""){
       document.getElementById("interviewerPhone").value = fixPhoneDataInter(
         allPeople[i].interviewerphone
       );
+    }
         fixChain();
       linkFive = allPeople[i].linkfive;
       linkFull = allPeople[i].linkfull;
