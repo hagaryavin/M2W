@@ -920,7 +920,7 @@ function switchLang(){
     else{
        document.getElementById("switchLabel").innerHTML="אנגלית";
         document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה-אנגלית";
-        document.getElementById("toPreMes").onclick=function() { console.log('hi'); };
+        document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html';};
         document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ-אנגלית";
         document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
         document.getElementById("toPostMes").innerHTML="תוצרים-אנגלית";
