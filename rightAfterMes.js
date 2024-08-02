@@ -252,8 +252,7 @@ function checkPhoneInter(phone) {
   } else return true;
 }
 function checkInputs() {
-  if (checkPhoneGuest(document.getElementById("guestPhone").value) &&
- checkPhoneInter(document.getElementById("interviewerPhone").value)) {
+  if (checkPhoneGuest(document.getElementById("guestPhone").value)) {
     return true;
   }
   alert("ייתכן שמספר הטלפון אינו תקין!");
@@ -410,9 +409,12 @@ function submitData() {
       document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].phone
       );
+        if(allPeople[i].interviewerphone!==""){
+
     document.getElementById("interviewerPhone").value = fixPhoneDataInter(
         allPeople[i].interviewerphone
       );
+        }
       firstName = fixFirstName(allPeople[i].phone);
      interFirstName = fixInterviewerFirstName(allPeople[i].phone);
       //document.getElementById("nameOfPerson").innerHTML = " " + firstName;
