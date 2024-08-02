@@ -355,8 +355,7 @@ function checkInputs() {
   if (
     checkPhoneGuest(document.getElementById("guestPhone").value) &&
     document.getElementById("chainsNames").value !== "" &&
-    document.getElementById("dateAndHour").value !== "" &&
-    checkPhoneInter(document.getElementById("interviewerPhone").value)
+    document.getElementById("dateAndHour").value !== ""
   ) {
     return true;
   }
@@ -679,9 +678,11 @@ function submitData() {
       document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].guestphone
       );
+            if(allPeople[i].interviewerphone!==""){
       document.getElementById("interviewerPhone").value = fixPhoneDataInter(
         allPeople[i].interviewerphone
       );
+            }
      fixChain();
 
       var fixedMonth = allPeople[i].date.getMonth() + 1;
