@@ -649,21 +649,29 @@ function createTasks() {
             optionList.id = "socialpost" + allTasks[i].row;
             if(allTasks[i].chainCreator===""&&allTasks[i].interviewername!==""){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
-            }
-            if(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
-            }
-            if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
-            }
-            optionInput.classList.add("form-check-label");
-        if(!(allTasks[i].interviewername===""&&allTasks[i].chainCreator==="")){
-            optionDiv.append(optionList);
-            list.append(optionDiv);
+                 list.append(optionDiv);
             list.append(document.createElement("br"));
         
             size++;
             }
+            if(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
+                 list.append(optionDiv);
+            list.append(document.createElement("br"));
+        
+            size++;
+            }
+            if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
+                 list.append(optionDiv);
+            list.append(document.createElement("br"));
+        
+            size++;
+            }
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+           
+            
         }
         if (allTasks[i].type === "postmessinvite") {
             //////4
