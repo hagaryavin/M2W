@@ -359,7 +359,15 @@ function checkInputs() {
   ) {
     return true;
   }
-  alert("ייתכן שמספר הטלפון או התאריך או השעה לא תקינים!");
+  if(!(checkPhoneGuest(document.getElementById("guestPhone").value))){
+    alert("ייתכן שמספר הטלפון של האורח לא תקין!");
+  }
+  if(document.getElementById("chainsNames").value === ""){
+     alert("חסר שם שרשרת!");
+     }
+  if(document.getElementById("dateAndHour").value === ""){
+      alert("חסרים תאריך ושעה!");
+  }
   return false;
 }
 function fixDate(str) {
