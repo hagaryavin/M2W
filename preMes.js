@@ -419,7 +419,6 @@ function fixFirstName(phoneNum) {
   }
   const splittedName = fullName.split(" ");
   if (
-    splittedName[0] === "דר" ||
     splittedName[0] === 'ד"ר' ||
     splittedName[0] === "ד״ר" ||
     splittedName[0] === "דר." ||
@@ -448,7 +447,6 @@ function fixInterviewerFirstName(phoneNum) {
   const splittedName = fullName.split(" ");
   if (
     splittedName[0] === "דר." ||
-    splittedName[0] === "דר" ||
     splittedName[0] === 'ד"ר' ||
     splittedName[0] === "ד״ר" ||
     splittedName[0] === "דוקטור" ||
@@ -562,7 +560,6 @@ function fixCreatorFirstName() {
     const splittedName = currChain.creator.split(" ");
   if (
     splittedName[0] === "דר." ||
-    splittedName[0] === "דר" ||
     splittedName[0] === 'ד"ר' ||
     splittedName[0] === "ד״ר" ||
     splittedName[0] === "דוקטור" ||
