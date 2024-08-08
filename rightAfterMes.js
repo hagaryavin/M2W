@@ -434,7 +434,6 @@ function submitData() {
   const splittedName = fullName.split(" ");
   if (
     splittedName[0] === "דר." ||
-    splittedName[0] === "דר" ||
     splittedName[0] === 'ד"ר' ||
     splittedName[0] === "ד״ר" ||
     splittedName[0] === "דוקטור" ||
