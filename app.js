@@ -942,6 +942,6 @@ function switchLang(){
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים-אנגלית";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
         document.getElementById("toChangeCRM").innerHTML="עדכון ותיקון תוצרים-אנגלית";
-        document.getElementById("toChangeCRM").onclick=function() {console.log('hi');};
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
     }
 }
