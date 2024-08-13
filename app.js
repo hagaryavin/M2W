@@ -647,29 +647,32 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
-            if(allTasks[i].chainCreator===""&&allTasks[i].interviewername!==""){
+            if(!((allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername))
+               &&allTasks[i].interviewername!==""){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
-        
+                    optionDiv.append(optionList);
+
             size++;
             }
             if(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
-        
+                    optionDiv.append(optionList);
+
             size++;
             }
             if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
-        
+                    optionDiv.append(optionList);
+
             size++;
             }
             optionInput.classList.add("form-check-label");
-            optionDiv.append(optionList);
            
             
         }
