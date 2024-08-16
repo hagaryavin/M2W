@@ -1678,7 +1678,7 @@ function switchLang(){
         document.getElementById("toPostMes").innerHTML="תוצרים-אנגלית";
         document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
          document.getElementById("toPostMesInvite").innerHTML="הזמנת אורח-אנגלית";
-        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='';};
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
         document.getElementById("toSocialPost").innerHTML="פוסט-אנגלית";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='';};
         document.getElementById("toNewChain").innerHTML="פתיחת שרשרת-אנגלית";
