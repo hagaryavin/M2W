@@ -1670,22 +1670,22 @@ function switchLang(){
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
     }
     else{
-       document.getElementById("switchLabel").innerHTML="אנגלית";
-        document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה-אנגלית";
+       document.getElementById("switchLabel").innerHTML="English";
+        document.getElementById("toPreMes").innerHTML="Eng אישור והזמנה להקלטה";
         document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html';};
-        document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ-אנגלית";
+        document.getElementById("toRightAfterMes").innerHTML="Eng הזמנה לוואטסאפ";
         document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
-        document.getElementById("toPostMes").innerHTML="תוצרים-אנגלית";
+        document.getElementById("toPostMes").innerHTML="Eng תוצרים";
         document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
-         document.getElementById("toPostMesInvite").innerHTML="הזמנת אורח-אנגלית";
+         document.getElementById("toPostMesInvite").innerHTML="Eng הזמנת אורח";
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
-        document.getElementById("toSocialPost").innerHTML="פוסט-אנגלית";
-        document.getElementById("toSocialPost").onclick=function() { window.location.href='';};
-        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת-אנגלית";
+        document.getElementById("toSocialPost").innerHTML="Eng פוסט";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html';};
+        document.getElementById("toNewChain").innerHTML="Eng פתיחת שרשרת";
         document.getElementById("toNewChain").onclick=function() { window.location.href='';};
-       document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים-אנגלית";
+       document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
-        document.getElementById("toChangeCRM").innerHTML="עדכון ותיקון תוצרים-אנגלית";
+        document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
     }
 }
