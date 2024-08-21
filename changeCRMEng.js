@@ -16,6 +16,8 @@ var newChain = {};
 var currChain = {};
 var chainDataURL=
   "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
+var taskurl =
+  "https://script.google.com/macros/s/AKfycbwQfNNC-5P1c1x-JcKJ0jii3si9P1pItDynzlA9St6-ISH54aAL1DPhbZnvCT7aNwUE/exec";
 getChainData();
 getData();
 function getData() {
@@ -267,6 +269,9 @@ function sendData(obj, ele,whichSheet) {
     if(whichSheet==="chains"){
         urlUsed=chainDataURL;
     }
+    if(whichSheet==="tasks"){
+        urlUsed=taskurl;
+    }
   fetch(urlUsed, {
     method: "POST",
     body: formData,
@@ -402,6 +407,28 @@ function changeChainExplain(){
           console.log(json);
         });
         document.getElementById("linkexplainChange").innerHTML="התעדכן";
+    }
+}
+function changeDate(){
+    var dataElement=document.getElementById("dateChange");
+    change('date');
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    var messesTypes=[
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send"
+    ];
+    for(var i=0;i<messesTypes.length;i++){
+        console.log("col: "+messesTypes[i]);
+        var temp = {
+            text: "not yet",
+            row: chosenRow,
+            col: messesTypes[i],
+        };
+        if (chosenRow > 0) {
+            sendData(temp, dataElement,"tasks");
+            dataElement.innerHTML="התעדכן";
+        }
     }
 }
 function fixChainFromData(chain) {
