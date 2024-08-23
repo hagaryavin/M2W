@@ -1188,18 +1188,33 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasks[i].row;
-            optionList.innerHTML =
-                allTasks[i].name
-                 +
-                " - " +
-                recDate +" - "+shortChainName(allTasks[i].chain)+
-                " - אישור רישום ל" +allTasks[i].interviewername
-                ;
+            if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
+                optionList.innerHTML =
+                    allTasks[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasks[i].chain)+
+                    " - אישור רישום ל" +allTasks[i].chainCreator
+                    ;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
+            if(allTasks[i].interviewername!==""){
+                optionList.innerHTML =
+                    allTasks[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasks[i].chain)+
+                    " - אישור רישום ל" +allTasks[i].interviewername
+                    ;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
             optionInput.classList.add("form-check-label");
-            optionDiv.append(optionList);
-            list.append(optionDiv);
-            list.append(document.createElement("br"));
-            size++;
         }
         if (
             allTasks[i].type === "addcreator" &&
@@ -1395,18 +1410,35 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasksEng[i].row;
-            optionList.innerHTML =
-                allTasksEng[i].name
-                 +
-                " - " +
-                recDate +" - "+shortChainName(allTasksEng[i].chain)+
-                " - אישור רישום ל" +allTasksEng[i].interviewername
-                ;
+            if(allTasksEng[i].interviewername===""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name){
+                optionList.innerHTML =
+                    allTasksEng[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasksEng[i].chain)+
+                    " - אישור רישום ל" +allTasksEng[i].chainCreator
+                    ;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
+            if(allTasksEng[i].interviewername!==""){
+                optionList.innerHTML =
+                    allTasksEng[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasksEng[i].chain)+
+                    " - אישור רישום ל" +allTasksEng[i].interviewername
+                    ;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
+            
             optionInput.classList.add("form-check-label");
-            optionDiv.append(optionList);
-            list.append(optionDiv);
-            list.append(document.createElement("br"));
-            size++;
+
         }
         if (
             allTasksEng[i].type === "addcreator" &&
