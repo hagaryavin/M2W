@@ -30,12 +30,18 @@ const taskurl =
 const taskurlEng="https://script.google.com/macros/s/AKfycbwQfNNC-5P1c1x-JcKJ0jii3si9P1pItDynzlA9St6-ISH54aAL1DPhbZnvCT7aNwUE/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
-var today = new Date();
+
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
+}
+var today = changeTimeZone(new Date(), 'Asia/Jerusalem');
+console.log("today: " + today);
 var todaysDay = today.getDate();
 var todaysMonth = today.getMonth() + 1;
 var todaysCurrentDate = todaysDay + "." + todaysMonth;
-console.log("today: " + today);
-
 function start(){
 
       getChainData();
