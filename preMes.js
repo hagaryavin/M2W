@@ -48,8 +48,8 @@ function getData() {
           guestphone: String(ele.phone),
           chain: ele.chain,
           interviewerphone: String(ele.interviewerphone),
-          date: new Date(ele.recordingdate),
-          hour: new Date(ele.recordinghour),
+          date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
+          hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
           row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
@@ -59,9 +59,9 @@ function getData() {
         if (ele.fixedinterviewerphone !== "")
           newPerson.interviewerphone = ele.fixedinterviewerphone;
         if (ele.fixedrecordingdate !== "")
-          newPerson.date = new Date(ele.fixedrecordingdate);
+          newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         if (ele.fixedrecordinghour !== "")
-          newPerson.hour = new Date(ele.fixedrecordinghour);
+          newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
         newPerson.hour.setFullYear(
           newPerson.date.getFullYear(),
           newPerson.date.getMonth(),
@@ -177,6 +177,12 @@ function getMessData() {
         }
       }
     });
+}
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
 }
 function changeNameS(who) {
   var firstName2 = fixFirstName(currPerson.guestphone);
