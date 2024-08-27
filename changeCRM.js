@@ -78,15 +78,15 @@ function getData() {
         if (ele.fixedinterviewerphone !== "")
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
-          newPerson.date = new Date(ele.recordingdate);
+          newPerson.date = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
         if (ele.meta !== "")
-          newPerson.meta = new Date(ele.meta);
+          newPerson.meta = changeTimeZone(new Date(ele.meta), 'Asia/Jerusalem');
         if (ele.recordinghour !== "")
-          newPerson.hour = new Date(ele.recordinghour);
+          newPerson.hour = changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem');
         if (ele.fixedrecordingdate !== "")
-          newPerson.date = new Date(ele.fixedrecordingdate);
+          newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         if (ele.fixedrecordinghour !== "")
-          newPerson.hour = new Date(ele.fixedrecordinghour);
+          newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
         allPeople.push(newPerson);
         console.log(allPeople[size]);
         personOption = document.createElement("option");
@@ -450,5 +450,9 @@ function fixChainFromData(chain) {
   }
   return chain;
 }
-
-
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
+}
