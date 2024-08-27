@@ -77,7 +77,7 @@ function getData(x) {
                     premessdate: "",
                     postmessdate: "",
                     postmessinvitedate: "",
-                    timeformsent: new Date(ele.timeformsent),
+                    timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRow,
                 };
                 tableRow++;
@@ -91,19 +91,13 @@ function getData(x) {
                 }
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
                 if (ele.recordingdate !== "")
-                    newPerson.recordingdate = new Date(ele.recordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== "")
-                    newPerson.recordingdate = new Date(ele.fixedrecordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
                 if (newPerson.recordingdate !== "") {
-                    newPerson.premessdate = new Date(
-                        preMessDate(newPerson.recordingdate)
-                    );
-                    newPerson.postmessdate = new Date(
-                        postMessDate(newPerson.recordingdate)
-                    );
-                    newPerson.postmessinvitedate = new Date(
-                        postMessInviteDate(newPerson.recordingdate)
-                    );
+                    newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     for (var i = 0; i < allChains.length; i++) {
                         if (
                             allChains[i].name === shortChainName(newPerson.chain) ||
@@ -364,7 +358,7 @@ function getDataEng(x) {
                     premessdate: "",
                     postmessdate: "",
                     postmessinvitedate: "",
-                    timeformsent: new Date(ele.timeformsent),
+                    timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRowEng,
                 };
                 tableRowEng++;
@@ -374,19 +368,13 @@ function getDataEng(x) {
                     newPerson.interviewername = ele.fixedinterviewername;
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
                 if (ele.recordingdate !== "")
-                    newPerson.recordingdate = new Date(ele.recordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== "")
-                    newPerson.recordingdate = new Date(ele.fixedrecordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
                 if (newPerson.recordingdate !== "") {
-                    newPerson.premessdate = new Date(
-                        preMessDate(newPerson.recordingdate)
-                    );
-                    newPerson.postmessdate = new Date(
-                        postMessDate(newPerson.recordingdate)
-                    );
-                    newPerson.postmessinvitedate = new Date(
-                        postMessInviteDate(newPerson.recordingdate)
-                    );
+                    newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     for (var i = 0; i < allChains.length; i++) {
                         if (
                             allChains[i].name === shortChainName(newPerson.chain) ||
@@ -1659,7 +1647,7 @@ function getPersonFromRowEng(row) {
 }
 
 function preMessDate(date) {
-    var prev = new Date(date.getTime());
+    var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     prev.setDate(date.getDate() - 1);
     if (prev.getDay() === 6) {
         prev.setDate(date.getDate() - 2);
@@ -1669,7 +1657,7 @@ function preMessDate(date) {
 }
 
 function postMessDate(date) {
-    var next = new Date(date.getTime());
+    var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() + 1);
     if (next.getDay() === 6) {
         next.setDate(date.getDate() + 2);
@@ -1679,7 +1667,7 @@ function postMessDate(date) {
 }
 
 function postMessInviteDate(date) {
-    var next = new Date(date.getTime());
+    var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() + 3);
     if (next.getDay() === 6) {
         next.setDate(date.getDate() + 4);
