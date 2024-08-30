@@ -45,7 +45,7 @@ var crewDataURL =
 getChainData();
 getCrewData();
 getData();
-const date = new Date();
+const date = changeTimeZone(new Date(), 'Asia/Jerusalem');
 var day = date.getDate();
 var month = date.getMonth() + 1;
 var currentDate = day + "." + month;
@@ -73,9 +73,9 @@ function getData() {
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
         }
         if (ele.recordingdate !== "")
-          newPerson.recordingdate = new Date(ele.recordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
         if (ele.fixedrecordingdate !== "")
-          newPerson.recordingdate = new Date(ele.fixedrecordingdate); //new Date(ele.fixedrecordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (newPerson.date !== "") {
           allPeople.push(newPerson);
@@ -667,4 +667,10 @@ function toFixCreatorPhone() {
   if (document.getElementById("fixCreatorPhone").checked === true) {
     wannaFixCreatorPhone = true;
   } else wannaFixCreatorPhone = false;
+}
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
 }
