@@ -41,7 +41,7 @@ function getData() {
         newPerson = {
           guestname: ele.name,
           chain: ele.chain,
-          date: new Date(ele.recordingdate),
+          date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
           order: ele.order,
           row: rowCount,
         };
@@ -54,7 +54,7 @@ function getData() {
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (ele.fixedrecordingdate !== "")
-          newPerson.date = new Date(ele.fixedrecordingdate);
+                    newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         allPeople.push(newPerson);
 
         rowCount++;
@@ -423,4 +423,10 @@ function sendData(obj, ele) {
       console.log(json);
     });
   
+}
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
 }
