@@ -50,7 +50,15 @@ function start(){
       getData();
       getDataEng();
     }, 4000);   
+     setTimeout(() => {
+          optionList = document.createElement("dt");
+            optionList.id = "label";
+            optionList.innerHTML =
+                "מומלץ לבדוק גם בלוח השנה למקרה שיש הקלטה שאינה כתובה בCRM";
+            list.append(optionList);
+    }, 5000);  
 }
+
 
 
 function getData(x) {
@@ -1003,11 +1011,7 @@ function taskDataEng() {
                 createTasksEng();
             }
             console.log(size);
-              optionList = document.createElement("dt");
-            optionList.id = "label";
-            optionList.innerHTML =
-                "מומלץ לבדוק גם בלוח השנה למקרה שיש הקלטה שאינה כתובה בCRM";
-            list.append(optionList);
+            
         });
 }
 function shortChainName(chain) {
