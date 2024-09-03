@@ -65,7 +65,7 @@ function getData() {
         if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;
         if (ele.fixedtopicofstory !== "")
           newPerson.title = ele.fixedtopicofstory;
-        if (newPerson.abouttheguestone === "") {
+        if (ele.abouttheguestone === "") {
           if (ele.abouttheguesttwo !== "") newPerson.abouttheguest = ele.abouttheguesttwo;
         }
         if (ele.fixedabouttheguest !== "")
