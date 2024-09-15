@@ -1672,9 +1672,9 @@ function postMessDate(date) {
 
 function postMessInviteDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
-    next.setDate(date.getDate() + 3);
+    next.setDate(date.getDate() + 4);
     if (next.getDay() === 6) {
-        next.setDate(date.getDate() + 4);
+        next.setDate(date.getDate() + 5);
     }
     next.setHours(0, 0, 0);
     return next;
