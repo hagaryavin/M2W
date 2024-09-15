@@ -368,6 +368,7 @@ function getDataEng(x) {
                     postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRowEng,
+                    qa:false
                 };
                 tableRowEng++;
 
@@ -375,6 +376,8 @@ function getDataEng(x) {
                 if (ele.fixedinterviewername !== "")
                     newPerson.interviewername = ele.fixedinterviewername;
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+                if(newPerson.chain.includes("Q&A"))
+                    newPerson.qa=true;
                 if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== "")
@@ -460,7 +463,7 @@ function getDataEng(x) {
                             newPerson.name !== newPerson.chainCreator &&
                             newPerson.interviewername!==newPerson.chainCreator&&
                             getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
-                            "not yet"
+                            "not yet"&&newPerson.qa===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -487,7 +490,7 @@ function getDataEng(x) {
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
                                 newPerson.recordingdate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonContEng(newPerson.row, "rightaftermess") ===
-                        "not yet"
+                        "not yet"&&newPerson.qa===false
                     ) {
                         //////2 condition
                         newTask = {
@@ -523,7 +526,7 @@ function getDataEng(x) {
                         //////////////3,5 condition
                         if (
                             getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
-                            "not yet"
+                            "not yet"&&newPerson.qa===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -584,7 +587,7 @@ function getDataEng(x) {
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonContEng(newPerson.row, "postmessinvite") ===
-                        "not yet"
+                        "not yet"&&newPerson.qa===false
                     ) {
                         /////////////////4 condition
                         newTask = {
