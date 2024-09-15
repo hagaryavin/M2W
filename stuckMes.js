@@ -584,6 +584,27 @@ function submit(id) {
     
   } else console.log("phone incorect");
 }
+function choose(){
+    var justName="";
+      for (var i = 0; i < fullAllPeople.length; i++) {
+    var nameAndChain = document
+      .getElementById("peopleList0")
+      .value.split(" + ");
+
+    if (
+      fullAllPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
+    ) {
+      justName= fullAllPeople[i].name;
+    }
+  }
+  if (justName ==="") {
+    alert("נא לבחור חרוז");
+  }
+    if(justName!==""){
+  document.getElementById("quickSubmit").innerHTML="תצוגת פרטי "+justName;
+    }
+}
 function fixChain(chainName) {
   if (chainName !== "") {
     for (var j = 0; j < allChains.length; j++) {
