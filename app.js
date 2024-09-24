@@ -1122,17 +1122,10 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
-            if(!((allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername))
-               &&allTasks[i].interviewername!==""){
+           
+            if(allTasks[i].interviewername!==""&&!(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name))
+               {
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
-                 list.append(optionDiv);
-            list.append(document.createElement("br"));
-                    optionDiv.append(optionList);
-
-            size++;
-            }
-            if(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1141,6 +1134,17 @@ function createTasks() {
             }
             if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
+                 list.append(optionDiv);
+            list.append(document.createElement("br"));
+                    optionDiv.append(optionList);
+
+            size++;
+            }
+            
+            
+            
+            if(allTasks[i].interviewername!==""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1202,7 +1206,7 @@ function createTasks() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasks[i].interviewername!==""){
+            if(allTasks[i].interviewername!==""&&!(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name)){
                 optionList.innerHTML =
                     allTasks[i].name
                      +
@@ -1215,8 +1219,21 @@ function createTasks() {
                 list.append(document.createElement("br"));
                 size++;
             }
+            if(allTasks[i].interviewername!==""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
+                optionList.innerHTML =
+                    allTasks[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasks[i].chain)+
+                    " - אישור רישום ל" +allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
             optionInput.classList.add("form-check-label");
         }
+        
         if (
             allTasks[i].type === "addcreator" &&
             allTasks[i].chainCreatorEmail !== ""
@@ -1344,17 +1361,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasksEng[i].row;
-            if(!((allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername))
-               &&allTasksEng[i].interviewername!==""){
+            
+            if(allTasksEng[i].interviewername!==""&&!(allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name)){
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername;
-                 list.append(optionDiv);
-            list.append(document.createElement("br"));
-                    optionDiv.append(optionList);
-
-            size++;
-            }
-            if(allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername){
-                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1363,6 +1372,14 @@ function createTasksEng() {
             }
             if(allTasksEng[i].interviewername===""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name){
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].chainCreator;
+                 list.append(optionDiv);
+            list.append(document.createElement("br"));
+                    optionDiv.append(optionList);
+
+            size++;
+            }
+            if(allTasksEng[i].interviewername!==""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername){
+                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1424,7 +1441,7 @@ function createTasksEng() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasksEng[i].interviewername!==""){
+            if(allTasksEng[i].interviewername!==""&&!(allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name)){
                 optionList.innerHTML =
                     allTasksEng[i].name
                      +
@@ -1437,7 +1454,20 @@ function createTasksEng() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            
+            if(allTasksEng[i].interviewername!==""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername){
+                optionList.innerHTML =
+                    allTasksEng[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasksEng[i].chain)+
+                    " - אישור רישום ל" +allTasksEng[i].interviewername
+                    +" ול"+allTasksEng[i].chainCreator;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+                
+            }
             optionInput.classList.add("form-check-label");
 
         }
