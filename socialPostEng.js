@@ -234,6 +234,11 @@ function cutMess(linesArr, messType) {
     if (linesArr[i].includes("fullLink")) {
       linesArr[i] = linesArr[i].replace("fullLink", linkFull);
     }
+    if (linesArr[i].includes("The full interview")) {
+        if(linkFull===""){
+      linesArr[i] = linesArr[i].replace("The full interview", "");
+        }
+    }
    
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
