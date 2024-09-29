@@ -8,7 +8,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url  =
-  "https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
+  "https://script.google.com/macros/s/AKfycbyYASxRIl0jbkL5vINcjk7lrXpdmrV2B3dtFI7s0k-x966yo7wx0ENxdyjplJUZz09TYA/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -51,6 +51,7 @@ function getData() {
           linkpre: ele.preptalk,
             meta:ele.meta,
           id: ele.id,
+            ide: ele.ide,
           clip1: ele.clip1,
           clip2: ele.clip2,
         clip3: ele.clip3,
@@ -148,6 +149,7 @@ function clearValues() {
   document.getElementById("intername").value = "";
   document.getElementById("interphone").value = "";
   document.getElementById("id").value = "";
+    document.getElementById("ide").value = "";
   document.getElementById("date").value = "";
   document.getElementById("hour").value = "";
   document.getElementById("participants").value = "";    
@@ -171,7 +173,8 @@ function clearValues() {
      document.getElementById("aboutChange").innerHTML="תיקון הצגה";
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
-    document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
+    document.getElementById("idChange").innerHTML="ID הוספת";
+    document.getElementById("ideChange").innerHTML="(IDe) הוספת מספר פרק פודקאסט";
     document.getElementById("dateChange").innerHTML="תיקון תאריך";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
@@ -222,6 +225,7 @@ function submitData() {
       document.getElementById("dateB4").innerHTML = allPeople[i].date;
         document.getElementById("metaB4").innerHTML=allPeople[i].meta;
       document.getElementById("idB4").innerHTML = allPeople[i].id;
+        document.getElementById("ideB4").innerHTML = allPeople[i].ide;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
         if(allPeople[i].meta!==""){
