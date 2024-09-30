@@ -87,6 +87,7 @@ function getData(x) {
                     postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRow,
+                    linkfull: ele.linkfull
                 };
                 tableRow++;
 
@@ -245,7 +246,7 @@ function getData(x) {
                     ) {
                         //////////////3,5 condition
                         if (
-                            getTasksDataFromPersonCont(newPerson.row, "postmess") ===
+                            newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmess") ===
                             "not yet"
                         ) {
                             newTask = {
@@ -368,6 +369,7 @@ function getDataEng(x) {
                     postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRowEng,
+                    linkfull: ele.linkfull,
                     qa:false
                 };
                 tableRowEng++;
@@ -525,7 +527,7 @@ function getDataEng(x) {
                     ) {
                         //////////////3,5 condition
                         if (
-                            getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
+                             newPerson.linkfull !== "" &&getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
                             "not yet"&&newPerson.qa===false
                         ) {
                             newTask = {
