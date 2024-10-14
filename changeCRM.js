@@ -129,7 +129,7 @@ setTimeout(() => {
 }, 2050);
 function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
-    
+  document.getElementById("deleteDate").style.visibility="visible";
   document.getElementById("link555").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
@@ -435,6 +435,23 @@ function changeDate(){
             sendData(temp, dataElement,"tasks");
             dataElement.innerHTML="התעדכן";
         }
+    }
+}
+function deleteDate(id){
+   var dataElement=document.getElementById("deleteDate");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    const temp = {
+        text: "ללא תאריך",
+        row: chosenRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement,"crm");
+        dataElement.innerHTML="התעדכן";
     }
 }
 function fixChainFromData(chain) {
