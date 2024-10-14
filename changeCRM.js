@@ -450,14 +450,28 @@ function deleteDate(id){
     if (chosenRow === 0) {
         alert("נא לבחור מישהו מהטבלה כדי לשנות");
     }
-    const temp = {
+    var temp = {
         text: "ללא תאריך",
         row: chosenRow,
         col: chosenCol,
     };
     if (chosenRow > 0) {
         sendData(temp, dataElement,"crm");
-        dataElement.innerHTML="התעדכן";
+    }
+    var messesTypes=[
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send"
+    ];
+    for(var i=0;i<messesTypes.length;i++){
+        console.log("col: "+messesTypes[i]);
+        var temp2 = {
+            text: "not yet",
+            row: chosenRow,
+            col: messesTypes[i],
+        };
+        if (chosenRow > 0) {
+            sendData(temp2, dataElement,"tasks");
+            dataElement.innerHTML="התעדכן";
+        }
     }
 }
 function fixChainFromData(chain) {
