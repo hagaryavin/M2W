@@ -464,7 +464,7 @@ function deleteDate(id){
     for(var i=0;i<messesTypes.length;i++){
         console.log("col: "+messesTypes[i]);
         var temp2 = {
-            text: "not yet",
+            text: "completed",
             row: chosenRow,
             col: messesTypes[i],
         };
