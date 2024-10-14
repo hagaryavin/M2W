@@ -101,9 +101,9 @@ function getData(x) {
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
                 if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
-                if (ele.fixedrecordingdate !== "")
+                if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
-                if (newPerson.recordingdate !== "") {
+                if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
