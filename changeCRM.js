@@ -459,7 +459,7 @@ function deleteDate(id){
         sendData(temp, dataElement,"crm");
     }
     var messesTypes=[
-        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send"
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send"
     ];
     for(var i=0;i<messesTypes.length;i++){
         console.log("col: "+messesTypes[i]);
