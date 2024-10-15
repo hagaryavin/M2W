@@ -246,7 +246,7 @@ function getData(x) {
                     ) {
                         //////////////3,5 condition
                         if (
-                            newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmess") ===
+                            getTasksDataFromPersonCont(newPerson.row, "postmess") ===
                             "not yet"
                         ) {
                             newTask = {
@@ -307,7 +307,7 @@ function getData(x) {
                             (newPerson.postmessinvitedate.getDate() === today.getDate() &&
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonCont(newPerson.row, "postmessinvite") ===
+                        newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmessinvite") ===
                         "not yet"
                     ) {
                         /////////////////4 condition
@@ -527,7 +527,7 @@ function getDataEng(x) {
                     ) {
                         //////////////3,5 condition
                         if (
-                             newPerson.linkfull !== "" &&getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
+                             getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
                             "not yet"&&newPerson.qa===false
                         ) {
                             newTask = {
@@ -588,7 +588,7 @@ function getDataEng(x) {
                             (newPerson.postmessinvitedate.getDate() === today.getDate() &&
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonContEng(newPerson.row, "postmessinvite") ===
+                        newPerson.linkfull !== "" &&getTasksDataFromPersonContEng(newPerson.row, "postmessinvite") ===
                         "not yet"&&newPerson.qa===false
                     ) {
                         /////////////////4 condition
