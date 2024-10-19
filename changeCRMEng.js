@@ -81,8 +81,11 @@ function getData() {
           newPerson.meta = changeTimeZone(new Date(ele.meta), 'Asia/Jerusalem');
         if (ele.recordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem');
-       if (ele.fixedrecordingdate !== "")
+       if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
           newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+        if (ele.fixedrecordingdate==="ללא תאריך"){
+          newPerson.date = "ללא תאריך";
+        }
         if (ele.fixedrecordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
         allPeople.push(newPerson);
@@ -127,7 +130,7 @@ setTimeout(() => {
 }, 2050);
 function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
-    
+  document.getElementById("deleteDate").style.visibility="visible";  
   document.getElementById("link555").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
@@ -175,7 +178,7 @@ function clearValues() {
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="ID הוספת";
     document.getElementById("ideChange").innerHTML="(IDe) הוספת מספר פרק פודקאסט";
-    document.getElementById("dateChange").innerHTML="תיקון תאריך";
+    document.getElementById("dateChange").innerHTML="תיקון תאריך (והחזרת חרוז שנמחק)";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
      document.getElementById("metaChange").innerHTML="ניקוי שדה פרסום מטא והחזרת החרוז להגרלה";
@@ -239,7 +242,7 @@ function submitData() {
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
         allPeople[i].interphone;
-      if (allPeople[i].date !== "") {
+      if (allPeople[i].date !== ""&&allPeople[i].date !== "ללא תאריך") {
         document.getElementById("dateB4").innerHTML =
           allPeople[i].date.getDate() +
           "/" +
@@ -247,6 +250,9 @@ function submitData() {
           "/" +
           allPeople[i].date.getFullYear();
       }
+        if (allPeople[i].date === "ללא תאריך") {
+            document.getElementById("dateB4").innerHTML ="ללא תאריך";
+        }
       if (allPeople[i].hour !== "") {
         document.getElementById("hourB4").innerHTML =
           allPeople[i].hour.getHours() + ":" + allPeople[i].hour.getMinutes();
@@ -431,6 +437,37 @@ function changeDate(){
         };
         if (chosenRow > 0) {
             sendData(temp, dataElement,"tasks");
+            dataElement.innerHTML="התעדכן";
+        }
+    }
+}
+function deleteDate(id){
+   var dataElement=document.getElementById("deleteDate");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    var temp = {
+        text: "ללא תאריך",
+        row: chosenRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement,"crm");
+    }
+    var messesTypes=[
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send"
+    ];
+    for(var i=0;i<messesTypes.length;i++){
+        console.log("col: "+messesTypes[i]);
+        var temp2 = {
+            text: "completed",
+            row: chosenRow,
+            col: messesTypes[i],
+        };
+        if (chosenRow > 0) {
+            sendData(temp2, dataElement,"tasks");
             dataElement.innerHTML="התעדכן";
         }
     }
