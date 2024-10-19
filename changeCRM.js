@@ -180,7 +180,7 @@ function clearValues() {
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
-    document.getElementById("dateChange").innerHTML="תיקון תאריך";
+    document.getElementById("dateChange").innerHTML="תיקון תאריך (והחזרת חרוז שנמחק)";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
      document.getElementById("metaChange").innerHTML="ניקוי שדה פרסום מטא והחזרת החרוז להגרלה";
