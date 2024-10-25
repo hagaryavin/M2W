@@ -53,7 +53,7 @@ function getData() {
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
-        if (ele.fixedrecordingdate !== "")
+        if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         allPeople.push(newPerson);
 
