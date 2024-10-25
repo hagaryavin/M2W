@@ -83,12 +83,12 @@ function getData() {
         if (ele.fixedtopicofstory !== "")
           newPerson.title = ele.fixedtopicofstory;
         allPeople.push(newPerson);
-        console.log(allPeople[size]);
         personOption = document.createElement("option");
         personOption.value =
           newPerson.guestname + " + " + fixChainFromData(newPerson.chain);
         personOption.id = rowCount;
-        if (newPerson.guestname !== "" || newPerson.chain !== "") {
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.guestname !== "" || newPerson.chain !== "")) {
+          console.log(allPeople[size]);
           options.append(personOption);
         }
         rowCount++;
