@@ -74,10 +74,10 @@ function getData() {
         }
         if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
-        if (ele.fixedrecordingdate !== "")
+        if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
-        if (newPerson.date !== "") {
+        if (newPerson.date !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
           allPeople.push(newPerson);
           console.log(allPeople[size]);
           optionDiv = document.createElement("div");
@@ -88,7 +88,7 @@ function getData() {
           optionLabel.classList.add("form-check-label");
           optionLabel.id = "lab";
           optionLabel.for = newPerson.name;
-          if (newPerson.recordingdate !== "") {
+          if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
             optionLabel.innerHTML =
               fixChainFromData(newPerson.chain) +
               " - " +
@@ -100,7 +100,7 @@ function getData() {
               " - " +
               newPerson.date;
           }
-          if (newPerson.recordingdate === "") {
+          if (newPerson.recordingdate === ""||ele.fixedrecordingdate==="ללא תאריך") {
             optionLabel.innerHTML =
               fixChainFromData(newPerson.chain) +
               " - " +
@@ -125,7 +125,7 @@ function getData() {
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
-        if (newPerson.name !== "" || newPerson.chain !== "") {
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
           peopleOptions.append(personOption);
         }
         fullSize++;
