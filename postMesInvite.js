@@ -69,13 +69,13 @@ function getData() {
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         allPeople.push(newPerson);
-        console.log(allPeople[size]);
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
         personOption.id = rowCount;
-        if (newPerson.name !== "" || newPerson.chain !== "") {
-          options.append(personOption);
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
+            console.log(allPeople[size]);
+            options.append(personOption);
         }
         rowCount++;
         size++;
