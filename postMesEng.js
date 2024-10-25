@@ -57,12 +57,12 @@ function getData() {
         if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         allPeople.push(newPerson);
-        console.log(allPeople[size]);
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
         personOption.id = rowCount;
-        if (newPerson.name !== "" || newPerson.chain !== "") {
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
+          console.log(allPeople[size]);
           options.append(personOption);
         }
         rowCount++;
