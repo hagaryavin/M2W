@@ -59,7 +59,7 @@ function getData() {
           newPerson.interviewername = ele.fixedinterviewername;
         if (ele.fixedinterviewerphone !== "")
           newPerson.interviewerphone = ele.fixedinterviewerphone;
-        if (ele.fixedrecordingdate !== "")
+        if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
           newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
         if (ele.fixedrecordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
@@ -79,8 +79,9 @@ function getData() {
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
         personOption.id = rowCount;
-        if (newPerson.name !== "" || newPerson.chain !== "") {
-          options.append(personOption);
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
+           console.log(allPeople[size]);
+            options.append(personOption);
         }
         rowCount++;
         size++;
