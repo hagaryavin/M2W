@@ -159,7 +159,7 @@ function getData(x) {
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
                         //////6,7 condition
-                        if (newPerson.interviewername !== "יעל מילוא" &&
+                        if (some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"
                         ) {
                             newTask = {
@@ -273,7 +273,7 @@ function getData(x) {
                             }
                         }
                         if (
-                            newPerson.interviewername !== "יעל מילוא" &&
+                            some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain))&&
                             getTasksDataFromPersonCont(newPerson.row, "socialpost") ===
                             "not yet"
                         ) {
@@ -382,9 +382,9 @@ function getDataEng(x) {
                     newPerson.qa=true;
                 if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
-                if (ele.fixedrecordingdate !== "")
+                if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
-                if (newPerson.recordingdate !== "") {
+                if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
@@ -440,7 +440,8 @@ function getDataEng(x) {
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
                         //////6,7 condition
-                        if (newPerson.interviewername !== "יעל מילוא" &&
+                        if (
+                            some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"
                         ) {
                             newTask = {
@@ -554,7 +555,7 @@ function getDataEng(x) {
                             }
                         }
                         if (
-                            newPerson.interviewername !== "יעל מילוא" &&
+                            some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "socialpost") ===
                             "not yet"
                         ) {
@@ -1125,7 +1126,13 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
            
-            if(allTasks[i].interviewername!==""&&!(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name))
+            if(allTasks[i].interviewername!=="יעל מילוא"&&
+               allTasks[i].interviewername!==""&&
+               allTasks[i].interviewername!==allTasks[i].name&&
+               (allTasks[i].chainCreator===""||
+                allTasks[i].interviewername===allTasks[i].chainCreator||
+               allTasks[i].chainCreator===allTasks[i].name)
+              )
                {
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
                  list.append(optionDiv);
@@ -1134,7 +1141,15 @@ function createTasks() {
 
             size++;
             }
-            if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
+            else if(
+                allTasks[i].chainCreator!==""&&
+                allTasks[i].chainCreator!==allTasks[i].name&&
+                (allTasks[i].interviewername==="יעל מילוא"||
+                 allTasks[i].interviewername===""||
+                 allTasks[i].interviewername===allTasks[i].chainCreator||
+                 allTasks[i].interviewername===allTasks[i].name
+                )
+              ){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
@@ -1143,9 +1158,13 @@ function createTasks() {
             size++;
             }
             
-            
-            
-            if(allTasks[i].interviewername!==""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
+            else if(allTasks[i].interviewername!=="יעל מילוא"&&
+                allTasks[i].interviewername!==""&&
+               allTasks[i].interviewername!==allTasks[i].chainCreator&&
+               allTasks[i].chainCreator!== ""&&
+               allTasks[i].chainCreator!==allTasks[i].name&&
+               allTasks[i].interviewername!==allTasks[i].name
+              ){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
@@ -1195,7 +1214,16 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasks[i].row;
-            if(allTasks[i].interviewername===""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name){
+            if(
+                allTasks[i].chainCreator!==""&&
+                allTasks[i].chainCreator!==allTasks[i].name&&
+                (allTasks[i].interviewername==="יעל מילוא"||
+                 allTasks[i].interviewername===""||
+                 allTasks[i].interviewername===allTasks[i].chainCreator||
+                 allTasks[i].interviewername===allTasks[i].name
+                )
+              ){
+                
                 optionList.innerHTML =
                     allTasks[i].name
                      +
@@ -1208,7 +1236,14 @@ function createTasks() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasks[i].interviewername!==""&&!(allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name)){
+            else if(allTasks[i].interviewername!=="יעל מילוא"&&
+               allTasks[i].interviewername!==""&&
+               allTasks[i].interviewername!==allTasks[i].name&&
+               (allTasks[i].chainCreator===""||
+                allTasks[i].interviewername===allTasks[i].chainCreator||
+               allTasks[i].chainCreator===allTasks[i].name)
+              )
+               {
                 optionList.innerHTML =
                     allTasks[i].name
                      +
@@ -1221,7 +1256,13 @@ function createTasks() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasks[i].interviewername!==""&&allTasks[i].chainCreatorEmail !== ""&&allTasks[i].chainCreator!==allTasks[i].name&&allTasks[i].chainCreator!==allTasks[i].interviewername){
+            else if(allTasks[i].interviewername!=="יעל מילוא"&&
+                allTasks[i].interviewername!==""&&
+               allTasks[i].interviewername!==allTasks[i].chainCreator&&
+               allTasks[i].chainCreator!== ""&&
+               allTasks[i].chainCreator!==allTasks[i].name&&
+               allTasks[i].interviewername!==allTasks[i].name
+              ){
                 optionList.innerHTML =
                     allTasks[i].name
                      +
@@ -1364,7 +1405,14 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasksEng[i].row;
             
-            if(allTasksEng[i].interviewername!==""&&!(allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name)){
+            if(allTasksEng[i].interviewername!=="יעל מילוא"&&
+               allTasksEng[i].interviewername!==""&&
+               allTasksEng[i].interviewername!==allTasksEng[i].name&&
+               (allTasksEng[i].chainCreator===""||
+                allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+               allTasksEng[i].chainCreator===allTasksEng[i].name)
+              )
+               {
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
@@ -1372,7 +1420,15 @@ function createTasksEng() {
 
             size++;
             }
-            if(allTasksEng[i].interviewername===""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name){
+            else if(
+                allTasksEng[i].chainCreator!==""&&
+                allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+                (allTasksEng[i].interviewername==="יעל מילוא"||
+                 allTasksEng[i].interviewername===""||
+                 allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+                 allTasksEng[i].interviewername===allTasksEng[i].name
+                )
+              ){
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
@@ -1380,7 +1436,13 @@ function createTasksEng() {
 
             size++;
             }
-            if(allTasksEng[i].interviewername!==""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername){
+            else if(allTasksEng[i].interviewername!=="יעל מילוא"&&
+                allTasksEng[i].interviewername!==""&&
+               allTasksEng[i].interviewername!==allTasksEng[i].chainCreator&&
+               allTasksEng[i].chainCreator!== ""&&
+               allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+               allTasksEng[i].interviewername!==allTasksEng[i].name
+              ){
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator;
                  list.append(optionDiv);
             list.append(document.createElement("br"));
@@ -1430,7 +1492,15 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasksEng[i].row;
-            if(allTasksEng[i].interviewername===""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name){
+            if(
+                allTasksEng[i].chainCreator!==""&&
+                allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+                (allTasksEng[i].interviewername==="יעל מילוא"||
+                 allTasksEng[i].interviewername===""||
+                 allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+                 allTasksEng[i].interviewername===allTasksEng[i].name
+                )
+              ){
                 optionList.innerHTML =
                     allTasksEng[i].name
                      +
@@ -1443,7 +1513,14 @@ function createTasksEng() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasksEng[i].interviewername!==""&&!(allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name)){
+            else if(allTasksEng[i].interviewername!=="יעל מילוא"&&
+               allTasksEng[i].interviewername!==""&&
+               allTasksEng[i].interviewername!==allTasksEng[i].name&&
+               (allTasksEng[i].chainCreator===""||
+                allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+               allTasksEng[i].chainCreator===allTasksEng[i].name)
+              )
+               {
                 optionList.innerHTML =
                     allTasksEng[i].name
                      +
@@ -1456,7 +1533,13 @@ function createTasksEng() {
                 list.append(document.createElement("br"));
                 size++;
             }
-            if(allTasksEng[i].interviewername!==""&&allTasksEng[i].chainCreatorEmail !== ""&&allTasksEng[i].chainCreator!==allTasksEng[i].name&&allTasksEng[i].chainCreator!==allTasksEng[i].interviewername){
+            else if(allTasksEng[i].interviewername!=="יעל מילוא"&&
+                allTasksEng[i].interviewername!==""&&
+               allTasksEng[i].interviewername!==allTasksEng[i].chainCreator&&
+               allTasksEng[i].chainCreator!== ""&&
+               allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+               allTasksEng[i].interviewername!==allTasksEng[i].name
+              ){
                 optionList.innerHTML =
                     allTasksEng[i].name
                      +
@@ -1668,6 +1751,22 @@ function sendDataEng(obj) {
             console.log(json);
         });
 }
+function some1tosend(gst,intr,crtr){
+    if((crtr===""&&intr==="")||(crtr===gst&&intr===gst)||(crtr===""&&intr===gst)||(intr===""&&crtr===gst)||(intr==="יעל מילוא"&&crtr===gst)||(intr==="יעל מילוא"&&crtr==="")){
+       return false;}
+    return true;
+}
+function getCreatorFromChain(chn) {
+    for (var i = 0; i < allChains.length; i++) {
+        if (
+            allChains[i].name === shortChainName(chn) ||
+            allChains[i].altname === shortChainName(chn)
+        ) {
+            return allChains[i].creator;
+       }
+    }
+    return "";
+}
 function getPersonFromRow(row) {
     for (var i = 0; i < allPeople.length; i++) {
         if (row === allPeople[i].row) {
@@ -1684,7 +1783,15 @@ function getPersonFromRowEng(row) {
     }
     return;
 }
-
+function toSendAMes(guestName,interName,creatorName){
+    if(interName===""&&creatorName==="")
+        return false;
+    if(interName===""&&guestName===creatorName)
+        return false;
+    if(creatorName===""&&guestName===interName)
+        return false;
+    return true;
+}
 function preMessDate(date) {
     var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     prev.setDate(date.getDate() - 1);
