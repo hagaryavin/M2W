@@ -174,6 +174,7 @@ function clearValues() {
     document.getElementById("orderChange").innerHTML="הוספת מספר חרוז בשרשרת";
     document.getElementById("titleChange").innerHTML="תיקון כותרת";
      document.getElementById("aboutChange").innerHTML="תיקון הצגה";
+     document.getElementById("aboutAdd").innerHTML="הוספת הצגה";
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="ID הוספת";
@@ -418,6 +419,27 @@ function changeChainExplain(){
         });
         document.getElementById("linkexplainChange").innerHTML="התעדכן";
     }
+}
+function addAbout(id) {
+    var textEntered=document.getElementById(id).value;
+    if(document.getElementById("aboutB4").innerHTML!==""){
+        var textEntered=document.getElementById("aboutB4").innerHTML+"\n"+document.getElementById(id).value;
+    }
+    var dataElement=document.getElementById(id+"Add");
+    chosenCol=id;
+      console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+      var temp = {
+        text: textEntered,
+        row: chosenRow,
+        col: chosenCol,
+      };
+  if (chosenRow > 0) {
+      sendData(temp, dataElement,"crm");
+      dataElement.innerHTML="התעדכן";
+  }
 }
 function changeDate(){
     var dataElement=document.getElementById("dateChange");
