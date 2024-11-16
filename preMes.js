@@ -16,9 +16,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
     { name: "", lines: [] },
+    { name: "", lines: [] },
     { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[]];
+var fullTexts = [[], [], [], [],[],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 var wannaFixCreatorPhone = true;
@@ -51,6 +52,7 @@ function getData() {
           interviewerphone: String(ele.interviewerphone),
           date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
           hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
+        email:ele.email,
           row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
@@ -74,7 +76,6 @@ function getData() {
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         allPeople.push(newPerson);
-        console.log(allPeople[size]);
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
@@ -165,7 +166,7 @@ function getMessData() {
           ],
         };
           
-       for (var i = 1; i <= 6; i++) {
+       for (var i = 1; i <= 7; i++) {
           if (newMess.name.includes("הזמנה להקלטה " + i)) {
             messes[i - 1] = newMess;
               console.log(newMess);
@@ -174,7 +175,7 @@ function getMessData() {
           
       });
       console.log(messes);
-      for (var i = 0; i <= 5; i++) {
+      for (var i = 0; i <= 6; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -543,6 +544,16 @@ function fixPhoneData(phone) {
     }
   }
   return phone;
+}
+function email(id){
+  var link =
+    "https://mail.google.com/mail/?view=cm&to=" +
+    currPerson.email +
+    "&su=" +
+    encodeURIComponent("הזמנה להקלטת סיפור555 שלך") +
+    "&body=" +
+    encodeURIComponent(fullTexts[id - 1]);
+  window.open(link, "_blank");
 }
 function sendBothPreMes() {
   whatsAppMes("preMesInter");
