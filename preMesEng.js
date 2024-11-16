@@ -539,14 +539,14 @@ function email(id){
     "https://mail.google.com/mail/?view=cm&to=" +
     currPerson.email +
     "&su=" +
-    encodeURIComponent("הזמנה להקלטת סיפור555 שלך") +
+    encodeURIComponent("Invitation to Your Story555 Recording") +
     "&body=" +
     encodeURIComponent(fullTexts[id - 1]);*/
     var link=
         "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
         currPerson.email.replace("@","%40")+
         "%3Fsubject%3D"+
-        encodeURIComponent("הזמנה להקלטת סיפור555 שלך")+
+        encodeURIComponent("Invitation to Your Story555 Recording")+
         "%26body%3D"+
         encodeURIComponent(fullTexts[id - 1]);
         
