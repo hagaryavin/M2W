@@ -546,13 +546,21 @@ function fixPhoneData(phone) {
   return phone;
 }
 function email(id){
-  var link =
+  /*var link =
     "https://mail.google.com/mail/?view=cm&to=" +
     currPerson.email +
     "&su=" +
     encodeURIComponent("הזמנה להקלטת סיפור555 שלך") +
     "&body=" +
-    encodeURIComponent(fullTexts[id - 1]);
+    encodeURIComponent(fullTexts[id - 1]);*/
+    var link=
+        "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
+        currPerson.email.replace("@","%40")+
+        "%3Fsubject%3D"+
+        encodeURIComponent("הזמנה להקלטת סיפור555 שלך")+
+        "%26body%3D"+
+        encodeURIComponent(fullTexts[id - 1]);
+        
   window.open(link, "_blank");
 }
 function sendBothPreMes() {
