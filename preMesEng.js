@@ -16,9 +16,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
     { name: "", lines: [] },
+     { name: "", lines: [] },
      { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[]];
+var fullTexts = [[], [], [], [],[],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 var wannaFixCreatorPhone = true;
@@ -48,6 +49,7 @@ function getData() {
           interviewername: ele.interviewername,
           guestphone: String(ele.phone),
           chain: ele.chain,
+            email:ele.email,
           interviewerphone: String(ele.interviewerphone),
           date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
           hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
@@ -161,14 +163,14 @@ function getMessData() {
           ],
         };
           
-       for (var i = 1; i <= 6; i++) {
+       for (var i = 1; i <= 7; i++) {
           if (newMess.name.includes("הזמנה להקלטה " + i)) {
             messes[i - 1] = newMess;
               console.log(newMess);
           }
         }
       });
-      for (var i = 0; i <= 5; i++) {
+      for (var i = 0; i <= 6; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -531,6 +533,24 @@ function fixPhoneData(phone) {
     }
   }
   return phone;
+}
+function email(id){
+  /*var link =
+    "https://mail.google.com/mail/?view=cm&to=" +
+    currPerson.email +
+    "&su=" +
+    encodeURIComponent("הזמנה להקלטת סיפור555 שלך") +
+    "&body=" +
+    encodeURIComponent(fullTexts[id - 1]);*/
+    var link=
+        "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
+        currPerson.email.replace("@","%40")+
+        "%3Fsubject%3D"+
+        encodeURIComponent("הזמנה להקלטת סיפור555 שלך")+
+        "%26body%3D"+
+        encodeURIComponent(fullTexts[id - 1]);
+        
+  window.open(link, "_blank");
 }
 function sendBothPreMes() {
   whatsAppMes("preMesInter");
