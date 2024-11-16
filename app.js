@@ -181,8 +181,7 @@ function getData(x) {
                         }
                         if (
                             newPerson.chainCreatorEmail !== "" &&
-                            newPerson.name !== newPerson.chainCreator &&
-                            newPerson.interviewername!==newPerson.chainCreator&&
+                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
                             "not yet"
                         ) {
@@ -463,8 +462,7 @@ function getDataEng(x) {
                         }
                         if (
                             newPerson.chainCreatorEmail !== "" &&
-                            newPerson.name !== newPerson.chainCreator &&
-                            newPerson.interviewername!==newPerson.chainCreator&&
+                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
                             "not yet"&&newPerson.qa===false
                         ) {
@@ -1130,8 +1128,8 @@ function createTasks() {
                allTasks[i].interviewername!==""&&
                allTasks[i].interviewername!==allTasks[i].name&&
                (allTasks[i].chainCreator===""||
-                allTasks[i].interviewername===allTasks[i].chainCreator||
-               allTasks[i].chainCreator===allTasks[i].name)
+                cleanName(allTasks[i].interviewername)===cleanName(allTasks[i].chainCreator)||
+               cleanName(allTasks[i].chainCreator)===cleanName(allTasks[i].name))
               )
                {
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
@@ -1143,10 +1141,10 @@ function createTasks() {
             }
             else if(
                 allTasks[i].chainCreator!==""&&
-                allTasks[i].chainCreator!==allTasks[i].name&&
+                cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                 (allTasks[i].interviewername==="יעל מילוא"||
                  allTasks[i].interviewername===""||
-                 allTasks[i].interviewername===allTasks[i].chainCreator||
+                 cleanName(allTasks[i].interviewername)===cleanName(allTasks[i].chainCreator)||
                  allTasks[i].interviewername===allTasks[i].name
                 )
               ){
@@ -1160,9 +1158,9 @@ function createTasks() {
             
             else if(allTasks[i].interviewername!=="יעל מילוא"&&
                 allTasks[i].interviewername!==""&&
-               allTasks[i].interviewername!==allTasks[i].chainCreator&&
+               cleanName(allTasks[i].interviewername)!==cleanName(allTasks[i].chainCreator)&&
                allTasks[i].chainCreator!== ""&&
-               allTasks[i].chainCreator!==allTasks[i].name&&
+               cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                allTasks[i].interviewername!==allTasks[i].name
               ){
                 optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
@@ -1216,10 +1214,10 @@ function createTasks() {
             optionList.id = "confirm" + allTasks[i].row;
             if(
                 allTasks[i].chainCreator!==""&&
-                allTasks[i].chainCreator!==allTasks[i].name&&
+                cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                 (allTasks[i].interviewername==="יעל מילוא"||
                  allTasks[i].interviewername===""||
-                 allTasks[i].interviewername===allTasks[i].chainCreator||
+                 cleanName(allTasks[i].interviewername)===cleanName(allTasks[i].chainCreator)||
                  allTasks[i].interviewername===allTasks[i].name
                 )
               ){
@@ -1240,8 +1238,8 @@ function createTasks() {
                allTasks[i].interviewername!==""&&
                allTasks[i].interviewername!==allTasks[i].name&&
                (allTasks[i].chainCreator===""||
-                allTasks[i].interviewername===allTasks[i].chainCreator||
-               allTasks[i].chainCreator===allTasks[i].name)
+                cleanName(allTasks[i].interviewername)===cleanName(allTasks[i].chainCreator)||
+               cleanName(allTasks[i].chainCreator)===cleanName(allTasks[i].name))
               )
                {
                 optionList.innerHTML =
@@ -1258,9 +1256,9 @@ function createTasks() {
             }
             else if(allTasks[i].interviewername!=="יעל מילוא"&&
                 allTasks[i].interviewername!==""&&
-               allTasks[i].interviewername!==allTasks[i].chainCreator&&
+               cleanName(allTasks[i].interviewername)!==cleanName(allTasks[i].chainCreator)&&
                allTasks[i].chainCreator!== ""&&
-               allTasks[i].chainCreator!==allTasks[i].name&&
+               cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                allTasks[i].interviewername!==allTasks[i].name
               ){
                 optionList.innerHTML =
@@ -1409,8 +1407,8 @@ function createTasksEng() {
                allTasksEng[i].interviewername!==""&&
                allTasksEng[i].interviewername!==allTasksEng[i].name&&
                (allTasksEng[i].chainCreator===""||
-                allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
-               allTasksEng[i].chainCreator===allTasksEng[i].name)
+                cleanName(allTasksEng[i].interviewername)===cleanName(allTasksEng[i].chainCreator)||
+               cleanName(allTasksEng[i].chainCreator)===cleanName(allTasksEng[i].name))
               )
                {
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername;
@@ -1422,10 +1420,10 @@ function createTasksEng() {
             }
             else if(
                 allTasksEng[i].chainCreator!==""&&
-                allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+                cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                 (allTasksEng[i].interviewername==="יעל מילוא"||
                  allTasksEng[i].interviewername===""||
-                 allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+                 cleanName(allTasksEng[i].interviewername)===cleanName(allTasksEng[i].chainCreator)||
                  allTasksEng[i].interviewername===allTasksEng[i].name
                 )
               ){
@@ -1438,9 +1436,9 @@ function createTasksEng() {
             }
             else if(allTasksEng[i].interviewername!=="יעל מילוא"&&
                 allTasksEng[i].interviewername!==""&&
-               allTasksEng[i].interviewername!==allTasksEng[i].chainCreator&&
+               cleanName(allTasksEng[i].interviewername)!==cleanName(allTasksEng[i].chainCreator)&&
                allTasksEng[i].chainCreator!== ""&&
-               allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+               cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                allTasksEng[i].interviewername!==allTasksEng[i].name
               ){
                 optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator;
@@ -1494,10 +1492,10 @@ function createTasksEng() {
             optionList.id = "confirm" + allTasksEng[i].row;
             if(
                 allTasksEng[i].chainCreator!==""&&
-                allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+                cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                 (allTasksEng[i].interviewername==="יעל מילוא"||
                  allTasksEng[i].interviewername===""||
-                 allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
+                 cleanName(allTasksEng[i].interviewername)===cleanName(allTasksEng[i].chainCreator)||
                  allTasksEng[i].interviewername===allTasksEng[i].name
                 )
               ){
@@ -1517,8 +1515,8 @@ function createTasksEng() {
                allTasksEng[i].interviewername!==""&&
                allTasksEng[i].interviewername!==allTasksEng[i].name&&
                (allTasksEng[i].chainCreator===""||
-                allTasksEng[i].interviewername===allTasksEng[i].chainCreator||
-               allTasksEng[i].chainCreator===allTasksEng[i].name)
+                cleanName(allTasksEng[i].interviewername)===cleanName(allTasksEng[i].chainCreator)||
+               cleanName(allTasksEng[i].chainCreator)===cleanName(allTasksEng[i].name))
               )
                {
                 optionList.innerHTML =
@@ -1535,9 +1533,9 @@ function createTasksEng() {
             }
             else if(allTasksEng[i].interviewername!=="יעל מילוא"&&
                 allTasksEng[i].interviewername!==""&&
-               allTasksEng[i].interviewername!==allTasksEng[i].chainCreator&&
+               cleanName(allTasksEng[i].interviewername)!==cleanName(allTasksEng[i].chainCreator)&&
                allTasksEng[i].chainCreator!== ""&&
-               allTasksEng[i].chainCreator!==allTasksEng[i].name&&
+               cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                allTasksEng[i].interviewername!==allTasksEng[i].name
               ){
                 optionList.innerHTML =
@@ -1752,6 +1750,9 @@ function sendDataEng(obj) {
         });
 }
 function some1tosend(gst,intr,crtr){
+    gst=cleanName(gst);
+    intr=cleanName(intr);
+    crtr=cleanName(crtr);
     if((crtr===""&&intr==="")||(crtr===gst&&intr===gst)||(crtr===""&&intr===gst)||(intr===""&&crtr===gst)||(intr==="יעל מילוא"&&crtr===gst)||(intr==="יעל מילוא"&&crtr==="")){
        return false;}
     return true;
@@ -1791,6 +1792,25 @@ function toSendAMes(guestName,interName,creatorName){
     if(creatorName===""&&guestName===interName)
         return false;
     return true;
+}
+function cleanName(name){
+    var possibleStarts=[
+        "דר. ",
+        'ד"ר ',
+        "דוקטור ",
+        "פרופסור ",
+        "פרופ' ",
+        "Dr. ",
+        "הרב ",
+        "ד״ר "
+    ];
+    for (var i = 0; i < possibleStarts.length; i++) {
+        if(name.startsWith(possibleStarts[i])){
+            name=name.replace(possibleStarts[i], "");
+            return name;
+        }
+    }
+    return name;
 }
 function preMessDate(date) {
     var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
