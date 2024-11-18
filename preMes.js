@@ -557,7 +557,7 @@ function email(id){
         "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
         currPerson.email.replace("@","%40")+
         "%3Fsubject%3D"+
-        encodeURIComponent("הזמנה להקלטת סיפור555 שלך")+
+        encodeURIComponent("הזמנה להקלטת סיפור555 שלך בשרשרת "+document.getElementById("chainName").value)+
         "%26body%3D"+
         encodeURIComponent(fullTexts[id - 1]);
         
