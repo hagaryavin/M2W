@@ -546,7 +546,7 @@ function email(id){
         "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
         currPerson.email.replace("@","%40")+
         "%3Fsubject%3D"+
-        encodeURIComponent("Invitation to Your Story555 Recording")+
+        encodeURIComponent("Invitation to Your Story555 Recording in "+document.getElementById("chainName").value+" Chain")+
         "%26body%3D"+
         encodeURIComponent(fullTexts[id - 1]);
         
