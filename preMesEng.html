@@ -1,340 +1,813 @@
-<!DOCTYPE html>
-<html lang="en">
-  
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>M2W - הזמנה להקלטה אנגלית</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
-      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
-      crossorigin="anonymous"
-    />
-    <link href="style.css" rel="stylesheet" />
-    <link
-      rel="icon"
-      href="https://www.svgrepo.com/show/106976/whatsapp.svg"
-    />
-    <style>
-        .bd-placeholder-img {
-          font-size: 1.125rem;
-          text-anchor: middle;
-          -webkit-user-select: none;
-          -moz-user-select: none;
-          -ms-user-select: none;
-          user-select: none;
+var options = document.getElementById("people");
+var personOption;
+var allPeople = [];
+var rowCount = 2;
+var size = 0;
+var firstName = "";
+var firstNameInterviewer = "";
+var optionsCrew = document.getElementById("crew");
+var crewOption;
+var crewList = [];
+var currCrew = {};
+var newCrewMem;
+var messes = [
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+  { name: "", lines: [] },
+    { name: "", lines: [] },
+     { name: "", lines: [] },
+     { name: "", lines: [] }
+];
+var fullTexts = [[], [], [], [],[],[],[]];
+var wannaFixGuestPhone = true;
+var wannaFixInterPhone = true;
+var wannaFixCreatorPhone = true;
+const url =
+  "https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
+var newPerson = {};
+var chainOption;
+var allChains = [];
+var newChain = {};
+var currChain = {};
+var currPerson = {};
+var currChainCreator = {};
+var chainDataURL =
+  "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
+getCrewData();
+getChainData();
+getData();
+function getData() {
+  fetch(url)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.forEach((ele) => {
+        newPerson = {
+          name: ele.name,
+          interviewername: ele.interviewername,
+          guestphone: String(ele.phone),
+          chain: ele.chain,
+            email:ele.email,
+          interviewerphone: String(ele.interviewerphone),
+          date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
+          hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
+          row: rowCount,
+        };
+        if (ele.fixedname !== "") newPerson.name = ele.fixedname;
+        if (ele.fixedphone !== "") newPerson.guestphone = ele.fixedphone;
+        if (ele.fixedinterviewername !== "")
+          newPerson.interviewername = ele.fixedinterviewername;
+        if (ele.fixedinterviewerphone !== "")
+          newPerson.interviewerphone = ele.fixedinterviewerphone;
+        if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
+          newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+        if (ele.fixedrecordinghour !== "")
+          newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
+        newPerson.hour.setFullYear(
+          newPerson.date.getFullYear(),
+          newPerson.date.getMonth(),
+          newPerson.date.getDate()
+        );
+        if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+        allPeople.push(newPerson);
+        personOption = document.createElement("option");
+        personOption.value =
+          newPerson.name + " + " + fixChainFromData(newPerson.chain);
+        personOption.id = rowCount;
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
+            console.log(allPeople[size]);        
+          options.append(personOption);
         }
-  
-        @media (min-width: 768px) {
-          .bd-placeholder-img-lg {
-            font-size: 3.5rem;
+        rowCount++;
+        size++;
+      });
+    });
+}
+function getCrewData() {
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.crew.forEach((ele) => {
+        newCrewMem = {
+          name: ele.name,
+          phone: ele.phone,
+          nameEnglish:ele.nameenglish
+        };
+        crewList.push(newCrewMem);
+        crewOption = document.createElement("option");
+        crewOption.value = newCrewMem.nameEnglish;
+        optionsCrew.append(crewOption);
+        if(newCrewMem.nameEnglish==="Yael"){
+            document.getElementById("crewList").value = "Yael"; 
+        }   
+      });
+    });
+}
+function getChainData() {
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.chains.forEach((ele) => {
+        newChain = {
+          name: ele.name,
+          altName: ele.othername,
+          playlist: ele.playlist,
+          description: ele.description,
+          creator: ele.creator,
+          creatorPhone:ele.creatorphone
+        };
+        allChains.push(newChain);
+        chainOption = document.createElement("option");
+        chainOption.value = newChain.name;
+        document.getElementById("chainsNames").append(chainOption);
+      });
+    });
+}
+function getMessData() {
+  var newMess;
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.messagesEng.forEach((ele) => {
+        newMess = {
+          name: ele.name,
+          lines: [
+            ele.line1,
+            ele.line2,
+            ele.line3,
+            ele.line4,
+            ele.line5,
+            ele.line6,
+            ele.line7,
+            ele.line8,
+            ele.line9,
+            ele.line10,
+            ele.line11,
+            ele.line12,
+            ele.line13,
+            ele.line14,
+            ele.line15,
+            ele.line16,
+            ele.line17,
+            ele.line18,
+            ele.line19,
+            ele.line20
+          ],
+        };
+          
+       for (var i = 1; i <= 7; i++) {
+          if (newMess.name.includes("הזמנה להקלטה " + i)) {
+            messes[i - 1] = newMess;
+              console.log(newMess);
           }
         }
-  
-        .loader {
-          border: 4px solid #f3f3f3;
-          border-radius: 50%;
-          border-top: 4px solid #3498db;
-          width: 20px;
-          height: 20px;
-          animation: spin 2s linear infinite;
+      });
+      for (var i = 0; i <= 6; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
         }
-        @keyframes spin {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-          h4 {
-  text-align: left;
-              direction: ltr;
+      }
+    });
+}
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
+}
+function changeNameS(who) {
+  var firstName2 = fixFirstName(currPerson.guestphone);
+  var firstNameInterviewer2 = fixInterviewerFirstName(currPerson.guestphone);
+  var firstNameSwitch = "";
+  if (who === "both") {
+    if (firstName2 === "" && firstNameInterviewer2 !== "") {
+      firstNameSwitch = " " + firstNameInterviewer2;
+    }
+    if (firstName2 !== "" && firstNameInterviewer2 === "") {
+      firstNameSwitch = " " + firstName2;
+    }
+    if (firstName2 !== "" && firstNameInterviewer2 !== "") {
+      firstNameSwitch = " " + firstName2 + "/" + firstNameInterviewer2;
+    }
+  }
+  if (who === "guest") {
+    firstNameSwitch = firstName2;
+  }
+  if (who === "interviewer") {
+    firstNameSwitch = firstNameInterviewer2;
+  }
+  return firstNameSwitch;
+}
+function cutMess(linesArr, messType) {
+ var crewMem;
+  if (currCrew.nameEnglish !== "") crewMem = currCrew.nameEnglish;
+  if (currCrew.nameEnglish === "") crewMem = "";
+  var currText = "";
+  var testDiv = document.getElementById("text" + messType);
+  removeAllChildNodes(testDiv);
+  var i = 0;
+  var firstName2 = fixFirstName(currPerson.guestphone);
+  var firstNameInterviewer2 = fixInterviewerFirstName(currPerson.guestphone);
+  var nameOfChainSwitch = document.getElementById("chainName").value;
+  var dateAndHourValue = document.getElementById("dateAndHour").value;
+  const arrayOfTime = dateAndHourValue.split("T");
+  while (linesArr[i] !== "end") {
+    if (linesArr[i].includes("firstNames")) {
+      linesArr[i] = linesArr[i].replace("firstNames", changeNameS(who));
+    }
+    if (linesArr[i].includes("nameOfChain")) {
+      linesArr[i] = linesArr[i].replace("nameOfChain", nameOfChainSwitch);
+    }
+    if (linesArr[i].includes("hour")) {
+      linesArr[i] = linesArr[i].replace("hour", arrayOfTime[1]);
+    }
+    if (linesArr[i].includes("date")) {
+      linesArr[i] = linesArr[i].replace("date", fixDate(arrayOfTime[0]));
+    }
+    if (linesArr[i].includes("firstNameOfGuest")) {
+      linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName2);
+    }
+    if (linesArr[i].includes("fullNameOfGuest")) {
+      var nameAndChain = document
+        .getElementById("peopleList")
+        .value.split(" + ");
+      linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
+    }
+    if (linesArr[i].includes("firstNameOfInterviewer")) {
+      linesArr[i] = linesArr[i].replace(
+        "firstNameOfInterviewer",
+        firstNameInterviewer2
+      );
+    }
+    if (linesArr[i].includes("firstNameOfCreator")) {
+      linesArr[i] = linesArr[i].replace(
+        "firstNameOfCreator",
+        fixCreatorFirstName()
+      );
+    }
+    if (linesArr[i].includes("crewNameEng")) {
+      linesArr[i] = linesArr[i].replace("crewNameEng", crewMem);
+    }
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] !== "end") {
+        currText += linesArr[i] + "\n";
+      }
+      if (linesArr[i + 1] === "end") {
+        currText += linesArr[i];
+      }
+    }
+    if (linesArr[i] === "") {
+      currText += "\n";
+    }
+    var duplicateLine = linesArr[i];
+    while (duplicateLine.includes("*")) {
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "<strong>");
+      }
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "</strong>");
+      }
+    }
+
+    var testH4 = document.createElement("h4");
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] === "") {
+        testH4.classList.add("mb-3");
+      }
+      if (linesArr[i + 1] !== "") {
+        testH4.classList.add("mb-0");
+      }
+      testH4.innerHTML = duplicateLine;
+      testDiv.append(testH4);
+    }
+    i++;
+  }
+  fullTexts[messType - 1] = currText;
+    
+}
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
+//style="visibility:hidden"
+//dataAsOptionsOutorder();
+function dataAsOptionsOutorder() {
+  var i = size - 1;
+  console.log(allPeople[0]);
+  console.log(allPeople[size - 1]);
+  while (i >= 0) {
+    console.log(allPeople[i]);
+    personOption = document.createElement("option");
+    personOption.value = allPeople[i].name;
+    personOption.id = allPeople[i].row;
+    //rowCount++;
+    options.append(personOption);
+    i--;
+  }
+}
+setTimeout(() => {
+  const loader = document.getElementById("loader");
+  loader.style.display = "none";
+}, 2050);
+
+function reset() {
+  document.location.reload();
+}
+function crewChosen() {
+  if (document.getElementById("crewList").value !== "") {
+    for (var j = 0; j < crewList.length; j++) {
+      if (document.getElementById("crewList").value === crewList[j].nameEnglish) {
+        currCrew = crewList[j];
+      }
+    }
+  } else {
+    currCrew.nameEnglish = "";
+    currCrew.phone = "";
+  }
 
 }
-      </style>
-    <link
-      href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <script>
-      var collapseElementList = [].slice.call(
-        document.querySelectorAll(".collapse")
-      );
-      var collapseList = collapseElementList.map(function (collapseEl) {
-        return new bootstrap.Collapse(collapseEl);
-      });
+function checkPhoneGuest(phone) {
+  if (wannaFixGuestPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
+function checkPhoneInter(phone) {
+  if (wannaFixInterPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
+function checkPhoneCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
+function checkInputs() {
+  if (
+    checkPhoneGuest(document.getElementById("guestPhone").value) &&
+    document.getElementById("chainsNames").value !== "" &&
+    document.getElementById("dateAndHour").value !== ""
+  ) {
+    return true;
+  }
+  alert("ייתכן שמספר הטלפון או התאריך או השעה לא תקינים!");
+  return false;
+}
+function fixDate(str) {
+  const myArray = str.split("-");
+  var year = myArray[0];
+  var month = myArray[1];
+  var day = myArray[2];
+  return day + "." + month + "." + year;
+}
+function fixDateAndHour() {
+  var dateAndHourValue = document.getElementById("dateAndHour").value;
+  const myArray = dateAndHourValue.split("T");
+  /*document.getElementById("dateOfRecording").innerHTML = fixDate(myArray[0]);
+  document.getElementById("hourOfRecording").innerHTML = myArray[1];*/
+}
+function fixChain() {
+  if (document.getElementById("chainName").value !== "") {
+    for (var j = 0; j < allChains.length; j++) {
+      if (
+        document.getElementById("chainName").value === allChains[j].name ||
+        document.getElementById("chainName").value === allChains[j].altName
+      ) {
+        currChain = allChains[j];
+        console.log(currChain);
+        findChainCreator();
+      }
+    }
+  }
+   if(currChain.creatorPhone!=="")    
+         document.getElementById("creatorPhone").value = fixPhoneDataCreator(currChain.creatorPhone);
 
-      var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-      );
-      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-      });
-    </script>
+      
+}
+function findChainCreator() {
+  for (var i = 0; i < allPeople.length; i++) {
+    if (allPeople[i].name === currChain.creator) {
+      currChainCreator = {
+        name: allPeople[i].name,
+        phone: allPeople[i].guestphone,
+      };
+    }
+  }
+  console.log(currChainCreator);
+}
+function fixFirstName(phoneNum) {
+  var fullName = "";
+  for (var i = 0; i < size; i++) {
+    if (allPeople[i].guestphone === phoneNum) fullName = allPeople[i].name;
+  }
+  const splittedName = fullName.split(" ");
+  if (
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דר." ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."||
+     splittedName[0] === "הרב" ||
+     splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+}
+function fixInterviewerFirstName(phoneNum) {
+  var fullName = "";
+  for (var i = 0; i < size; i++) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    ) {
+      fullName = allPeople[i].interviewername;
+    }
+  }
+  const splittedName = fullName.split(" ");
+  if (
+    splittedName[0] === "דר." ||
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."||
+    splittedName[0] === "Doctor"||
+    splittedName[0] === "Professor" ||
+    splittedName[0] === "הרב" ||
+    splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+}
+function submit() {
+  toFixGuestPhone();
+  toFixInterPhone();
+  toFixCreatorPhone();
+  console.log("entered the submit in pre");
+  crewChosen();
+  document.getElementById("preMes").style.visibility = "hidden";
+  if (checkInputs()) {
+    fixDateAndHour();
+    fixChain();
+    document.getElementById("preMes").style.visibility = "visible";
+    getMessData();
+  }
+  console.log("left submit in pre");
+}
+function copy(id) {
+   var text = fullTexts[id - 1];
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+  alert("הטקסט הועתק!");
+}
 
-<div class="container">
-  <div class="input-group mb-3">
-   
-   <span class="input-group-text">חברת צוות:</span>
-   <input
-   type="text"
-   id="crewList"
-   list="crew"
-   autocomplete="off"
-   class="form-control"
- />
- <datalist id="crew"> </datalist>
-   </div>
-  </div>
-
-    <div class="container">
-      <header class="blog-header py-3">
-        <span class="position-relative start-50 input-group-text mb-3" text-align="center">תמלאי את הפרטים של המראיין והאורח</span>
-        <div class="input-group mb-3">
-            <span class="input-group-text">או בחרי את האורח</span>
-            <div id="loader" class="loader"></div>
-            <input
-            type="text"
-            id="peopleList"
-            list="people"
-            autocomplete="off"
-            class="form-control"
-          />
-          <datalist id="people"> </datalist>
-          
-          <button onclick="submitData()" class="btn form-control btn-outline-secondary" id="submitData">
-            לבחירה
-          </button>
-       </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">טלפון המראיין</span>
-          <input type="tel" id="interviewerPhone" class="form-control" placeholder="המראיין" autocomplete="off"/>
-          <input class="form-check-input" type="checkbox" id="fixInterPhone">
-          <label class="form-check-label" for="flexCheckChecked">
-            מספר ישראלי
-          </label>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">טלפון האורח</span>
-          <input type="tel" id="guestPhone" class="form-control" placeholder="האורח" autocomplete="off"/>
-          <input class="form-check-input" type="checkbox" id="fixGuestPhone">
-          <label class="form-check-label" for="flexCheckChecked">
-            מספר ישראלי
-          </label>
-        </div>
-        <div class="input-group mb-3">
-          <span
-            class="input-group-text"
-            data-bs-toggle="popover"
-            data-bs-trigger="hover focus"
-            data-bs-toggle="tooltip"
-            data-bs-placement="bottom"
-            title="05_ _ _ _ _ _ _ _"
-            >טלפון יוצר השרשרת</span
-          >
-          <input
-            type="tel"
-            id="creatorPhone"
-            class="form-control"
-            placeholder="יוצר השרשרת"
-            autocomplete="off"
-          />
-          <input
-            class="form-check-input"
-            type="checkbox"
-            id="fixCreatorPhone"
-          />
-          <label class="form-check-label" for="flexCheckChecked">
-            מספר ישראלי
-          </label>
-        </div>  
-        <div class="input-group mb-3">
-          <span class="input-group-text">שם השרשרת</span>
-          <input class="form-control" list="chainsNames" id="chainName" placeholder="תתחילי להקליד את שם השרשרת..." autocomplete="off"/>
-          <datalist id="chainsNames">
-            
-          </datalist>
-        </div>
-        <div class="input-group mb-3">
-          <span class="input-group-text">תאריך ושעת ההקלטה</span>
-          <input class="form-control" type="datetime-local" id="dateAndHour" autocomplete="off"/>
-        </div>
-        <div class="form-control input-group-text" role="group">
-          <button onclick="submit()" class="btn form-control btn-outline-secondary" id="submit">
-            תצוגת פרטים
-          </button>
-          <button onclick="reset()" class="btn form-control btn-outline-secondary" id="reset">
-              מחיקת נתונים
-            </button>
-        </div>
-        <div class="col-4 text-center"></div>
-        <div class="col-4 d-flex justify-content-end align-items-center"></div>
-      </header>
-      <div class="container blog-post-meta py-3" id="preMes">
-        <div class="col-auto">
-          <h3 class="mb-0"><u>אישור רישום להקלטה</u></h3>
-            <h6 class="mb-1 text-muted">לאחר מילוי הטופס</h6>
-           
-           <div class="row align-items-center">
-    <div class="col">
-           <div id="text1"></div>
-                  </div>
-                  <div class="col">
-           <div id="text2"></div>
-                  </div>
-            </div>
-            
-        <div class="form-control input-group-text col-auto mb-2" role="group">
-          
-          <button
-            type="button"
-            class="btn form-control btn-outline-secondary"
-            id="sendMes1"
-            onclick="whatsAppMes('1_inter')"
-          >
-            שליחת הודעה למראיין
-          </button>
-             <button
-            type="button"
-            class="btn form-control btn-outline-secondary"
-            id="sendMes2"
-            onclick="whatsAppMes('2_creator')"
-          >
-             שליחת הודעה ליוצר השרשרת
-          </button>
-          <button
-            type="button"
-            class="btn form-control btn-outline-secondary"
-            id="copyMes1"
-            onclick="copy('1')"
-          >
-            העתקת הודעה
-          </button>
-        </div>
+function phoneForWA(phone, toWho) {
+  if (toWho === "guest") {
+    if (wannaFixGuestPhone === true) {
+      return "972" + phone.slice(1);
+    }
+      return phone;
+  }
+    if(toWho==="inter"){
+       if (wannaFixInterPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
+    if(toWho==="creator"){
+       if (wannaFixCreatorPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
+  return "972" + phone.slice(1);
+}
+function whatsAppMes(id) {
+ const splittedId = id.split("_");
+  var whichMes = splittedId[0];
+  var toWho = splittedId[1];
+  var phone;
+  if (toWho === "guest") phone = document.getElementById("guestPhone").value;
+  if (toWho === "inter") phone = document.getElementById("interviewerPhone").value;
+  if (toWho === "creator") phone = document.getElementById("creatorPhone").value;
+  var link =
+    "https://api.whatsapp.com/send?phone=" +
+    phoneForWA(phone, toWho) +
+    "&text=" +
+    encodeURI(fullTexts[whichMes - 1]);
+  window.open(link, "_blank");
+}
+function fixPhoneData(phone) {
+  if (wannaFixGuestPhone === true) {
+    if (phone.includes("-")) {
+      console.log("in");
+      phone = phone.replace("-", "");
+    }
+    if (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+  }
+  return phone;
+}
+function email(id){
+  /*var link =
+    "https://mail.google.com/mail/?view=cm&to=" +
+    currPerson.email +
+    "&su=" +
+    encodeURIComponent("Invitation to Your Story555 Recording") +
+    "&body=" +
+    encodeURIComponent(fullTexts[id - 1]);*/
+    var link=
+        "https://mail.google.com/mail/?extsrc=mailto&url=mailto%3A"+
+        currPerson.email.replace("@","%40")+
+        "%3Fsubject%3D"+
+        encodeURIComponent("Invitation to Your Story555 Recording in "+document.getElementById("chainName").value+" Chain")+
+        "%26body%3D"+
+        encodeURIComponent(fullTexts[id - 1]);
         
-           
-
-            <h3 class="mb-0"><u>הזמנה להקלטה</u></h3>
-              <h6 class="mb-1 text-muted">יום לפני ההקלטה</h6>
-              <div class="row align-items-center">
-    <div class="col">
-           <div id="text3"></div>
-                  </div>
-                  <div class="col">
-           <div id="text4"></div>
-                  </div>
-                  <div class="col">
-           <div id="text5"></div>
-                  </div>
-                </div>
-          <div class="form-control input-group-text col-auto mb-2" role="group">
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes3"
-              onclick="whatsAppMes('3_guest')"
-            >
-              שליחת הודעה לאורח
-            </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes4"
-              onclick="whatsAppMes('4_inter')"
-            >
-              שליחת הודעה למראיין</button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes5"
-              onclick="whatsAppMes('5_creator')"
-            >
-              שליחת הודעה ליוצר השרשרת</button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="copyMes4"
-              onclick="copy('4')"
-            >
-              העתקת הודעה
-            </button>
-          </div>
-          <div id="text6"></div>
-          <div class="form-control input-group-text col-auto mb-2" role="group">
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes5"
-              onclick="whatsAppMes('6_guest')"
-            >
-              שליחת הודעה לאורח
-            </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes6"
-              onclick="whatsAppMes('6_inter')"
-            >
-              שליחת הודעה למראיין
-            </button>
-              <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes6"
-              onclick="whatsAppMes('6_creator')"
-            >
-              שליחת הודעה ליוצר השרשרת
-            </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="copyMes6"
-              onclick="copy('6')"
-            >
-              העתקת הודעה
-            </button>
-          </div>
-            <h3 class="mb-0"><u>הזמנה להקלטה במייל</u></h3>
-              <h6 class="mb-1 text-muted">יום לפני ההקלטה</h6>
-              <div class="row align-items-center">
-                  <div id="text7"></div>
-                 <div class="form-control input-group-text col-auto mb-2" role="group">
-                  <button
-                  type="button"
-                  class="btn form-control btn-outline-secondary"
-                  id="sendMes7"
-                  onclick="email('7')"
-                >
-                  שליחת הודעה לאורח במייל
-                </button>
-                  <button
-                  type="button"
-                  class="btn form-control btn-outline-secondary"
-                  id="copyMes7"
-                  onclick="copy('7')"
-                >
-                  העתקת הודעה
-                </button>
-                  </div>
-            </div>
-      </div>
-    </div>
-      </div>
-    <script
+  window.open(link, "_blank");
+}
+function sendBothPreMes() {
+  whatsAppMes("preMesInter");
+  whatsAppMes("preMesGuest");
+}
+function sendBothZoom() {
+  whatsAppMes("zoomInter");
+  whatsAppMes("zoomGuest");
+}
+function fixChainFromData(chain) {
+  var splittedChain; //
+  if (chain.includes(" (") || chain.includes("-")) {
+    splittedChain = chain.split(" (");
+    var moresplitted;
+    if (splittedChain[0].includes("-")) {
+      moresplitted = splittedChain[0].split("-");
+      return moresplitted[1].trim();
+    }
+    return splittedChain[0].trim();
+  }
+  return chain;
+}
+function fixCreatorFirstName() {
+   if(currChain.creator!==""){
+    const splittedName = currChain.creator.split(" ");
+  if (
+    splittedName[0] === "דר." ||
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."||
+    splittedName[0] === "Doctor"||
+    splittedName[0] === "Professor" ||
+    splittedName[0] === "הרב" ||
+    splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+    }
+    return "";
+}
+function fixPhoneDataGuest(phone) {
+  if (wannaFixGuestPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
+    }
+  }
+  return phone;
+}
+function fixPhoneDataInter(phone) {
+  if (wannaFixInterPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
+    }
+  }
+  return phone;
+}
+function fixPhoneDataCreator(phone) {
+  if (wannaFixCreatorPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
+    }
+  }
+  return phone;
+}
+function getRowFromName(name) {
+  var rowNum = 0;
+  for (var i = 0; i < allPeople.length; i++) {
+    if (allPeople[i].name === name) {
+      rowNum = allPeople[i].row;
+    }
+  }
+  return rowNum;
+}
+function submitData() {
+  document.getElementById("interviewerPhone").value = "";
+  document.getElementById("guestPhone").value = "";
+    document.getElementById("creatorPhone").value = "";
+  document.getElementById("chainName").value = "";
+  document.getElementById("dateAndHour").value = "";
+  toFixGuestPhone();
+  toFixInterPhone();
+   toFixCreatorPhone();
     
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
-      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
-      crossorigin="anonymous"
-    ></script>
-    <script src="preMesEng.js"></script> 
-  </body>
-</html>
+  for (var i = 0; i < allPeople.length; i++) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    ) {
+      currPerson = allPeople[i];
+      console.log(
+        "row num:" +
+          allPeople[i].row +
+          " id:" +
+          document.getElementById("peopleList").id
+      );
+      document.getElementById("chainName").value = fixChainFromData(
+        allPeople[i].chain
+      );
+
+      document.getElementById("guestPhone").value = fixPhoneDataGuest(
+        allPeople[i].guestphone
+      );
+            if(allPeople[i].interviewerphone!==""){
+      document.getElementById("interviewerPhone").value = fixPhoneDataInter(
+        allPeople[i].interviewerphone
+      );
+            }
+     fixChain();
+
+      var fixedMonth = allPeople[i].date.getMonth() + 1;
+      var recordingDate =
+        allPeople[i].date.getFullYear() +
+        "-" +
+        fixedMonth +
+        "-" +
+        allPeople[i].date.getDate();
+      if (fixedMonth < 10) {
+        recordingDate =
+          allPeople[i].date.getFullYear() +
+          "-0" +
+          fixedMonth +
+          "-" +
+          allPeople[i].date.getDate();
+      }
+      if (allPeople[i].date.getDate() < 10) {
+        recordingDate =
+          allPeople[i].date.getFullYear() +
+          "-" +
+          fixedMonth +
+          "-0" +
+          allPeople[i].date.getDate();
+      }
+      if (allPeople[i].date.getDate() < 10 && fixedMonth < 10) {
+        recordingDate =
+          allPeople[i].date.getFullYear() +
+          "-0" +
+          fixedMonth +
+          "-0" +
+          allPeople[i].date.getDate();
+      }
+      var recordingHour =
+        allPeople[i].hour.getHours() + ":" + allPeople[i].hour.getMinutes();
+      if (allPeople[i].hour.getHours() < 10) {
+        recordingHour =
+          "0" +
+          allPeople[i].hour.getHours() +
+          ":" +
+          allPeople[i].hour.getMinutes() +
+          ":00";
+      }
+      if (allPeople[i].hour.getMinutes() < 10) {
+        recordingHour =
+          allPeople[i].hour.getHours() +
+          ":0" +
+          allPeople[i].hour.getMinutes() +
+          ":00";
+      }
+      if (
+        allPeople[i].hour.getMinutes() < 10 &&
+        allPeople[i].hour.getHours() < 10
+      ) {
+        recordingHour =
+          "0" +
+          allPeople[i].hour.getHours() +
+          ":0" +
+          allPeople[i].hour.getMinutes() +
+          ":00";
+      }
+
+      document.getElementById("dateAndHour").value =
+        recordingDate + "T" + recordingHour;
+      firstName = fixFirstName(allPeople[i].guestphone);
+      firstNameInterviewer = fixInterviewerFirstName(allPeople[i].guestphone);
+      /*  if (firstName === "" && firstNameInterviewer !== "") {
+        document.getElementById("nameOfPeople").innerHTML =
+          " " + firstNameInterviewer;
+      }
+      if (firstName !== "" && firstNameInterviewer === "") {
+        document.getElementById("nameOfPeople").innerHTML = " " + firstName;
+      }
+      if (firstName !== "" && firstNameInterviewer !== "") {
+        document.getElementById("nameOfPeople").innerHTML =
+          " " + firstName + "/" + firstNameInterviewer;
+      }
+      document.getElementById("nameOfPerson").innerHTML = " " + firstName;
+      document.getElementById("nameOfPerson2").innerHTML = "ל" + firstName;*/
+    }
+  }
+}
+function toFixGuestPhone() {
+  if (document.getElementById("fixGuestPhone").checked === true) {
+    wannaFixGuestPhone = true;
+  } else wannaFixGuestPhone = false;
+}
+function toFixInterPhone() {
+  if (document.getElementById("fixInterPhone").checked === true) {
+    wannaFixInterPhone = true;
+  } else wannaFixInterPhone = false;
+}
+function toFixCreatorPhone() {
+  if (document.getElementById("fixCreatorPhone").checked === true) {
+    wannaFixCreatorPhone = true;
+  } else wannaFixCreatorPhone = false;
+}
