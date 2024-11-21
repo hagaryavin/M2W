@@ -438,7 +438,9 @@ function fixFirstName(phoneNum) {
     splittedName[0] === "פרופ'" ||
     splittedName[0] === "Dr."||
      splittedName[0] === "הרב" ||
-     splittedName[0] === "ד״ר" 
+     splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
   ) {
     return splittedName[1];
   }
@@ -465,7 +467,9 @@ function fixInterviewerFirstName(phoneNum) {
     splittedName[0] === "פרופ'" ||
     splittedName[0] === "Dr."||
      splittedName[0] === "הרב" ||
-     splittedName[0] === "ד״ר" 
+     splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
   ) {
     return splittedName[1];
   }
@@ -596,7 +600,9 @@ function fixCreatorFirstName() {
     splittedName[0] === "פרופ'" ||
     splittedName[0] === "Dr."||
      splittedName[0] === "הרב" ||
-     splittedName[0] === "ד״ר" 
+     splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
   ) {
     return splittedName[1];
   }
