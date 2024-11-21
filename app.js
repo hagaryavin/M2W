@@ -1802,7 +1802,9 @@ function cleanName(name){
         "פרופ' ",
         "Dr. ",
         "הרב ",
-        "ד״ר "
+        "ד״ר ",
+        'עו"ד',
+        'עו״ד'
     ];
     for (var i = 0; i < possibleStarts.length; i++) {
         if(name.startsWith(possibleStarts[i])){
