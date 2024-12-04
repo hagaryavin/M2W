@@ -1818,7 +1818,7 @@ function preMessDate(date) {
     var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     prev.setDate(date.getDate() - 1);
     if (prev.getDay() === 6) {
-        prev.setDate(date.getDate() - 2);
+        prev.setDate(prev.getDate() - 1);
     }
     prev.setHours(0, 0, 0);
     return prev;
@@ -1828,7 +1828,7 @@ function postMessDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() + 1);
     if (next.getDay() === 6) {
-        next.setDate(date.getDate() + 2);
+        next.setDate(next.getDate() + 1);
     }
     next.setHours(0, 0, 0);
     return next;
@@ -1838,7 +1838,7 @@ function postMessInviteDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() + 4);
     if (next.getDay() === 6) {
-        next.setDate(date.getDate() + 5);
+        next.setDate(next.getDate() + 1);
     }
     next.setHours(0, 0, 0);
     return next;
