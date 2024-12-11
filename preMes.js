@@ -1,6 +1,6 @@
 var options = document.getElementById("people");
 var personOption;
-var allPeople = [];
+var allPeople = []; 
 var rowCount = 2;
 var size = 0;
 var firstName = "";
