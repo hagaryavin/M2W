@@ -10,6 +10,7 @@ var crewOption;
 var crewList = [];
 var currCrew = {};
 var newCrewMem;
+var title = "";
 var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
@@ -50,6 +51,7 @@ function getData() {
           guestphone: String(ele.phone),
           chain: ele.chain,
           interviewerphone: String(ele.interviewerphone),
+          title: ele.topicofstory,
           date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
           hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
         email:ele.email,
@@ -75,6 +77,8 @@ function getData() {
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+        if (ele.fixedtopicofstory !== "")
+          newPerson.title = ele.fixedtopicofstory;
         allPeople.push(newPerson);
         personOption = document.createElement("option");
         personOption.value =
@@ -261,6 +265,9 @@ function cutMess(linesArr, messType) {
     }
     if (linesArr[i].includes("crewName")) {
       linesArr[i] = linesArr[i].replace("crewName", crewMem);
+    }
+    if (linesArr[i].includes("title")) {
+      linesArr[i] = linesArr[i].replace("title", currPerson.title);
     }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
