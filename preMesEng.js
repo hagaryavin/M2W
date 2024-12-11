@@ -50,6 +50,7 @@ function getData() {
           guestphone: String(ele.phone),
           chain: ele.chain,
             email:ele.email,
+            title: ele.topicofstory,
           interviewerphone: String(ele.interviewerphone),
           date: changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem'),
           hour: changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem'),
@@ -71,6 +72,8 @@ function getData() {
           newPerson.date.getDate()
         );
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+        if (ele.fixedtopicofstory !== "")
+          newPerson.title = ele.fixedtopicofstory;
         allPeople.push(newPerson);
         personOption = document.createElement("option");
         personOption.value =
@@ -256,6 +259,9 @@ function cutMess(linesArr, messType) {
     }
     if (linesArr[i].includes("crewNameEng")) {
       linesArr[i] = linesArr[i].replace("crewNameEng", crewMem);
+    }
+    if (linesArr[i].includes("title")) {
+      linesArr[i] = linesArr[i].replace("title", currPerson.title);
     }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
