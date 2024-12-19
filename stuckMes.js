@@ -588,6 +588,8 @@ function submit(id) {
 }
 function choose(){
     var justName="";
+    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
+    document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
       for (var i = 0; i < fullAllPeople.length; i++) {
     var nameAndChain = document
       .getElementById("peopleList0")
