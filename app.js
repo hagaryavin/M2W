@@ -17,7 +17,9 @@ function getCrewData() {
           password: ele.password,
         };
         crewList.push(newCrewMem);
-        
+        if(newCrewMem.name==="יעל"){
+            document.getElementById("name").value = "יעל"; 
+        }
       });
     });
     
