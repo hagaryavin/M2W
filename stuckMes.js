@@ -71,6 +71,8 @@ function getData() {
         if (newPerson.chain === "") {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+          if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
+
         }
         if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
