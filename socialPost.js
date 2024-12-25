@@ -78,6 +78,7 @@ function getData() {
             newPerson.chaintype = "short";
           }
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+          if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (ele.fixedtopicofstory !== "")
