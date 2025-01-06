@@ -4,6 +4,8 @@ var crewList = [];
 var currCrewName = "{}";
 var newCrewMem;
 getCrewData();
+document.getElementById("submit").style.visibility="hidden";
+
 function getCrewData() {
   fetch(url)
     .then((res) => {
@@ -19,6 +21,8 @@ function getCrewData() {
         crewList.push(newCrewMem);
         if(newCrewMem.name==="יעל"){
             document.getElementById("name").value = "יעל"; 
+            document.getElementById("submit").style.visibility="visible";
+
         }
       });
     });
