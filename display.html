@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - הכרטיס</title>
+    <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+    integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+    crossorigin="anonymous"
+  />
+  <link href="./style.css" rel="stylesheet" />
+  <link
+    rel="icon"
+    href="https://cdn-icons-png.flaticon.com/128/174/174883.png"
+  />
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+
+    .loader {
+      border: 4px solid #f3f3f3;
+      border-radius: 50%;
+      border-top: 4px solid #3498db;
+      width: 20px;
+      height: 20px;
+      animation: spin 2s linear infinite;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <link
+    href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+    rel="stylesheet"
+/>
+</head>
+<body>
+  
+  <script>
+    var collapseElementList = [].slice.call(
+      document.querySelectorAll(".collapse")
+    );
+    var collapseList = collapseElementList.map(function (collapseEl) {
+      return new bootstrap.Collapse(collapseEl);
+    });
+
+    var tooltipTriggerList = [].slice.call(
+      document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    );
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+  </script>
+   <div class="container">
+    <header class="blog-header py-3 ">
+        <span class="input-group-text">נא לבחור חרוז</span>
+      <div class="input-group mb-3">
+        
+        <div id="loader" class="loader"></div>
+        <input
+        type="text"
+        id="peopleList"
+        list="people"
+        autocomplete="off"
+        class="form-control"
+      />
+      <datalist id="people"> </datalist>
+      
+   </div>
+   <div class="form-control input-group-text mb-0" role="group">
+   <button onclick="submitData()" class="btn btn-outline-secondary form-control input-group-text" id="submitData">
+      לבחירה
+    </button>
+   </div>
+    </header>
+  </div>
+  <div class="container" id="displaying">
+      <h2 class="mb-2"><u>לינקים לתוצרים</u></h2>
+      <table class="table">
+         <tbody>
+            <tr>
+                <th scope="row">שם מלא</th>
+                  <th id="nameDisplay" scope="row"></th>
+                     <td> 
+                  <button
+      onclick="copy('name')"
+      class="btn form-control btn-outline-secondary"
+      id="nameCopy"
+    >להעתיק
+  </button>
+              </td> 
+             </tr>
+             <tr> <th scope="row">שם השרשרת</th>
+              <td id="chainDisplay"></td>
+              <td>             <button
+                      onclick="copy('chain')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="chainCopy"
+                    >להעתיק
+                  </button>
+                 </td>
+             </tr>
+             <tr>
+                  <th scope="row">מס' חרוז</th>
+                  <td id="orderDisplay"></td>
+                   <td>          <button
+                          onclick="copy('order')"
+                          class="btn form-control btn-outline-secondary copycat"
+                          id="orderCopy"
+                        >להעתיק
+                      </button>
+                  </td> 
+             </tr>
+               <tr>
+              <th scope="row">נייד</th>
+              <td id="phoneDisplay"></td>
+              <td>            <button
+                      onclick="copy('phone')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="phoneCopy"
+                    >להעתיק
+                  </button>
+                 </td>
+             </tr>
+                <tr>
+             <th scope="row">מייל</th>
+              <td id="emailDisplay"></td>
+              <td>          <button
+      onclick="copy('email')"
+      class="btn form-control btn-outline-secondary"
+      id="emailCopy"
+    >להעתיק
+  </button>
+                </td>  
+             </tr>
+                 <tr>
+               <th scope="row">סרט 5:55</th>
+             
+              <td id="555Display"></td>
+               <td>           <button
+                      onclick="copy('link555')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="link555Copy"
+                    >להעתיק
+                  </button>
+                </td>  
+             </tr>
+                 <tr>
+              <th scope="row">הראיון</th>
+             
+                 <td id="fullDisplay"></td>
+             
+                <td>      <button
+                      onclick="copy('linkfull')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="linkfullCopy"
+                    >להעתיק
+                  </button>
+                </td> 
+             </tr>
+              <tr>
+             <th scope="row">סרט 55</th>
+             
+                <td id="55Display"></td>
+                <td>           <button
+                  onclick="copy('link55yt')"
+                  class="btn form-control btn-outline-secondary copycat"
+                  id="link55ytCopy"
+                >להעתיק
+              </button>     
+           </td> 
+             </tr>
+              <tr>
+             <th scope="row">פידבק</th>
+                <td id="feedbackDisplay"></td>
+                <td>           <button
+                  onclick="copy('feedback')"
+                  class="btn form-control btn-outline-secondary copycat"
+                  id="feedbackCopy"
+                >להעתיק
+              </button>     
+           </td> 
+             </tr>
+                <tr>
+               
+                 <th scope="row">קליפ 1</th>
+               <td id="clip1Display"></td>
+                     <td>    <button
+                      onclick="copy('clip1')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip1Copy"
+                    >להעתיק</button>
+                </td>
+                <td id="clip1dateB4">נשלח בתאריך</td>
+                <td>
+                <input class="form-control" type="date" id="clip1date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip1dateChange"
+                      onclick="change('clip1date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+             </tr>
+               
+            <tr>
+                <th scope="row">קליפ 2</th>
+            
+              <td id="clip2Display"></td>
+                 <td>      <button
+                      onclick="copy('clip2')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip2Copy"
+                    >להעתיק
+                  </button>
+                </td>
+                   <td id="clip2dateB4">נשלח בתאריך</td>
+                <td>
+                  <input class="form-control" type="date" id="clip2date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip2dateChange"
+                      onclick="change('clip2date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+            </tr>
+              <tr>
+               
+                 <th scope="row">קליפ 3</th>
+               <td id="clip3Display"></td>
+                     <td>    <button
+                      onclick="copy('clip3')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip3Copy"
+                    >להעתיק</button>
+                </td>
+                   <td id="clip3dateB4">נשלח בתאריך</td>
+                <td>
+                  <input class="form-control" type="date" id="clip3date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip3dateChange"
+                      onclick="change('clip3date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+                  
+             </tr>
+               
+            <tr>
+                <th scope="row">קליפ 4</th>
+            
+              <td id="clip4Display"></td>
+                 <td>      <button
+                      onclick="copy('clip4')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip4Copy"
+                    >להעתיק
+                  </button>
+                </td>
+                 <td id="clip4dateB4">נשלח בתאריך</td>
+                <td>
+                  <input class="form-control" type="date" id="clip4date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip4dateChange"
+                      onclick="change('clip4date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+            </tr>
+                <tr>
+               
+                 <th scope="row">קליפ 5</th>
+               <td id="clip5Display"></td>
+                     <td>    <button
+                      onclick="copy('clip5')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip5Copy"
+                    >להעתיק</button>
+                </td>
+                     <td id="clip5dateB4">נשלח בתאריך</td>
+                <td>
+                  <input class="form-control" type="date" id="clip5date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip5dateChange"
+                      onclick="change('clip5date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+             </tr>
+               
+            <tr>
+                <th scope="row">קליפ 6</th>
+            
+              <td id="clip6Display"></td>
+                 <td>      <button
+                      onclick="copy('clip6')"
+                      class="btn form-control btn-outline-secondary copycat"
+                      id="clip6Copy"
+                    >להעתיק
+                  </button>
+                </td>
+                 <td id="clip6dateB4">נשלח בתאריך</td>
+                <td>
+                  <input class="form-control" type="date" id="clip6date" autocomplete="off"/>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary"
+                      id="clip6dateChange"
+                      onclick="change('clip6date')"
+                    >
+                      לעדכן תאריך שליחה
+                    </button>
+                </td>
+            </tr>
+             <tr>
+                 <td>החרוז לא יהיה בהגרלה גם אחרי איפוס המטא</td>
+                 <td>
+                 <button
+          type="button"
+          class="btn btn-outline-secondary"
+          id="outofmetaChange"
+          onclick="changeOutofmeta('outofmeta')"
+        >
+          להוציא מההגרלה של מטא 
+        </button>
+               <p style="visibility: hidden" id="outofmetaB4">v</p>
+                     </td>
+             </tr>
+        </tbody>
+      </table>
+         
+    </div>
+  <script
+  src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+  integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+  integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+  crossorigin="anonymous"
+></script>
+<script type="text/javascript" src='./display.js'></script>
+</body>
+</html>
