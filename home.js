@@ -1882,6 +1882,8 @@ function switchLang(){
         document.getElementById("toNewChain").onclick=function() { window.location.href='';};
        document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
+        document.getElementById("toDisplay").innerHTML="Eng הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='';};
         document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
     }
