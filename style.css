@@ -28,6 +28,9 @@
 #afterMes {
   visibility: hidden;
 }
+#displaying {
+  visibility: hidden;
+}
 body {
   direction: rtl;
   text-align: center;
