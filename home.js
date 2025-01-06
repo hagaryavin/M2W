@@ -1863,6 +1863,8 @@ function switchLang(){
         document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
         document.getElementById("toChangeCRM").innerHTML="עדכון תוצרים ותיקונים";
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
+         document.getElementById("toDisplay").innerHTML="הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html';};
     }
     else{
        document.getElementById("switchLabel").innerHTML="English";
