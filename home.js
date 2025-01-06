@@ -90,7 +90,7 @@ function getData(x) {
                     linkfull: ele.linkfull
                 };
                 tableRow++;
-
+               
                 if (ele.fixedname !== "") newPerson.name = ele.fixedname;
                 if (ele.fixedinterviewername !== "")
                     newPerson.interviewername = ele.fixedinterviewername;
@@ -104,6 +104,9 @@ function getData(x) {
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&ele.submittedvid!==""){
+                    newPerson.recordingdate=addDate(newPerson);
+                 } 
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
@@ -384,6 +387,9 @@ function getDataEng(x) {
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&ele.submittedvid!==""){
+                    newPerson.recordingdate=addDateEng(newPerson);
+                 } 
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
@@ -1793,6 +1799,58 @@ function toSendAMes(guestName,interName,creatorName){
     if(creatorName===""&&guestName===interName)
         return false;
     return true;
+}
+function addDate(person){
+    var newDate=(person.timeformsent.getMonth()+1)+"/"+person.timeformsent.getDate()+"/"+person.timeformsent.getFullYear();
+    console.log(newDate);
+     const obj = {
+        text: newDate,
+        row: person.row,
+        col: 'date'
+    };
+    console.log(obj);
+    let formData = new FormData();
+    formData.append("data", JSON.stringify(obj));
+    console.log(obj);
+    fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+        .then((rep) => {
+            console.log(obj);
+            return rep.json();
+        })
+        .then((json) => {
+            console.log(obj);
+            console.log(json);
+        });
+    return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
+}
+function addDateEng(person){
+    var newDate=(person.timeformsent.getMonth()+1)+"/"+person.timeformsent.getDate()+"/"+person.timeformsent.getFullYear();
+     console.log(newDate);
+    const obj = {
+        text: newDate,
+        row: person.row,
+        col: 'date'
+    };
+    console.log(obj);
+    let formData = new FormData();
+    formData.append("data", JSON.stringify(obj));
+    console.log(obj);
+    fetch(urlEng, {
+            method: "POST",
+            body: formData,
+        })
+        .then((rep) => {
+            console.log(obj);
+            return rep.json();
+        })
+        .then((json) => {
+            console.log(obj);
+            console.log(json);
+        });
+    return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
 }
 function cleanName(name){
     var possibleStarts=[
