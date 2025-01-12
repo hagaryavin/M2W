@@ -26,8 +26,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbwiP2oOmKB3ynoXXV_ZrLv3L82-TtQE4fF92rY0i5lO1xWhgt82DlVV-YTztHzNe8sSAw/exec";
-const taskurlEng="https://script.google.com/macros/s/AKfycbwQfNNC-5P1c1x-JcKJ0jii3si9P1pItDynzlA9St6-ISH54aAL1DPhbZnvCT7aNwUE/exec";
+    "https://script.google.com/macros/s/AKfycbxkrk_yRhO2mlPgHi8KuzvKY9B0UXH34bMTqw-7UAScxJp1OXaWXAZiHAq4UUMp7UmRVg/exec";
+const taskurlEng=
+      "https://script.google.com/macros/s/AKfycbzYtYrEAehCXxvYkU5V6KuwwWUPrwwuAPv8pG-E__kh5GMBvmVqdJKqzqbUt02sNCRt/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
 
@@ -129,30 +130,55 @@ function getData(x) {
                         (newPerson.premessdate < today ||
                             (newPerson.premessdate.getDate() === today.getDate() &&
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
-                                newPerson.premessdate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet"
-                    ) {
-                        //////1 condition
-                        newTask = {
-                            name: newPerson.name,
-                            interviewername: newPerson.interviewername,
-                            recordingdate: newPerson.recordingdate,
-                            chain: newPerson.chain,
-                            chainCreator: newPerson.chainCreator,
-                            chainCreatorEmail: newPerson.chainCreatorEmail,
-                            type: "premess",
-                            row: newPerson.row,
-                        };
-                        if (!taskAlreadyExist(newTask)) {
-                            console.log("new task!");
-                            console.log(newTask);
-                            allTasks.push(newTask);
-                            changeStatus(
-                                newPerson.row,
-                                newTask.type,
+                                newPerson.premessdate.getYear() === today.getYear())) 
+                        ){
+                         if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet") {
+                            //////1 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "premess",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(
+                                    newPerson.row,
+                                    newTask.type,
 
-                                "add"
-                            );
+                                    "add"
+                                );
+                            }
+                        }
+                         if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet") {
+                            //////1 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "premessemail",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
                         }
                     }
 
@@ -408,36 +434,60 @@ function getDataEng(x) {
                     day = newPerson.recordingdate.getDate();
                     month = newPerson.recordingdate.getMonth() + 1;
                     recDate = day + "." + month;
-                    if (
+                    if 
                         (newPerson.premessdate < today ||
                             (newPerson.premessdate.getDate() === today.getDate() &&
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
-                                newPerson.premessdate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet"
-                    ) {
-                        //////1 condition
-                        newTask = {
-                            name: newPerson.name,
-                            interviewername: newPerson.interviewername,
-                            recordingdate: newPerson.recordingdate,
-                            chain: newPerson.chain,
-                            chainCreator: newPerson.chainCreator,
-                            chainCreatorEmail: newPerson.chainCreatorEmail,
-                            type: "premess",
-                            row: newPerson.row,
-                        };
-                        if (!taskAlreadyExistEng(newTask)) {
-                            console.log("new task!");
-                            console.log(newTask);
-                            allTasksEng.push(newTask);
-                            changeStatusEng(
-                                newPerson.row,
-                                newTask.type,
+                                newPerson.premessdate.getYear() === today.getYear())){
+                            if(getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet") {
+                            //////1 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "premess",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(
+                                    newPerson.row,
+                                    newTask.type,
 
-                                "add"
-                            );
+                                    "add"
+                                );
+                            }
                         }
-                    }
+                     if(getTasksDataFromPersonContEng(newPerson.row, "premessemail") === "not yet") {
+                            //////1 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "premessemail",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
+                        }
+                }
 
                     if (
                         newPerson.timeformsent < today ||
@@ -645,6 +695,7 @@ function getTasksDataFromPerson() {
                     socialpoststatus: ele.socialpost5,
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
+                    premessemailstatus: ele.premessemail13,
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -667,6 +718,7 @@ function getTasksDataFromPersonEng() {
                     socialpoststatus: ele.socialpost5,
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
+                    premessemailstatus: ele.premessemail13,
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -698,6 +750,9 @@ function getTasksDataFromPersonCont(row, type) {
             if (type === "addcreator") {
                 result = tasks4lols[i].addcreatorstatus;
             }
+            if (type === "premessemail") {
+                result = tasks4lols[i].premessemailstatus;
+            }
         }
     }
     return result;
@@ -727,6 +782,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "addcreator") {
                 result = tasks4lolsEng[i].addcreatorstatus;
             }
+            if (type === "premessemail") {
+                result = tasks4lolsEng[i].premessemailstatus;
+            }
         }
     }
     return result;
@@ -749,6 +807,7 @@ function taskData() {
                     socialpoststatus: ele.socialpost5,
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
+                    premessemailstatus: ele.premessemail13
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -871,6 +930,23 @@ function taskData() {
                         allTasks.push(newTask);
                     }
                 }
+                if (tasks4person.premessemailstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "premessemail",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
             });
                
             if (allTasks.length > 0) {
@@ -895,7 +971,9 @@ function taskDataEng() {
                     postmessinvitestatus: ele.postmessinvite4,
                     socialpoststatus: ele.socialpost5,
                     confirmstatus: ele.confirm6,
-                    addcreatorstatus: ele.addcreator7
+                    addcreatorstatus: ele.addcreator7,
+                    premessemailstatus: ele.premessemail13,
+
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
                 if (tasks4personEng.premessstatus === "active") {
@@ -1017,6 +1095,23 @@ function taskDataEng() {
                         allTasksEng.push(newTask);
                     }
                 }
+                if (tasks4personEng.premessemailstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "premessemail",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
             });
             if (allTasksEng.length > 0) {
                 createTasksEng();
@@ -1062,6 +1157,29 @@ function createTasks() {
             optionList.id = "premess" + allTasks[i].row;
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+           if (allTasks[i].type === "premessemail") {
+            /////1
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex");
+            optionDiv.classList.add("flex-row");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkpremessemail";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "premessemail" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה במייל";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
@@ -1341,6 +1459,29 @@ function createTasksEng() {
             optionList.id = "premess" + allTasksEng[i].row;
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasksEng[i].type === "premessemail") {
+            /////13
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex");
+            optionDiv.classList.add("flex-row");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkpremessemail";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "premessemail" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה במייל";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
