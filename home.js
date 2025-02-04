@@ -1,3 +1,4 @@
+
 var newPerson = {};
 var size = 0;
 var allPeople = [];
@@ -22,6 +23,8 @@ var tasks4personB4 = {};
 var tasks4personB4Eng = {};
 var allChains = [];
 var newChain = {};
+var clipsToChange=0;
+var indiclipsToChange=0;
 const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
@@ -108,6 +111,12 @@ function getData(x) {
                 if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&ele.submittedvid!==""){
                     newPerson.recordingdate=addDate(newPerson);
                  } 
+                if(ele.name==="הגר יבין"){
+                    clipsToChange=ele.fixedphone;
+                    document.getElementById("clipsB4").innerHTML=clipsToChange+" קליפים חדשים להפוך לשורטים";
+                    indiclipsToChange=ele.fixedinterviewerphone;
+                    document.getElementById("indiclipsB4").innerHTML=indiclipsToChange+" קליפים עצמאיים להפוך לשורטים";
+                }
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
@@ -1841,6 +1850,34 @@ function changeStatusEng(row, type, action) {
     send2sendDataEng(row, type, updatedStatus);
     return updatedStatus;
 }
+function changeClips(id) {
+     var chosenCol=id;
+    
+    if(id==="guestphone"){
+        var textEntered=document.getElementById("clips").value;
+        console.log("clipsB4: "+clipsToChange);
+        var dataElement=document.getElementById("clipsChange");
+        var ogSum=clipsToChange;
+    }
+    if(id==="interphone"){
+        var textEntered=document.getElementById("indiclips").value;
+        console.log("indiclipsB4: "+clipsToChange);
+        var dataElement=document.getElementById("indiclipsChange");
+        var ogSum=indiclipsToChange;
+    }
+      console.log("col: " + chosenCol);
+    if(textEntered===""){
+        textEntered=0;
+    }
+          var temp = {
+            text: parseInt(parseInt(textEntered)+parseInt(ogSum)),
+            row: 97,
+            col: chosenCol,
+          };
+        sendData2(temp,dataElement);
+        dataElement.innerHTML="כמות הקליפים התעדכנה";
+    
+}
 function send2sendData(row, type, updatedStatus) {
     const temp = {
         text: updatedStatus,
@@ -1860,6 +1897,25 @@ function send2sendDataEng(row, type, updatedStatus) {
     if (row > 0) {
         sendDataEng(temp);
     }
+}
+function sendData2(obj, ele) {
+  console.log(obj);
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(obj));
+  console.log(obj);
+  fetch(url, {
+    method: "POST",
+    body: formData,
+  })
+    .then((rep) => {
+      console.log(obj);
+      return rep.json();
+    })
+    .then((json) => {
+      console.log(obj);
+      console.log(json);
+    });
+  
 }
 function sendData(obj) {
     console.log(obj);
