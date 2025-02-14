@@ -198,7 +198,7 @@ function getData(x) {
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
                         //////6,7 condition
-                        if (some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
+                        if (
                             getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"
                         ) {
                             newTask = {
@@ -506,7 +506,6 @@ function getDataEng(x) {
                     ) {
                         //////6,7 condition
                         if (
-                            some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"
                         ) {
                             newTask = {
@@ -1406,6 +1405,23 @@ function createTasks() {
                 list.append(document.createElement("br"));
                 size++;
             }
+            else if(
+                 (allTasks[i].interviewername===""&&
+               allTasks[i].chainCreator=== "")||
+                (allTasks[i].interviewername==="יעל מילוא"&&
+               allTasks[i].chainCreator=== "")
+              ){
+                optionList.innerHTML =
+                    allTasks[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasks[i].chain)+
+                    " - אישור רישום ל" +allTasks[i].name;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
+            }
             optionInput.classList.add("form-check-label");
         }
         
@@ -1707,6 +1723,23 @@ function createTasksEng() {
                 list.append(document.createElement("br"));
                 size++;
                 
+            }
+            else if(
+                (allTasksEng[i].interviewername===""&&
+               allTasksEng[i].chainCreator=== "")||
+                (allTasksEng[i].interviewername==="יעל מילוא"&&
+               allTasksEng[i].chainCreator=== "")
+              ){
+                optionList.innerHTML =
+                    allTasksEng[i].name
+                     +
+                    " - " +
+                    recDate +" - "+shortChainName(allTasksEng[i].chain)+
+                    " - אישור רישום ל" +allTasksEng[i].name;
+                optionDiv.append(optionList);
+                list.append(optionDiv);
+                list.append(document.createElement("br"));
+                size++;
             }
             optionInput.classList.add("form-check-label");
 
