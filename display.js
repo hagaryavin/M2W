@@ -33,9 +33,9 @@ function getData() {
           link555: ele.linkfive,
           link55yt: ele.linkshortyt,
           linkfull: ele.linkfull,
+          linkspotify:ele.linkspotify,
           email: ele.email,
           order: ele.order,
-          feedback:ele.feedback,
           clip1: ele.clip1,
           clip2: ele.clip2,
             clip3: ele.clip3,
@@ -117,8 +117,8 @@ function submitData() {
          allPeople[i].email;
       document.getElementById("orderDisplay").innerHTML =
          allPeople[i].order;
-      document.getElementById("feedbackDisplay").innerHTML =
-         allPeople[i].feedback;
+      document.getElementById("linkspotifyDisplay").innerHTML =
+         allPeople[i].linkspotify;
       document.getElementById("clip1Display").innerHTML =
          allPeople[i].clip1;
       document.getElementById("clip2Display").innerHTML =
@@ -262,8 +262,8 @@ function copy(id) {
   if (id === "linkfull") {
     text = currPerson.linkfull;
   }
-  if (id === "feedback") {
-    text = currPerson.feedback;
+  if (id === "linkspotify") {
+    text = currPerson.linkspotify;
   }
   if (id === "clip1") {
     text = currPerson.clip1;
