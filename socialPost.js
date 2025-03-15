@@ -438,7 +438,7 @@ if (toWho === "crew") phone = currCrew.phone;
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone, toWho) +
     "&text=" +
-    encodeURI(fullTexts[whichMes - 1]);
+    encodeURIComponent(fullTexts[whichMes - 1]);
   window.open(link, "_blank");
 }
 function sendBothMes() {
