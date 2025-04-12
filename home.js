@@ -25,6 +25,7 @@ var allChains = [];
 var newChain = {};
 var clipsToChange=0;
 var indiclipsToChange=0;
+var loaderStatus = document.getElementById("loaderStatus");
 const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
@@ -33,7 +34,7 @@ const taskurl =
 const taskurlEng=
       "https://script.google.com/macros/s/AKfycbzYtYrEAehCXxvYkU5V6KuwwWUPrwwuAPv8pG-E__kh5GMBvmVqdJKqzqbUt02sNCRt/exec";
 const chainDataURL =
-    "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+    "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
 
 function changeTimeZone(date, timeZone) {
   if (typeof date === 'string') {
@@ -47,7 +48,7 @@ var todaysDay = today.getDate();
 var todaysMonth = today.getMonth() + 1;
 var todaysCurrentDate = todaysDay + "." + todaysMonth;
 function start(){
-
+    getTimingData();
       getChainData();
        
     setTimeout(() => {
@@ -73,13 +74,12 @@ function getData(x) {
         "היום " + todaysCurrentDate + " לשלוח הודעות ל:";
     fetch(url)
         .then((res) => {
-           
             return res.json();
             
         })
         .then((json) => {
-            json.data.forEach((ele) => {
-                newPerson = {
+        json.data.forEach((ele, index) => { 
+            const newPerson = {
                     name: ele.name,
                     interviewername: ele.interviewername,
                     chain: ele.chain,
@@ -91,10 +91,27 @@ function getData(x) {
                     postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRow,
-                    linkfull: ele.linkfull
+                    linkfull: ele.linkfull,
+                    id:ele.id
                 };
+                
                 tableRow++;
-               
+                
+                
+                setTimeout(() => {
+                    if (newPerson.id) {
+                        loaderStatus.innerHTML = "בודקת חרוז " + newPerson.id + "...";
+                        console.log("בודקת חרוז " + newPerson.id);
+                    }
+                    if (index === json.data.length - 2) { 
+                        setTimeout(() => {
+                            loaderStatus.style.display = "none";
+                            const loader = document.getElementById("loader");
+                            loader.style.display = "none";
+                        }, 20);
+                    }
+                }, Math.max(0, index*20-6000));  
+            
                 if (ele.fixedname !== "") newPerson.name = ele.fixedname;
                 if (ele.fixedinterviewername !== "")
                     newPerson.interviewername = ele.fixedinterviewername;
@@ -371,13 +388,13 @@ function getData(x) {
                                 "add"
                             );
                         }
+
                     }
-
                     console.log(newPerson);
-                    allPeople.push(newPerson);
+                    allPeople.push(newPerson);   
                 }
+               
             });
-
             taskData();
         });
 }
@@ -1458,7 +1475,7 @@ function createTasks() {
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
-        }
+        }    
     }
 }
 function createTasksEng() {
@@ -1780,9 +1797,10 @@ function createTasksEng() {
         }
     }
 }
+loaderStatus.innerHTML = "מתחילה בדיקת חרוזים...";
+
 setTimeout(() => {
-    const loader = document.getElementById("loader");
-    loader.style.display = "none";
+    
 }, 5000);
 
 function taskAlreadyExist(task) {
@@ -1823,6 +1841,28 @@ function getChainData() {
         });
 }
 
+function getTimingData() {
+
+//    fetch(chainDataURL)
+//        .then((res) => {
+//            return res.json();
+//        })
+//        .then((json) => {
+//            json.data.taskTiming.forEach((ele) => {
+//                var timing = {
+//                   
+//                    taskName:ele.taskName,
+//                    daysFromRecordingDate:ele.daysFromRecordingDate,
+//                    daysFromSignDate:ele.daysFromSignDate,
+//                    daysToDeleteTask:ele.daysToDeleteTask
+//                    			
+//                };
+//                
+//                console.log(timing);
+//
+//            });
+//        });
+}
 function check(ele) {
     var splitId = ele.id.split("Check");
     var type = splitId[1];
