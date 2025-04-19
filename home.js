@@ -1182,6 +1182,9 @@ function createTasks() {
             optionList.id = "premess" + allTasks[i].row;
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה";
+            optionList.addEventListener("click", function () {
+                 window.location.href='./preMes.html';
+            });
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
@@ -1203,6 +1206,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "premessemail" + allTasks[i].row;
+            optionList.addEventListener("click", function () {
+                 window.location.href='./preMes.html';
+            });
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה במייל";
             optionInput.classList.add("form-check-label");
@@ -1226,6 +1232,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "rightaftermess" + allTasks[i].row;
+            optionList.addEventListener("click", function () {
+                 window.location.href='./rightAfterMes.html';
+            });
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים";
             optionInput.classList.add("form-check-label");
@@ -1250,6 +1259,9 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "postmess" + allTasks[i].row;
             optionInput.classList.add("form-check-label");
+            optionList.addEventListener("click", function () {
+                window.location.href='./postMes.html';           
+            });
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לתוצרים";
             optionInput.classList.add("form-check-input");
@@ -1273,6 +1285,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./socialPost.html';           
+            });
             if(allTasks[i].interviewername!=="יעל מילוא"&&
                allTasks[i].interviewername!==""&&
                allTasks[i].interviewername!==allTasks[i].name&&
@@ -1339,6 +1354,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "postmessinvite" + allTasks[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./postMesInvite.html';           
+            });
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לאורח";
             optionInput.classList.add("form-check-label");
@@ -1362,6 +1380,9 @@ function createTasks() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasks[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./preMes.html';           
+            });
             if(
                 allTasks[i].chainCreator!==""&&
                 cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
@@ -1499,6 +1520,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "premess" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./preMesEng.html';           
+            });
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה";
             optionInput.classList.add("form-check-label");
@@ -1522,6 +1546,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "premessemail" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./preMesEng.html';           
+            });
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה במייל";
             optionInput.classList.add("form-check-label");
@@ -1568,6 +1595,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "postmess" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./postMesEng.html';           
+            });
             optionInput.classList.add("form-check-label");
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לתוצרים";
@@ -1592,6 +1622,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./socialPostEng.html';           
+            });
             
             if(allTasksEng[i].interviewername!=="יעל מילוא"&&
                allTasksEng[i].interviewername!==""&&
@@ -1657,6 +1690,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "postmessinvite" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./postMesInviteEng.html';           
+            });
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לאורח";
             optionInput.classList.add("form-check-label");
@@ -1680,6 +1716,9 @@ function createTasksEng() {
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasksEng[i].row;
+            optionList.addEventListener("click", function () {
+                window.location.href='./preMesEng.html';           
+            });
             if(
                 allTasksEng[i].chainCreator!==""&&
                 cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
