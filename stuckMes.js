@@ -72,7 +72,6 @@ function getData() {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
           if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
-
         }
         if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
@@ -378,7 +377,7 @@ function quickChange2() {
       col: "nextrecdate",
     };
     sendData(temp2, document.getElementById("newInfo")); 
-    document.getElementById("quickChange2").innerHTML="התעדכן";
+    //document.getElementById("quickChange2").innerHTML="התעדכן";
   }
 }
 
@@ -576,7 +575,7 @@ function submit(id) {
   crewChosen();
     document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
     document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
-        document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
+        //document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
 
   document.getElementById("stuckMes").style.visibility = "hidden";
   if (checkOptions(id)) {
@@ -591,7 +590,7 @@ function submit(id) {
 function choose(){
     var justName="";
     document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
-    document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
+   // document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
       for (var i = 0; i < fullAllPeople.length; i++) {
     var nameAndChain = document
       .getElementById("peopleList0")
@@ -702,4 +701,48 @@ function changeTimeZone(date, timeZone) {
     return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
   }
   return new Date(date.toLocaleString('en-US', { timeZone }));
+}
+function switchLang(){
+    if (document.getElementById("switch").checked === true){
+       document.getElementById("switchLabel").innerHTML="עברית";
+        document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה";
+        document.getElementById("toPreMes").onclick=function() { window.location.href='./preMes.html';};
+        document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ חרוזים";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='./rightAfterMes.html';};
+        document.getElementById("toPostMes").innerHTML="לינקים לתוצרים";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMes.html';};
+         document.getElementById("toPostMesInvite").innerHTML="לינקים להזמנת אורח";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
+        document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת חדשה";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
+       document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
+        document.getElementById("toChangeCRM").innerHTML="עדכון תוצרים ותיקונים";
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
+         document.getElementById("toDisplay").innerHTML="הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html';};
+    }
+    else{
+       document.getElementById("switchLabel").innerHTML="English";
+        document.getElementById("toPreMes").innerHTML="Eng אישור והזמנה להקלטה";
+        document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html';};
+        document.getElementById("toRightAfterMes").innerHTML="Eng הזמנה לוואטסאפ";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
+        document.getElementById("toPostMes").innerHTML="Eng תוצרים";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
+         document.getElementById("toPostMesInvite").innerHTML="Eng הזמנת אורח";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
+        document.getElementById("toSocialPost").innerHTML="Eng פוסט";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html';};
+        document.getElementById("toNewChain").innerHTML="Eng פתיחת שרשרת";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='';};
+       document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
+        document.getElementById("toDisplay").innerHTML="Eng הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='';};
+        document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
+    }
 }
