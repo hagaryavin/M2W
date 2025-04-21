@@ -474,7 +474,7 @@ function whatsAppMes(id) {
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone) +
     "&text=" +
-    encodeURI(fullTexts[id - 1]);
+    encodeURIComponent(fullTexts[id - 1]);
   window.open(link, "_blank");
 }
 function fixPhoneData(phone) {
