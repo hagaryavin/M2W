@@ -562,7 +562,7 @@ function whatsAppMes(id) {
     "https://api.whatsapp.com/send?phone=" +
     phoneForWA(phone, toWho) +
     "&text=" +
-    encodeURI(textToSend);
+    encodeURIComponent(textToSend);
   window.open(link, "_blank");
 }
 function submit(id) {
