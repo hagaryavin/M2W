@@ -96,7 +96,7 @@ function getData(x) {
                 };
                 
                 tableRow++;
-                
+            
                 
                 setTimeout(() => {
                     if (newPerson.id) {
@@ -1836,7 +1836,7 @@ function createTasksEng() {
         }
     }
 }
-loaderStatus.innerHTML = "מתחילה בדיקת חרוזים...";
+loaderStatus.innerHTML = "מתחילה בדיקת נתונים...";
 
 setTimeout(() => {
     
@@ -1864,13 +1864,29 @@ function getChainData() {
             return res.json();
         })
         .then((json) => {
-            json.data.chains.forEach((ele) => {
-                newChain = {
+        
+            json.data.chains.forEach((ele, index) => {
+                const newChain = {
                     name: ele.name,
                     altName: ele.othername,
                     creator: ele.creator,
                     creatorEmail:ele.creatoremail
                 };
+                
+                setTimeout(() => {
+                    if (newChain.name) {
+                        loaderStatus.innerHTML = "בודקת שרשרת " + newChain.name + "...";
+                        console.log("בודקת שרשרת " + newChain.name);
+                    }
+                    if (index === json.data.length - 2) { 
+                        setTimeout(() => {
+                            loaderStatus.style.display = "none";
+                            const loader = document.getElementById("loader");
+                            loader.style.display = "none";
+                        }, 20);
+                    }
+                }, Math.max(0, index*55));  
+                
                 if (newChain.creator !== "") {
                     allChains.push(newChain);
                 }
