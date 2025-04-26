@@ -23,6 +23,10 @@ var tasks4personB4 = {};
 var tasks4personB4Eng = {};
 var allChains = [];
 var newChain = {};
+var preMessDateVal=-1;
+var postMessDateVal=1;
+var postMessInviteDateVal=4;
+var nullTask=[];
 var clipsToChange=0;
 var indiclipsToChange=0;
 var loaderStatus = document.getElementById("loaderStatus");
@@ -34,7 +38,7 @@ const taskurl =
 const taskurlEng=
       "https://script.google.com/macros/s/AKfycbzYtYrEAehCXxvYkU5V6KuwwWUPrwwuAPv8pG-E__kh5GMBvmVqdJKqzqbUt02sNCRt/exec";
 const chainDataURL =
-    "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
+    "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
 function changeTimeZone(date, timeZone) {
   if (typeof date === 'string') {
@@ -48,13 +52,15 @@ var todaysDay = today.getDate();
 var todaysMonth = today.getMonth() + 1;
 var todaysCurrentDate = todaysDay + "." + todaysMonth;
 function start(){
-    getTimingData();
-      getChainData();
-       
+       getTimingData();
+       setTimeout(() => {
+             getChainData();
+
+    }, 300); 
     setTimeout(() => {
       getData();
       getDataEng();
-    }, 4000);   
+    }, 6000);   
      setTimeout(() => {
           optionList = document.createElement("dt");
             optionList.id = "label";
@@ -158,7 +164,7 @@ function getData(x) {
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
                                 newPerson.premessdate.getYear() === today.getYear())) 
                         ){
-                         if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet") {
+                         if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -182,7 +188,7 @@ function getData(x) {
                                 );
                             }
                         }
-                         if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet") {
+                         if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -216,7 +222,7 @@ function getData(x) {
                     ) {
                         //////6,7 condition
                         if (
-                            getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"
+                            getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -239,7 +245,7 @@ function getData(x) {
                             newPerson.chainCreatorEmail !== "" &&
                             cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
-                            "not yet"
+                            "not yet"&&!nullTask.includes("addcreator")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -266,7 +272,7 @@ function getData(x) {
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
                                 newPerson.recordingdate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonCont(newPerson.row, "rightaftermess") ===
-                        "not yet"
+                        "not yet"&&!nullTask.includes("rightaftermess")
                     ) {
                         //////2 condition
                         newTask = {
@@ -302,7 +308,7 @@ function getData(x) {
                         //////////////3,5 condition
                         if (
                             getTasksDataFromPersonCont(newPerson.row, "postmess") ===
-                            "not yet"
+                            "not yet"&&!nullTask.includes("postmess")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -330,7 +336,7 @@ function getData(x) {
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain))&&
                             getTasksDataFromPersonCont(newPerson.row, "socialpost") ===
-                            "not yet"
+                            "not yet"&&!nullTask.includes("socialpost")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -363,7 +369,7 @@ function getData(x) {
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmessinvite") ===
-                        "not yet"
+                        "not yet"&&!nullTask.includes("postmessinvite")
                     ) {
                         /////////////////4 condition
                         newTask = {
@@ -465,7 +471,7 @@ function getDataEng(x) {
                             (newPerson.premessdate.getDate() === today.getDate() &&
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
                                 newPerson.premessdate.getYear() === today.getYear())){
-                            if(getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet") {
+                            if(getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -489,7 +495,7 @@ function getDataEng(x) {
                                 );
                             }
                         }
-                     if(getTasksDataFromPersonContEng(newPerson.row, "premessemail") === "not yet") {
+                     if(getTasksDataFromPersonContEng(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -523,7 +529,7 @@ function getDataEng(x) {
                     ) {
                         //////6,7 condition
                         if (
-                            getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"
+                            getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -546,7 +552,7 @@ function getDataEng(x) {
                             newPerson.chainCreatorEmail !== "" &&
                             cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
-                            "not yet"&&newPerson.qa===false
+                            "not yet"&&newPerson.qa===false&&!nullTask.includes("addcreator")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -573,7 +579,7 @@ function getDataEng(x) {
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
                                 newPerson.recordingdate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonContEng(newPerson.row, "rightaftermess") ===
-                        "not yet"&&newPerson.qa===false
+                        "not yet"&&newPerson.qa===false&&!nullTask.includes("rightaftermess")
                     ) {
                         //////2 condition
                         newTask = {
@@ -609,7 +615,7 @@ function getDataEng(x) {
                         //////////////3,5 condition
                         if (
                              getTasksDataFromPersonContEng(newPerson.row, "postmess") ===
-                            "not yet"&&newPerson.qa===false
+                            "not yet"&&newPerson.qa===false&&!nullTask.includes("postmess")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -637,7 +643,7 @@ function getDataEng(x) {
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "socialpost") ===
-                            "not yet"
+                            "not yet"&&!nullTask.includes("socialpost")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -670,7 +676,7 @@ function getDataEng(x) {
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         newPerson.linkfull !== "" &&getTasksDataFromPersonContEng(newPerson.row, "postmessinvite") ===
-                        "not yet"&&newPerson.qa===false
+                        "not yet"&&newPerson.qa===false&&!nullTask.includes("postmessinvite")
                     ) {
                         /////////////////4 condition
                         newTask = {
@@ -1885,7 +1891,7 @@ function getChainData() {
                             loader.style.display = "none";
                         }, 20);
                     }
-                }, Math.max(0, index*55));  
+                }, Math.max(0, index*55))  
                 
                 if (newChain.creator !== "") {
                     allChains.push(newChain);
@@ -1898,25 +1904,46 @@ function getChainData() {
 
 function getTimingData() {
 
-//    fetch(chainDataURL)
-//        .then((res) => {
-//            return res.json();
-//        })
-//        .then((json) => {
-//            json.data.taskTiming.forEach((ele) => {
-//                var timing = {
-//                   
-//                    taskName:ele.taskName,
-//                    daysFromRecordingDate:ele.daysFromRecordingDate,
-//                    daysFromSignDate:ele.daysFromSignDate,
-//                    daysToDeleteTask:ele.daysToDeleteTask
-//                    			
-//                };
-//                
-//                console.log(timing);
-//
-//            });
-//        });
+    fetch(chainDataURL)
+        .then((res) => {
+            return res.json();
+        })
+        .then((json) => {
+            json.data.taskTiming.forEach((ele) => {
+                                        loaderStatus.innerHTML = "בודקת תזמוני משימות...";
+
+                /*var timing = {
+                   
+                    taskName:ele.taskname,
+                    daysFromRecordingDate:ele.daysfromrecordingdate,
+                    daysFromSignDate:ele.daysfromsigndate,
+                    daysToDeleteTask:ele.daystodeletetask
+                    			
+                };*/
+               if(ele.taskname==="premess"&&ele.daysfromrecordingdate!==""){
+                        preMessDateVal=ele.daysfromrecordingdate;
+                    
+                    console.log("changed preMessDateVal - "+preMessDateVal);
+                }
+                if(ele.taskname==="postmess"&&ele.daysfromrecordingdate!==""){
+                    postMessDateVal=ele.daysfromrecordingdate;
+                                        console.log("changed postMessDateVal - "+postMessDateVal);
+
+                }
+                if(ele.taskname==="postmessinvite"&&ele.daysfromrecordingdate){
+                    postMessInviteDateVal=ele.daysfromrecordingdate;
+                                        console.log("changed postMessInviteDateVal - "+postMessInviteDateVal);
+
+                }
+                //console.log(timing);
+                if(ele.daysfromrecordingdate===""&&ele.daysfromsigndate===""&&ele.daystodeletetask===""){
+                   nullTask.push(ele.taskname)
+               } 
+                
+            });
+            console.log("null Tasks: "+nullTask);
+
+        });
 }
 function check(ele) {
     var splitId = ele.id.split("Check");
@@ -2200,7 +2227,7 @@ function cleanName(name){
 }
 function preMessDate(date) {
     var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
-    prev.setDate(date.getDate() - 1);
+    prev.setDate(date.getDate() +parseInt(preMessDateVal));
     if (prev.getDay() === 6) {
         prev.setDate(prev.getDate() - 1);
     }
@@ -2210,7 +2237,7 @@ function preMessDate(date) {
 
 function postMessDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
-    next.setDate(date.getDate() + 1);
+    next.setDate(date.getDate() +parseInt(postMessDateVal));
     if (next.getDay() === 6) {
         next.setDate(next.getDate() + 1);
     }
@@ -2220,7 +2247,7 @@ function postMessDate(date) {
 
 function postMessInviteDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
-    next.setDate(date.getDate() + 4);
+    next.setDate(date.getDate() +parseInt(postMessInviteDateVal));
     if (next.getDay() === 6) {
         next.setDate(next.getDate() + 1);
     }
