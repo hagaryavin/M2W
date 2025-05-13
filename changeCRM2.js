@@ -8,7 +8,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbzXoN1d21aGDuS7dUEj9vz6v952hwbKmueQaPdJ20QbrDkH9X6485Vh2IxnYgTbVBR7kA/exec";
+  "https://script.google.com/macros/s/AKfycbz1TcC9joZ1TGGWuk44ul5FfLPbS7BObGmYnGoujKiKl9RRSepodwWEsOQ2AfeHpL4zKg/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -16,6 +16,8 @@ var newChain = {};
 var currChain = {};
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
+var taskurl =
+  "https://script.google.com/macros/s/AKfycby17a_vfiR8IXwkNb8Uk2ZxAet_I1qkJd6y9n_nZRfl2S5-6pad8EmH9GyxRB0WrO78Aw/exec";
 getChainData();
 getData();
 function getData() {
@@ -34,6 +36,7 @@ function getData() {
           email: ele.email,
           title: ele.topicofstory,
           subtitle: ele.subtitle,
+            virtue: ele.virtue,
           abouttheguest: ele.abouttheguest,
           interphone: ele.interviewerphone,
           interviewername: ele.interviewername,
@@ -63,12 +66,14 @@ function getData() {
         if (newPerson.chain === "") {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+          if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;
         if (ele.fixedtopicofstory !== "")
           newPerson.title = ele.fixedtopicofstory;
         if (ele.fixedsubtitle !== "") newPerson.subtitle = ele.fixedsubtitle;
+          if (ele.fixedvirtue !== "") newPerson.virtue = ele.fixedvirtue;
         if (ele.fixedabouttheguest !== "")
           newPerson.abouttheguest = ele.fixedabouttheguest;
         if (ele.fixedinterviewername !== "")
@@ -76,15 +81,18 @@ function getData() {
         if (ele.fixedinterviewerphone !== "")
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
-          newPerson.date = new Date(ele.recordingdate);
+          newPerson.date = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
         if (ele.meta !== "")
-          newPerson.meta = new Date(ele.meta);
+          newPerson.meta = changeTimeZone(new Date(ele.meta), 'Asia/Jerusalem');
         if (ele.recordinghour !== "")
-          newPerson.hour = new Date(ele.recordinghour);
-        if (ele.fixedrecordingdate !== "")
-          newPerson.date = new Date(ele.fixedrecordingdate);
+          newPerson.hour = changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem');
+        if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
+          newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+        if (ele.fixedrecordingdate==="ללא תאריך"){
+          newPerson.date = "ללא תאריך";
+        }
         if (ele.fixedrecordinghour !== "")
-          newPerson.hour = new Date(ele.fixedrecordinghour);
+          newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
         allPeople.push(newPerson);
         console.log(allPeople[size]);
         personOption = document.createElement("option");
@@ -127,7 +135,7 @@ setTimeout(() => {
 }, 2050);
 function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
-    
+  document.getElementById("deleteDate").style.visibility="visible";
   document.getElementById("link555").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
@@ -146,6 +154,7 @@ function clearValues() {
   document.getElementById("mess").value = "";
   document.getElementById("title").value = "";
   document.getElementById("subtitle").value = "";
+    document.getElementById("virtue").value = "";
   document.getElementById("about").value = "";
   document.getElementById("intername").value = "";
   document.getElementById("interphone").value = "";
@@ -171,11 +180,13 @@ function clearValues() {
     document.getElementById("orderChange").innerHTML="הוספת מספר חרוז בשרשרת";
     document.getElementById("titleChange").innerHTML="תיקון כותרת";
     document.getElementById("subtitleChange").innerHTML="תיקון מסר";
+    document.getElementById("virtueChange").innerHTML="תיקון סגולה";
      document.getElementById("aboutChange").innerHTML="תיקון הצגה";
+    document.getElementById("aboutAdd").innerHTML="הוספת הצגה";
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
-    document.getElementById("dateChange").innerHTML="תיקון תאריך";
+    document.getElementById("dateChange").innerHTML="תיקון תאריך (והחזרת חרוז שנמחק)";
      document.getElementById("hourChange").innerHTML="תיקון שעה";
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
      document.getElementById("metaChange").innerHTML="ניקוי שדה פרסום מטא והחזרת החרוז להגרלה";
@@ -222,6 +233,7 @@ function submitData() {
       document.getElementById("messB4").innerHTML = allPeople[i].mess;
       document.getElementById("titleB4").innerHTML = allPeople[i].title;
       document.getElementById("subtitleB4").innerHTML = allPeople[i].subtitle;
+        document.getElementById("virtueB4").innerHTML = allPeople[i].virtue;
       document.getElementById("aboutB4").innerHTML = allPeople[i].abouttheguest;
       document.getElementById("dateB4").innerHTML = allPeople[i].date;
         document.getElementById("metaB4").innerHTML=allPeople[i].meta;
@@ -239,7 +251,7 @@ function submitData() {
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =
         allPeople[i].interphone;
-      if (allPeople[i].date !== "") {
+      if (allPeople[i].date !== ""&&allPeople[i].date !== "ללא תאריך") {
         document.getElementById("dateB4").innerHTML =
           allPeople[i].date.getDate() +
           "/" +
@@ -247,6 +259,9 @@ function submitData() {
           "/" +
           allPeople[i].date.getFullYear();
       }
+        if (allPeople[i].date === "ללא תאריך") {
+            document.getElementById("dateB4").innerHTML ="ללא תאריך";
+        }
       if (allPeople[i].hour !== "") {
         document.getElementById("hourB4").innerHTML =
           allPeople[i].hour.getHours() + ":" + allPeople[i].hour.getMinutes();
@@ -272,6 +287,9 @@ function sendData(obj, ele,whichSheet) {
     }
     if(whichSheet==="chains"){
         urlUsed=chainDataURL;
+    }
+    if(whichSheet==="tasks"){
+        urlUsed=taskurl;
     }
   fetch(urlUsed, {
     method: "POST",
@@ -410,6 +428,81 @@ function changeChainExplain(){
         document.getElementById("linkexplainChange").innerHTML="התעדכן";
     }
 }
+function addAbout(id) {
+    var textEntered=document.getElementById(id).value;
+    if(document.getElementById("aboutB4").innerHTML!==""){
+        var textEntered=document.getElementById("aboutB4").innerHTML+"\n"+document.getElementById(id).value;
+    }
+    var dataElement=document.getElementById(id+"Add");
+    chosenCol=id;
+      console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+      var temp = {
+        text: textEntered,
+        row: chosenRow,
+        col: chosenCol,
+      };
+  if (chosenRow > 0) {
+      sendData(temp, dataElement,"crm");
+      dataElement.innerHTML="התעדכן";
+  }
+}
+function changeDate(){
+    var dataElement=document.getElementById("dateChange");
+    change('date');
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    var messesTypes=[
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send"
+    ];
+    for(var i=0;i<messesTypes.length;i++){
+        console.log("col: "+messesTypes[i]);
+        var temp = {
+            text: "not yet",
+            row: chosenRow,
+            col: messesTypes[i],
+        };
+        if (chosenRow > 0) {
+            sendData(temp, dataElement,"tasks");
+            dataElement.innerHTML="התעדכן";
+        }
+    }
+}
+function deleteDate(id){
+   var dataElement=document.getElementById("deleteDate");
+    chosenCol=id;
+    console.log("col: "+chosenCol);
+    if (chosenRow === 0) {
+        alert("נא לבחור מישהו מהטבלה כדי לשנות");
+    }
+    var temp = {
+        text: "ללא תאריך",
+        row: chosenRow,
+        col: chosenCol,
+    };
+    if (chosenRow > 0) {
+        sendData(temp, dataElement,"crm");
+    }
+    var messesTypes=[
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send"
+    ];
+    for(var i=0;i<messesTypes.length;i++){
+        console.log("col: "+messesTypes[i]);
+        var temp2 = {
+            text: "completed",
+            row: chosenRow,
+            col: messesTypes[i],
+        };
+        if (chosenRow > 0) {
+            sendData(temp2, dataElement,"tasks");
+            dataElement.innerHTML="התעדכן";
+        }
+    }
+}
+
 function fixChainFromData(chain) {
   var splittedChain; //
   if (chain.includes(" (") || chain.includes("-")) {
@@ -423,5 +516,53 @@ function fixChainFromData(chain) {
   }
   return chain;
 }
-
-
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
+}
+function switchLang(){
+    if (document.getElementById("switch").checked === true){
+       document.getElementById("switchLabel").innerHTML="עברית";
+        document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה";
+        document.getElementById("toPreMes").onclick=function() { window.location.href='./preMes.html';};
+        document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ חרוזים";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='./rightAfterMes.html';};
+        document.getElementById("toPostMes").innerHTML="לינקים לתוצרים";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMes.html';};
+         document.getElementById("toPostMesInvite").innerHTML="לינקים להזמנת אורח";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
+        document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה חדשה";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
+       document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
+        document.getElementById("toChangeCRM").innerHTML="עדכון תוצרים ותיקונים";
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
+         document.getElementById("toDisplay").innerHTML="הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html';};
+    }
+    else{
+       document.getElementById("switchLabel").innerHTML="English";
+        document.getElementById("toPreMes").innerHTML="Eng אישור והזמנה להקלטה";
+        document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html';};
+        document.getElementById("toRightAfterMes").innerHTML="Eng הזמנה לוואטסאפ";
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
+        document.getElementById("toPostMes").innerHTML="Eng תוצרים";
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
+         document.getElementById("toPostMesInvite").innerHTML="Eng הזמנת אורח";
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
+        document.getElementById("toSocialPost").innerHTML="Eng פוסט";
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html';};
+        document.getElementById("toNewChain").innerHTML="Eng פתיחת שרשרת";
+        document.getElementById("toNewChain").onclick=function() { window.location.href='';};
+       document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
+        document.getElementById("toDisplay").innerHTML="Eng הכרטיס";
+        document.getElementById("toDisplay").onclick=function() { window.location.href='';};
+        document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
+    }
+}
