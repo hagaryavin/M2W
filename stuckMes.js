@@ -324,6 +324,20 @@ function changeLastMess() {
      document.getElementById("sendData").innerHTML="התעדכן";
   }
 }
+function deleteLastMess() {
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: "",
+    row: chosenRow,
+    col: "mess",
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("newInfo"));
+     document.getElementById("deleteData").innerHTML="התעדכן";
+  }
+}
 function quickChange1() {
   for (var i = 0; i < fullAllPeople.length; i++) {
     var nameAndChain = document
@@ -573,7 +587,8 @@ function submit(id) {
   toFixGuestPhone();
       toFixCreatorPhone();
   crewChosen();
-    document.getElementById("sendData").innerHTML="לשינוי התאריך בו נשלחה ההודעה האחרונה";
+    document.getElementById("sendData").innerHTML="הודעה חדשה";
+    document.getElementById("deleteData").innerHTML="מחיקת הודעה";
     document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
         //document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
 
