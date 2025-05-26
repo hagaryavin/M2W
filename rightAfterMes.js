@@ -17,9 +17,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
   { name: "", lines: [] },
+    { name: "", lines: [] } ,
     { name: "", lines: [] } 
 ];
-var fullTexts = [[], [], [], [], [], [],[]];
+var fullTexts = [[], [], [], [], [], [],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 const url =
@@ -133,13 +134,13 @@ function getMessData() {
           ],
         };
 
-       for (var i = 1; i <= 7; i++) {
+       for (var i = 1; i <= 8; i++) {
           if (newMess.name.includes("הזמנה לווטסאפ חרוזים " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 6; i++) {
+      for (var i = 0; i <= 7; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -148,7 +149,7 @@ function getMessData() {
     });
 }
 function cutMess(linesArr, messType) {
-    
+var nameAndChain = document.getElementById("peopleList").value.split(" + ");    
  var crewMem;
   if (currCrew.name !== "") crewMem = currCrew.name;
   if (currCrew.name === "") crewMem = "";
@@ -170,7 +171,7 @@ function cutMess(linesArr, messType) {
     if (linesArr[i].includes("fullNameOfGuest")) {
       linesArr[i] = linesArr[i].replace(
         "fullNameOfGuest",
-        document.getElementById("peopleList").value
+        nameAndChain[0]
       )
     }
       if (linesArr[i].includes("crewName")) {

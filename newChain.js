@@ -206,6 +206,12 @@ function cutMess(linesArr, messType) {
       }
     }
 
+    if (linesArr[i].includes("groupInviteLink")) {
+      linesArr[i] = linesArr[i].replace(
+        "groupInviteLink",
+        currChain.groupinvitelink
+      );
+    }
     if (linesArr[i].includes("chainDescription")) {
       linesArr[i] = linesArr[i].replace(
         "chainDescription",

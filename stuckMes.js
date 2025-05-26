@@ -588,7 +588,7 @@ function submit(id) {
       toFixCreatorPhone();
   crewChosen();
     document.getElementById("sendData").innerHTML="הודעה חדשה";
-    document.getElementById("deleteData").innerHTML="מחיקת הודעה";
+    document.getElementById("deleteData").innerHTML="מחיקת הודעה אחרונה";
     document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
         //document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
 
