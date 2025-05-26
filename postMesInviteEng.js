@@ -534,7 +534,7 @@ function switchLang(){
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
         document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
-        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה חדשה";
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה";
         document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};

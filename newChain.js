@@ -27,7 +27,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
+  "https://script.google.com/macros/s/AKfycbzndvG5HyJOn4Rb-0GFSCl6elicyeqdQ7HHeXr_mKEwXHpjGwZxWqwPwfp2MgScmHQDUw/exec";
 getChainData();
 getCrewData();
 getData();
@@ -80,7 +80,8 @@ function getChainData() {
             about:ele.about,
             row:chainRowCount,
             creatorPhone:ele.creatorphone,
-            creatorEmail:ele.creatoremail
+            creatorEmail:ele.creatoremail,
+            groupinvitelink:ele.groupinvitelink
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -344,6 +345,7 @@ function fixChain() {
           document.getElementById("creatorB4").innerHTML = allChains[j].creator;
            document.getElementById("creatorphoneB4").innerHTML = allChains[j].creatorPhone;
            document.getElementById("creatoremailB4").innerHTML = allChains[j].creatorEmail;
+           document.getElementById("groupinvitelinkB4").innerHTML = allChains[j].groupinvitelink;
         chosenRow=allChains[j].row;
         console.log("row: "+chosenRow);
       }
@@ -444,7 +446,7 @@ function switchLang(){
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
         document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
-        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה חדשה";
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה";
         document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};

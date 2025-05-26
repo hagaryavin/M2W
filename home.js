@@ -1187,11 +1187,11 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "premess" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                  window.location.href='./preMes.html';
             });
@@ -1216,12 +1216,12 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "premessemail" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה במייל";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה במייל - ";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                  window.location.href='./preMes.html';
             });
@@ -1246,11 +1246,11 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "rightaftermess" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                  window.location.href='./rightAfterMes.html';
             });
@@ -1276,11 +1276,11 @@ function createTasks() {
             optionList.id = "postmess" + allTasks[i].row;
             optionInput.classList.add("form-check-label");
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לתוצרים";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לתוצרים - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./postMes.html';           
             });
@@ -1306,7 +1306,7 @@ function createTasks() {
             optionList.id = "socialpost" + allTasks[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./socialPost.html';           
             });
@@ -1319,7 +1319,7 @@ function createTasks() {
               )
                {
                    
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername;
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" - ";
                  list.append(optionDiv);
                 list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1336,7 +1336,7 @@ function createTasks() {
                  allTasks[i].interviewername===allTasks[i].name
                 )
               ){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator;
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].chainCreator+" - ";
                  list.append(optionDiv);
                 list.append(document.createElement("br"));
                    optionDiv.append(optionList);
@@ -1352,7 +1352,7 @@ function createTasks() {
                cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                allTasks[i].interviewername!==allTasks[i].name
               ){
-                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
+                optionList.innerHTML =allTasks[i].name+" - " +recDate +" - "+shortChainName(allTasks[i].chain)+" - פוסט ל"+allTasks[i].interviewername+" ול"+allTasks[i].chainCreator+" - ";
                  list.append(optionDiv);
                 list.append(document.createElement("br"));
                   optionDiv.append(optionList);
@@ -1379,11 +1379,11 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "postmessinvite" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לאורח";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לאורח - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInvite.html';           
             });
@@ -1409,7 +1409,7 @@ function createTasks() {
             optionList.id = "confirm" + allTasks[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html';           
             });
@@ -1428,7 +1428,7 @@ function createTasks() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasks[i].chain)+
-                    " - אישור רישום ל" +allTasks[i].chainCreator
+                    " - אישור רישום ל" +allTasks[i].chainCreator+" - "
                     ;
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
@@ -1449,7 +1449,7 @@ function createTasks() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasks[i].chain)+
-                    " - אישור רישום ל" +allTasks[i].interviewername
+                    " - אישור רישום ל" +allTasks[i].interviewername+" - "
                     ;
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
@@ -1469,7 +1469,7 @@ function createTasks() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasks[i].chain)+
-                    " - אישור רישום ל" +allTasks[i].interviewername+" ול"+allTasks[i].chainCreator;
+                    " - אישור רישום ל" +allTasks[i].interviewername+" ול"+allTasks[i].chainCreator+" - ";
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
                 list.append(optionDiv);
@@ -1487,7 +1487,7 @@ function createTasks() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasks[i].chain)+
-                    " - אישור רישום ל" +allTasks[i].name;
+                    " - אישור רישום ל" +allTasks[i].name+" - ";
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
                 list.append(optionDiv);
@@ -1554,11 +1554,11 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "premess" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html';           
             });
@@ -1583,11 +1583,11 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "premessemail" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה במייל";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה במייל - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html';           
             });
@@ -1637,11 +1637,11 @@ function createTasksEng() {
             optionList.id = "postmess" + allTasksEng[i].row;
             optionInput.classList.add("form-check-label");
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לתוצרים";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לתוצרים - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./postMesEng.html';           
             });
@@ -1667,7 +1667,7 @@ function createTasksEng() {
             optionList.id = "socialpost" + allTasksEng[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./socialPostEng.html';           
             });
@@ -1680,7 +1680,7 @@ function createTasksEng() {
                cleanName(allTasksEng[i].chainCreator)===cleanName(allTasksEng[i].name))
               )
                {
-                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername;
+                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" - ";
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1697,7 +1697,7 @@ function createTasksEng() {
                  allTasksEng[i].interviewername===allTasksEng[i].name
                 )
               ){
-                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].chainCreator;
+                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].chainCreator+" - ";
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1712,7 +1712,7 @@ function createTasksEng() {
                cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                allTasksEng[i].interviewername!==allTasksEng[i].name
               ){
-                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator;
+                optionList.innerHTML =allTasksEng[i].name+" - " +recDate +" - "+shortChainName(allTasksEng[i].chain)+" - פוסט ל"+allTasksEng[i].interviewername+" ול"+allTasksEng[i].chainCreator+" - ";
                  list.append(optionDiv);
             list.append(document.createElement("br"));
                     optionDiv.append(optionList);
@@ -1739,11 +1739,11 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "postmessinvite" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לאורח";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לאורח - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInviteEng.html';           
             });
@@ -1769,7 +1769,7 @@ function createTasksEng() {
             optionList.id = "confirm" + allTasksEng[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
-            optionBut.classList.add("btn", "btn-outline-secondary", "small-btn");
+            optionBut.classList.add("btn", "btn-light");
             optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html';           
             });
@@ -1787,7 +1787,7 @@ function createTasksEng() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasksEng[i].chain)+
-                    " - אישור רישום ל" +allTasksEng[i].chainCreator
+                    " - אישור רישום ל" +allTasksEng[i].chainCreator+" - "
                     ;
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
@@ -1808,7 +1808,7 @@ function createTasksEng() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasksEng[i].chain)+
-                    " - אישור רישום ל" +allTasksEng[i].interviewername
+                    " - אישור רישום ל" +allTasksEng[i].interviewername+" - "
                     ;
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
@@ -1829,7 +1829,7 @@ function createTasksEng() {
                     " - " +
                     recDate +" - "+shortChainName(allTasksEng[i].chain)+
                     " - אישור רישום ל" +allTasksEng[i].interviewername
-                    +" ול"+allTasksEng[i].chainCreator;
+                    +" ול"+allTasksEng[i].chainCreator+" - ";
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
                 list.append(optionDiv);
@@ -1848,7 +1848,7 @@ function createTasksEng() {
                      +
                     " - " +
                     recDate +" - "+shortChainName(allTasksEng[i].chain)+
-                    " - אישור רישום ל" +allTasksEng[i].name;
+                    " - אישור רישום ל" +allTasksEng[i].name+" - ";
                 optionDiv.append(optionList);
                 optionDiv.append(optionBut);
                 list.append(optionDiv);
@@ -2319,7 +2319,7 @@ function switchLang(){
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
         document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
-        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה חדשה";
+        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה";
         document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
