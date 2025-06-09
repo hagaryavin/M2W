@@ -160,6 +160,7 @@ function getMessData() {
             messes[i - 1] = newMess;
           }
         }
+
       });
       for (var i = 0; i <= 10; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
@@ -167,6 +168,7 @@ function getMessData() {
           cutMess(messes[i].lines, i + 1);
         }
       }
+      
     });
 }
 function cutMess(linesArr, messType) {
@@ -175,7 +177,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===7||messType===9){
+  if(messType===1||messType===2||messType===7||messType===9||messType===11){
   
         removeAllChildNodes(testDiv);
     }
@@ -248,7 +250,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===7||messType===9){
+        if(messType===1||messType===2||messType===7||messType===9||messType===11){
             testDiv.append(testH4);
         }
     }
