@@ -8,7 +8,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbz1TcC9joZ1TGGWuk44ul5FfLPbS7BObGmYnGoujKiKl9RRSepodwWEsOQ2AfeHpL4zKg/exec";
+  "https://script.google.com/macros/s/AKfycbxCQPbaqWMnVDaKYMySGNg5UkqT7l9OE7jg7nm-vZheCKjJw-3SI4Q2T1PHFZDeF5hXsQ/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -48,6 +48,7 @@ function getData() {
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
           linksc: ele.linksc,
+          linkembed:ele.linkembed,    
           linkpic: ele.linkpic,
           linkexplain: ele.linkexplain,
           linkpre: ele.preptalk,
@@ -82,8 +83,6 @@ function getData() {
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
           newPerson.date = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
-        if (ele.meta !== "")
-          newPerson.meta = changeTimeZone(new Date(ele.meta), 'Asia/Jerusalem');
         if (ele.recordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.recordinghour), 'Asia/Jerusalem');
         if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
@@ -137,6 +136,7 @@ function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
   document.getElementById("deleteDate").style.visibility="visible";
   document.getElementById("link555").value = "";
+  document.getElementById("linkembed").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
   document.getElementById("link55yt").value = "";
@@ -162,8 +162,8 @@ function clearValues() {
   document.getElementById("date").value = "";
   document.getElementById("hour").value = "";
   document.getElementById("participants").value = "";    
-    
   document.getElementById("link555Change").innerHTML="הוספת סרט555";
+    document.getElementById("linkembedChange").innerHTML="הוספת לינק להטמעת סרט באתר";
   document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
   document.getElementById("link55driveChange").innerHTML="הוספת לינק לסרט 55-דרייב";
    document.getElementById("link55ytChange").innerHTML="הוספת סרט קצר 55-יוטיוב"; 
@@ -211,6 +211,7 @@ function submitData() {
             
         }
       document.getElementById("link555B4").innerHTML = allPeople[i].link555;
+        document.getElementById("linkembedB4").innerHTML = allPeople[i].linkembed;
       document.getElementById("linkfullB4").innerHTML = allPeople[i].linkfull;
       document.getElementById("link55driveB4").innerHTML =
         allPeople[i].link55drive;
@@ -240,13 +241,7 @@ function submitData() {
       document.getElementById("idB4").innerHTML = allPeople[i].id;
       document.getElementById("clip1B4").innerHTML = allPeople[i].clip1;
       document.getElementById("clip2B4").innerHTML = allPeople[i].clip2;
-        if(allPeople[i].meta!==""){
-        document.getElementById("metaB4").innerHTML = allPeople[i].meta.getDate() +
-          "/" +
-          (allPeople[i].meta.getMonth() + 1) +
-          "/" +
-          allPeople[i].meta.getFullYear();
-        }
+      document.getElementById("metaB4").innerHTML =allPeople[i].meta;
       document.getElementById("participantsB4").innerHTML=currChain.participants;
       document.getElementById("hourB4").innerHTML = allPeople[i].hour;
       document.getElementById("interPhoneB4").innerHTML =

@@ -19,12 +19,14 @@ var messes = [
   { name: "", lines: [] },
     { name: "", lines: [] }  ,
     { name: "", lines: [] }  ,
-    { name: "", lines: [] }  
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }  ,
+    { name: "", lines: [] }   
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 const url =
-  "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
+  "https://script.google.com/macros/s/AKfycbxCQPbaqWMnVDaKYMySGNg5UkqT7l9OE7jg7nm-vZheCKjJw-3SI4Q2T1PHFZDeF5hXsQ/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -51,6 +53,7 @@ function getData() {
           linkshortyt: ele.linkshortyt,
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
+          linkembed:ele.linkembed,  
           row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
@@ -152,13 +155,13 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 9; i++) {
-          if (newMess.name.includes("לינקים לתוצרים " + i)) {
+      for (var i = 1; i <= 11; i++) {
+          if (newMess.name===("לינקים לתוצרים " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 8; i++) {
+      for (var i = 0; i <= 10; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -206,6 +209,9 @@ var crewMem;
     if (linesArr[i].includes("link55")) {
       linesArr[i] = linesArr[i].replace("link55", document.getElementById("short55").value);
     }
+    if (linesArr[i].includes("linkembed")) {
+      linesArr[i] = linesArr[i].replace("linkembed", document.getElementById("linkembed").value);
+    } 
     if (linesArr[i].includes("linkyoutube55")) {
       linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
     }
@@ -413,6 +419,7 @@ function submitData() {
       document.getElementById("short55yt").value = allPeople[i].linkshortyt;
       document.getElementById("full555").value = allPeople[i].linkfull;
       document.getElementById("spotify").value = allPeople[i].linkspotify;
+      document.getElementById("linkembed").value = allPeople[i].linkembed;
     }
   }
 }

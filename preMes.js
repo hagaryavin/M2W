@@ -19,9 +19,10 @@ var messes = [
     { name: "", lines: [] },
     { name: "", lines: [] },
     { name: "", lines: [] },
+    { name: "", lines: [] },
     { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[],[],[]];
+var fullTexts = [[], [], [], [],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 var wannaFixCreatorPhone = true;
@@ -66,6 +67,8 @@ function getData() {
           newPerson.interviewerphone = ele.fixedinterviewerphone;
         if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
           newPerson.date = changeTimeZone(new Date(ele.fixedrecordingdate), 'Asia/Jerusalem');
+         if(ele.recordingdate === ""&&ele.fixedrecordingdate === "")
+             newPerson.date =changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem');
         if (ele.fixedrecordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
         newPerson.hour.setFullYear(
@@ -77,6 +80,8 @@ function getData() {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
           if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
+          if (ele.chainfive !== "") newPerson.chain = ele.chainfive;
+
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (ele.fixedtopicofstory !== "")
@@ -172,7 +177,7 @@ function getMessData() {
           ],
         };
           
-       for (var i = 1; i <= 8; i++) {
+       for (var i = 1; i <= 9; i++) {
           if (newMess.name.includes("הזמנה להקלטה " + i)) {
             messes[i - 1] = newMess;
               console.log(newMess);
@@ -181,7 +186,7 @@ function getMessData() {
           
       });
       console.log(messes);
-      for (var i = 0; i <= 7; i++) {
+      for (var i = 0; i <= 8; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
