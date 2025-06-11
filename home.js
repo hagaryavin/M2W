@@ -1415,7 +1415,6 @@ function createTasks() {
             });
             if(
                 allTasks[i].chainCreator!==""&&
-                cleanName(allTasks[i].chainCreator)!==cleanName(allTasks[i].name)&&
                 (allTasks[i].interviewername==="יעל מילוא"||
                  allTasks[i].interviewername===""||
                  cleanName(allTasks[i].interviewername)===cleanName(allTasks[i].chainCreator)||
@@ -1775,7 +1774,6 @@ function createTasksEng() {
             });
             if(
                 allTasksEng[i].chainCreator!==""&&
-                cleanName(allTasksEng[i].chainCreator)!==cleanName(allTasksEng[i].name)&&
                 (allTasksEng[i].interviewername==="יעל מילוא"||
                  allTasksEng[i].interviewername===""||
                  cleanName(allTasksEng[i].interviewername)===cleanName(allTasksEng[i].chainCreator)||
