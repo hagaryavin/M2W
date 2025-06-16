@@ -47,6 +47,10 @@ img {
   visibility: hidden;
   width: 10%;
 }
+.nav-img{
+    visibility: visible;
+  width: auto;
+}
 .blog-header-logo {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: 2.25rem;
@@ -167,4 +171,27 @@ h4 {
 .blog-footer p:last-child {
   margin-bottom: 0;
 }
+.small-btn {
+    font-size: 15px; 
+    margin-right: inherit;
+   /* padding: 4px 8px;*/ 
+}
+
+
+/*
+html, body {
+  background-image: url('./%D7%A8%D7%A7%D7%A2%20%D7%9C%D7%90%D7%A4%D7%9C%D7%99%D7%A7%D7%A6%D7%99%D7%94%20-%20%D7%9B%D7%AA%D7%95%D7%9D-%20M2W.png');
+  background-size: cover;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+*/
+
+
+
+
+
 
