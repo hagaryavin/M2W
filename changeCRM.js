@@ -169,7 +169,7 @@ function clearValues() {
   document.getElementById("link555Change").innerHTML="הוספת סרט555";
     document.getElementById("linkembed555Change").innerHTML="הוספת לינק להטמעת סרט555 באתר";
     document.getElementById("linkembedfullChange").innerHTML="הוספת לינק להטמעת ראיון מלא באתר";
-    document.getElementById("linkzoomChange").innerHTML="הוספת לינק לחדר המתנה בזום";
+    document.getElementById("linkzoomChange").innerHTML="הוספת לינק לסרט חדרהמתנה 55-דרייב";
   document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
   document.getElementById("link55driveChange").innerHTML="הוספת לינק לסרט 55-דרייב";
    document.getElementById("link55ytChange").innerHTML="הוספת סרט קצר 55-יוטיוב"; 
