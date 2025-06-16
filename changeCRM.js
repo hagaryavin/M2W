@@ -8,7 +8,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbxCQPbaqWMnVDaKYMySGNg5UkqT7l9OE7jg7nm-vZheCKjJw-3SI4Q2T1PHFZDeF5hXsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzZjjImvWlTYhCwYk_y3UY0-GWsa1IEmmmgsqrP7h5u4-KUAdlkGlid9fHqEigGbqjz0Q/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -48,7 +48,9 @@ function getData() {
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
           linksc: ele.linksc,
-          linkembed:ele.linkembed,    
+          linkembed555:ele.linkembed555,
+            linkembedfull:ele.linkembedfull,
+            linkzoom:ele.linkzoom,
           linkpic: ele.linkpic,
           linkexplain: ele.linkexplain,
           linkpre: ele.preptalk,
@@ -136,7 +138,9 @@ function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
   document.getElementById("deleteDate").style.visibility="visible";
   document.getElementById("link555").value = "";
-  document.getElementById("linkembed").value = "";
+  document.getElementById("linkembed555").value = "";
+    document.getElementById("linkembedfull").value = "";
+    document.getElementById("linkzoom").value = "";
   document.getElementById("linkfull").value = "";
   document.getElementById("link55drive").value = "";
   document.getElementById("link55yt").value = "";
@@ -163,7 +167,9 @@ function clearValues() {
   document.getElementById("hour").value = "";
   document.getElementById("participants").value = "";    
   document.getElementById("link555Change").innerHTML="הוספת סרט555";
-    document.getElementById("linkembedChange").innerHTML="הוספת לינק להטמעת סרט באתר";
+    document.getElementById("linkembed555Change").innerHTML="הוספת לינק להטמעת סרט555 באתר";
+    document.getElementById("linkembedfullChange").innerHTML="הוספת לינק להטמעת ראיון מלא באתר";
+    document.getElementById("linkzoomChange").innerHTML="הוספת לינק לחדר המתנה בזום";
   document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
   document.getElementById("link55driveChange").innerHTML="הוספת לינק לסרט 55-דרייב";
    document.getElementById("link55ytChange").innerHTML="הוספת סרט קצר 55-יוטיוב"; 
@@ -211,7 +217,9 @@ function submitData() {
             
         }
       document.getElementById("link555B4").innerHTML = allPeople[i].link555;
-        document.getElementById("linkembedB4").innerHTML = allPeople[i].linkembed;
+        document.getElementById("linkembed555B4").innerHTML = allPeople[i].linkembed555;
+         document.getElementById("linkembedfullB4").innerHTML = allPeople[i].linkembedfull;
+        document.getElementById("linkzoomB4").innerHTML = allPeople[i].linkzoom;
       document.getElementById("linkfullB4").innerHTML = allPeople[i].linkfull;
       document.getElementById("link55driveB4").innerHTML =
         allPeople[i].link55drive;

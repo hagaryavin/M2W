@@ -13,7 +13,7 @@
     <link href="./style.css" rel="stylesheet" />
     <link
       rel="icon"
-      href="https://www.svgrepo.com/show/106976/whatsapp.svg"
+      href="./logo5-round.png"
     />
     <style>
       .bd-placeholder-img {
@@ -316,6 +316,32 @@
             </button>
           </div>
           </div>
+         <div
+        id="change"
+        class="form-control input-group-text col-auto"
+        role="group"
+      >
+        <input
+          type="text"
+          id="newInfo"
+          class="form-control"
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendData"
+          onclick="changeLastMess()"
+        >
+הודעה חדשה        </button>
+           <button
+          type="button"
+          onclick="deleteLastMess()"
+          class="btn form-control btn-outline-secondary"
+          id="deleteData"
+        >מחיקת הודעה אחרונה
+        </button>
+      </div>
         </div>
         
     <script

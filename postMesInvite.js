@@ -6,6 +6,7 @@ var size = 0;
 var firstName = "";
 var chainType = "long";
 var fullTextInvite = "";
+var chosenRow = 0;
 var wannaFixGuestPhone = true;
 //document.getElementById("longInvite").style.visibility = "hidden";
 const url =
@@ -29,14 +30,20 @@ var messes = [
   { name: "", lines: [] },
     { name: "", lines: [] },
     { name: "", lines: [] }  ,
+     { name: "", lines: [] } ,
      { name: "", lines: [] } 
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
 getChainData();
 getCrewData();
 getData();
+const date = changeTimeZone(new Date(), 'Asia/Jerusalem');
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var currentDate = day + "." + month;
+console.log(currentDate);
 function getData() {
   fetch(url)
     .then((res) => {
@@ -161,13 +168,13 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 9; i++) {
-          if (newMess.name.includes("לינקים להזמנת אורח " + i)) {
+      for (var i = 1; i <= 10; i++) {
+          if (newMess.name===("לינקים להזמנת אורח " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 8; i++) {
+      for (var i = 0; i <= 9; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -248,6 +255,9 @@ function cutMess(linesArr, messType) {
         currChain.about
       );
     }
+    if (linesArr[i].includes("date")) {
+      linesArr[i] = linesArr[i].replace("date", currentDate);
+    }
     if (linesArr[i].includes("chainPlaylist")) {
       linesArr[i] = linesArr[i].replace("chainPlaylist", currChain.playlist);
     }
@@ -295,6 +305,9 @@ function cutMess(linesArr, messType) {
       testH4.innerHTML = duplicateLine;
         if(messType===1||messType===4||messType===8||messType===9){
       testDiv.append(testH4);
+        }
+        if(messType===10){
+      document.getElementById("newInfo").value =currText;
         }
     }
     i++;
@@ -394,6 +407,8 @@ function fixChain() {
 function submit() {
   toFixGuestPhone();
   crewChosen();
+    document.getElementById("sendData").innerHTML="הודעה חדשה";
+    document.getElementById("deleteData").innerHTML="מחיקת הודעה אחרונה";
   // document.getElementById("longInvite").style.visibility = "hidden";
   document.getElementById("postMes").style.visibility = "hidden";
   if (checkInputs()) {
@@ -506,6 +521,7 @@ function submitData() {
     ) {
       console.log(allPeople[i]);
       console.log("row num:" + allPeople[i].row);
+      chosenRow = allPeople[i].row;
       document.getElementById("chainName").value = fixChainFromData(
         allPeople[i].chain
       );
@@ -527,6 +543,60 @@ function toFixGuestPhone() {
   if (document.getElementById("fixGuestPhone").checked === true) {
     wannaFixGuestPhone = true;
   } else wannaFixGuestPhone = false;
+}
+function changeLastMess() {
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: document.getElementById("newInfo").value,
+    row: chosenRow,
+    col: "mess",
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("newInfo"));
+     document.getElementById("sendData").innerHTML="התעדכן";
+  }
+}
+function deleteLastMess() {
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: "",
+    row: chosenRow,
+    col: "mess",
+  };
+  if (chosenRow > 0) {
+    sendData(temp, document.getElementById("newInfo"));
+     document.getElementById("deleteData").innerHTML="התעדכן";
+  }
+}
+function sendData(obj, ele) {
+  console.log(obj);
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(obj));
+  console.log(obj);
+  fetch(url, {
+    method: "POST",
+    body: formData,
+  })
+    .then((rep) => {
+      console.log(obj);
+      return rep.json();
+    })
+    .then((json) => {
+      console.log(obj);
+      console.log(json);
+      ele.innerHTML = json.val;
+    });
+
+}
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(new Date(date).toLocaleString('en-US', { timeZone }));
+  }
+  return new Date(date.toLocaleString('en-US', { timeZone }));
 }
 function switchLang(){
     if (document.getElementById("switch").checked === true){

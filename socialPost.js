@@ -34,9 +34,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
   { name: "", lines: [] },
+    { name: "", lines: [] },
     { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[],[],[]];
+var fullTexts = [[], [], [], [],[],[],[],[],[]];
 var chainOption;
 var allChains = [];
 var newChain = {};
@@ -175,13 +176,13 @@ function getMessData() {
           ],
         };
 
-       for (var i = 1; i <= 8; i++) {
+       for (var i = 1; i <= 9; i++) {
           if (newMess.name.includes("פוסט " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 7; i++) {
+      for (var i = 0; i <= 8; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -195,7 +196,9 @@ function cutMess(linesArr, messType) {
   if (currCrew.name === "") crewMem = "";
   var currText = "";
   var testDiv = document.getElementById("text" + messType);
+    if(messType!==5){
   removeAllChildNodes(testDiv);
+        }
   var i = 0;
   while (linesArr[i] !== "end") {
     
@@ -277,7 +280,9 @@ function cutMess(linesArr, messType) {
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-      testDiv.append(testH4);
+    if(messType!==5){
+            testDiv.append(testH4);
+        }
     }
 if (
       chainType === "short" &&messType===3&&
@@ -621,6 +626,7 @@ function submitData() {
         allPeople[i].interviewerphone
       );
     }
+        document.getElementById("full555").value = allPeople[i].linkfull;
         fixChain();
       linkFive = allPeople[i].linkfive;
       linkFull = allPeople[i].linkfull;

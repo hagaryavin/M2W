@@ -21,12 +21,14 @@ var messes = [
     { name: "", lines: [] }  ,
     { name: "", lines: [] }  ,
     { name: "", lines: [] }  ,
-    { name: "", lines: [] }   
+    { name: "", lines: [] } ,
+    { name: "", lines: [] } ,
+    { name: "", lines: [] }     
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 const url =
-  "https://script.google.com/macros/s/AKfycbxCQPbaqWMnVDaKYMySGNg5UkqT7l9OE7jg7nm-vZheCKjJw-3SI4Q2T1PHFZDeF5hXsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzZjjImvWlTYhCwYk_y3UY0-GWsa1IEmmmgsqrP7h5u4-KUAdlkGlid9fHqEigGbqjz0Q/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -53,7 +55,9 @@ function getData() {
           linkshortyt: ele.linkshortyt,
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
-          linkembed:ele.linkembed,  
+          linkembed555:ele.linkembed555,
+          linkembedfull:ele.linkembedfull,
+            linkzoom:ele.linkzoom,
           row: rowCount,
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
@@ -155,14 +159,14 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 11; i++) {
+      for (var i = 1; i <= 13; i++) {
           if (newMess.name===("לינקים לתוצרים " + i)) {
             messes[i - 1] = newMess;
           }
         }
 
       });
-      for (var i = 0; i <= 10; i++) {
+      for (var i = 0; i <= 12; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
@@ -177,7 +181,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===7||messType===9||messType===11){
+  if(messType===1||messType===2||messType===7||messType===9||messType===13){
   
         removeAllChildNodes(testDiv);
     }
@@ -211,9 +215,15 @@ var crewMem;
     if (linesArr[i].includes("link55")) {
       linesArr[i] = linesArr[i].replace("link55", document.getElementById("short55").value);
     }
-    if (linesArr[i].includes("linkembed")) {
-      linesArr[i] = linesArr[i].replace("linkembed", document.getElementById("linkembed").value);
-    } 
+    if (linesArr[i].includes("linkembed555")) {
+      linesArr[i] = linesArr[i].replace("linkembed555", document.getElementById("linkembed555").value);
+    }
+    if (linesArr[i].includes("linkembedfull")) {
+      linesArr[i] = linesArr[i].replace("linkembedfull", document.getElementById("linkembedfull").value);
+    }
+    if (linesArr[i].includes("linkzoom")) {
+      linesArr[i] = linesArr[i].replace("linkzoom", document.getElementById("linkzoom").value);
+    }
     if (linesArr[i].includes("linkyoutube55")) {
       linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
     }
@@ -250,7 +260,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===7||messType===9||messType===11){
+        if(messType===1||messType===2||messType===7||messType===9||messType===13){
             testDiv.append(testH4);
         }
     }
@@ -421,7 +431,9 @@ function submitData() {
       document.getElementById("short55yt").value = allPeople[i].linkshortyt;
       document.getElementById("full555").value = allPeople[i].linkfull;
       document.getElementById("spotify").value = allPeople[i].linkspotify;
-      document.getElementById("linkembed").value = allPeople[i].linkembed;
+      document.getElementById("linkembed555").value = allPeople[i].linkembed555;
+        document.getElementById("linkembedfull").value = allPeople[i].linkembedfull;
+        document.getElementById("linkzoom").value = allPeople[i].linkzoom;
     }
   }
 }
