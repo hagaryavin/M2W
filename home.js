@@ -1192,8 +1192,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                 window.location.href='./preMes.html';
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMes.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);            
@@ -1222,8 +1223,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                 window.location.href='./preMes.html';
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMes.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1251,8 +1253,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                 window.location.href='./rightAfterMes.html';
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./rightAfterMes.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1281,8 +1284,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./postMes.html';           
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMes.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1307,8 +1311,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./socialPost.html';           
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./socialPost.html?'+params;
             });
             if(allTasks[i].interviewername!=="יעל מילוא"&&
                allTasks[i].interviewername!==""&&
@@ -1384,8 +1389,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./postMesInvite.html';           
+            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMesInvite.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);            
@@ -1410,8 +1416,9 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./preMes.html';           
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMes.html?'+params;
             });
             if(
                 allTasks[i].chainCreator!==""&&
@@ -1558,8 +1565,9 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./preMesEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMesEng.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1587,8 +1595,9 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./preMesEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMesEng.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1608,7 +1617,6 @@ function createTasksEng() {
             optionInput.addEventListener("click", function () {
                 checkEng(this);
             });
-            
             optionDiv.append(optionInput);
             optionList = document.createElement("label");
             optionList.id = "rightaftermess" + allTasksEng[i].row;
@@ -1641,8 +1649,9 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./postMesEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMesEng.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1667,10 +1676,10 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./socialPostEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./socialPostEng.html?'+params;
             });
-            
             if(allTasksEng[i].interviewername!=="יעל מילוא"&&
                allTasksEng[i].interviewername!==""&&
                allTasksEng[i].interviewername!==allTasksEng[i].name&&
@@ -1743,8 +1752,9 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./postMesInviteEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMesInviteEng.html?'+params;
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
@@ -1769,8 +1779,9 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="מעבר לדף";
             optionBut.classList.add("btn", "btn-light");
-            optionBut.addEventListener("click", function () {
-                window.location.href='./preMesEng.html';           
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./preMesEng.html?'+params;
             });
             if(
                 allTasksEng[i].chainCreator!==""&&

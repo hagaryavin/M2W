@@ -266,8 +266,13 @@ function checkInputs() {
   if (document.getElementById("chainName").value) {
     currPerson = findFirstInChain();
     console.log(currPerson);
+      document.getElementById("toPost").addEventListener("click", function () {
+                window.location.href='./socialPost.html?name='+encodeURIComponent(currPerson.guestname)+'&chain='+encodeURIComponent(currChain.name);           
+            });
     if (currPerson.guestname === "...") {
-      //alert("אין משתתפים בשרשרת!");
+            document.getElementById("toPost").addEventListener("click", function () {
+                window.location.href='./socialPost.html';           
+            });   
     }
     return true;
   }

@@ -90,6 +90,12 @@ function getData() {
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
+          const params = new URLSearchParams(window.location.search);
+            const nameP = params.get('name');
+            const chainP = params.get('chain');
+            if (nameP&&chainP&&nameP===newPerson.name&&chainP===fixChainFromData(newPerson.chain)) {
+                document.getElementById("peopleList").value =newPerson.name + " + " + fixChainFromData(newPerson.chain);
+            }
         personOption.id = rowCount;
         if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
            console.log(allPeople[size]);

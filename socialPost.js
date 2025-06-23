@@ -88,6 +88,12 @@ function getData() {
         personOption = document.createElement("option");
         personOption.value =
           newPerson.guestname + " + " + fixChainFromData(newPerson.chain);
+         const params = new URLSearchParams(window.location.search);
+            const nameP = params.get('name');
+            const chainP = params.get('chain');
+            if (nameP && chainP&& nameP===newPerson.guestname&&chainP===fixChainFromData(newPerson.chain)) {
+                document.getElementById("peopleList").value =newPerson.guestname + " + " + fixChainFromData(newPerson.chain);
+      }
         personOption.id = rowCount;
         if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.guestname !== "" || newPerson.chain !== "")) {
           console.log(allPeople[size]);
