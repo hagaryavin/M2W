@@ -1190,7 +1190,7 @@ function createTasks() {
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - הזמנה להקלטה - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1221,7 +1221,7 @@ function createTasks() {
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1251,7 +1251,7 @@ function createTasks() {
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1282,7 +1282,7 @@ function createTasks() {
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לתוצרים - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1309,7 +1309,7 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasks[i].row;
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1387,7 +1387,7 @@ function createTasks() {
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לאורח - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1414,7 +1414,7 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasks[i].row;
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1563,7 +1563,7 @@ function createTasksEng() {
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1593,7 +1593,7 @@ function createTasksEng() {
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - הזמנה להקלטה במייל - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1647,7 +1647,7 @@ function createTasksEng() {
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לתוצרים - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1674,7 +1674,7 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "socialpost" + allTasksEng[i].row;
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1750,7 +1750,7 @@ function createTasksEng() {
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לאורח - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
@@ -1777,7 +1777,7 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "confirm" + allTasksEng[i].row;
             optionBut=document.createElement("button");
-            optionBut.innerHTML="מעבר לדף";
+            optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
