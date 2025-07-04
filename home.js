@@ -2074,12 +2074,14 @@ function changeClips(id) {
         console.log("clipsB4: "+clipsToChange);
         var dataElement=document.getElementById("clipsChange");
         var ogSum=clipsToChange;
+        document.getElementById("clipsB4").innerHTML=parseInt(parseInt(textEntered)+parseInt(ogSum))+" קליפים חדשים להפוך לשורטים";
     }
     if(id==="interphone"){
         var textEntered=document.getElementById("indiclips").value;
-        console.log("indiclipsB4: "+clipsToChange);
+        console.log("indiclipsB4: "+indiclipsToChange);
         var dataElement=document.getElementById("indiclipsChange");
         var ogSum=indiclipsToChange;
+        document.getElementById("indiclipsB4").innerHTML=parseInt(parseInt(textEntered)+parseInt(ogSum))+" קליפים עצמאיים להפוך לשורטים";
     }
       console.log("col: " + chosenCol);
     if(textEntered===""){
