@@ -14,6 +14,15 @@ var chainOption;
 var allChains = [];
 var newChain = {};
 var currChain = {};
+const date = changeTimeZone(new Date(), 'Asia/Jerusalem');
+var day = date.getDate();
+var month = date.getMonth() + 1;
+var currentDate = day + "." + month;
+console.log(currentDate);
+var messes = [
+  { name: "", lines: [] }
+];
+var fullTexts = [[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 var taskurl =
@@ -136,6 +145,108 @@ function getChainData() {
       });
     });
 }
+function getMessData() {
+  var newMess;
+  fetch(chainDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.messages.forEach((ele) => {
+        newMess = {
+          name: ele.name,
+          lines: [
+            ele.line1,
+            ele.line2,
+            ele.line3,
+            ele.line4,
+            ele.line5,
+            ele.line6,
+            ele.line7,
+            ele.line8,
+            ele.line9,
+            ele.line10,
+            ele.line11,
+            ele.line12,
+            ele.line13,
+            ele.line14,
+            ele.line15,
+            ele.line16,
+            ele.line17,
+            ele.line18,
+            ele.line19,
+            ele.line20,
+          ],
+        };
+
+       for (var i = 1; i <= 1; i++) {
+          if (newMess.name.includes("עדכון תוצרים " + i)) {
+            messes[i - 1] = newMess;
+          }
+        }
+      });
+      for (var i = 0; i <= 0; i++) {
+        for (var j = 0; j < messes[i].lines.length; j++) {
+            
+          cutMess(messes[i].lines, i + 1);
+        }
+      }
+    });
+}
+function cutMess(linesArr, messType) {
+  var currText = "";
+//  var testDiv = document.getElementById("text" + messType);
+  //removeAllChildNodes(testDiv);
+  var i = 0;
+  while (linesArr[i] !== "end") {
+    
+    if (linesArr[i].includes("date")) {
+      linesArr[i] = linesArr[i].replace("date", currentDate);
+    }
+   
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] !== "end") {
+        currText += linesArr[i] + "\n";
+      }
+      if (linesArr[i + 1] === "end") {
+        currText += linesArr[i];
+      }
+    }
+    if (linesArr[i] === "") {
+      currText += "\n";
+    }
+    var duplicateLine = linesArr[i];
+    while (duplicateLine.includes("*")) {
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "<strong>");
+      }
+      if (duplicateLine.includes("*")) {
+        duplicateLine = duplicateLine.replace("*", "</strong>");
+      }
+    }
+
+    var testH4 = document.createElement("h4");
+    if (linesArr[i] !== "") {
+      if (linesArr[i + 1] === "") {
+        testH4.classList.add("mb-3");
+      }
+      if (linesArr[i + 1] !== "") {
+        testH4.classList.add("mb-0");
+      }
+      testH4.innerHTML = duplicateLine;
+     // testDiv.append(testH4);
+    }
+    document.getElementById("mess").value =currText;
+
+    i++;
+  }
+ fullTexts[messType - 1] = currText;
+}
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
+}
 setTimeout(() => {
   const loader = document.getElementById("loader");
   loader.style.display = "none";
@@ -162,6 +273,7 @@ function clearValues() {
   document.getElementById("chain").value = "";
   document.getElementById("order").value = "";
   document.getElementById("mess").value = "";
+    getMessData();
   document.getElementById("title").value = "";
   document.getElementById("subtitle").value = "";
     document.getElementById("virtue").value = "";
@@ -182,6 +294,7 @@ function clearValues() {
     document.getElementById("linkspotifyChange").innerHTML="הוספת לינק לספוטיפיי";
      document.getElementById("linkscChange").innerHTML="הוספת לינק לסאונדקלאוד";
     document.getElementById("linkexplainChange").innerHTML="הוספת סרט הסבר לשרשרת";
+    document.getElementById("messChange").innerHTML="הוספת הודעה לחרוז אחרון";
     document.getElementById("linkpreChange").innerHTML="הוספת סרט הכנה לפתיחת שרשרת";
      document.getElementById("clip1Change").innerHTML="הוספת קליפ1";
     document.getElementById("clip2Change").innerHTML="הוספת קליפ2";
