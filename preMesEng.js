@@ -718,7 +718,12 @@ function submitData() {
       document.getElementById("chainName").value = fixChainFromData(
         allPeople[i].chain
       );
-
+        const params= 'name='+encodeURIComponent(nameAndChain[0])+'&chain='+encodeURIComponent(fixChainFromData(
+        allPeople[i].chain
+      ));
+        document.getElementById("goToChangeCRM").addEventListener("click", function () {
+                window.location.href='./changeCRMEng.html?'+params;
+            });
       document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].guestphone
       );
