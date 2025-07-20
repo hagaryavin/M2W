@@ -1,4 +1,3 @@
-/* stylelint-disable selector-list-comma-newline-after */
 .blog-header {
   line-height: 1;
   border-bottom: 1px solid #e5e5e5;
@@ -62,7 +61,7 @@ img {
     max-height: 30px;
   }
     .nav-lang{
-  margin-left:15px;
+       margin-left:5px;
  
     }
 
@@ -152,7 +151,6 @@ h4 {
   }
 }
 
-/* Pagination */
 .blog-pagination {
   margin-bottom: 4rem;
 }
@@ -160,9 +158,6 @@ h4 {
   border-radius: 2rem;
 }
 
-/*
- * Blog posts
- */
 .blog-post {
   margin-bottom: 4rem;
 }
@@ -175,9 +170,6 @@ h4 {
   color: #727272;
 }
 
-/*
- * Footer
- */
 .blog-footer {
   padding: 2.5rem 0;
   color: #727272;
@@ -191,17 +183,15 @@ h4 {
 .small-btn {
     font-size: 15px; 
     margin-right: inherit;
-   /* padding: 4px 8px;*/ 
 }
-
-
 
 
 html, body {
   height: 100%;
-  width: 100%;
+  min-width: 100vw; 
   margin: 0;
   padding: 0;
+  overflow-x: auto;
   position: relative;
 }
 
@@ -213,10 +203,40 @@ body::before {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   opacity: 0.6;
   z-index: -1;
+  pointer-events: none;
+}
+
+.form-control {
+  background-color: #ffffff !important; 
+  color: #000000 !important;            
+}
+#options {
+    background-color: transparent !important;
+}
+.btn {
+  background-color:#FCFCDC !important;
+  border: #FCFCDC !important;
+  color: #000000 !important; 
+border: 1px solid #0d6efd !important; 
+
+}
+.btn-success {
+  border: 1px solid #198754 !important;
+  background-color: #198754 !important;
+  color: #ffffff !important;
+}
+
+.navbar .btn {
+  background-color: #ffffff !important;
+  border: none !important;
+  color: #000000 !important; 
+}
+.navbar {
+  background-color: #ffffff;
 }
 
 
