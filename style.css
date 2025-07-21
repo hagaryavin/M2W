@@ -218,8 +218,8 @@ body::before {
     background-color: transparent !important;
 }
 .btn {
-  background-color:#FCFCDC !important;
-  border: #FCFCDC !important;
+  background-color:#fff8eb !important;
+  border: #fff8eb !important;
   color: #000000 !important; 
 border: 1px solid #0d6efd !important; 
 
@@ -238,12 +238,3 @@ border: 1px solid #0d6efd !important;
 .navbar {
   background-color: #ffffff;
 }
-
-
-
-
-
-
-
-
-
