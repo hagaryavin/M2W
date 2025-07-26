@@ -1191,7 +1191,7 @@ function createTasks() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
@@ -1222,7 +1222,7 @@ function createTasks() {
             optionDiv.append(optionList);
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
@@ -1252,7 +1252,7 @@ function createTasks() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./rightAfterMes.html?'+params;
@@ -1283,7 +1283,7 @@ function createTasks() {
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMes.html?'+params;
@@ -1310,7 +1310,7 @@ function createTasks() {
             optionList.id = "socialpost" + allTasks[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./socialPost.html?'+params;
@@ -1388,7 +1388,7 @@ function createTasks() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInvite.html?'+params;
@@ -1415,7 +1415,7 @@ function createTasks() {
             optionList.id = "confirm" + allTasks[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
@@ -1564,7 +1564,7 @@ function createTasksEng() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;
@@ -1594,7 +1594,7 @@ function createTasksEng() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;
@@ -1648,7 +1648,7 @@ function createTasksEng() {
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesEng.html?'+params;
@@ -1675,7 +1675,7 @@ function createTasksEng() {
             optionList.id = "socialpost" + allTasksEng[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./socialPostEng.html?'+params;
@@ -1751,7 +1751,7 @@ function createTasksEng() {
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInviteEng.html?'+params;
@@ -1778,7 +1778,7 @@ function createTasksEng() {
             optionList.id = "confirm" + allTasksEng[i].row;
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
-            optionBut.classList.add("btn", "btn-light");
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
             const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;

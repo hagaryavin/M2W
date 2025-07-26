@@ -224,6 +224,13 @@ body::before {
 border: 1px solid #0d6efd !important; 
 
 }
+.btn-in-task {
+  background-color:#faeccf !important;
+  border: #faeccf !important;
+  color: #000000 !important; 
+border: 1px solid #0d6efd !important; 
+
+}
 .btn-success {
   border: 1px solid #198754 !important;
   background-color: #198754 !important;
@@ -238,3 +245,12 @@ border: 1px solid #0d6efd !important;
 .navbar {
   background-color: #ffffff;
 }
+
+
+
+
+
+
+
+
+
