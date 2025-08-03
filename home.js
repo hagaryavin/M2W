@@ -226,7 +226,7 @@ function getData(x) {
                     ) {
                         //////6,7 condition
                         if (
-                            getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")&&newPerson.individ===true
+                            getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -276,7 +276,7 @@ function getData(x) {
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
                                 newPerson.recordingdate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonCont(newPerson.row, "rightaftermess") ===
-                        "not yet"&&!nullTask.includes("rightaftermess")&&newPerson.individ===true
+                        "not yet"&&!nullTask.includes("rightaftermess")
                     ) {
                         //////2 condition
                         newTask = {
@@ -312,7 +312,7 @@ function getData(x) {
                         //////////////3,5 condition
                         if (
                             getTasksDataFromPersonCont(newPerson.row, "postmess") ===
-                            "not yet"&&!nullTask.includes("postmess")&&newPerson.individ===true
+                            "not yet"&&!nullTask.includes("postmess")
                         ) {
                             newTask = {
                                 name: newPerson.name,
