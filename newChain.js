@@ -27,7 +27,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbzndvG5HyJOn4Rb-0GFSCl6elicyeqdQ7HHeXr_mKEwXHpjGwZxWqwPwfp2MgScmHQDUw/exec";
+  "https://script.google.com/macros/s/AKfycbzV7prBl2IXFWsPrp3z2heq2FE5vQN3hVZ52vBXtDvOTQLOBIk5NWAYCCclbAwL3PtOJg/exec";
 getChainData();
 getCrewData();
 getData();
@@ -81,7 +81,8 @@ function getChainData() {
             row:chainRowCount,
             creatorPhone:ele.creatorphone,
             creatorEmail:ele.creatoremail,
-            groupinvitelink:ele.groupinvitelink
+            groupinvitelink:ele.groupinvitelink,
+            credit:ele.credit
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -212,6 +213,12 @@ function cutMess(linesArr, messType) {
         currChain.groupinvitelink
       );
     }
+      if (linesArr[i].includes("credit")) {
+      linesArr[i] = linesArr[i].replace(
+        "credit",
+        currChain.credit
+      );
+    }
     if (linesArr[i].includes("chainDescription")) {
       linesArr[i] = linesArr[i].replace(
         "chainDescription",
@@ -333,6 +340,8 @@ function submit() {
     document.getElementById("creatorChange").innerHTML="הוספת יוצר השרשרת";
     document.getElementById("creatorphoneChange").innerHTML="הוספת טלפון יוצר השרשרת";
     document.getElementById("creatoremailChange").innerHTML="הוספת מייל יוצר השרשרת";
+    document.getElementById("groupinvitelinkChange").innerHTML="הוספת קישור לקבוצת וואטסאפ";
+    document.getElementById("creditChange").innerHTML="הוספת קרדיט";
      document.getElementById("about").value="";
      document.getElementById("participants").value="";
   document.getElementById("newChain").style.visibility = "hidden";
@@ -357,6 +366,7 @@ function fixChain() {
            document.getElementById("creatorphoneB4").innerHTML = allChains[j].creatorPhone;
            document.getElementById("creatoremailB4").innerHTML = allChains[j].creatorEmail;
            document.getElementById("groupinvitelinkB4").innerHTML = allChains[j].groupinvitelink;
+          document.getElementById("creditB4").innerHTML = allChains[j].credit;
         chosenRow=allChains[j].row;
         console.log("row: "+chosenRow);
       }
