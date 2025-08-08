@@ -23,9 +23,10 @@ var messes = [
     { name: "", lines: [] }  ,
     { name: "", lines: [] } ,
     { name: "", lines: [] } ,
+    { name: "", lines: [] } ,
     { name: "", lines: [] }     
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbzZjjImvWlTYhCwYk_y3UY0-GWsa1IEmmmgsqrP7h5u4-KUAdlkGlid9fHqEigGbqjz0Q/exec";
@@ -165,20 +166,18 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 13; i++) {
+      for (var i = 1; i <= 14; i++) {
           if (newMess.name===("לינקים לתוצרים " + i)) {
             messes[i - 1] = newMess;
           }
         }
 
       });
-      for (var i = 0; i <= 12; i++) {
+      for (var i = 0; i <= 13; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
-            
           cutMess(messes[i].lines, i + 1);
         }
       }
-      
     });
 }
 function cutMess(linesArr, messType) {
@@ -187,7 +186,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===7||messType===9||messType===13){
+  if(messType===1||messType===2||messType===7||messType===9||messType===13||messType===14){
   
         removeAllChildNodes(testDiv);
     }
@@ -266,7 +265,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===7||messType===9||messType===13){
+        if(messType===1||messType===2||messType===7||messType===9||messType===13||messType===14){
             testDiv.append(testH4);
         }
     }
