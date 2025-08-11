@@ -283,7 +283,7 @@ function getData(x) {
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
                                 newPerson.recordingdate.getYear() === today.getYear())) &&
                         getTasksDataFromPersonCont(newPerson.row, "rightaftermess") ===
-                        "not yet"&&!nullTask.includes("rightaftermess")&&newPerson.livechain===false
+                        "not yet"&&!nullTask.includes("rightaftermess")
                     ) {
                         //////2 condition
                         newTask = {
