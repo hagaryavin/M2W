@@ -20,9 +20,10 @@ var messes = [
     { name: "", lines: [] },
     { name: "", lines: [] },
     { name: "", lines: [] },
+    { name: "", lines: [] },
     { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[],[],[],[]];
+var fullTexts = [[], [], [], [],[],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 var wannaFixCreatorPhone = true;
@@ -183,8 +184,8 @@ function getMessData() {
           ],
         };
           
-       for (var i = 1; i <= 9; i++) {
-          if (newMess.name.includes("הזמנה להקלטה " + i)) {
+       for (var i = 1; i <= 10; i++) {
+          if (newMess.name===("הזמנה להקלטה " + i)) {
             messes[i - 1] = newMess;
               console.log(newMess);
           }
@@ -192,7 +193,7 @@ function getMessData() {
           
       });
       console.log(messes);
-      for (var i = 0; i <= 8; i++) {
+      for (var i = 0; i <= 9; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
