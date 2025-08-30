@@ -1,6 +1,9 @@
 var options = document.getElementById("people");
+var peopleOptions = document.getElementById("people0");
 var personOption;
+var anotherPersonOption;
 var allPeople = [];
+var fullAllPeople = [];
 var rowCount = 2;
 var rowChainCount = 2;
 var size = 0;
@@ -103,6 +106,7 @@ function getData() {
         }
         if (ele.fixedrecordinghour !== "")
           newPerson.hour = changeTimeZone(new Date(ele.fixedrecordinghour), 'Asia/Jerusalem');
+        fullAllPeople.push(newPerson);
         allPeople.push(newPerson);
         console.log(allPeople[size]);
         personOption = document.createElement("option");
@@ -114,9 +118,13 @@ function getData() {
             if (nameP&&chainP&&nameP===newPerson.name&&chainP===fixChainFromData(newPerson.chain)) {
                 document.getElementById("peopleList").value =newPerson.name + " + " + fixChainFromData(newPerson.chain);
             }
-        personOption.id = rowCount;
+         anotherPersonOption = document.createElement("option");
+        anotherPersonOption.value =
+          newPerson.name + " + " + fixChainFromData(newPerson.chain);
+        anotherPersonOption.id = rowCount;
         if (newPerson.name !== "" || newPerson.chain !== "") {
           options.append(personOption);
+          peopleOptions.append(anotherPersonOption);
         }
         rowCount++;
         size++;
@@ -250,6 +258,8 @@ function removeAllChildNodes(parent) {
 setTimeout(() => {
   const loader = document.getElementById("loader");
   loader.style.display = "none";
+  const loader0 = document.getElementById("loader0");
+  loader0.style.display = "none";
 }, 2050);
 function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
@@ -283,7 +293,10 @@ function clearValues() {
   document.getElementById("id").value = "";
   document.getElementById("date").value = "";
   document.getElementById("hour").value = "";
-  document.getElementById("participants").value = "";    
+  document.getElementById("participants").value = ""; 
+    document.getElementById("peopleList0").value = "";
+    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
+    document.getElementById("quickSubmit").innerHTML="תצוגת פרטי החרוז";
   document.getElementById("link555Change").innerHTML="הוספת סרט555";
     document.getElementById("linkembed555Change").innerHTML="הוספת לינק לשיבוץ סרט555 באתר";
     document.getElementById("linkembedfullChange").innerHTML="הוספת לינק לשיבוץ ראיון מלא באתר";
@@ -316,6 +329,11 @@ function clearValues() {
     document.getElementById("participantsChange").innerHTML="הוספת תיאור משתתפי השרשרת";
      document.getElementById("metaChange").innerHTML="ניקוי שדה פרסום מטא והחזרת החרוז להגרלה";
 }
+function quickSubmit() {
+    document.getElementById("peopleList").value =document.getElementById("peopleList0").value;
+    submitData();
+}
+submitData()
 function submitData() {
   clearValues();
   for (var i = 0; i < allPeople.length; i++) {
@@ -398,6 +416,29 @@ function submitData() {
     }
   }
 }
+function choose(){
+    var justName="";
+    document.getElementById("quickChange1").innerHTML="ניקוי שדה ההודעה האחרונה";
+   // document.getElementById("quickChange2").innerHTML="עדכון תאריך הקלטת החרוז הבא";
+      for (var i = 0; i < fullAllPeople.length; i++) {
+    var nameAndChain = document
+      .getElementById("peopleList0")
+      .value.split(" + ");
+
+    if (
+      fullAllPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
+    ) {
+      justName= fullAllPeople[i].name;
+    }
+  }
+  if (justName ==="") {
+    alert("נא לבחור חרוז");
+  }
+    if(justName!==""){
+  document.getElementById("quickSubmit").innerHTML="תצוגת פרטי "+justName;
+    }
+}
 function sendData(obj, ele,whichSheet) {
   console.log(obj);
   let formData = new FormData();
@@ -442,6 +483,34 @@ function change(id){
         sendData(temp, dataElement,"crm");
         dataElement.innerHTML="התעדכן";
     }
+}
+function quickChange1() {
+  for (var i = 0; i < fullAllPeople.length; i++) {
+    var nameAndChain = document
+      .getElementById("peopleList0")
+      .value.split(" + ");
+
+    if (
+      fullAllPeople[i].name === nameAndChain[0] &&
+      fixChainFromData(fullAllPeople[i].chain) === nameAndChain[1]
+    ) {
+      console.log(nameAndChain);
+      chosenPersonRow = fullAllPeople[i].row;
+    }
+  }
+  if (chosenPersonRow === 0) {
+    alert("נא לבחור חרוז");
+  }
+
+  if (chosenPersonRow > 0) {
+    const temp1 = {
+      text: "",
+      row: chosenPersonRow,
+      col: "mess",
+    };
+    sendData(temp1, document.getElementById("newInfo"),"crm");
+    document.getElementById("quickChange1").innerHTML="התעדכן";
+  }
 }
 function changeMeta(id){
     var dataElement=document.getElementById(id+"Change");
