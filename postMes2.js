@@ -187,7 +187,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===7||messType===9||messType===13||messType===14||messType===15){
+  if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15){
   
         removeAllChildNodes(testDiv);
     }
@@ -266,7 +266,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===7||messType===9||messType===13||messType===14||messType===15){
+        if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15){
             testDiv.append(testH4);
         }
     }
