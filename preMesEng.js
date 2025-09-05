@@ -59,6 +59,7 @@ function getData() {
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
         if (ele.fixedphone !== "") newPerson.guestphone = ele.fixedphone;
+        if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;  
         if (ele.fixedinterviewername !== "")
           newPerson.interviewername = ele.fixedinterviewername;
         if (ele.fixedinterviewerphone !== "")
