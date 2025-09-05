@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="he">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>M2W - מועמדות</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link href="./style.css" rel="stylesheet" />
+    <link rel="icon" href="./logo5-round.png" />
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .loader {
+        border: 16px solid #f3f3f3;
+        border-radius: 50%;
+        border-top: 16px solid #3498db;
+        width: 120px;
+        height: 120px;
+        animation: spin 2s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+<script>
+      var collapseElementList = [].slice.call(
+        document.querySelectorAll(".collapse")
+      );
+      var collapseList = collapseElementList.map(function (collapseEl) {
+        return new bootstrap.Collapse(collapseEl);
+      });
+
+      var tooltipTriggerList = [].slice.call(
+        document.querySelectorAll('[data-bs-toggle="tooltip"]')
+      );
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    </script>      
+    <nav class="navbar navbar-expand-lg justify-content-between flex-nowrap" style="width: inherit;">
+     <div class="d-flex align-items-center">
+         <button class="btn" onclick="window.location.href='./home.html';">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" class="bi bi-house" viewBox="0 0 16 16">
+          <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z"/>
+        </svg>
+      </button>
+      <div class="form-check form-switch me-3 nav-lang">
+        <input class="form-check-input" type="checkbox" id="switch" checked onclick="switchLang();">
+        <label class="form-check-label" for="switch" id="switchLabel">עברית</label>
+      </div>     
+    </div>
+  <div class="container-fluid me-3">
+       <div class="mx-auto logo-wide-wrapper" style="transform: translateX(20px);">
+          <img src="logoFLAT.png" alt="Wide Logo" height="50" class="nav-img">
+        </div>
+
+    <div class="navbar-brand">
+        <label class="form-check-label">M2W</label>
+      <img src="logo5-round.png" alt="Logo" width="40" height="40" class="d-inline-block align-text-top nav-img">
+    </div>
+  </div>
+</nav>  
+    <div class="form-control input-group-text" role="group">
+
+      <button
+        onclick="window.location.href='./preMes.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toPreMes"
+      >
+        אישור והזמנה להקלטה
+      </button>
+      <button
+        onclick="window.location.href='./rightAfterMes.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toRightAfterMes"
+      >
+        הזמנה לוואטסאפ חרוזים
+      </button>
+      <button
+        onclick="window.location.href='./postMes.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toPostMes"
+      >
+        לינקים לתוצרים
+      </button>
+      <button
+        onclick="window.location.href='./postMesInvite.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toPostMesInvite"
+      >
+        לינקים להזמנת אורח
+      </button>
+      </div>
+      <div class="form-control input-group-text" role="group">
+
+      <button
+        onclick="window.location.href='./socialPost.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toSocialPost"
+      >
+        פוסט (לוח פרסום)
+      </button>
+      <button
+        onclick="window.location.href='./newChain.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toNewChain"
+      >
+        פתיחת שרשרת/קהילה
+      </button>
+      <button
+        onclick="window.location.href='./stuckMes.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toStuckMes"
+      >
+        חרוזים אחרונים
+      </button>
+      <button
+        onclick="window.location.href='./changeCRM.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toChangeCRM"
+      >
+        עדכון תוצרים ותיקונים
+      </button>
+    </div>
+      <div class="form-control input-group-text mb-3" role="group">
+          <button
+        onclick="window.location.href='./nominees.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toNominees"
+      >
+        מועמדות
+      </button>
+          <button
+        onclick="window.location.href='./display.html';"
+        class="btn form-control btn-outline-secondary"
+              id="toDisplay"
+      >
+        הכרטיס
+      </button>
+      </div>
+     <div class="container mb-5">
+        <h1 class="mb-2 fw-bold text-decoration-underline" style="font-family: 'Arial', sans-serif;">
+        מועמדות
+</h1>
+<div class="container">
+      <span
+        class="position-relative start-50 input-group-text mb-3"
+        data-bs-toggle="popover"
+        data-bs-trigger="hover focus"
+        data-bs-toggle="tooltip"
+        data-bs-placement="bottom"
+        title="05_ _ _ _ _ _ _ _"
+        >בחרי למי לשלוח הודעה:</span
+      >
+
+      <div class="form-control mb-3" role="group" id="optionsNominees" style="text-align:left;
+">
+        <div id="loader" class="loader"></div>
+      </div>
+         <div class="form-control input-group-text mb-3" role="group">
+        <button
+          onclick="submit()"
+          class="btn form-control btn-outline-secondary"
+          id="submit"
+        >
+          תצוגת פרטי החרוז מהרשימה
+        </button>
+      </div>
+    </div>
+    <div class="container" id="nomineesMes" style="visibility: hidden;">
+      <div class="col-auto">
+    <h2 class="mb-2" id="nameB4also"></h2>
+    <h2 class="mb-2"><u>תיקון פרטים</u></h2>
+  </div>
+  <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="nameB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="name" class="form-control" placeholder="תיקון שם" autocomplete="off"/>
+    <button
+      onclick="change('name')"
+      class="btn form-control btn-outline-secondary"
+      id="nameChange"
+    >
+    תיקון שם
+  </button>
+</div>
+  </div> 
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start" id="chainB4"></p>
+      <div class="input-group-text" role="group">
+  <input class="form-control" id="chain" placeholder="תיקון שרשרת" autocomplete="off"/>
+  <button
+      onclick="change('chain')"
+      class="btn form-control btn-outline-secondary"
+      id="chainChange"
+    >
+    תיקון שרשרת
+  </button>
+</div>
+</div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start" id="phoneB4"></p>
+      <div class="input-group-text" role="group">
+  <input type="tel" id="phone" class="form-control" placeholder="תיקון טלפון" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+  <button
+    onclick="change('phone')"
+    class="btn form-control btn-outline-secondary"
+    id="phoneChange"
+  >
+  תיקון טלפון
+</button>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="emailB4"></p>
+    <div class="input-group-text" role="group">
+ <input type="text" id="email" class="form-control" placeholder="תיקון כתובת מייל" autocomplete="off"/>
+<button
+  onclick="change('email')"
+  class="btn form-control btn-outline-secondary"
+  id="emailChange"
+>
+תיקון כתובת מייל
+</button>
+</div>
+</div>
+  <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="inviternameB4"></p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="invitername" class="form-control" placeholder="תיקון שם מזמין" autocomplete="off"/>
+    <button
+      onclick="change('invitername')"
+      class="btn form-control btn-outline-secondary"
+      id="inviternameChange"
+    >
+     תיקון שם מזמין
+  </button>
+</div>
+  </div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start" id="inviterphoneB4"></p>
+      <div class="input-group-text" role="group">
+  <input type="tel" id="inviterphone" class="form-control" placeholder="תיקון טלפון מזמין" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+  <button
+    onclick="change('inviterphone')"
+    class="btn form-control btn-outline-secondary"
+    id="inviterphoneChange"
+  >
+  תיקון טלפון מזמין
+</button>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="titleB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="title" class="form-control" placeholder="תיקון כותרת" autocomplete="off"/>
+    <button
+      onclick="change('title')"
+      class="btn form-control btn-outline-secondary"
+      id="titleChange"
+    >
+    תיקון כותרת
+  </button>
+</div>
+</div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start" id="plotB4"></p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="plot" class="form-control" placeholder="תיקון תוכן" autocomplete="off"/>
+    <button
+      onclick="change('plot')"
+      class="btn form-control btn-outline-secondary"
+      id="plotChange"
+    >
+    תיקון תוכן
+  </button>
+</div>
+</div>
+         <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start" id="datelastmessB4"></p>
+  <div class="input-group-text" role="group">
+<input type="text" id="datelastmess" class="form-control" placeholder="תיקון הודעה" autocomplete="off"/>
+<button
+  onclick="change('datelastmess')"
+  class="btn form-control btn-outline-secondary"
+  id="datelastmessChange"
+>
+תיקון הודעה
+</button>
+</div>
+</div>
+    </div>
+         <button
+      onclick="change('notnominee')"
+      class="btn form-control btn-outline-secondary"
+      id="notnomineeChange"
+    >
+    להוציא את החרוז מרשימת המועמדים
+  </button>
+      </div>
+   <script
+   src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+   integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+   crossorigin="anonymous"
+ ></script>
+ <script
+   src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+   integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+   crossorigin="anonymous"
+ ></script>
+ <script type="text/javascript" src='./nominees.js'></script>
+</body>
+</html>

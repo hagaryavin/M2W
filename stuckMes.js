@@ -83,7 +83,6 @@ function getData() {
           console.log(allPeople[size]);
           optionDiv = document.createElement("div");
           optionDiv.classList.add("form-check");
-           
           //label > div
           optionLabel = document.createElement("label");
           optionLabel.classList.add("form-check-label");
@@ -738,6 +737,8 @@ function switchLang(){
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
          document.getElementById("toDisplay").innerHTML="הכרטיס";
         document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html';};
+        document.getElementById("toNominees").innerHTML="מועמדות";
+        document.getElementById("toNominees").onclick=function() { window.location.href='./nominees.html';};
     }
     else{
        document.getElementById("switchLabel").innerHTML="English";
@@ -757,6 +758,8 @@ function switchLang(){
         document.getElementById("toStuckMes").onclick=function() { window.location.href='';};
         document.getElementById("toDisplay").innerHTML="Eng הכרטיס";
         document.getElementById("toDisplay").onclick=function() { window.location.href='';};
+        document.getElementById("toNominees").innerHTML="Eng מועמדות";
+        document.getElementById("toNominees").onclick=function() { window.location.href='';};
         document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
         document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
     }
