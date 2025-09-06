@@ -11,7 +11,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbzZjjImvWlTYhCwYk_y3UY0-GWsa1IEmmmgsqrP7h5u4-KUAdlkGlid9fHqEigGbqjz0Q/exec";
+  "https://script.google.com/macros/s/AKfycbx_xq0oVAcK7olNQl7r-O20iImwZq94uBKjVuRSzj1UXTX7PgNQoJjkS7zGnglhAaH64A/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -50,6 +50,8 @@ function getData() {
           subtitle: ele.subtitle,
             virtue: ele.virtue,
           abouttheguest: ele.abouttheguest,
+            publishphone:ele.publishphone,
+            publishemail:ele.publishemail,
           interphone: ele.interviewerphone,
           interviewername: ele.interviewername,
           date: ele.recordingdate,
@@ -93,6 +95,10 @@ function getData() {
           newPerson.abouttheguest = ele.fixedabouttheguest;
         if (ele.fixedinterviewername !== "")
           newPerson.interviewername = ele.fixedinterviewername;
+          if (ele.fixedpublishphone !== "")
+          newPerson.publishphone = ele.fixedpublishphone;
+          if (ele.fixedpublishemail !== "")
+          newPerson.publishemail = ele.fixedpublishemail;
         if (ele.fixedinterviewerphone !== "")
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
@@ -288,6 +294,8 @@ function clearValues() {
   document.getElementById("subtitle").value = "";
     document.getElementById("virtue").value = "";
   document.getElementById("about").value = "";
+  document.getElementById("publishphone").value = "";
+    document.getElementById("publishemail").value = "";
   document.getElementById("intername").value = "";
   document.getElementById("interphone").value = "";
   document.getElementById("id").value = "";
@@ -321,6 +329,8 @@ function clearValues() {
     document.getElementById("virtueChange").innerHTML="תיקון סגולה";
      document.getElementById("aboutChange").innerHTML="תיקון הצגה";
     document.getElementById("aboutAdd").innerHTML="הוספת הצגה";
+    document.getElementById("publishphoneChange").innerHTML="תיקון נייד לפרסום";
+    document.getElementById("publishemailChange").innerHTML="תיקון מייל לפרסום";
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
@@ -381,6 +391,8 @@ function submitData() {
       document.getElementById("subtitleB4").innerHTML = allPeople[i].subtitle;
         document.getElementById("virtueB4").innerHTML = allPeople[i].virtue;
       document.getElementById("aboutB4").innerHTML = allPeople[i].abouttheguest;
+       document.getElementById("publishphoneB4").innerHTML = allPeople[i].publishphone;
+        document.getElementById("publishemailB4").innerHTML = allPeople[i].publishemail;
       document.getElementById("dateB4").innerHTML = allPeople[i].date;
         document.getElementById("metaB4").innerHTML=allPeople[i].meta;
       document.getElementById("idB4").innerHTML = allPeople[i].id;
