@@ -145,6 +145,9 @@ function getData(x) {
                 if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.livechain===true){
                     newPerson.recordingdate=addDate(newPerson);
                  }
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.chain.includes("כנס.מדע.ותודעה")){
+                    newPerson.recordingdate=addDateConference(newPerson);
+                 }
                 if(ele.name==="הגר יבין"){
                     clipsToChange=ele.fixedphone;
                     document.getElementById("clipsB4").innerHTML=clipsToChange+" קליפים חדשים להפוך לשורטים";
@@ -2224,6 +2227,32 @@ function toSendAMes(guestName,interName,creatorName){
     if(creatorName===""&&guestName===interName)
         return false;
     return true;
+}
+function addDateConference(person){
+    var newDate="11/14/2025 09:30";
+    console.log(newDate);
+     const obj = {
+        text: newDate,
+        row: person.row,
+        col: 'date'
+    };
+    console.log(obj);
+    let formData = new FormData();
+    formData.append("data", JSON.stringify(obj));
+    console.log(obj);
+    fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+        .then((rep) => {
+            console.log(obj);
+            return rep.json();
+        })
+        .then((json) => {
+            console.log(obj);
+            console.log(json);
+        });
+    return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
 }
 function addDate(person){
     var newDate=(person.timeformsent.getMonth()+1)+"/"+person.timeformsent.getDate()+"/"+person.timeformsent.getFullYear();
