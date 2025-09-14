@@ -11,7 +11,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbx_xq0oVAcK7olNQl7r-O20iImwZq94uBKjVuRSzj1UXTX7PgNQoJjkS7zGnglhAaH64A/exec";
+  "https://script.google.com/macros/s/AKfycbwq7ioyaxyoKxF7wxUe2_AycecNwNWmmlDT25M513DdwkH8hQ7gKO4Og9d7lvXEp8W8YA/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -52,6 +52,8 @@ function getData() {
           abouttheguest: ele.abouttheguest,
             publishphone:ele.publishphone,
             publishemail:ele.publishemail,
+            professionalname:ele.professionalname,
+            professionalphone:ele.professionalphone,
           interphone: ele.interviewerphone,
           interviewername: ele.interviewername,
           date: ele.recordingdate,
@@ -99,6 +101,10 @@ function getData() {
           newPerson.publishphone = ele.fixedpublishphone;
           if (ele.fixedpublishemail !== "")
           newPerson.publishemail = ele.fixedpublishemail;
+        if (ele.fixedprofessionalname !== "")
+          newPerson.professionalname = ele.fixedprofessionalname;
+          if (ele.fixedprofessionalphone !== "")
+          newPerson.professionalphone = ele.fixedprofessionalphone;
         if (ele.fixedinterviewerphone !== "")
           newPerson.interphone = ele.fixedinterviewerphone;
         if (ele.recordingdate !== "")
@@ -270,6 +276,7 @@ setTimeout(() => {
 function clearValues() {
   document.getElementById("metaAllChange").style.visibility="hidden";
   document.getElementById("deleteDate").style.visibility="visible";
+   document.getElementById("professional").style.display="none";
   document.getElementById("link555").value = "";
   document.getElementById("linkembed555").value = "";
     document.getElementById("linkembedfull").value = "";
@@ -296,6 +303,8 @@ function clearValues() {
   document.getElementById("about").value = "";
   document.getElementById("publishphone").value = "";
     document.getElementById("publishemail").value = "";
+     document.getElementById("professionalname").value = "";
+    document.getElementById("professionalphone").value = "";
   document.getElementById("intername").value = "";
   document.getElementById("interphone").value = "";
   document.getElementById("id").value = "";
@@ -331,6 +340,8 @@ function clearValues() {
     document.getElementById("aboutAdd").innerHTML="הוספת הצגה";
     document.getElementById("publishphoneChange").innerHTML="תיקון נייד לפרסום";
     document.getElementById("publishemailChange").innerHTML="תיקון מייל לפרסום";
+     document.getElementById("professionalnameChange").innerHTML="תיקון שם ושם העסק של הממליץ/ה";
+    document.getElementById("professionalphoneChange").innerHTML="תיקון הנייד של הממליץ/ה";
     document.getElementById("internameChange").innerHTML="תיקון שם מראיין";
     document.getElementById("interphoneChange").innerHTML="תיקון נייד מראיין";
     document.getElementById("idChange").innerHTML="הוספת מספר פרק פודקאסט";
@@ -385,6 +396,9 @@ function submitData() {
       document.getElementById("guestPhoneB4").innerHTML =
         allPeople[i].guestphone;
       document.getElementById("chainB4").innerHTML = allPeople[i].chain;
+        if(allPeople[i].chain.includes("המקצוענים")){
+              document.getElementById("professional").style.display="block";
+        }
       document.getElementById("orderB4").innerHTML = allPeople[i].order;
       document.getElementById("messB4").innerHTML = allPeople[i].mess;
       document.getElementById("titleB4").innerHTML = allPeople[i].title;
@@ -393,6 +407,8 @@ function submitData() {
       document.getElementById("aboutB4").innerHTML = allPeople[i].abouttheguest;
        document.getElementById("publishphoneB4").innerHTML = allPeople[i].publishphone;
         document.getElementById("publishemailB4").innerHTML = allPeople[i].publishemail;
+        document.getElementById("professionalnameB4").innerHTML = allPeople[i].professionalname;
+        document.getElementById("professionalphoneB4").innerHTML = allPeople[i].professionalphone;
       document.getElementById("dateB4").innerHTML = allPeople[i].date;
         document.getElementById("metaB4").innerHTML=allPeople[i].meta;
       document.getElementById("idB4").innerHTML = allPeople[i].id;
