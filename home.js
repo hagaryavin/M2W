@@ -2252,31 +2252,33 @@ function addDateConference(person){
             console.log(obj);
             console.log(json);
         });
-    
-    var newHour="09:30";
-    console.log(newHour);
-     const obj2 = {
-        text: newHour,
+    addHourConference(person);
+    return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
+}
+function addHourConference(person){
+    var newDate="09:30";
+    console.log(newDate);
+     const obj = {
+        text: newDate,
         row: person.row,
         col: 'hour'
     };
-    console.log(obj2);
-    let formData2 = new FormData();
-    formData.append("data", JSON.stringify(obj2));
-    console.log(obj2);
+    console.log(obj);
+    let formData = new FormData();
+    formData.append("data", JSON.stringify(obj));
+    console.log(obj);
     fetch(url, {
             method: "POST",
-            body: formData2,
+            body: formData,
         })
         .then((rep) => {
-            console.log(obj2);
+            console.log(obj);
             return rep.json();
         })
         .then((json) => {
-            console.log(obj2);
+            console.log(obj);
             console.log(json);
         });
-    return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
 }
 function addDate(person){
     var newDate=(person.timeformsent.getMonth()+1)+"/"+person.timeformsent.getDate()+"/"+person.timeformsent.getFullYear();
