@@ -2229,12 +2229,36 @@ function toSendAMes(guestName,interName,creatorName){
     return true;
 }
 function addDateConference(person){
-    var newDate="11/14/2025 09:30";
+    var newDate="11/14/2025";
     console.log(newDate);
      const obj = {
         text: newDate,
         row: person.row,
         col: 'date'
+    };
+    console.log(obj);
+    let formData = new FormData();
+    formData.append("data", JSON.stringify(obj));
+    console.log(obj);
+    fetch(url, {
+            method: "POST",
+            body: formData,
+        })
+        .then((rep) => {
+            console.log(obj);
+            return rep.json();
+        })
+        .then((json) => {
+            console.log(obj);
+            console.log(json);
+        });
+    
+    var newHour="09:30";
+    console.log(newHour);
+     const obj = {
+        text: newHour,
+        row: person.row,
+        col: 'hour'
     };
     console.log(obj);
     let formData = new FormData();
