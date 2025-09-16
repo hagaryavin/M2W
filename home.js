@@ -2255,25 +2255,25 @@ function addDateConference(person){
     
     var newHour="09:30";
     console.log(newHour);
-     const obj = {
+     const obj2 = {
         text: newHour,
         row: person.row,
         col: 'hour'
     };
-    console.log(obj);
-    let formData = new FormData();
-    formData.append("data", JSON.stringify(obj));
-    console.log(obj);
+    console.log(obj2);
+    let formData2 = new FormData();
+    formData.append("data", JSON.stringify(obj2));
+    console.log(obj2);
     fetch(url, {
             method: "POST",
-            body: formData,
+            body: formData2,
         })
         .then((rep) => {
-            console.log(obj);
+            console.log(obj2);
             return rep.json();
         })
         .then((json) => {
-            console.log(obj);
+            console.log(obj2);
             console.log(json);
         });
     return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
