@@ -181,7 +181,17 @@ function getMessData() {
             ele.line17,
             ele.line18,
             ele.line19,
-            ele.line20
+            ele.line20,
+            ele.line21,
+            ele.line22,
+            ele.line23,
+            ele.line24,
+            ele.line25,
+            ele.line26,
+            ele.line27,
+            ele.line28,
+            ele.line29,
+            ele.line30
           ],
         };
           
