@@ -10,6 +10,10 @@ var crewOption;
 var crewList = [];
 var currCrew = {};
 var newCrewMem;
+var newPerson = {};
+var allChains = [];
+var newChain = {};
+var currChain = {};
 var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
@@ -28,6 +32,7 @@ const url =
 var crewDataURL =
   "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
 var newPerson = {};
+getChainData();
 getCrewData();
 getData();
 function getData() {
@@ -82,7 +87,24 @@ function getData() {
       });
     });
 }
-
+function getChainData() {
+  fetch(crewDataURL)
+    .then((res) => {
+      return res.json();
+    })
+    .then((json) => {
+      json.data.chains.forEach((ele) => {
+        newChain = {
+          name: ele.name,
+          altName: ele.othername,
+          playlist: ele.playlist,
+          description: ele.description,
+          groupinvitelink:ele.groupinvitelink,
+        };
+        allChains.push(newChain);
+      });
+    });
+}
 function getCrewData() {
   fetch(crewDataURL)
     .then((res) => {
@@ -184,6 +206,24 @@ var nameAndChain = document.getElementById("peopleList").value.split(" + ");
         interFirstName
       );
     }
+      if (linesArr[i].includes("nameOfChain")) {
+      linesArr[i] = linesArr[i].replace("nameOfChain", nameAndChain[1]);
+    }
+    if (linesArr[i].includes("chainDescription")) {
+      linesArr[i] = linesArr[i].replace(
+        "chainDescription",
+        currChain.description
+      );
+    }
+     if (linesArr[i].includes("chainPlaylist")) {
+      linesArr[i] = linesArr[i].replace("chainPlaylist", currChain.playlist);
+    }
+    if (linesArr[i].includes("groupInviteLink")) {
+      linesArr[i] = linesArr[i].replace(
+        "groupInviteLink",
+        currChain.groupinvitelink
+      );
+    }
     if (linesArr[i].includes("fullNameOfGuest")) {
       linesArr[i] = linesArr[i].replace(
         "fullNameOfGuest",
@@ -271,6 +311,7 @@ function checkPhoneInter(phone) {
 }
 function checkInputs() {
   if (checkPhoneGuest(document.getElementById("guestPhone").value)) {
+      fixChain();
     return true;
   }
   alert("ייתכן שמספר הטלפון אינו תקין!");
@@ -286,7 +327,19 @@ function submit() {
     getMessData();
   }
 }
-
+function fixChain() {
+     var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+  if (nameAndChain[1] !== "") {
+    for (var j = 0; j < allChains.length; j++) {
+      if (
+        nameAndChain[1]=== allChains[j].name ||
+        nameAndChain[1] === allChains[j].altName
+      ) {
+        currChain = allChains[j];
+      }
+    }
+  }
+}
 function copy(id) {
   var text = fullTexts[id - 1];
   var elem = document.createElement("textarea");
