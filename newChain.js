@@ -236,6 +236,9 @@ function cutMess(linesArr, messType) {
         currChain.description
       );
     }
+    if (linesArr[i].includes("chainPlaylist")) {
+      linesArr[i] = linesArr[i].replace("chainPlaylist", currChain.playlist);
+    }
     if (linesArr[i] !== "") {
       if (linesArr[i + 1] !== "end") {
         currText += linesArr[i] + "\n";
