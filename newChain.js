@@ -20,8 +20,9 @@ var messes = [
 ];
 var fullTexts = [[],[],[]];
 const url =
-  "https://script.google.com/macros/s/AKfycbw_2VmXLs1pJKLZElcT2Tp0tR6tPVRf4UWKfS22_n-F_DSEI2dF2zrsQrQ6If6P4mEaGg/exec";
+  "https://script.google.com/macros/s/AKfycbwq7ioyaxyoKxF7wxUe2_AycecNwNWmmlDT25M513DdwkH8hQ7gKO4Og9d7lvXEp8W8YA/exec";
 var newPerson = {};
+var peopleInChain = [];
 var chainOption;
 var allChains = [];
 var newChain = {};
@@ -314,20 +315,23 @@ function fixChainFromData(chain) {
   return chain;
 }
 function findFirstInChain() {
-  var peopleInChain = [];
+  peopleInChain = [];
+var firstPerson={};
   for (var j = 0; j < allPeople.length; j++) {
     if (fixChainFromData(allPeople[j].chain) !== "") {
       if (
         fixChainFromData(allPeople[j].chain) === currChain.name ||
         fixChainFromData(allPeople[j].chain) === currChain.altName
       ) {
-        if (allPeople[j].order === 1) {
-          return allPeople[j];
-        } else peopleInChain.push(allPeople[j]);
+        peopleInChain.push(allPeople[j])
+        if (allPeople[j].order === 1) 
+          firstPerson=allPeople[j];
       }
     }
   }
-
+   if(firstPerson==[{}]){
+       return { guestname: "...", chain: currChain.name, row: -1 };
+   }
   if (peopleInChain.length > 0) {
     peopleInChain.sort(function (a, b) {
       var key1 = a.date;
@@ -355,6 +359,8 @@ function submit() {
     document.getElementById("creatorphoneChange").innerHTML="הוספת טלפון יוצר השרשרת";
     document.getElementById("creatoremailChange").innerHTML="הוספת מייל יוצר השרשרת";
     document.getElementById("groupinvitelinkChange").innerHTML="הוספת קישור לקבוצת וואטסאפ";
+    document.getElementById("outofmetaChange").innerHTML="הוצאת שרשרת מהגרלה";
+    document.getElementById("inofmetaChange").innerHTML="החזרת שרשרת להגרלה";
     document.getElementById("creditChange").innerHTML="הוספת קרדיט";
      document.getElementById("about").value="";
      document.getElementById("participants").value="";
@@ -442,13 +448,62 @@ function change(id) {
     dataElement.innerHTML="התעדכן";
   }
 }
-function sendData(obj, ele) {
+function removeChainFromMeta(action){
+    console.log("go through the chain");
+    for(var i=0;i<peopleInChain.length;i++){
+                console.log("changing "+peopleInChain[i].guestname+", row:"+peopleInChain[i].row);
+
+     changeOutofmeta(peopleInChain[i].row,action);
+    }
     
+}
+function changeOutofmeta(chosenPersonRow,action) {
+    var textEntered="v";
+    var dataElement=document.getElementById("outofmetaChange");
+    if(action==="in"){
+        textEntered="";
+        dataElement=document.getElementById("inofmetaChange");
+    }
+    chosenCol="outofmeta";
+      console.log("col: " + chosenCol);
+  if (chosenPersonRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: textEntered,
+    row: chosenPersonRow,
+    col: chosenCol,
+  };
+  if (chosenPersonRow > 0) {
+    sendDataCRM(temp, dataElement);
+      dataElement.innerHTML="השרשרת יצאה מההגרלה";
+  }
+}
+function sendData(obj, ele) {
   console.log(obj);
   let formData = new FormData();
   formData.append("data", JSON.stringify(obj));
   console.log(obj);
   fetch(chainDataURL, {
+    method: "POST",
+    body: formData,
+  })
+    .then((rep) => {
+      console.log(obj);
+      return rep.json();
+    })
+    .then((json) => {
+      console.log(obj);
+      console.log(json);
+    });
+  
+}
+function sendDataCRM(obj, ele) {
+  console.log(obj);
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(obj));
+  console.log(obj);
+  fetch(url, {
     method: "POST",
     body: formData,
   })
