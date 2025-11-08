@@ -29,7 +29,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbzV7prBl2IXFWsPrp3z2heq2FE5vQN3hVZ52vBXtDvOTQLOBIk5NWAYCCclbAwL3PtOJg/exec";
+  "https://script.google.com/macros/s/AKfycbx6qz5gRekAEYI1T6_Y8PuwB70bn4G4DWWFDuzfZKxTP9DqpRs2SY5EEcpiA9RZx6rY8g/exec";
 getChainData();
 getCrewData();
 getData();
@@ -455,7 +455,34 @@ function removeChainFromMeta(action){
 
      changeOutofmeta(peopleInChain[i].row,action);
     }
+    changeExpired(action);
+
     
+}
+function changeExpired(action) {
+    var textEntered="v";
+    var dataElement=document.getElementById("outofmetaChange");
+    if(action==="in"){
+        textEntered="";
+        dataElement=document.getElementById("inofmetaChange");
+    }
+    chosenCol="expired";
+      console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: textEntered,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, dataElement);
+    dataElement.innerHTML="השרשרת יצאה מהגרלה";
+      if(action==="in"){
+        dataElement.innerHTML="השרשרת חזרה להגרלה";
+      }
+  }
 }
 function changeOutofmeta(chosenPersonRow,action) {
     var textEntered="v";
@@ -476,7 +503,10 @@ function changeOutofmeta(chosenPersonRow,action) {
   };
   if (chosenPersonRow > 0) {
     sendDataCRM(temp, dataElement);
-      dataElement.innerHTML="השרשרת יצאה מההגרלה";
+    dataElement.innerHTML="השרשרת יצאה מהגרלה";
+      if(action==="in"){
+        dataElement.innerHTML="השרשרת חזרה להגרלה";
+      }
   }
 }
 function sendData(obj, ele) {
