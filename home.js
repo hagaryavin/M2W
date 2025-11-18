@@ -101,6 +101,7 @@ function getData(x) {
                     livechain:false,
                     row: tableRow,
                     linkfull: ele.linkfull,
+                    conference:false,
                     id:ele.id
                 };
                 
@@ -132,6 +133,9 @@ function getData(x) {
                     if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
                 }
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+                if(shortChainName(newPerson.chain).startsWith("כנס")&&!shortChainName(newPerson.chain).includes("TED")){
+                    newPerson.conference=true;
+                }
                 if (ele.recordingdate !== "")
                     newPerson.recordingdate = changeTimeZone(new Date(ele.recordingdate), 'Asia/Jerusalem');
                 if (ele.fixedrecordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך")
@@ -178,7 +182,7 @@ function getData(x) {
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
                                 newPerson.premessdate.getYear() === today.getYear())) 
                         ){
-                         if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")&&newPerson.individ===false&&newPerson.livechain===false) {
+                         if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -202,7 +206,7 @@ function getData(x) {
                                 );
                             }
                         }
-                         if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")&&newPerson.individ===false&&newPerson.livechain===false) {
+                         if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -259,7 +263,7 @@ function getData(x) {
                             newPerson.chainCreatorEmail !== "" &&
                             cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
-                            "not yet"&&!nullTask.includes("addcreator")&&newPerson.individ===false&&newPerson.livechain===false
+                            "not yet"&&!nullTask.includes("addcreator")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -322,7 +326,7 @@ function getData(x) {
                         //////////////3,5 condition
                         if (
                             getTasksDataFromPersonCont(newPerson.row, "postmess") ===
-                            "not yet"&&!nullTask.includes("postmess")
+                            "not yet"&&!nullTask.includes("postmess")&&newPerson.conference===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -350,7 +354,7 @@ function getData(x) {
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain))&&
                             getTasksDataFromPersonCont(newPerson.row, "socialpost") ===
-                            "not yet"&&!nullTask.includes("socialpost")&&newPerson.individ===false&&newPerson.livechain===false
+                            "not yet"&&!nullTask.includes("socialpost")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -383,7 +387,7 @@ function getData(x) {
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmessinvite") ===
-                        "not yet"&&!nullTask.includes("postmessinvite")&&newPerson.individ===false&&newPerson.livechain===false
+                        "not yet"&&!nullTask.includes("postmessinvite")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
                     ) {
                         /////////////////4 condition
                         newTask = {
