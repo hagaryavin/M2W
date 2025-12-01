@@ -4,6 +4,7 @@ var allPeople = [];
 var chainRowCount = 2;
 var chosenCol = "";
 var chosenRow = 0;
+var chosenTable="chains";
 var size = 0;
 var rowCount = 2;
 var firstName = "";
@@ -29,7 +30,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbx6qz5gRekAEYI1T6_Y8PuwB70bn4G4DWWFDuzfZKxTP9DqpRs2SY5EEcpiA9RZx6rY8g/exec";
+  "https://script.google.com/macros/s/AKfycbyArBL8stwYc8YIm8sxBm86U0-pwc2kEFe6W5Pl71QO360zZfXsqeGOhxp7uLL4hwkbJQ/exec";
 getChainData();
 getCrewData();
 getData();
@@ -84,8 +85,10 @@ function getChainData() {
             creatorPhone:ele.creatorphone,
             creatorEmail:ele.creatoremail,
             groupinvitelink:ele.groupinvitelink,
-            credit:ele.credit
+            credit:ele.credit,
+            table:"chains"
         };
+          console.log(newChain);
         allChains.push(newChain);
         chainOption = document.createElement("option");
         chainOption.value = newChain.name;
@@ -93,6 +96,37 @@ function getChainData() {
           chainRowCount++;
       });
     });
+  fetch(chainDataURL)
+    .then((res) => {
+      chainRowCount=2;
+      return res.json();
+    })
+    .then((json) => {
+      json.data.chainsExpired.forEach((ele) => {
+        newChain = {
+          name: ele.name,
+          altName: ele.othername,
+          playlist: ele.playlist,
+          description: ele.description,
+          creator: ele.creator,
+        participants:ele.participants,
+            about:ele.about,
+            row:chainRowCount,
+            creatorPhone:ele.creatorphone,
+            creatorEmail:ele.creatoremail,
+            groupinvitelink:ele.groupinvitelink,
+            credit:ele.credit,
+            table:"chains-expired"
+        };
+          console.log(newChain);
+        allChains.push(newChain);
+        chainOption = document.createElement("option");
+        chainOption.value = newChain.name;
+        document.getElementById("chainsNames").append(chainOption);
+          chainRowCount++;
+      });
+    });
+    
 }
 
 function getCrewData() {
@@ -388,6 +422,7 @@ function fixChain() {
            document.getElementById("groupinvitelinkB4").innerHTML = allChains[j].groupinvitelink;
           document.getElementById("creditB4").innerHTML = allChains[j].credit;
         chosenRow=allChains[j].row;
+          chosenTable=allChains[j].table;
         console.log("row: "+chosenRow);
       }
     }
@@ -444,7 +479,7 @@ function change(id) {
     col: chosenCol,
   };
   if (chosenRow > 0) {
-    sendData(temp, dataElement);
+    sendData(temp, chosenTable);
     dataElement.innerHTML="התעדכן";
   }
 }
@@ -477,7 +512,7 @@ function changeExpired(action) {
     col: chosenCol,
   };
   if (chosenRow > 0) {
-    sendData(temp, dataElement);
+    sendData(temp, chosenTable);
     dataElement.innerHTML="השרשרת יצאה מהגרלה";
       if(action==="in"){
         dataElement.innerHTML="השרשרת חזרה להגרלה";
@@ -509,25 +544,21 @@ function changeOutofmeta(chosenPersonRow,action) {
       }
   }
 }
-function sendData(obj, ele) {
-  console.log(obj);
+function sendData(obj, table) {
   let formData = new FormData();
   formData.append("data", JSON.stringify(obj));
-  console.log(obj);
+  formData.append("table", table);
+
   fetch(chainDataURL, {
     method: "POST",
     body: formData,
   })
-    .then((rep) => {
-      console.log(obj);
-      return rep.json();
-    })
+    .then((rep) => rep.json())
     .then((json) => {
-      console.log(obj);
-      console.log(json);
+      console.log("Response:", json);
     });
-  
 }
+
 function sendDataCRM(obj, ele) {
   console.log(obj);
   let formData = new FormData();
@@ -566,7 +597,7 @@ function switchLang(){
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
         document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
-        document.getElementById("toNewChain").innerHTML="פתיחת שרשרת/קהילה";
+        document.getElementById("toNewChain").innerHTML="עדכון שרשרת/קהילה";
         document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
@@ -589,7 +620,7 @@ function switchLang(){
         document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
         document.getElementById("toSocialPost").innerHTML="Eng פוסט";
         document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html';};
-        document.getElementById("toNewChain").innerHTML="Eng פתיחת שרשרת";
+        document.getElementById("toNewChain").innerHTML="Eng עדכון שרשרת";
         document.getElementById("toNewChain").onclick=function() { window.location.href='';};
        document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
         document.getElementById("toStuckMes").onclick=function() { window.location.href='';};

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>M2W - פתיחת שרשרת חדשה</title>
+    <title>M2W - עדכון שרשרת/קהילה</title>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
@@ -139,7 +139,7 @@
         class="btn form-control btn-outline-secondary"
               id="toNewChain"
       >
-        פתיחת שרשרת/קהילה
+        עדכון שרשרת/קהילה
       </button>
       <button
         onclick="window.location.href='./stuckMes.html';"
@@ -174,7 +174,7 @@
       </div>
      <div class="container">
             <h1 class="mb-2 fw-bold text-decoration-underline" style="font-family: 'Arial', sans-serif;">
-  פתיחת שרשרת/קהילה
+  עדכון שרשרת/קהילה
 </h1>
         <div class="input-group mb-3">
          
@@ -224,7 +224,7 @@
         
       <div class="container blog-post-meta py-3" id="newChain">
           <div class="col-auto">
-              <h3 class="mb-0"><u>פתיחת שרשרת/קהילה</u></h3>
+              <h3 class="mb-0"><u>עדכון שרשרת/קהילה</u></h3>
              
             <div class="form-control mb-3">
         <p class="fs-5 fw-normal text-start" id="aboutB4"></p>
@@ -304,7 +304,11 @@
             id="creditChange"
           >הוספת קרדיט</button>
           </div>
-         </div> 
+         </div>
+               <div class="form-control input-group-text" role="group">
+                    <button type="button" class="btn form-control btn-outline-secondary" id="outofmetaChange" onclick="removeChainFromMeta('out')">הוצאת שרשרת מהגרלה</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="inofmetaChange" onclick="removeChainFromMeta('in')">החזרת שרשרת להגרלה</button>  
+              </div>
               <h3 class="mb-0"><u>פתיחת שרשרת - לשליחה בקבוצת החרוזים</u></h3>
             <div id="text1"></div>
             <div class="form-control input-group-text col-auto mb-2" role="group">
@@ -346,10 +350,7 @@
               </button>
                 <button type="button" class="btn form-control btn-outline-secondary" id="copyMes3" onclick="copy('3')">להעתקת ההודעה</button>
               </div>
-            <div class="form-control input-group-text" role="group">
-                    <button type="button" class="btn form-control btn-outline-secondary" id="outofmetaChange" onclick="removeChainFromMeta('out')">הוצאת שרשרת מהגרלה</button>
-                <button type="button" class="btn form-control btn-outline-secondary" id="inofmetaChange" onclick="removeChainFromMeta('in')">החזרת שרשרת להגרלה</button>  
-              </div>
+           
           </div>
           
       <script
