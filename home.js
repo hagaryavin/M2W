@@ -149,7 +149,7 @@ function getData(x) {
                 if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.livechain===true){
                     newPerson.recordingdate=addDate(newPerson);
                  }
-                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.chain.includes("כנס.מדע.ותודעה")){
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.chain.includes("כנס.טראומה.וריפוי")){
                     newPerson.recordingdate=addDateConference(newPerson);
                  }
                 if(ele.name==="הגר יבין"){
@@ -2233,7 +2233,7 @@ function toSendAMes(guestName,interName,creatorName){
     return true;
 }
 function addDateConference(person){
-    var newDate="11/14/2025";
+    var newDate="02/06/2026";
     console.log(newDate);
      const obj = {
         text: newDate,
