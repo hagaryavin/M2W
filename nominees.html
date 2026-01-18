@@ -172,6 +172,81 @@
         מועמדות
 </h1>
 <div class="container">
+        <button
+          onclick="newNomineeDisplaySwitch()"
+          class="btn form-control mb-3"
+          id="newNomineeDisplay"
+        >
+          להצגת טופס מועמד חדש
+        </button>
+    
+    <div class="container" id="nomineesNew" style="display: none;">
+      <div class="col-auto">
+    <h2 class="mb-2"><u>מילוי פרטי המועמד החדש</u></h2>
+  </div>
+  <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start">שם</p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="nameNew" class="form-control" placeholder="שם" autocomplete="off"/>
+</div>
+  </div> 
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start">שרשרת</p>
+      <div class="input-group-text" role="group">
+  <input class="form-control" id="chainNew" placeholder="שרשרת" autocomplete="off"/>
+</div>
+</div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start">טלפון</p>
+      <div class="input-group-text" role="group">
+  <input type="tel" id="phoneNew" class="form-control" placeholder="טלפון" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start">כתובת מייל</p>
+    <div class="input-group-text" role="group">
+ <input type="text" id="emailNew" class="form-control" placeholder="כתובת מייל" autocomplete="off"/>
+</div>
+</div>
+  <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start">שם מזמין</p>
+  <div class="input-group-text" role="group">
+    <input type="text" id="inviternameNew" class="form-control" placeholder="שם מזמין" autocomplete="off"/>
+</div>
+  </div>
+  <div class="form-control mb-3">
+      <p class="fs-5 fw-normal text-start">טלפון מזמין</p>
+      <div class="input-group-text" role="group">
+  <input type="tel" id="inviterphoneNew" class="form-control" placeholder="טלפון מזמין" autocomplete="off" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _"/>
+</div>
+  </div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start">כותרת</p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="titleNew" class="form-control" placeholder="כותרת" autocomplete="off"/>
+</div>
+</div>
+<div class="form-control mb-3">
+    <p class="fs-5 fw-normal text-start">תוכן</p>
+    <div class="input-group-text" role="group">
+    <input type="text" id="plotNew" class="form-control" placeholder="תוכן" autocomplete="off"/>
+</div>
+</div>
+         <div class="form-control mb-3">
+  <p class="fs-5 fw-normal text-start">הודעה</p>
+  <div class="input-group-text" role="group">
+<input type="text" id="datelastmessNew" class="form-control" placeholder="הודעה" autocomplete="off"/>
+</div>
+</div>
+        <button
+      onclick="add()"
+      class="btn form-control btn-outline-secondary mb-3"
+      id="add"
+    >
+    הוספת החרוז לרשימת המועמדים
+  </button>
+    </div>
+    
       <span
         class="position-relative start-50 input-group-text mb-3"
         data-bs-toggle="popover"

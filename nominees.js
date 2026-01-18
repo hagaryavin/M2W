@@ -23,8 +23,9 @@ var fullTexts = [[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 const url =
-  "https://script.google.com/macros/s/AKfycbwWILJP6cHmRK5ITFE82-QwV7ysCqBnj4b60yn5Uu5L55et2XdDIa7TJGVa-lIreLEp8w/exec";
+  "https://script.google.com/macros/s/AKfycbxnsjzfmV9XVUZnm_NEf6VG6vxJaT39LWue0eCy6xFzUD53wBXIi_eRYdyxkoE0BU1qMQ/exec";
 getData();
+getMessData();
 function getData() {
   fetch(url)
     .then((res) => {
@@ -189,7 +190,7 @@ function cutMess(linesArr, messType) {
      // testDiv.append(testH4);
     }
     document.getElementById("datelastmess").value =currText;
-
+    document.getElementById("datelastmessNew").value =currText;
     i++;
   }
  fullTexts[messType - 1] = currText;
@@ -198,6 +199,21 @@ setTimeout(() => {
   const loader = document.getElementById("loader");
   loader.style.display = "none";
 }, 2050);
+function add() { 
+    const dataObj = { name: document.getElementById("nameNew").value, 
+                     chain: document.getElementById("chainNew").value, 
+                     phone: document.getElementById("phoneNew").value, 
+                     email: document.getElementById("emailNew").value, 
+                     invitername: document.getElementById("inviternameNew").value, 
+                     inviterphone: document.getElementById("inviterphoneNew").value, 
+                     title: document.getElementById("titleNew").value, 
+                     plot: document.getElementById("plotNew").value, 
+                     datelastmess: document.getElementById("datelastmessNew").value
+                    }; 
+    var dataElement=document.getElementById("add");
+    sendData(dataObj,dataElement); 
+    alert("המועמד נוסף לרשימה, נא לרענן את הדף לצפייה ברשימה המעודכנת");
+}
 function submit(){
     clearValues();
     const radioButtons = document.querySelectorAll('input[name="person"]');
@@ -228,6 +244,17 @@ function submit(){
         alert("נא לבחור חרוז");
     }
      
+}
+function newNomineeDisplaySwitch(){
+     const nomineesNew = document.getElementById('nomineesNew');
+    if(nomineesNew.style.display =='none'){
+        nomineesNew.style.display ='block';
+        document.getElementById("newNomineeDisplay").innerHTML="להצגת טופס מועמד חדש";
+    }
+    else{
+        nomineesNew.style.display ='none';
+        document.getElementById("newNomineeDisplay").innerHTML="להסתרת טופס מועמד חדש";
+    }
 }
 function change(id){
     var dataElement=document.getElementById(id+"Change");
@@ -261,7 +288,6 @@ function clearValues() {
                 document.getElementById("title").value = "";
                 document.getElementById("plot").value = "";
                 document.getElementById("datelastmess").value= ""; 
-        getMessData();
     document.getElementById("nameChange").innerHTML = "תיקון שם";
     document.getElementById("chainChange").innerHTML = "תיקון שרשרת";
                 document.getElementById("phoneChange").innerHTML = "תיקון טלפון";
