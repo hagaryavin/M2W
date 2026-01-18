@@ -249,11 +249,11 @@ function newNomineeDisplaySwitch(){
      const nomineesNew = document.getElementById('nomineesNew');
     if(nomineesNew.style.display =='none'){
         nomineesNew.style.display ='block';
-        document.getElementById("newNomineeDisplay").innerHTML="להצגת טופס מועמד חדש";
+        document.getElementById("newNomineeDisplay").innerHTML="להסתרת טופס מועמד חדש";
     }
     else{
         nomineesNew.style.display ='none';
-        document.getElementById("newNomineeDisplay").innerHTML="להסתרת טופס מועמד חדש";
+        document.getElementById("newNomineeDisplay").innerHTML="להצגת טופס מועמד חדש";
     }
 }
 function change(id){
