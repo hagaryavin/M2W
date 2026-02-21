@@ -35,9 +35,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbxkrk_yRhO2mlPgHi8KuzvKY9B0UXH34bMTqw-7UAScxJp1OXaWXAZiHAq4UUMp7UmRVg/exec";
+    "https://script.google.com/macros/s/AKfycbwm0oPiXySNRd8jMccAhVThtSYcGQTqzivjLThlcL8tgldyDSlO8osMtglXTRwL2HtTUQ/exec";
 const taskurlEng=
-      "https://script.google.com/macros/s/AKfycbzYtYrEAehCXxvYkU5V6KuwwWUPrwwuAPv8pG-E__kh5GMBvmVqdJKqzqbUt02sNCRt/exec";
+      "https://script.google.com/macros/s/AKfycbyFoycib2OcOuBG6PML-aS7qqL6xQL6uctwl_a-BRZ5dYut4foXaeOT6ktkzFtr9udX/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
@@ -285,35 +285,63 @@ function getData(x) {
                     }
 
                     if (
-                        (newPerson.recordingdate < today ||
+                        newPerson.recordingdate < today ||
                             (newPerson.recordingdate.getDate() === today.getDate() &&
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
-                                newPerson.recordingdate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonCont(newPerson.row, "rightaftermess") ===
-                        "not yet"&&!nullTask.includes("rightaftermess")
+                                newPerson.recordingdate.getYear() === today.getYear()) 
                     ) {
+                        
+                        if(getTasksDataFromPersonCont(newPerson.row, "rightaftermess") ===
+                        "not yet"&&!nullTask.includes("rightaftermess")){
                         //////2 condition
-                        newTask = {
-                            name: newPerson.name,
-                            interviewername: newPerson.interviewername,
-                            recordingdate: newPerson.recordingdate,
-                            chain: newPerson.chain,
-                            chainCreator: newPerson.chainCreator,
-                            chainCreatorEmail: newPerson.chainCreatorEmail,
-                            type: "rightaftermess",
-                            row: newPerson.row,
-                        };
-                        if (!taskAlreadyExist(newTask)) {
-                            console.log("new task!");
-                            console.log(newTask);
-                            allTasks.push(newTask);
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "rightaftermess",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
 
-                            changeStatus(
-                                newPerson.row,
-                                newTask.type,
+                                changeStatus(
+                                    newPerson.row,
+                                    newTask.type,
 
-                                "add"
-                            );
+                                    "add"
+                                );
+                            }
+                        }
+                        if(getTasksDataFromPersonCont(newPerson.row, "community") ===
+                        "not yet"&&!nullTask.includes("community")){
+                        //////14 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "community",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+
+                                changeStatus(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
                         }
                     }
 
@@ -592,35 +620,63 @@ function getDataEng(x) {
                     }
 
                     if (
-                        (newPerson.recordingdate < today ||
+                        newPerson.recordingdate < today ||
                             (newPerson.recordingdate.getDate() === today.getDate() &&
                                 newPerson.recordingdate.getMonth() === today.getMonth() &&
-                                newPerson.recordingdate.getYear() === today.getYear())) &&
-                        getTasksDataFromPersonContEng(newPerson.row, "rightaftermess") ===
-                        "not yet"&&newPerson.qa===false&&!nullTask.includes("rightaftermess")
+                                newPerson.recordingdate.getYear() === today.getYear())
+                       
                     ) {
+                        if( getTasksDataFromPersonContEng(newPerson.row, "rightaftermess") ===
+                        "not yet"&&newPerson.qa===false&&!nullTask.includes("rightaftermess")){
                         //////2 condition
-                        newTask = {
-                            name: newPerson.name,
-                            interviewername: newPerson.interviewername,
-                            recordingdate: newPerson.recordingdate,
-                            chain: newPerson.chain,
-                            chainCreator: newPerson.chainCreator,
-                            chainCreatorEmail: newPerson.chainCreatorEmail,
-                            type: "rightaftermess",
-                            row: newPerson.row,
-                        };
-                        if (!taskAlreadyExistEng(newTask)) {
-                            console.log("new task!");
-                            console.log(newTask);
-                            allTasksEng.push(newTask);
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "rightaftermess",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
 
-                            changeStatusEng(
-                                newPerson.row,
-                                newTask.type,
+                                changeStatusEng(
+                                    newPerson.row,
+                                    newTask.type,
 
-                                "add"
-                            );
+                                    "add"
+                                );
+                            }
+                        }
+                        if( getTasksDataFromPersonContEng(newPerson.row, "community") ===
+                        "not yet"&&newPerson.qa===false&&!nullTask.includes("community")){
+                        //////14 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "community",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+
+                                changeStatusEng(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
                         }
                     }
 
@@ -745,6 +801,7 @@ function getTasksDataFromPerson() {
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
+                    communitystatus: ele.community14,
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -768,6 +825,7 @@ function getTasksDataFromPersonEng() {
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
+                    communitystatus: ele.community14,
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -802,6 +860,9 @@ function getTasksDataFromPersonCont(row, type) {
             if (type === "premessemail") {
                 result = tasks4lols[i].premessemailstatus;
             }
+            if (type === "community") {
+                result = tasks4lols[i].communitystatus;
+            }
         }
     }
     return result;
@@ -834,6 +895,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "premessemail") {
                 result = tasks4lolsEng[i].premessemailstatus;
             }
+            if (type === "community") {
+                result = tasks4lols[i].communitystatus;
+            }
         }
     }
     return result;
@@ -856,7 +920,8 @@ function taskData() {
                     socialpoststatus: ele.socialpost5,
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
-                    premessemailstatus: ele.premessemail13
+                    premessemailstatus: ele.premessemail13,
+                    communitystatus: ele.community14,
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -996,6 +1061,24 @@ function taskData() {
                         allTasks.push(newTask);
                     }
                 }
+                if (tasks4person.communitystatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "community",
+                        row: currPerson.row,
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
             });
                
             if (allTasks.length > 0) {
@@ -1022,6 +1105,7 @@ function taskDataEng() {
                     confirmstatus: ele.confirm6,
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
+                    communitystatus: ele.community14,
 
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
@@ -1161,6 +1245,23 @@ function taskDataEng() {
                         allTasksEng.push(newTask);
                     }
                 }
+                if (tasks4personEng.communitystatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "community",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
             });
             if (allTasksEng.length > 0) {
                 createTasksEng();
@@ -1265,7 +1366,7 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "rightaftermess" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים וקהילה - ";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ חרוזים - ";
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
@@ -1553,7 +1654,37 @@ function createTasks() {
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
-        }    
+        }
+        if (allTasks[i].type === "community") {
+            ///////14
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkcommunity";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "community" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - קהילה - ";
+            optionInput.classList.add("form-check-label");
+            optionBut=document.createElement("button");
+            optionBut.innerHTML="ביצוע";
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./rightAfterMes.html?'+params;
+            });
+            optionDiv.append(optionList);
+            optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
     }
 }
 function createTasksEng() {
@@ -1638,7 +1769,7 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "rightaftermess" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - וואטסאפ חרוזים וקהילה";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - וואטסאפ חרוזים";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
@@ -1912,6 +2043,29 @@ function createTasksEng() {
                 " בתאריך " +
                 recDate;
         
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasksEng[i].type === "community") {
+            ///////2
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex");
+            optionDiv.classList.add("flex-row");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkcommunity";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "community" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - קהילה";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
