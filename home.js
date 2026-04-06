@@ -27,6 +27,7 @@ var newChain = {};
 var preMessDateVal=-1;
 var postMessDateVal=1;
 var postMessInviteDateVal=4;
+var danaDateVal=2;
 var nullTask=[];
 var clipsToChange=0;
 var indiclipsToChange=0;
@@ -35,9 +36,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbwm0oPiXySNRd8jMccAhVThtSYcGQTqzivjLThlcL8tgldyDSlO8osMtglXTRwL2HtTUQ/exec";
+    "https://script.google.com/macros/s/AKfycbzkWQBBdKmgS4w839LeJXHyThotNxMPNYnZoAtcqczC46k_fU_COgM73p52P5Ip6GMgxQ/exec";
 const taskurlEng=
-      "https://script.google.com/macros/s/AKfycbyFoycib2OcOuBG6PML-aS7qqL6xQL6uctwl_a-BRZ5dYut4foXaeOT6ktkzFtr9udX/exec";
+      "https://script.google.com/macros/s/AKfycbxUIl_R0hrGsor8-0X1r0wxsvT6mFkbjL06geZQOyYskLnE-_lqUgCtC9TRVjMkzA7o/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
@@ -96,6 +97,7 @@ function getData(x) {
                     premessdate: "",
                     postmessdate: "",
                     postmessinvitedate: "",
+                    danadate:"",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     individ:false,
                     livechain:false,
@@ -161,6 +163,7 @@ function getData(x) {
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.danadate = changeTimeZone(new Date(danaDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     for (var i = 0; i < allChains.length; i++) {
                         if (
@@ -442,6 +445,40 @@ function getData(x) {
                         }
 
                     }
+                     //////////////15 condition
+                        if (
+                        (newPerson.danadate < today ||
+                            (newPerson.danadate.getDate() === today.getDate() &&
+                                newPerson.danadate.getMonth() === today.getMonth() &&
+                                newPerson.danadate.getYear() === today.getYear())) &&
+                        getTasksDataFromPersonCont(newPerson.row, "dana") ===
+                        "not yet"&&!nullTask.includes("dana")
+                    ) {
+                        /////////////////15 condition
+                        newTask = {
+                            name: newPerson.name,
+                            interviewername: newPerson.interviewername,
+                            recordingdate: newPerson.recordingdate,
+                            chain: newPerson.chain,
+                            chainCreator: newPerson.chainCreator,
+                            chainCreatorEmail: newPerson.chainCreatorEmail,
+                            type: "dana",
+                            row: newPerson.row,
+                        };
+                        if (!taskAlreadyExist(newTask)) {
+                            console.log("new task!");
+                            console.log(newTask);
+                            allTasks.push(newTask);
+
+                            changeStatus(
+                                newPerson.row,
+                                newTask.type,
+
+                                "add"
+                            );
+                        }
+
+                    }
                     console.log(newPerson);
                     allPeople.push(newPerson);   
                 }
@@ -474,6 +511,7 @@ function getDataEng(x) {
                     premessdate: "",
                     postmessdate: "",
                     postmessinvitedate: "",
+                    danadate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: tableRowEng,
                     linkfull: ele.linkfull,
@@ -497,6 +535,7 @@ function getDataEng(x) {
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
+                    newPerson.danadate = changeTimeZone(new Date(danaDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessinvitedate = changeTimeZone(new Date(postMessInviteDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     for (var i = 0; i < allChains.length; i++) {
                         if (
@@ -775,7 +814,36 @@ function getDataEng(x) {
                             );
                         }
                     }
+                    if (
+                        (newPerson.danadate < today ||
+                            (newPerson.danadate.getDate() === today.getDate() &&
+                                newPerson.danadate.getMonth() === today.getMonth() &&
+                                newPerson.danadate.getYear() === today.getYear()))  &&getTasksDataFromPersonContEng(newPerson.row, "dana") ===
+                        "not yet"&&!nullTask.includes("dana")
+                    ) {
+                        /////////////////15 condition
+                        newTask = {
+                            name: newPerson.name,
+                            interviewername: newPerson.interviewername,
+                            recordingdate: newPerson.recordingdate,
+                            chain: newPerson.chain,
+                            chainCreator: newPerson.chainCreator,
+                            chainCreatorEmail: newPerson.chainCreatorEmail,
+                            type: "dana",
+                            row: newPerson.row,
+                        };
+                        if (!taskAlreadyExistEng(newTask)) {
+                            console.log("new task!");
+                            console.log(newTask);
+                            allTasksEng.push(newTask);
 
+                            changeStatusEng(
+                                newPerson.row,
+                                newTask.type,
+                                "add"
+                            );
+                        }
+                    }
                     console.log(newPerson);
                     allPeopleEng.push(newPerson);
                 }
@@ -802,6 +870,7 @@ function getTasksDataFromPerson() {
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
+                    danastatus: ele.dana15,
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -826,6 +895,7 @@ function getTasksDataFromPersonEng() {
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
+                    danastatus: ele.dana15,
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -863,6 +933,9 @@ function getTasksDataFromPersonCont(row, type) {
             if (type === "community") {
                 result = tasks4lols[i].communitystatus;
             }
+            if (type === "dana") {
+                result = tasks4lols[i].danastatus;
+            }
         }
     }
     return result;
@@ -898,6 +971,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "community") {
                 result = tasks4lols[i].communitystatus;
             }
+            if (type === "dana") {
+                result = tasks4lols[i].danastatus;
+            }
         }
     }
     return result;
@@ -922,6 +998,7 @@ function taskData() {
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
+                    danastatus: ele.dana15,
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -1079,6 +1156,24 @@ function taskData() {
                         allTasks.push(newTask);
                     }
                 }
+                if (tasks4person.danastatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "dana",
+                        row: currPerson.row,
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
             });
                
             if (allTasks.length > 0) {
@@ -1106,6 +1201,7 @@ function taskDataEng() {
                     addcreatorstatus: ele.addcreator7,
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
+                    danastatus: ele.dana15,
 
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
@@ -1254,6 +1350,23 @@ function taskDataEng() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "community",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
+                if (tasks4personEng.danastatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "dana",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExistEng(newTask)) {
@@ -1685,6 +1798,36 @@ function createTasks() {
             list.append(document.createElement("br"));
             size++;
         }
+        if (allTasks[i].type === "dana") {
+            //////15
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkdana";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "dana" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - דאנה - ";
+            optionInput.classList.add("form-check-label");
+            optionBut=document.createElement("button");
+            optionBut.innerHTML="ביצוע";
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
+            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMes.html?'+params;
+            });
+            optionDiv.append(optionList);
+            optionDiv.append(optionBut);            
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
     }
 }
 function createTasksEng() {
@@ -2072,6 +2215,36 @@ function createTasksEng() {
             list.append(document.createElement("br"));
             size++;
         }
+        if (allTasksEng[i].type === "dana") {
+            /////15
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkdana";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "dana" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - דאנה - ";
+            optionInput.classList.add("form-check-label");
+            optionBut=document.createElement("button");
+            optionBut.innerHTML="ביצוע";
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMesEng.html?'+params;
+            });
+            optionDiv.append(optionList);
+            optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
     }
 }
 loaderStatus.innerHTML = "מתחילה בדיקת נתונים...";
@@ -2165,6 +2338,11 @@ function getTimingData() {
                 if(ele.taskname==="postmessinvite"&&ele.daysfromrecordingdate){
                     postMessInviteDateVal=ele.daysfromrecordingdate;
                                         console.log("changed postMessInviteDateVal - "+postMessInviteDateVal);
+
+                }
+                if(ele.taskname==="dana"&&ele.daysfromrecordingdate){
+                    danaDateVal=ele.daysfromrecordingdate;
+                                        console.log("changed danaDateVal - "+danaDateVal);
 
                 }
                 //console.log(timing);
@@ -2534,6 +2712,15 @@ function postMessDate(date) {
 function postMessInviteDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() +parseInt(postMessInviteDateVal));
+    if (next.getDay() === 6) {
+        next.setDate(next.getDate() + 1);
+    }
+    next.setHours(0, 0, 0);
+    return next;
+}
+function danaDate(date) {
+    var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
+    next.setDate(date.getDate() +parseInt(danaDateVal));
     if (next.getDay() === 6) {
         next.setDate(next.getDate() + 1);
     }
