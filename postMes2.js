@@ -5,6 +5,7 @@ var rowCount = 2;
 var size = 0;
 var fullName = "";
 var firstName = "";
+var interFirstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
@@ -27,10 +28,12 @@ var messes = [
     { name: "", lines: [] } ,
     { name: "", lines: [] } ,
     { name: "", lines: [] } ,
+    { name: "", lines: [] } ,
     { name: "", lines: [] }     
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[],[],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
+var wannaFixInterPhone = true;
 const url =
   "https://script.google.com/macros/s/AKfycbzZjjImvWlTYhCwYk_y3UY0-GWsa1IEmmmgsqrP7h5u4-KUAdlkGlid9fHqEigGbqjz0Q/exec";
 var newPerson = {};
@@ -53,6 +56,8 @@ function getData() {
         newPerson = {
           name: ele.name,
           phone: ele.phone,
+          interviewername: ele.interviewername,
+          interviewerphone: ele.interviewerphone,
           chain: ele.chain,
           linkfive: ele.linkfive,
           linkshort: ele.linkshort,
@@ -66,6 +71,11 @@ function getData() {
         };
         if (ele.fixedname !== "") newPerson.name = ele.fixedname;
         if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
+        if (ele.fixedinterviewername !== "")
+          newPerson.interviewername = ele.fixedinterviewername;
+        if (ele.fixedphone !== "") newPerson.phone = ele.fixedphone;
+        if (ele.fixedinterviewerphone !== "")
+          newPerson.interviewerphone = ele.fixedinterviewerphone;
         if (newPerson.chain === "") {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
@@ -179,14 +189,14 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 17; i++) {
+      for (var i = 1; i <= 18; i++) {
           if (newMess.name===("לינקים לתוצרים " + i)) {
             messes[i - 1] = newMess;
           }
         }
 
       });
-      for (var i = 0; i <= 16; i++) {
+      for (var i = 0; i <= 17; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
           cutMess(messes[i].lines, i + 1);
         }
@@ -199,7 +209,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17){
+  if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17||messType===18){
   
         removeAllChildNodes(testDiv);
     }
@@ -214,6 +224,12 @@ var crewMem;
     }
     if (linesArr[i].includes("firstNameOfGuest")) {
       linesArr[i] = linesArr[i].replace("firstNameOfGuest", firstName2);
+    }
+    if (linesArr[i].includes("firstNameOfInterviewer")) {   
+      linesArr[i] = linesArr[i].replace(
+        "firstNameOfInterviewer",
+        interFirstName
+      );
     }
     if (linesArr[i].includes("fullNameOfGuest")) {
       var nameAndChain = document
@@ -278,7 +294,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17){
+        if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17||messType===18){
             testDiv.append(testH4);
         }
     }
@@ -299,8 +315,15 @@ setTimeout(() => {
 function reset() {
   document.location.reload();
 }
-function checkPhone(phone) {
+function checkPhoneGuest(phone) {
   if (wannaFixGuestPhone === true) {
+    if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
+      return true;
+    return false;
+  } else return true;
+}
+function checkPhoneInter(phone) {
+  if (wannaFixInterPhone === true) {
     if (phone.length === 10 && phone[0] === "0" && phone[1] === "5")
       return true;
     return false;
@@ -321,7 +344,7 @@ function fixChainFromData(chain) {
 }
 function checkInputs() {
   if (
-    checkPhone(document.getElementById("guestPhone").value) &&
+    checkPhoneGuest(document.getElementById("guestPhone").value) &&
     document.getElementById("chainsNames").value !== ""
   ) {
     return true;
@@ -377,22 +400,36 @@ function copy(id) {
   document.body.removeChild(elem);
   alert("הטקסט הועתק!");
 }
-function phoneForWA(phone) {
-  if (wannaFixGuestPhone === true) {
-    return "972" + phone.slice(1);
+function phoneForWA(phone, toWho) {
+  if (toWho === "guest") {
+    if (wannaFixGuestPhone === true) {
+      return "972" + phone.slice(1);
+    }
+      return phone;
   }
-  return phone;
+    if(toWho==="inter"){
+       if (wannaFixInterPhone === true) {
+            return "972" + phone.slice(1);
+        } 
+        return phone;
+    }
+  return "972" + phone.slice(1);
 }
-function whatsAppMes(id) {
-  var phone = document.getElementById("guestPhone").value;
+function whatsAppMes(id) { 
+ const splittedId = id.split("_");
+  var whichMes = splittedId[0];
+  var toWho = splittedId[1];
+  var phone;
+  if (toWho === "guest") phone = document.getElementById("guestPhone").value;
+  if (toWho === "inter") phone = document.getElementById("interviewerPhone").value;
   var link =
     "https://api.whatsapp.com/send?phone=" +
-    phoneForWA(phone) +
+   phoneForWA(phone, toWho)+
     "&text=" +
-    encodeURIComponent(fullTexts[id - 1]);
-  window.open(link, "_blank");
+    encodeURIComponent(fullTexts[whichMes - 1]);
+  window.open(link, "_blank");  
 }
-function fixPhoneData(phone) {
+function fixPhoneDataGuest(phone) {
   if (wannaFixGuestPhone === true) {
     if (phone.includes("-")) {
       console.log("in");
@@ -400,6 +437,29 @@ function fixPhoneData(phone) {
     }
     if (phone.includes(" ")) {
       phone = phone.replace(" ", "");
+    }
+  }
+  return phone;
+}
+function fixPhoneDataInter(phone) {
+  if (wannaFixInterPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
+    }
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
+      phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
     }
   }
   return phone;
@@ -426,8 +486,37 @@ function fixFirstName(phoneNum) {
   }
   return splittedName[0];
 }
+ function fixInterviewerFirstName(phoneNum) {
+  var fullName = "";
+  for (var i = 0; i < size; i++) {
+    var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    if (
+      allPeople[i].phone === phoneNum &&
+      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+    )
+      fullName = allPeople[i].interviewername;
+  }
+  const splittedName = fullName.split(" ");
+  if (
+    splittedName[0] === "דר." ||
+    splittedName[0] === 'ד"ר' ||
+    splittedName[0] === "ד״ר" ||
+    splittedName[0] === "דוקטור" ||
+    splittedName[0] === "פרופסור" ||
+    splittedName[0] === "פרופ'" ||
+    splittedName[0] === "Dr."||
+     splittedName[0] === "הרב" ||
+     splittedName[0] === "ד״ר" ||
+     splittedName[0] === 'עו"ד'||
+      splittedName[0] === 'עו״ד'
+  ) {
+    return splittedName[1];
+  }
+  return splittedName[0];
+}
 function submitData() {
   toFixGuestPhone();
+  toFixInterPhone();
   for (var i = 0; i < allPeople.length; i++) {
     var nameAndChain = document.getElementById("peopleList").value.split(" + ");
     if (
@@ -439,10 +528,19 @@ function submitData() {
         allPeople[i].chain
       );
       fullName = allPeople[i].name;
-      document.getElementById("guestPhone").value = fixPhoneData(
+      document.getElementById("guestPhone").value = fixPhoneDataGuest(
         allPeople[i].phone
       );
+        if(allPeople[i].interviewerphone!==""){
+
+    document.getElementById("interviewerPhone").value = fixPhoneDataInter(
+        allPeople[i].interviewerphone
+      );
+        }
       firstName = fixFirstName(allPeople[i].phone);
+    interFirstName = fixInterviewerFirstName(allPeople[i].phone);
+        
+
       // document.getElementById("nameOfPerson").innerHTML = " " + firstName;
       document.getElementById("link555").value = allPeople[i].linkfive;
       document.getElementById("short55").value = allPeople[i].linkshort;
@@ -459,6 +557,11 @@ function toFixGuestPhone() {
   if (document.getElementById("fixGuestPhone").checked === true) {
     wannaFixGuestPhone = true;
   } else wannaFixGuestPhone = false;
+}
+function toFixInterPhone() {
+  if (document.getElementById("fixInterPhone").checked === true) {
+    wannaFixInterPhone = true;
+  } else wannaFixInterPhone = false;
 }
 function switchLang(){
     if (document.getElementById("switch").checked === true){

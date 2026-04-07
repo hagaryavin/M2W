@@ -209,9 +209,36 @@
         </button>
      </div>
         <div class="input-group mb-3">
-          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">מספר טלפון</span>
+          <span class="input-group-text" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-toggle="tooltip" data-bs-placement="bottom" title="05_ _ _ _ _ _ _ _">טלפון האורח </span>
           <input type="tel" id="guestPhone" class="form-control" placeholder="האורח" autocomplete="off"/>
           <input class="form-check-input" type="checkbox" id="fixGuestPhone" checked>
+          <label class="form-check-label" for="flexCheckChecked">
+            מספר ישראלי
+          </label>
+        </div>
+        <div class="input-group mb-3">
+          <span
+            class="input-group-text"
+            data-bs-toggle="popover"
+            data-bs-trigger="hover focus"
+            data-bs-toggle="tooltip"
+            data-bs-placement="bottom"
+            title="05_ _ _ _ _ _ _ _"
+            >טלפון המראיין</span
+          >
+          <input
+            type="tel"
+            id="interviewerPhone"
+            class="form-control"
+            placeholder="המראיין"
+            autocomplete="off"
+          />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="fixInterPhone"
+            checked
+          />
           <label class="form-check-label" for="flexCheckChecked">
             מספר ישראלי
           </label>
@@ -237,15 +264,30 @@
           <div class="col-auto">
               <h3 class="mb-0"><u>תרומה דאנה</u></h3>
             <h6 class="mb-1 text-muted">הודעה משתנה</h6>
-              <div id="text17"></div>
+        <div class="row align-items-center">
+             <div class="col">
+           <div id="text17"></div>
+                  </div>
+                  <div class="col">
+           <div id="text18"></div>
+                  </div>
+                </div>              
               <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes17"
-              onclick="whatsAppMes('17')"
+              onclick="whatsAppMes('17_guest')"
             >
               שליחת הודעה לאורח
+            </button>
+                  <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes17"
+              onclick="whatsAppMes('18_inter')"
+            >
+              שליחת הודעה למראיין
             </button>
             <button
               type="button"
@@ -264,7 +306,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes1"
-              onclick="whatsAppMes('1')"
+              onclick="whatsAppMes('1_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -283,7 +325,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes2"
-              onclick="whatsAppMes('2')"
+              onclick="whatsAppMes('2_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -298,17 +340,17 @@
           </div>
               <div class="form-control input-group-text col-auto mb-3">
                 <input type="text" id="link555" class="form-control" placeholder="תעתיקי לפה לינק לסרטון 5:55" autocomplete="off"/>
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendLink555" onclick="whatsAppMes('3')">שליחת לינק ה5:55 לאורח</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendLink555" onclick="whatsAppMes('3_guest')">שליחת לינק ה5:55 לאורח</button>
                 <button type="button" class="btn form-control btn-outline-secondary" id="copyLink555" onclick="copy('3')">העתקת לינק ה5:55</button>
               </div>
               <div class="form-control input-group-text col-auto mb-3">
                 <input type="text" id="full555" class="form-control" placeholder="תעתיקי לפה לינק לראיון המלא" autocomplete="off"/>
-                <button type="button" class="btn form-control btn-outline-secondary" id="sendFull555" onclick="whatsAppMes('4')">שליחת לינק הראיון המלא לאורח</button>
+                <button type="button" class="btn form-control btn-outline-secondary" id="sendFull555" onclick="whatsAppMes('4_guest')">שליחת לינק הראיון המלא לאורח</button>
                 <button type="button" class="btn form-control btn-outline-secondary" id="copyFull555" onclick="copy('4')">העתקת לינק הראיון המלא</button>
             </div>
               <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="short55" class="form-control" placeholder="תעתיקי לפה לינק לקובץ short מהדרייב" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55" onclick="whatsAppMes('5')">שליחת לינק ה55 לאורח</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55" onclick="whatsAppMes('5_guest')">שליחת לינק ה55 לאורח</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copyShort555" onclick="copy('5')">העתקת לינק ה55</button>
             </div>
              <div id="text6"></div>
@@ -317,7 +359,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes6"
-              onclick="whatsAppMes('6')"
+              onclick="whatsAppMes('6_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -332,12 +374,12 @@
           </div>
             <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="short55yt" class="form-control" placeholder="תעתיקי לפה לינק לקצר55 ביוטיוב" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55yt" onclick="whatsAppMes('7')">שליחת לינק ה55 ביוטיוב</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendShort55yt" onclick="whatsAppMes('7_guest')">שליחת לינק ה55 ביוטיוב</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copyShort55yt" onclick="copy('7')">העתקת לינק ה55 ביוטיוב</button>
             </div>
               <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="spotify" class="form-control" placeholder="תעתיקי לפה לינק לפודקאסט בספוטיפיי" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendSpotify" onclick="whatsAppMes('8')">שליחת לינק הפודקאסט בסופטיפיי לאורח</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendSpotify" onclick="whatsAppMes('8_guest')">שליחת לינק הפודקאסט בסופטיפיי לאורח</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copySpotify" onclick="copy('8')">העתקת לינק הפודקאסט בספוטיפיי</button>
             </div>
               <div id="text9"></div>
@@ -346,7 +388,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes9"
-              onclick="whatsAppMes('9')"
+              onclick="whatsAppMes('9_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -361,17 +403,17 @@
           </div>
             <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="linkembed555" class="form-control" placeholder="תעתיקי לפה לינק לשיבוץ סרט555 באתר" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkembed555" onclick="whatsAppMes('10')">שליחת לינק לשיבוץ סרט555 באתר</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkembed555" onclick="whatsAppMes('10_guest')">שליחת לינק לשיבוץ סרט555 באתר</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copylinkembed555" onclick="copy('10')">העתקת לינק לשיבוץ סרט555 באתר</button>
             </div>
               <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="linkembedfull" class="form-control" placeholder="תעתיקי לפה לינק לשיבוץ ראיון מלא באתר" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkembedfull" onclick="whatsAppMes('11')">שליחת לינק לשיבוץ ראיון מלא באתר</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkembedfull" onclick="whatsAppMes('11_guest')">שליחת לינק לשיבוץ ראיון מלא באתר</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copylinkembedfull" onclick="copy('11')">העתקת לינק לשיבוץ ראיון מלא באתר</button>
             </div>
             <div class="form-control input-group-text col-auto mb-3">
               <input type="text" id="linkzoom" class="form-control" placeholder="תעתיקי לפה לינק לסרט חדרהמתנה 55-דרייב" autocomplete="off"/>
-              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkzoom" onclick="whatsAppMes('12')">שליחת לינק לסרט חדרהמתנה 55-דרייב</button>
+              <button type="button" class="btn form-control btn-outline-secondary" id="sendlinkzoom" onclick="whatsAppMes('12_guest')">שליחת לינק לסרט חדרהמתנה 55-דרייב</button>
               <button type="button" class="btn form-control btn-outline-secondary" id="copylinkzoom" onclick="copy('12')">העתקת לינק לסרט חדרהמתנה 55-דרייב</button>
             </div>
                 <h3 class="mb-0"><u>הזמנה לשת"פ</u></h3>
@@ -381,7 +423,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes13"
-              onclick="whatsAppMes('13')"
+              onclick="whatsAppMes('13_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -402,7 +444,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes14"
-              onclick="whatsAppMes('14')"
+              onclick="whatsAppMes('14_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -421,7 +463,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes15"
-              onclick="whatsAppMes('15')"
+              onclick="whatsAppMes('15_guest')"
             >
               שליחת הודעה לאורח
             </button>
@@ -440,7 +482,7 @@
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes16"
-              onclick="whatsAppMes('16')"
+              onclick="whatsAppMes('16_guest')"
             >
               שליחת הודעה לאורח
             </button>
