@@ -591,24 +591,22 @@ function fixPhoneData(phone) {
   }
   return phone;
 }
-function email(id){
-  /*var link =
-    "https://mail.google.com/mail/?view=cm&to=" +
-    currPerson.email +
-    "&su=" +
-    encodeURIComponent("הזמנה להקלטת סיפור555 שלך") +
-    "&body=" +
-    encodeURIComponent(fullTexts[id - 1]);*/
-    var link=
-        "https://mail.google.com/mail/u/555mystory555@gmail.com/?extsrc=mailto&url=mailto%3A"+
-        currPerson.email.replace("@","%40")+
-        "%3Fsubject%3D"+
-        encodeURIComponent("הזמנה להקלטת סיפור555 שלך בשרשרת "+document.getElementById("chainName").value)+
-        "%26body%3D"+
-        encodeURIComponent(fullTexts[id - 1]);
-        
-  window.open(link, "_blank");
+
+function email(id) {
+    const subject = encodeURIComponent(
+        "הזמנה להקלטת סיפור555 שלך בשרשרת " +
+        document.getElementById("chainName").value
+    );
+
+    const body = encodeURIComponent(fullTexts[id - 1]);
+
+    const to = encodeURIComponent(currPerson.email);
+
+    const link = `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+
+    window.open(link, "_blank");
 }
+
 function sendBothPreMes() {
   whatsAppMes("preMesInter");
   whatsAppMes("preMesGuest");
