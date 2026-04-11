@@ -35,9 +35,10 @@ var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },
     { name: "", lines: [] },
+    { name: "", lines: [] },
     { name: "", lines: [] }
 ];
-var fullTexts = [[], [], [], [],[],[],[],[],[]];
+var fullTexts = [[], [], [], [],[],[],[],[],[],[]];
 var chainOption;
 var allChains = [];
 var newChain = {};
@@ -192,13 +193,13 @@ function getMessData() {
           ],
         };
 
-       for (var i = 1; i <= 9; i++) {
-          if (newMess.name.includes("פוסט " + i)) {
+       for (var i = 1; i <= 10; i++) {
+          if (newMess.name===("פוסט " + i)) {
             messes[i - 1] = newMess;
           }
         }
       });
-      for (var i = 0; i <= 8; i++) {
+      for (var i = 0; i <= 9; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
             
           cutMess(messes[i].lines, i + 1);
