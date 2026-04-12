@@ -19,6 +19,8 @@ console.log(currentDate);
 var messes = [
   { name: "", lines: [] }
 ];
+var datelastmessText="";
+
 var fullTexts = [[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
@@ -189,7 +191,7 @@ function cutMess(linesArr, messType) {
       testH4.innerHTML = duplicateLine;
      // testDiv.append(testH4);
     }
-    document.getElementById("datelastmess").value =currText;
+    datelastmessText =currText;
     document.getElementById("datelastmessNew").value =currText;
     i++;
   }
@@ -235,7 +237,8 @@ function submit(){
                 document.getElementById("titleB4").innerHTML = allPeople[i].title;
                 document.getElementById("plotB4").innerHTML = allPeople[i].plot;
                 document.getElementById("datelastmessB4").innerHTML = allPeople[i].datelastmess;
-               
+                document.getElementById("datelastmess").value = datelastmessText;
+
                 
             }
         }
@@ -287,9 +290,9 @@ function clearValues() {
                 document.getElementById("inviterphone").value = "";
                 document.getElementById("title").value = "";
                 document.getElementById("plot").value = "";
-                document.getElementById("datelastmess").value= ""; 
-    document.getElementById("nameChange").innerHTML = "תיקון שם";
-    document.getElementById("chainChange").innerHTML = "תיקון שרשרת";
+                document.getElementById("datelastmess").value = "";
+                document.getElementById("nameChange").innerHTML = "תיקון שם";
+                document.getElementById("chainChange").innerHTML = "תיקון שרשרת";
                 document.getElementById("phoneChange").innerHTML = "תיקון טלפון";
                 document.getElementById("emailChange").innerHTML= "תיקון כתובת מייל";
                 document.getElementById("inviternameChange").innerHTML = "תיקון שם מזמין";
