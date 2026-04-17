@@ -11,7 +11,7 @@ var chosenCol = "";
 var chosenRow = 0;
 var chosenChainRow=0;
 var url =
-  "https://script.google.com/macros/s/AKfycbwq7ioyaxyoKxF7wxUe2_AycecNwNWmmlDT25M513DdwkH8hQ7gKO4Og9d7lvXEp8W8YA/exec";
+  "https://script.google.com/macros/s/AKfycby11yYTedy449avnyBnGMY1fuWoksByKmmRvcYM0ZsFzSpomwX6VlxPF9yGOsgQiLAxlw/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -47,6 +47,7 @@ function getData() {
           mess: ele.datelastmess,
           email: ele.email,
           title: ele.topicofstory,
+          commontitle:ele.commontitle,
           subtitle: ele.subtitle,
             virtue: ele.virtue,
           abouttheguest: ele.abouttheguest,
@@ -91,6 +92,8 @@ function getData() {
         if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;
         if (ele.fixedtopicofstory !== "")
           newPerson.title = ele.fixedtopicofstory;
+        if (ele.fixedcommontitle !== "")
+          newPerson.commontitle = ele.fixedcommontitle;
         if (ele.fixedsubtitle !== "") newPerson.subtitle = ele.fixedsubtitle;
           if (ele.fixedvirtue !== "") newPerson.virtue = ele.fixedvirtue;
         if (ele.fixedabouttheguest !== "")
@@ -308,6 +311,7 @@ function clearValues() {
   document.getElementById("mess").value = "";
     getMessData();
   document.getElementById("title").value = "";
+    document.getElementById("commontitle").value = "";
   document.getElementById("subtitle").value = "";
     document.getElementById("virtue").value = "";
   document.getElementById("about").value = "";
@@ -344,6 +348,7 @@ function clearValues() {
     document.getElementById("chainChange").innerHTML="תיקון שרשרת";
     document.getElementById("orderChange").innerHTML="הוספת מספר חרוז בשרשרת";
     document.getElementById("titleChange").innerHTML="תיקון כותרת";
+    document.getElementById("commontitleChange").innerHTML="תיקון כותרת משותפת";
     document.getElementById("subtitleChange").innerHTML="תיקון מסר";
     document.getElementById("virtueChange").innerHTML="תיקון סגולה";
      document.getElementById("aboutChange").innerHTML="תיקון הצגה";
@@ -412,6 +417,7 @@ function submitData() {
       document.getElementById("orderB4").innerHTML = allPeople[i].order;
       document.getElementById("messB4").innerHTML = allPeople[i].mess;
       document.getElementById("titleB4").innerHTML = allPeople[i].title;
+        document.getElementById("commontitleB4").innerHTML = allPeople[i].commontitle;
       document.getElementById("subtitleB4").innerHTML = allPeople[i].subtitle;
         document.getElementById("virtueB4").innerHTML = allPeople[i].virtue;
       document.getElementById("aboutB4").innerHTML = allPeople[i].abouttheguest;
