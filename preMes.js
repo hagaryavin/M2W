@@ -211,10 +211,14 @@ function getMessData() {
         }
         if(i==10){
             var text11againDiv = document.getElementById("text11again");
-            removeAllChildNodes(text11againDiv);
+            //if(messType===11){
+                removeAllChildNodes(text11againDiv);
+            //}
             var original = document.getElementById("text11");
             var copy = original.cloneNode(true);
-            text11againDiv.appendChild(copy);
+            //if(messType===11){
+                text11againDiv.appendChild(copy);
+            //}
 
         }
       }
@@ -257,7 +261,9 @@ function cutMess(linesArr, messType) {
   if (currCrew.name === "") crewMem = "";
   var currText = "";
   var testDiv = document.getElementById("text" + messType);
-  removeAllChildNodes(testDiv);
+  if(messType===11){
+    removeAllChildNodes(testDiv);
+  }
   var i = 0;
   var firstName2 = fixFirstName(currPerson.guestphone);
   var firstNameInterviewer2 = fixInterviewerFirstName(currPerson.guestphone);
@@ -334,7 +340,9 @@ function cutMess(linesArr, messType) {
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-      testDiv.append(testH4);
+      if(messType===11){
+        testDiv.append(testH4);
+      }
     }
     i++;
   }

@@ -278,6 +278,7 @@
            
           <h3 class="mb-0"><u>אישור רישום להקלטה</u></h3>
             <h6 class="mb-1 text-muted">לאחר מילוי הטופס</h6>
+<!--
                           <div class="row align-items-center">
  <div class="col">
            <div id="text1"></div>
@@ -289,6 +290,7 @@
            <div id="text3"></div>
      </div>
             </div>
+-->
         <div class="form-control input-group-text col-auto mb-2" role="group">
           
           <button
@@ -297,7 +299,7 @@
             id="sendMes1"
             onclick="whatsAppMes('1_inter')"
           >
-            שליחת הודעה למראיין
+            שליחת אישור רישום למראיין
           </button>
             <button
             type="button"
@@ -305,7 +307,7 @@
             id="sendMes2"
             onclick="whatsAppMes('2_creator')"
           >
-            שליחת הודעה ליוצר השרשרת
+            שליחת אישור רישום ליוצר
           </button>
             <button
             type="button"
@@ -313,7 +315,7 @@
             id="sendMes3"
             onclick="whatsAppMes('3_guest')"
           >
-        שליחת הודעה לאורח
+        שליחת אישור רישום לאורח
           </button>
           <button
             type="button"
@@ -321,7 +323,7 @@
             id="copyMes1"
             onclick="copy('3')"
           >
-            העתקת הודעה
+            העתקת אישור רישום
           </button>
         </div>
         
@@ -335,7 +337,7 @@
             id="sendMes11"
             onclick="whatsAppMes('11_inter')"
           >
-            שליחת הודעה למראיין
+            שליחת הודעה משתנה למראיין
           </button>
             <button
             type="button"
@@ -343,7 +345,7 @@
             id="sendMes11"
             onclick="whatsAppMes('11_creator')"
           >
-            שליחת הודעה ליוצר השרשרת
+            שליחת הודעה משתנה ליוצר
           </button>
             <button
             type="button"
@@ -351,7 +353,7 @@
             id="sendMes11"
             onclick="whatsAppMes('11_guest')"
           >
-        שליחת הודעה לאורח
+        שליחת הודעה משתנה לאורח
           </button>
           <button
             type="button"
@@ -359,12 +361,13 @@
             id="copyMes11"
             onclick="copy('11')"
           >
-            העתקת הודעה
+            העתקת הודעה משתנה
           </button>
         </div>
 
             <h3 class="mb-0"><u>הזמנה להקלטה</u></h3>
               <h6 class="mb-1 text-muted">יום לפני ההקלטה</h6>
+<!--
               <div class="row align-items-center">
     <div class="col">
            <div id="text4"></div>
@@ -376,110 +379,111 @@
            <div id="text6"></div>
                   </div>
                 </div>
-          <div class="form-control input-group-text col-auto mb-2" role="group">
+-->
+        <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes4"
               onclick="whatsAppMes('4_guest')"
             >
-              שליחת הודעה לאורח
+              שליחת הזמנה להקלטה לאורח
             </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes5"
-              onclick="whatsAppMes('5_inter')"
-            >
-              שליחת הודעה למראיין</button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes6"
-              onclick="whatsAppMes('6_creator')"
-            >
-              שליחת הודעה ליוצר השרשרת</button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="copyMes5"
-              onclick="copy('4')"
-            >
-              העתקת הודעה
-            </button>
-          </div>
-          <div id="text7"></div>
-          <div class="form-control input-group-text col-auto mb-2" role="group">
-            <button
+             <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes7"
               onclick="whatsAppMes('7_guest')"
             >
-              שליחת הודעה לאורח
+              שליחת לינק לזום לאורח
             </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes7"
-              onclick="whatsAppMes('7_inter')"
-            >
-              שליחת הודעה למראיין
-            </button>
-              <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="sendMes7"
-              onclick="whatsAppMes('7_creator')"
-            >
-              שליחת הודעה ליוצר השרשרת
-            </button>
-            <button
-              type="button"
-              class="btn form-control btn-outline-secondary"
-              id="copyMes7"
-              onclick="copy('7')"
-            >
-              העתקת הודעה
-            </button>
-          </div>
-            <div id="text8"></div>
-          <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes8"
               onclick="whatsAppMes('8_guest')"
             >
-              שליחת הודעה לאורח
+              שליחת לינק לצפייה לאורח
             </button>
-            <button
+        </div>
+            <div class="form-control input-group-text col-auto mb-2" role="group">
+                <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes5"
+              onclick="whatsAppMes('5_inter')"
+            >
+              שליחת הזמנה להקלטה למראיין</button>
+                <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes7"
+              onclick="whatsAppMes('7_inter')"
+            >
+              שליחת לינק לזום למראיין
+            </button>
+                <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes8"
               onclick="whatsAppMes('8_inter')"
             >
-              שליחת הודעה למראיין
+              שליחת לינק לצפייה למראיין
             </button>
-              <button
+            </div>
+            <div class="form-control input-group-text col-auto mb-2" role="group">
+                <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes6"
+              onclick="whatsAppMes('6_creator')"
+            >
+              שליחת הזמנה להקלטה ליוצר</button>
+                <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="sendMes7"
+              onclick="whatsAppMes('7_creator')"
+            >
+              שליחת לינק לזום ליוצר
+            </button>
+                <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="sendMes8"
               onclick="whatsAppMes('8_creator')"
             >
-              שליחת הודעה ליוצר השרשרת
+              שליחת לינק לצפייה ליוצר
             </button>
+            </div>
+          <div class="form-control input-group-text col-auto mb-2" role="group">
             <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes5"
+              onclick="copy('4')"
+            >
+              העתקת הזמנה להקלטה
+            </button>
+              <button
+              type="button"
+              class="btn form-control btn-outline-secondary"
+              id="copyMes7"
+              onclick="copy('7')"
+            >
+              העתקת לינק לזום
+            </button>
+              <button
               type="button"
               class="btn form-control btn-outline-secondary"
               id="copyMes8"
               onclick="copy('8')"
             >
-              העתקת הודעה
+              העתקת לינק לצפייה
             </button>
           </div>
-            
-            
+<!--          <div id="text7"></div>-->        
+<!--            <div id="text8"></div>-->
             <h3 class="mb-0"><u>הודעה משתנה</u></h3>
             <div id="text11again"></div>   
 <div class="form-control input-group-text col-auto mb-2" role="group">
@@ -489,7 +493,7 @@
               id="sendMes11"
               onclick="whatsAppMes('11_guest')"
             >
-              שליחת הודעה לאורח
+              שליחת הודעה משתנה לאורח
             </button>
             <button
               type="button"
@@ -497,7 +501,7 @@
               id="sendMes11"
               onclick="whatsAppMes('11_inter')"
             >
-              שליחת הודעה למראיין
+              שליחת הודעה משתנה למראיין
             </button>
               <button
               type="button"
@@ -505,7 +509,7 @@
               id="sendMes11"
               onclick="whatsAppMes('11_creator')"
             >
-              שליחת הודעה ליוצר השרשרת
+              שליחת הודעה משתנה ליוצר
             </button>
             <button
               type="button"
@@ -513,14 +517,14 @@
               id="copyMes11"
               onclick="copy('11')"
             >
-              העתקת הודעה
+              העתקת הודעה משתנה
             </button>
           </div>
             
             <h3 class="mb-0"><u>הזמנה להקלטה במייל</u></h3>
               <h6 class="mb-1 text-muted">יום לפני ההקלטה</h6>
               <div class="row align-items-center">
-                  <div id="text9"></div>
+<!--                  <div id="text9"></div>-->
                  <div class="form-control input-group-text col-auto mb-2" role="group">
                   <button
                   type="button"
@@ -528,7 +532,7 @@
                   id="sendMes9"
                   onclick="email('9')"
                 >
-                  שליחת הודעה לאורח במייל
+                  שליחת הזמנה להקלטה במייל לאורח
                 </button>
                   <button
                   type="button"
@@ -536,7 +540,7 @@
                   id="copyMes9"
                   onclick="copy('9')"
                 >
-                  העתקת הודעה
+                  העתקת הזמנה להקלטה
                 </button>
                   </div>
             </div>
@@ -557,7 +561,7 @@
                   id="sendMes10"
                   onclick="whatsAppMes('10_guest')"
                 >
-                  שליחת הודעה לאורח
+                  שליחת אישור רישום למועמדות לאורח
                 </button>
                   <button
                   type="button"
@@ -565,7 +569,7 @@
                   id="copyMes10"
                   onclick="copy('10')"
                 >
-                  העתקת הודעה
+                  העתקת אישור רישום למועמדות
                 </button>
                   </div>
             </div>
