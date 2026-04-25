@@ -1,5 +1,5 @@
 var url =
-  "https://script.google.com/macros/s/AKfycbz7IgSM1Rhei0PPSgEHwxD_YHtyevYhZt32Mje9asUeGE20_J8a59XYw0xNFJMxjDKXKA/exec";
+  "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
 var crewList = [];
 var currCrewName = "{}";
 var newCrewMem;
@@ -29,11 +29,11 @@ function getCrewData() {
     
 }
 function submit(){
-        
     currCrew=crewChosen();
     console.log("tries: "+currCrew.name)
-    if(currCrew.password===document.getElementById("password").value)
-            window.open("home.html","_self")
+    if(currCrew.password===document.getElementById("password").value){
+        window.location.href='./home.html?mode='+document.getElementById("mode").value;   
+    }
     else
         alert("סיסמא שגויה!");
 }

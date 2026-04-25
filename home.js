@@ -31,6 +31,11 @@ var danaDateVal=2;
 var nullTask=[];
 var clipsToChange=0;
 var indiclipsToChange=0;
+var modeParam = new URLSearchParams(window.location.search);
+var mode = modeParam.get('mode');
+if(!mode){
+    mode='all';
+}
 var loaderStatus = document.getElementById("loaderStatus");
 const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
@@ -54,6 +59,7 @@ var todaysDay = today.getDate();
 var todaysMonth = today.getMonth() + 1;
 var todaysCurrentDate = todaysDay + "." + todaysMonth;
 function start(){
+        switchLang();
        getTimingData();
        setTimeout(() => {
              getChainData();
@@ -83,10 +89,13 @@ function getData(x) {
     fetch(url)
         .then((res) => {
             return res.json();
-            
         })
         .then((json) => {
-        json.data.forEach((ele, index) => { 
+        var data=json.data;
+        if(mode&&mode!=='all'){
+            data = json.data.slice().reverse();
+        }  
+        data.forEach((ele, index) => { 
             const newPerson = {
                     name: ele.name,
                     interviewername: ele.interviewername,
@@ -96,24 +105,32 @@ function getData(x) {
                     recordingdate: "",
                     premessdate: "",
                     postmessdate: "",
-                    postmessinvitedate: "",
                     danadate:"",
+                    postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     individ:false,
                     livechain:false,
-                    row: tableRow,
+                    row: ele.row,
                     linkfull: ele.linkfull,
                     conference:false,
                     id:ele.id
                 };
-                
                 tableRow++;
-            
+                var inDate=true;
+                if(mode&&mode!=='all'){
+                    inDate=false;
+                    if (isWithinDays(newPerson.timeformsent,parseInt(mode))) {
+                        inDate=true;
+                    }
+                }
                 
                 setTimeout(() => {
-                    if (newPerson.id) {
+                    if (newPerson.id&&inDate) {
                         loaderStatus.innerHTML = "בודקת חרוז " + newPerson.id + "...";
                         console.log("בודקת חרוז " + newPerson.id);
+                    }
+                    if(!newPerson.id){
+                        loaderStatus.innerHTML = "בודקת חרוזים";
                     }
                     if (index === json.data.length - 2) { 
                         setTimeout(() => {
@@ -122,7 +139,7 @@ function getData(x) {
                             loader.style.display = "none";
                         }, 20);
                     }
-                }, Math.max(0, index*20-6000));  
+                }, Math.max(0, index*10-6000));   
                 if(ele.individ!==""){
                     newPerson.individ=true;
                 }
@@ -444,6 +461,7 @@ function getData(x) {
                             );
                         }
 
+                        
                     }
                      //////////////15 condition
                         if (
@@ -477,13 +495,16 @@ function getData(x) {
                                 "add"
                             );
                         }
-
                     }
-                    console.log(newPerson);
+                    if(inDate){
+                        console.log(newPerson);
+                    }
                     allPeople.push(newPerson);   
+                    
                 }
                
-            });
+            })
+    ;
             taskData();
         });
 }
@@ -500,7 +521,11 @@ function getDataEng(x) {
             
         })
         .then((json) => {
-            json.data.forEach((ele) => {
+        var data=json.data;
+        if(mode&&mode!=='all'){
+            data = json.data.slice().reverse();
+        }  
+        data.forEach((ele) => {
                 newPerson = {
                     name: ele.name,
                     interviewername: ele.interviewername,
@@ -510,15 +535,21 @@ function getDataEng(x) {
                     recordingdate: "",
                     premessdate: "",
                     postmessdate: "",
-                    postmessinvitedate: "",
                     danadate: "",
+                    postmessinvitedate: "",
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
-                    row: tableRowEng,
+                    row: ele.row,
                     linkfull: ele.linkfull,
                     qa:false
                 };
                 tableRowEng++;
-
+                var inDate=true;
+                if(mode&&mode!=='all'){
+                    inDate=false;
+                    if (isWithinDays(newPerson.timeformsent,parseInt(mode))) {
+                        inDate=true;
+                    }
+                }
                 if (ele.fixedname !== "") newPerson.name = ele.fixedname;
                 if (ele.fixedinterviewername !== "")
                     newPerson.interviewername = ele.fixedinterviewername;
@@ -844,7 +875,9 @@ function getDataEng(x) {
                             );
                         }
                     }
-                    console.log(newPerson);
+                    if(inDate){
+                        console.log(newPerson);
+                    }
                     allPeopleEng.push(newPerson);
                 }
             });
@@ -1423,7 +1456,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
             });
@@ -1454,7 +1487,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
             });
@@ -1484,7 +1517,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./rightAfterMes.html?'+params;
             });
@@ -1515,7 +1548,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMes.html?'+params;
             });
@@ -1542,7 +1575,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./socialPost.html?'+params;
             });
@@ -1620,7 +1653,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInvite.html?'+params;
             });
@@ -1647,7 +1680,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMes.html?'+params;
             });
@@ -1788,7 +1821,7 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./rightAfterMes.html?'+params;
             });
@@ -1818,12 +1851,12 @@ function createTasks() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain));
+            const params='name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMes.html?'+params;
             });
             optionDiv.append(optionList);
-            optionDiv.append(optionBut);            
+            optionDiv.append(optionBut);
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
@@ -1856,7 +1889,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;
             });
@@ -1886,7 +1919,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;
             });
@@ -1940,7 +1973,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesEng.html?'+params;
             });
@@ -1967,7 +2000,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./socialPostEng.html?'+params;
             });
@@ -2043,7 +2076,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesInviteEng.html?'+params;
             });
@@ -2070,7 +2103,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./preMesEng.html?'+params;
             });
@@ -2235,7 +2268,7 @@ function createTasksEng() {
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
             optionBut.classList.add("btn", "btn-light","btn-in-task");
-            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain));
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
              optionBut.addEventListener("click", function () {
                 window.location.href='./postMesEng.html?'+params;
             });
@@ -2689,6 +2722,12 @@ function cleanName(name){
     }
     return name;
 }
+function isWithinDays(pastDate, days) {
+  const today = changeTimeZone(new Date(), 'Asia/Jerusalem');
+  const diffMs = today - pastDate;
+  const diffDays = diffMs / (1000 * 60 * 60 * 24);
+  return diffDays <= days;
+}
 function preMessDate(date) {
     var prev = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     prev.setDate(date.getDate() +parseInt(preMessDateVal));
@@ -2718,6 +2757,7 @@ function postMessInviteDate(date) {
     next.setHours(0, 0, 0);
     return next;
 }
+
 function danaDate(date) {
     var next = changeTimeZone(new Date(date.getTime()), 'Asia/Jerusalem');
     next.setDate(date.getDate() +parseInt(danaDateVal));
@@ -2728,41 +2768,42 @@ function danaDate(date) {
     return next;
 }
 function switchLang(){
+    document.getElementById("homeBtn").onclick=function() { window.location.href='./home.html?mode='+mode;};
     if (document.getElementById("switch").checked === true){
        document.getElementById("switchLabel").innerHTML="עברית";
         document.getElementById("toPreMes").innerHTML="אישור והזמנה להקלטה";
-        document.getElementById("toPreMes").onclick=function() { window.location.href='./preMes.html';};
+        document.getElementById("toPreMes").onclick=function() { window.location.href='./preMes.html?mode='+mode;};
         document.getElementById("toRightAfterMes").innerHTML="הזמנה לוואטסאפ חרוזים";
-        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='./rightAfterMes.html';};
+        document.getElementById("toRightAfterMes").onclick=function() { window.location.href='./rightAfterMes.html?mode='+mode;};
         document.getElementById("toPostMes").innerHTML="לינקים לתוצרים";
-        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMes.html';};
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMes.html?mode='+mode;};
          document.getElementById("toPostMesInvite").innerHTML="לינקים להזמנת אורח";
-        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html';};
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInvite.html?mode='+mode;};
         document.getElementById("toSocialPost").innerHTML="פוסט (לוח פרסום)";
-        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html';};
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPost.html?mode='+mode;};
         document.getElementById("toNewChain").innerHTML="עדכון שרשרת/קהילה";
-        document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html';};
+        document.getElementById("toNewChain").onclick=function() { window.location.href='./newChain.html?mode='+mode;};
        document.getElementById("toStuckMes").innerHTML="חרוזים אחרונים";
-        document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html';};
+        document.getElementById("toStuckMes").onclick=function() { window.location.href='./stuckMes.html?mode='+mode;};
         document.getElementById("toChangeCRM").innerHTML="עדכון תוצרים ותיקונים";
-        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html';};
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRM.html?mode='+mode;};
          document.getElementById("toDisplay").innerHTML="הכרטיס";
-        document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html';};
+        document.getElementById("toDisplay").onclick=function() { window.location.href='./display.html?mode='+mode;};
         document.getElementById("toNominees").innerHTML="מועמדות";
-        document.getElementById("toNominees").onclick=function() { window.location.href='./nominees.html';};
+        document.getElementById("toNominees").onclick=function() { window.location.href='./nominees.html?mode='+mode;};
     }
     else{
        document.getElementById("switchLabel").innerHTML="English";
         document.getElementById("toPreMes").innerHTML="Eng אישור והזמנה להקלטה";
-        document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html';};
+        document.getElementById("toPreMes").onclick=function()  { window.location.href='./preMesEng.html?mode='+mode;};
         document.getElementById("toRightAfterMes").innerHTML="Eng הזמנה לוואטסאפ";
         document.getElementById("toRightAfterMes").onclick=function() { window.location.href='';};
         document.getElementById("toPostMes").innerHTML="Eng תוצרים";
-        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html';};
+        document.getElementById("toPostMes").onclick=function() { window.location.href='./postMesEng.html?mode='+mode;};
          document.getElementById("toPostMesInvite").innerHTML="Eng הזמנת אורח";
-        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html';};
+        document.getElementById("toPostMesInvite").onclick=function() { window.location.href='./postMesInviteEng.html?mode='+mode;};
         document.getElementById("toSocialPost").innerHTML="Eng פוסט";
-        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html';};
+        document.getElementById("toSocialPost").onclick=function() { window.location.href='./socialPostEng.html?mode='+mode;};
         document.getElementById("toNewChain").innerHTML="Eng עדכון שרשרת";
         document.getElementById("toNewChain").onclick=function() { window.location.href='';};
        document.getElementById("toStuckMes").innerHTML="Eng חרוזים אחרונים";
@@ -2772,6 +2813,6 @@ function switchLang(){
         document.getElementById("toNominees").innerHTML="Eng מועמדות";
         document.getElementById("toNominees").onclick=function() { window.location.href='';};
         document.getElementById("toChangeCRM").innerHTML="Eng עדכון ותיקון תוצרים";
-        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html';};
+        document.getElementById("toChangeCRM").onclick=function() { window.location.href='./changeCRMEng.html?mode='+mode;};
     }
 }

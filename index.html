@@ -68,6 +68,17 @@
         <span class="input-group-text">סיסמא:</span>
 
         <input type="password" class="form-control" id="password" autocomplete="off">
+          
+      </div>
+        <div class="input-group mb-3" id="passDiv">
+        <span class="input-group-text">צפייה בחרוזים שנרשמו ב</span>
+        <select class="form-select" id="mode">
+          <option value="30">30 הימים האחרונים</option>
+          <option value="60">60 הימים האחרונים</option>
+          <option value="90"selected >90 הימים האחרונים</option>
+            <option value="365">שנה האחרונה</option>
+          <option value="all">כל הזמנים</option>
+        </select>          
       </div>
         <button
       onclick="submit()"
