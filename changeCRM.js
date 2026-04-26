@@ -38,7 +38,7 @@ var fullTexts = [[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 var taskurl =
-    "https://script.google.com/macros/s/AKfycbwm0oPiXySNRd8jMccAhVThtSYcGQTqzivjLThlcL8tgldyDSlO8osMtglXTRwL2HtTUQ/exec";
+    "https://script.google.com/macros/s/AKfycbzkWQBBdKmgS4w839LeJXHyThotNxMPNYnZoAtcqczC46k_fU_COgM73p52P5Ip6GMgxQ/exec";
 getChainData();
 getData();
 function getData() {

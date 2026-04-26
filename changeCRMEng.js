@@ -26,7 +26,7 @@ var currChain = {};
 var chainDataURL=
   "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
 var taskurl =
-      "https://script.google.com/macros/s/AKfycbyFoycib2OcOuBG6PML-aS7qqL6xQL6uctwl_a-BRZ5dYut4foXaeOT6ktkzFtr9udX/exec";
+      "https://script.google.com/macros/s/AKfycbxUIl_R0hrGsor8-0X1r0wxsvT6mFkbjL06geZQOyYskLnE-_lqUgCtC9TRVjMkzA7o/exec";
 getChainData();
 getData();
 function getData() {
