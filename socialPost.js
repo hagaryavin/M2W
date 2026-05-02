@@ -79,6 +79,7 @@ function getData() {
           linkfull: ele.linkfull,
           linkshortyt: ele.linkshortyt,
           chaintype: "long",
+          order:String(ele.order),
           timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
           row: ele.row,
         };
@@ -102,7 +103,7 @@ function getData() {
         allPeople.push(newPerson);
         personOption = document.createElement("option");
         personOption.value =
-          newPerson.guestname + " + " + fixChainFromData(newPerson.chain);
+          newPerson.guestname + " + " + fixChainFromData(newPerson.chain)+""+newPerson.order;
          const params = new URLSearchParams(window.location.search);
             const nameP = params.get('name');
             const chainP = params.get('chain');
@@ -234,6 +235,10 @@ function cutMess(linesArr, messType) {
   if (currCrew.name === "") crewMem = "";
   var currText = "";
   var testDiv = document.getElementById("text" + messType);
+    var nameAndChain = document
+    .getElementById("peopleList")
+    .value.split(" + ");
+ var chainAndOrder=splitChainAndOrder(nameAndChain[1]);
     if(messType!==5){
   removeAllChildNodes(testDiv);
         }
@@ -262,9 +267,6 @@ function cutMess(linesArr, messType) {
       );
     }
     if (linesArr[i].includes("fullNameOfGuest")) {
-      var nameAndChain = document
-        .getElementById("peopleList")
-        .value.split(" + ");
       linesArr[i] = linesArr[i].replace("fullNameOfGuest", nameAndChain[0]);
     }
     if (linesArr[i].includes("crewName")) {
@@ -613,10 +615,12 @@ function fixInterviewerFirstName(phoneNum) {
   var fullName = "";
   for (var i = 0; i < size; i++) {
     var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    var chainAndOrder=splitChainAndOrder(nameAndChain[1]);
     if (
       allPeople[i].guestphone === phoneNum &&
-      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
-    )
+      fixChainFromData(allPeople[i].chain) === chainAndOrder[0]&&
+      ((chainAndOrder[1]==="")||(chainAndOrder[1]!==""&&allPeople[i].order===chainAndOrder[1]))
+    )  
       fullName = allPeople[i].interviewername;
   }
   const splittedName = fullName.split(" ");
@@ -647,9 +651,12 @@ function submitData() {
       allPeople[i].guestname === document.getElementById("peopleList").value
     ) {*/
     var nameAndChain = document.getElementById("peopleList").value.split(" + ");
+    var chainAndOrder=splitChainAndOrder(nameAndChain[1]);
+
     if (
       allPeople[i].guestname === nameAndChain[0] &&
-      fixChainFromData(allPeople[i].chain) === nameAndChain[1]
+      fixChainFromData(allPeople[i].chain) === chainAndOrder[0]&&
+      ((chainAndOrder[1]==="")||(chainAndOrder[1]!==""&&allPeople[i].order===chainAndOrder[1])) 
     ) {
       console.log("row num:" + allPeople[i].row);
       document.getElementById("chainName").value = fixChainFromData(
@@ -696,6 +703,16 @@ function toFixCreatorPhone() {
   if (document.getElementById("fixCreatorPhone").checked === true) {
     wannaFixCreatorPhone = true;
   } else wannaFixCreatorPhone = false;
+}
+function splitChainAndOrder(str) {
+    if(str){
+      var i = str.length - 1;
+      while (i >= 0 && /\d/.test(str[i])) {
+        i--;
+      }
+      return [str.slice(0, i + 1), str.slice(i + 1)];
+    }
+    return "";
 }
 function changeTimeZone(date, timeZone) {
   if (typeof date === 'string') {
