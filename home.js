@@ -1816,7 +1816,7 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "community" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - וואטסאפ 555-קהילה - ";
+                allTasks[i].name + " - " + recDate +" - וואטסאפ קהילה 555-"+shortChainName(allTasks[i].chain);
             optionInput.classList.add("form-check-label");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
@@ -2241,7 +2241,7 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "community" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - וואטסאפ 555-קהילה";
+                allTasksEng[i].name + " - " + recDate +" - וואטסאפ קהילה 555-"+shortChainName(allTasksEng[i].chain);
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
