@@ -783,7 +783,7 @@ function submitData() {
      document.getElementById("goToChangeCRM").innerHTML ="לדף - עדכון תוצרים של "+nameAndChain[0];
     const params= 'name='+encodeURIComponent(nameAndChain[0])+'&chain='+encodeURIComponent(fixChainFromData(
         allPeople[i].chain
-      ));
+      ))+"&mode="+mode;
         document.getElementById("goToChangeCRM").addEventListener("click", function () {
                 window.location.href='./changeCRM.html?'+params;
             });

@@ -332,11 +332,11 @@ function checkInputs() {
     currPerson = findFirstInChain();
     console.log(currPerson);
       document.getElementById("toPost").addEventListener("click", function () {
-                window.location.href='./socialPost.html?name='+encodeURIComponent(currPerson.guestname)+'&chain='+encodeURIComponent(currChain.name);           
+                window.location.href='./socialPost.html?name='+encodeURIComponent(currPerson.guestname)+'&chain='+encodeURIComponent(currChain.name)+'&mode='+mode;          
             });
     if (currPerson.guestname === "...") {
             document.getElementById("toPost").addEventListener("click", function () {
-                window.location.href='./socialPost.html';           
+                window.location.href='./socialPost.html?mode='+mode;          
             });   
     }
     return true;
