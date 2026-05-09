@@ -56,17 +56,38 @@ img {
 }
 
 @media (max-width: 576px) {
+    
   .nav-img {
     visibility: visible;
-    max-height: 30px;
+    object-fit: contain;
   }
+    #wideLogo{
+        max-height: 22px;
+         object-fit: contain;
+    }
     .nav-lang{
        margin-left:5px;
- 
     }
 
 }
+@media (max-width: 400px) {
+    
+  .nav-img {
+    visibility: visible;
+      max-height: 30px;
+    object-fit: contain;
+  }
+    #wideLogo{
+        max-height: 11px;
+         object-fit: contain;
+        padding: 0px;
+        margin: 0px;
+    }
+    .navbar-brand{
+        transform: translateX(20px);
+    }
 
+}
 .blog-header-logo {
   font-family: "Playfair Display", Georgia, "Times New Roman", serif;
   font-size: 2.25rem;
@@ -245,6 +266,33 @@ border: 1px solid #0d6efd !important;
 .navbar {
   background-color: #ffffff;
 }
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.popup-box {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 420px; 
+  direction: rtl;
+}
+
+.popup-box select {
+  width: 100%;
+  white-space: nowrap;
+}
+
+
 
 
 

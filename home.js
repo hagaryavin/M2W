@@ -2767,6 +2767,22 @@ function danaDate(date) {
     next.setHours(0, 0, 0);
     return next;
 }
+function openModePopup() {
+    document.getElementById("modePopup").style.display = "flex";
+}
+
+function closeModePopup(event) {
+    if (event.target.id === "modePopup") {
+        document.getElementById("modePopup").style.display = "none";
+    }
+}
+
+function applyNewMode() {
+    const params = new URLSearchParams(window.location.search);
+    const newMode = document.getElementById("popupMode").value;
+    params.set("mode", newMode);
+    window.location.search = params.toString();
+}
 function switchLang(){
     document.getElementById("homeBtn").onclick=function() { window.location.href='./home.html?mode='+mode;};
     if (document.getElementById("switch").checked === true){
