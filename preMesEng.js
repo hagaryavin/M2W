@@ -885,6 +885,7 @@ function isWithinDays(pastDate, days) {
   return diffDays <= days;
 }
 function switchLang(){
+    document.getElementById("modeBox").textContent = mode ? mode : "?";
     document.getElementById("homeBtn").onclick=function() { window.location.href='./home.html?mode='+mode;};
     if (document.getElementById("switch").checked === true){
        document.getElementById("switchLabel").innerHTML="עברית";

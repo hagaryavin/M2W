@@ -714,6 +714,7 @@ function applyNewMode() {
     window.location.search = params.toString();
 }
 function switchLang(){
+    document.getElementById("modeBox").textContent = mode ? mode : "?";
     document.getElementById("homeBtn").onclick=function() { window.location.href='./home.html?mode='+mode;};
     if (document.getElementById("switch").checked === true){
        document.getElementById("switchLabel").innerHTML="עברית";
