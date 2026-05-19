@@ -67,6 +67,7 @@ function getData() {
           if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
           if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
           if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
+            if (ele.chainsix !== "") newPerson.chain = ele.chainsix;
         }
         if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
         if (ele.fixedemail !== "") newPerson.email = ele.fixedemail;

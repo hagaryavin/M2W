@@ -150,6 +150,7 @@ function getData(x) {
                     if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
                     if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
                     if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
+                    if (ele.chainsix !== "") newPerson.chain = ele.chainsix;
                 }
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
                 if(shortChainName(newPerson.chain).startsWith("כנס")&&!shortChainName(newPerson.chain).includes("TED")){
