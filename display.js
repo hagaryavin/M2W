@@ -32,12 +32,8 @@ function getData() {
     .then((res) => {
       return res.json();
     })
-    .then((json) => {
-      var data=json.data;
-        if(mode&&mode!=='all'){
-            data = json.data.slice().reverse();
-        }  
-        data.forEach((ele) => {
+    .then((json) =>{
+      json.data.forEach((ele) => {
         newPerson = {
           name: ele.name,
           phone: ele.phone,
@@ -91,15 +87,8 @@ function getData() {
         personOption = document.createElement("option");
         personOption.value =
           newPerson.name + " + " + fixChainFromData(newPerson.chain);
-        var inDate=true;
-            if(mode&&mode!=='all'){
-                inDate=false;
-                if (isWithinDays(newPerson.timeformsent,parseInt(mode))) {
-                    inDate=true;
-                }
-            }
         personOption.id = newPerson.row;
-        if (ele.fixedrecordingdate!=="ללא תאריך"&&inDate&&(newPerson.name !== "" || newPerson.chain !== "")) {
+        if (ele.fixedrecordingdate!=="ללא תאריך"&&(newPerson.name !== "" || newPerson.chain !== "")) {
           console.log(allPeople[size]);
           options.append(personOption);
         }
