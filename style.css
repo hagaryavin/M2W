@@ -60,14 +60,29 @@ img {
   .nav-img {
     visibility: visible;
     object-fit: contain;
+      
+      
   }
+    #modeBox{
+        padding-right: none;
+    }
     #wideLogo{
-        max-height: 22px;
-         object-fit: contain;
+        max-height: 40px;
+        width: 100px;
+         object-fit:fill;
+    }
+    .logo-wide-wrapper{
+         padding-left: none;
+      padding-right: none;
+        width: 80px;
+        margin: none;
+        transform: translateX(20px);
     }
     .nav-lang{
-       margin-left:5px;
+       margin-left:none;
+        
     }
+    
 
 }
 @media (max-width: 400px) {
@@ -78,10 +93,12 @@ img {
     object-fit: contain;
   }
     #wideLogo{
-        max-height: 11px;
-         object-fit: contain;
         padding: 0px;
         margin: 0px;
+         max-height: 25px;
+        width: 100px;
+         object-fit:contain;
+        transform: translateX(10px);
     }
     .navbar-brand{
         transform: translateX(20px);
