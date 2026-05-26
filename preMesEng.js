@@ -572,13 +572,24 @@ function whatsAppMes(id) {
   window.open(link, "_blank");
 }
 function fixPhoneData(phone) {
-  if (wannaFixGuestPhone === true) {
-    if (phone.includes("-")) {
-      console.log("in");
-      phone = phone.replace("-", "");
+ if (wannaFixGuestPhone === true) {
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
     }
-    if (phone.includes(" ")) {
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
       phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
     }
   }
   return phone;
@@ -693,7 +704,7 @@ function fixPhoneDataInter(phone) {
   return phone;
 }
 function fixPhoneDataCreator(phone) {
-  if (wannaFixCreatorPhone === true) {
+   if (wannaFixCreatorPhone === true&&phone!=="") {
     if (phone.includes("+972 ")) {
       phone = phone.replace("+972 ", "0");
     }

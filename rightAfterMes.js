@@ -435,12 +435,23 @@ function whatsAppMes(id) {
 }
 function fixPhoneDataGuest(phone) {
   if (wannaFixGuestPhone === true) {
-    if (phone.includes("-")) {
-      console.log("in");
-      phone = phone.replace("-", "");
+    if (phone.includes("+972 ")) {
+      phone = phone.replace("+972 ", "0");
     }
-    if (phone.includes(" ")) {
+    if (phone.startsWith("972 ")) {
+      phone = phone.replace("972 ", "0");
+    }
+    while (phone.includes(" ")) {
       phone = phone.replace(" ", "");
+    }
+    if (phone.includes("+")) {
+      phone = phone.replace("+", "");
+    }
+    if (!phone.startsWith("0")) {
+      phone = "0" + phone;
+    }
+    while (phone.includes("-")) {
+      phone = phone.replace("-", "");
     }
   }
   return phone;
@@ -492,6 +503,8 @@ function fixFirstName(phoneNum) {
   return splittedName[0];
 }
 function submitData() {
+    document.getElementById("interviewerPhone").value = "";
+  document.getElementById("guestPhone").value = "";
   toFixGuestPhone();
   toFixInterPhone();
   for (var i = 0; i < allPeople.length; i++) {

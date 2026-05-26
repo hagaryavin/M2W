@@ -675,7 +675,7 @@ function crewChosen() {
   }
 }
 function fixPhoneDataCreator(phone) {
-  if (wannaFixCreatorPhone === true) {
+  if (wannaFixCreatorPhone === true&&phone!=="") {
     if (phone.includes("+972 ")) {
       phone = phone.replace("+972 ", "0");
     }
