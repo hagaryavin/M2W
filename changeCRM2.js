@@ -17,7 +17,7 @@ var currChain = {};
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 var taskurl =
-  "https://script.google.com/macros/s/AKfycby17a_vfiR8IXwkNb8Uk2ZxAet_I1qkJd6y9n_nZRfl2S5-6pad8EmH9GyxRB0WrO78Aw/exec";
+  "https://script.google.com/macros/s/AKfycbyJhNnSvjZNUli92EpQjAuZYMHsnVlfjFO_gg5pTMBx_WLZG0fn5mzkD8SUc1hAghbVYw/exec";
 getChainData();
 getData();
 function getData() {
@@ -488,7 +488,7 @@ function deleteDate(id){
         sendData(temp, dataElement,"crm");
     }
     var messesTypes=[
-        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send"
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send","frame"
     ];
     for(var i=0;i<messesTypes.length;i++){
         console.log("col: "+messesTypes[i]);

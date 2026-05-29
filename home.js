@@ -27,7 +27,7 @@ var newChain = {};
 var preMessDateVal=-1;
 var postMessDateVal=1;
 var postMessInviteDateVal=4;
-var danaDateVal=3;
+var danaDateVal=4;
 var nullTask=[];
 var clipsToChange=0;
 var indiclipsToChange=0;
@@ -41,9 +41,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbzkWQBBdKmgS4w839LeJXHyThotNxMPNYnZoAtcqczC46k_fU_COgM73p52P5Ip6GMgxQ/exec";
+    "https://script.google.com/macros/s/AKfycbyJhNnSvjZNUli92EpQjAuZYMHsnVlfjFO_gg5pTMBx_WLZG0fn5mzkD8SUc1hAghbVYw/exec";
 const taskurlEng=
-      "https://script.google.com/macros/s/AKfycbxUIl_R0hrGsor8-0X1r0wxsvT6mFkbjL06geZQOyYskLnE-_lqUgCtC9TRVjMkzA7o/exec";
+      "https://script.google.com/macros/s/AKfycbzSWdr3iyTpkf2FAWRS46jHnhYOUCWlXqMPKrkqTd0QJ8sPFDiV1kUOu3GbG7y-chfc/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
@@ -259,7 +259,7 @@ function getData(x) {
                             newPerson.timeformsent.getMonth() === today.getMonth() &&
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
-                        //////6,7 condition
+                        //////6,7,16 condition
                         if (
                             getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")&&newPerson.livechain===false
                         ) {
@@ -271,6 +271,26 @@ function getData(x) {
                                 chainCreator: newPerson.chainCreator,
                                 chainCreatorEmail: newPerson.chainCreatorEmail,
                                 type: "confirm",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(newPerson.row, newTask.type, "add");
+                            }
+                        }
+                        if (
+                            getTasksDataFromPersonCont(newPerson.row, "frame") === "not yet"&&!nullTask.includes("frame")&&newPerson.livechain===false
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "frame",
                                 row: newPerson.row,
                             };
                             if (!taskAlreadyExist(newTask)) {
@@ -644,7 +664,7 @@ function getDataEng(x) {
                             newPerson.timeformsent.getMonth() === today.getMonth() &&
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
-                        //////6,7 condition
+                        //////6,7,16 condition
                         if (
                             getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")
                         ) {
@@ -656,6 +676,26 @@ function getDataEng(x) {
                                 chainCreator: newPerson.chainCreator,
                                 chainCreatorEmail: newPerson.chainCreatorEmail,
                                 type: "confirm",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(newPerson.row, newTask.type, "add");
+                            }
+                        }
+                        if (
+                            getTasksDataFromPersonContEng(newPerson.row, "frame") === "not yet"&&!nullTask.includes("frame")
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "frame",
                                 row: newPerson.row,
                             };
                             if (!taskAlreadyExistEng(newTask)) {
@@ -905,6 +945,7 @@ function getTasksDataFromPerson() {
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
+                    framestatus: ele.frame16,
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -930,6 +971,7 @@ function getTasksDataFromPersonEng() {
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
+                    framestatus: ele.frame16,
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -970,6 +1012,9 @@ function getTasksDataFromPersonCont(row, type) {
             if (type === "dana") {
                 result = tasks4lols[i].danastatus;
             }
+             if (type === "frame") {
+                result = tasks4lols[i].framestatus;
+            }
         }
     }
     return result;
@@ -1008,6 +1053,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "dana") {
                 result = tasks4lols[i].danastatus;
             }
+            if (type === "frame") {
+                result = tasks4lolsEng[i].framestatus;
+            }
         }
     }
     return result;
@@ -1033,6 +1081,7 @@ function taskData() {
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
+                    framestatus: ele.frame16,
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -1130,6 +1179,23 @@ function taskData() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "confirm",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
+                if (tasks4person.framestatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "frame",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExist(newTask)) {
@@ -1236,6 +1302,7 @@ function taskDataEng() {
                     premessemailstatus: ele.premessemail13,
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
+                    framestatus: ele.frame16,
 
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
@@ -1333,6 +1400,23 @@ function taskDataEng() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "confirm",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
+                if (tasks4personEng.framestatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "frame",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExistEng(newTask)) {
@@ -1862,6 +1946,29 @@ function createTasks() {
             list.append(document.createElement("br"));
             size++;
         }
+        if (allTasks[i].type === "frame") {
+            //////15
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkframe";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "frame" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לייצר פריים יוטיוב + 55 פרמייר";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        
     }
 }
 function createTasksEng() {
@@ -2275,6 +2382,28 @@ function createTasksEng() {
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasksEng[i].type === "frame") {
+            /////16
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkframe";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "frame" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לייצר פריים יוטיוב + 55 פרמייר";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
