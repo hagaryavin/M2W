@@ -1961,7 +1961,7 @@ function createTasks() {
             optionList = document.createElement("label");
             optionList.id = "frame" + allTasks[i].row;
             optionList.innerHTML =
-                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לייצר פריים יוטיוב + 55 פרמייר";
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לייצר פריים יוטיוב+פרמייר55";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
@@ -2401,7 +2401,7 @@ function createTasksEng() {
             optionList = document.createElement("label");
             optionList.id = "frame" + allTasksEng[i].row;
             optionList.innerHTML =
-                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לייצר פריים יוטיוב + 55 פרמייר";
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לייצר פריים יוטיוב+פרמייר55";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
