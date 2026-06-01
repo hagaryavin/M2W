@@ -561,6 +561,7 @@ function getDataEng(x) {
                     timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
                     row: ele.row,
                     linkfull: ele.linkfull,
+                    livechain:false,
                     qa:false
                 };
                 tableRowEng++;
@@ -584,6 +585,12 @@ function getDataEng(x) {
                 if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&ele.submittedvid!==""){
                     newPerson.recordingdate=addDateEng(newPerson);
                  } 
+                if(ele.chainlive!==""){
+                   newPerson.livechain=true;
+                }
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.livechain===true){
+                    newPerson.recordingdate=addDateEng(newPerson);
+                 }
                 if (newPerson.recordingdate !== ""&&ele.fixedrecordingdate!=="ללא תאריך") {
                     newPerson.premessdate = changeTimeZone(new Date(preMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
                     newPerson.postmessdate = changeTimeZone(new Date(postMessDate(newPerson.recordingdate)), 'Asia/Jerusalem');
@@ -608,7 +615,7 @@ function getDataEng(x) {
                             (newPerson.premessdate.getDate() === today.getDate() &&
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
                                 newPerson.premessdate.getYear() === today.getYear())){
-                            if(getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")) {
+                            if(getTasksDataFromPersonContEng(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")&&newPerson.livechain===false) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -632,7 +639,7 @@ function getDataEng(x) {
                                 );
                             }
                         }
-                     if(getTasksDataFromPersonContEng(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")) {
+                     if(getTasksDataFromPersonContEng(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")&&newPerson.livechain===false) {
                             //////1 condition
                             newTask = {
                                 name: newPerson.name,
@@ -666,7 +673,7 @@ function getDataEng(x) {
                     ) {
                         //////6,7,16 condition
                         if (
-                            getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")
+                            getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")&&newPerson.livechain===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -686,7 +693,7 @@ function getDataEng(x) {
                             }
                         }
                         if (
-                            getTasksDataFromPersonContEng(newPerson.row, "frame") === "not yet"&&!nullTask.includes("frame")
+                            getTasksDataFromPersonContEng(newPerson.row, "frame") === "not yet"&&!nullTask.includes("frame")&&newPerson.livechain===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -709,7 +716,7 @@ function getDataEng(x) {
                             newPerson.chainCreatorEmail !== "" &&
                             cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
                             getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
-                            "not yet"&&newPerson.qa===false&&!nullTask.includes("addcreator")
+                            "not yet"&&newPerson.qa===false&&!nullTask.includes("addcreator")&&newPerson.livechain===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -828,7 +835,7 @@ function getDataEng(x) {
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "socialpost") ===
-                            "not yet"&&!nullTask.includes("socialpost")
+                            "not yet"&&!nullTask.includes("socialpost")&&newPerson.livechain===false
                         ) {
                             newTask = {
                                 name: newPerson.name,
@@ -861,7 +868,7 @@ function getDataEng(x) {
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         newPerson.linkfull !== "" &&getTasksDataFromPersonContEng(newPerson.row, "postmessinvite") ===
-                        "not yet"&&newPerson.qa===false&&!nullTask.includes("postmessinvite")
+                        "not yet"&&newPerson.qa===false&&!nullTask.includes("postmessinvite")&&newPerson.livechain===false
                     ) {
                         /////////////////4 condition
                         newTask = {
@@ -1048,10 +1055,10 @@ function getTasksDataFromPersonContEng(row, type) {
                 result = tasks4lolsEng[i].premessemailstatus;
             }
             if (type === "community") {
-                result = tasks4lols[i].communitystatus;
+                result = tasks4lolsEng[i].communitystatus;
             }
             if (type === "dana") {
-                result = tasks4lols[i].danastatus;
+                result = tasks4lolsEng[i].danastatus;
             }
             if (type === "frame") {
                 result = tasks4lolsEng[i].framestatus;
