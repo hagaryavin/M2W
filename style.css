@@ -255,19 +255,23 @@ body::before {
 #options {
     background-color: transparent !important;
 }
+/* העיצוב המקורי — לא נוגעים */
 .btn {
   background-color:#fff8eb !important;
-  border: #fff8eb !important;
-  color: #000000 !important; 
-border: 1px solid #0d6efd !important; 
-
+  border: 1px solid #0d6efd !important;
+  color: #000000 !important;
 }
+
 .btn-in-task {
   background-color:#faeccf !important;
-  border: #faeccf !important;
-  color: #000000 !important; 
-border: 1px solid #0d6efd !important; 
+  border: 1px solid #0d6efd !important;
+  color: #000000 !important;
+}
 
+.btn.clicked,
+.btn-in-task.clicked {
+  background-color: #F6E1B6 !important;
+  border: 1px solid #0d6efd !important;
 }
 .btn-success {
   border: 1px solid #198754 !important;
