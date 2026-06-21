@@ -38,9 +38,11 @@ var messes = [
     { name: "", lines: [] } ,
     { name: "", lines: [] } ,
     { name: "", lines: [] } ,
+    { name: "", lines: [] } ,
+    { name: "", lines: [] } ,
     { name: "", lines: [] }     
 ];
-var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[],[],[],[],[],[]];
+var fullTexts = [[], [], [], [], [], [],[],[],[],[],[],[],[],[],[],[],[],[],[],[]];
 var wannaFixGuestPhone = true;
 var wannaFixInterPhone = true;
 const url =
@@ -80,6 +82,8 @@ function getData() {
           linkembed555:ele.linkembed555,
           linkembedfull:ele.linkembedfull,
             linkzoom:ele.linkzoom,
+            collab555:ele.collab555,
+            collabfull:ele.collabfull,
           row: rowCount,
              timeformsent: changeTimeZone(new Date(ele.timeformsent), 'Asia/Jerusalem'),
           row: ele.row,
@@ -212,14 +216,14 @@ function getMessData() {
           ],
         };
 
-      for (var i = 1; i <= 18; i++) {
+      for (var i = 1; i <= 20; i++) {
           if (newMess.name===("לינקים לתוצרים " + i)) {
             messes[i - 1] = newMess;
           }
         }
 
       });
-      for (var i = 0; i <= 17; i++) {
+      for (var i = 0; i <= 19; i++) {
         for (var j = 0; j < messes[i].lines.length; j++) {
           cutMess(messes[i].lines, i + 1);
         }
@@ -232,7 +236,7 @@ var crewMem;
   if (currCrew.name === "") crewMem = "";
   var currText = "";
     var testDiv = document.getElementById("text" + messType);
-  if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17||messType===18){
+  if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===16||messType===17||messType===18||messType===19||messType===20){
   
         removeAllChildNodes(testDiv);
     }
@@ -284,6 +288,12 @@ var crewMem;
     if (linesArr[i].includes("linkyoutube55")) {
       linesArr[i] = linesArr[i].replace("linkyoutube55", document.getElementById("short55yt").value);
     }
+      if (linesArr[i].includes("collab555Link")) {
+      linesArr[i] = linesArr[i].replace("collab555Link", document.getElementById("collab555").value);
+    }
+     if (linesArr[i].includes("collabFullLink")) {
+      linesArr[i] = linesArr[i].replace("collabFullLink", document.getElementById("collabfull").value);
+    }
     if (linesArr[i].includes("crewName")) {
       linesArr[i] = linesArr[i].replace("crewName", crewMem);
     }
@@ -317,7 +327,7 @@ var crewMem;
         testH4.classList.add("mb-0");
       }
       testH4.innerHTML = duplicateLine;
-        if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===14||messType===15||messType===16||messType===17||messType===18){
+        if(messType===1||messType===2||messType===6||messType===9||messType===13||messType===16||messType===17||messType===18||messType===19||messType===20){
             testDiv.append(testH4);
         }
     }
@@ -580,6 +590,8 @@ function submitData() {
       document.getElementById("short55").value = allPeople[i].linkshort;
       document.getElementById("short55yt").value = allPeople[i].linkshortyt;
       document.getElementById("full555").value = allPeople[i].linkfull;
+        document.getElementById("collab555").value = allPeople[i].collab555;
+        document.getElementById("collabfull").value = allPeople[i].collabfull;
       document.getElementById("spotify").value = allPeople[i].linkspotify;
       document.getElementById("linkembed555").value = allPeople[i].linkembed555;
         document.getElementById("linkembedfull").value = allPeople[i].linkembedfull;

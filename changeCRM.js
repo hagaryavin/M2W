@@ -20,7 +20,7 @@ if(mode||!mode){
     switchLang();
 }
 var url =
-  "https://script.google.com/macros/s/AKfycby11yYTedy449avnyBnGMY1fuWoksByKmmRvcYM0ZsFzSpomwX6VlxPF9yGOsgQiLAxlw/exec";
+  "https://script.google.com/macros/s/AKfycbyXF9W38TqPt9wT65gUkynHwGZ7Ds59bvnfuumF-3pQZodeXz4yPwDu76iO57208t4T1A/exec";
 var newPerson = {};
 var chainOption;
 var allChains = [];
@@ -71,6 +71,8 @@ function getData() {
           link555: ele.linkfive,
           link55drive: ele.linkshort,
           link55yt: ele.linkshortyt,
+            collab555:ele.collab555,
+            collabfull:ele.collabfull,
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
           linksc: ele.linksc,
@@ -305,6 +307,8 @@ function clearValues() {
     document.getElementById("linkembedfull").value = "";
     document.getElementById("linkzoom").value = "";
   document.getElementById("linkfull").value = "";
+   document.getElementById("collab555").value = ""; 
+    document.getElementById("collabfull").value = ""; 
   document.getElementById("link55drive").value = "";
   document.getElementById("link55yt").value = "";
   document.getElementById("linkspotify").value = "";
@@ -343,6 +347,8 @@ function clearValues() {
     document.getElementById("linkembedfullChange").innerHTML="הוספת לינק לשיבוץ ראיון מלא באתר";
     document.getElementById("linkzoomChange").innerHTML="הוספת לינק לסרט חדרהמתנה 55-דרייב";
   document.getElementById("linkfullChange").innerHTML="הוספת הראיון המלא";
+    document.getElementById("collab555Change").innerHTML="555הוספת לינק לקולבוריישן";
+    document.getElementById("collabfullChange").innerHTML="הוספת לינק לקולבוריישן ראיון מלא";
   document.getElementById("link55driveChange").innerHTML="הוספת לינק לסרט 55-דרייב";
    document.getElementById("link55ytChange").innerHTML="הוספת סרט קצר 55-יוטיוב"; 
     document.getElementById("linkspotifyChange").innerHTML="הוספת לינק לספוטיפיי";
@@ -404,6 +410,8 @@ function submitData() {
          document.getElementById("linkembedfullB4").innerHTML = allPeople[i].linkembedfull;
         document.getElementById("linkzoomB4").innerHTML = allPeople[i].linkzoom;
       document.getElementById("linkfullB4").innerHTML = allPeople[i].linkfull;
+        document.getElementById("collab555B4").innerHTML = allPeople[i].collab555;
+        document.getElementById("collabfullB4").innerHTML = allPeople[i].collabfull;
       document.getElementById("link55driveB4").innerHTML =
         allPeople[i].link55drive;
       document.getElementById("link55ytB4").innerHTML = allPeople[i].link55yt;
