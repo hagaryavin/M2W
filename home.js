@@ -41,9 +41,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbyJhNnSvjZNUli92EpQjAuZYMHsnVlfjFO_gg5pTMBx_WLZG0fn5mzkD8SUc1hAghbVYw/exec";
+    "https://script.google.com/macros/s/AKfycbyvhDh5-34oX-jdg6yeqVCsx99O2dNgCaHWC_dEO6Dyf977fQH5WGhIWVTvdnTIkPi8LA/exec";
 const taskurlEng=
-      "https://script.google.com/macros/s/AKfycbzSWdr3iyTpkf2FAWRS46jHnhYOUCWlXqMPKrkqTd0QJ8sPFDiV1kUOu3GbG7y-chfc/exec";
+      "https://script.google.com/macros/s/AKfycbzOuB9etxSNw1C359vnhdJ6ZW9jcNsEJpcIgA651LJk8g2Oh9aCoPuBrUdgAxtb2nVX/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
@@ -112,6 +112,7 @@ function getData(x) {
                     livechain:false,
                     row: ele.row,
                     linkfull: ele.linkfull,
+                    ytchannel:ele.ytchannel,
                     conference:false,
                     id:ele.id
                 };
@@ -421,6 +422,26 @@ function getData(x) {
                             }
                         }
                         if (
+                            getTasksDataFromPersonCont(newPerson.row, "collab") === "not yet"&&!nullTask.includes("collab")&&newPerson.ytchannel!==""&&newPerson.conference===false
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "collab",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(newPerson.row, newTask.type, "add");
+                            }
+                        }
+                        if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain))&&
                             getTasksDataFromPersonCont(newPerson.row, "socialpost") ===
                             "not yet"&&!nullTask.includes("socialpost")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
@@ -562,6 +583,7 @@ function getDataEng(x) {
                     row: ele.row,
                     linkfull: ele.linkfull,
                     livechain:false,
+                    ytchannel:ele.ytchannel,
                     qa:false
                 };
                 tableRowEng++;
@@ -832,6 +854,27 @@ function getDataEng(x) {
                                 );
                             }
                         }
+                          if (
+                             getTasksDataFromPersonContEng(newPerson.row, "collab") ===
+                            "not yet"&&newPerson.qa===false&&newPerson.ytchannel!==""&&!nullTask.includes("collab")
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "collab",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(newPerson.row, newTask.type, "add");
+                            }
+                        }
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "socialpost") ===
@@ -953,6 +996,7 @@ function getTasksDataFromPerson() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
+                    collabstatus:ele.collab17
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -979,6 +1023,7 @@ function getTasksDataFromPersonEng() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
+                    collabstatus:ele.collab17
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -1022,6 +1067,9 @@ function getTasksDataFromPersonCont(row, type) {
              if (type === "frame") {
                 result = tasks4lols[i].framestatus;
             }
+            if (type === "collab") {
+                result = tasks4lols[i].collabstatus;
+            }
         }
     }
     return result;
@@ -1063,6 +1111,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "frame") {
                 result = tasks4lolsEng[i].framestatus;
             }
+            if (type === "collab") {
+                result = tasks4lolsEng[i].collabstatus;
+            }
         }
     }
     return result;
@@ -1089,6 +1140,7 @@ function taskData() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
+                    collabstatus:ele.collab17
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -1152,6 +1204,23 @@ function taskData() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "postmessinvite",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
+                if (tasks4person.collabstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "collab",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExist(newTask)) {
@@ -1310,6 +1379,7 @@ function taskDataEng() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
+                    collabstatus:ele.collab17
 
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
@@ -1373,6 +1443,23 @@ function taskDataEng() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "postmessinvite",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
+                if (tasks4personEng.collabstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "collab",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExistEng(newTask)) {
@@ -1636,6 +1723,37 @@ function createTasks() {
             optionInput.classList.add("form-check-label");
             optionList.innerHTML =
                 allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לינקים לתוצרים - ";
+            optionInput.classList.add("form-check-input");
+            optionBut=document.createElement("button");
+            optionBut.innerHTML="ביצוע";
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
+            const params= 'name='+encodeURIComponent(allTasks[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasks[i].chain))+'&mode='+mode;
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMes.html?'+params;
+            });
+            optionDiv.append(optionList);
+            optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasks[i].type === "collab") {
+            //////17
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkcollab";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "collab" + allTasks[i].row;
+            optionInput.classList.add("form-check-label");
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - קולבוריישן יוטיוב - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";
@@ -2084,6 +2202,37 @@ function createTasksEng() {
             optionInput.classList.add("form-check-label");
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לינקים לתוצרים - ";
+            optionInput.classList.add("form-check-input");
+            optionBut=document.createElement("button");
+            optionBut.innerHTML="ביצוע";
+            optionBut.classList.add("btn", "btn-light","btn-in-task");
+            const params= 'name='+encodeURIComponent(allTasksEng[i].name)+'&chain='+encodeURIComponent(shortChainName(allTasksEng[i].chain))+'&mode='+mode;
+             optionBut.addEventListener("click", function () {
+                window.location.href='./postMesEng.html?'+params;
+            });
+            optionDiv.append(optionList);
+            optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasksEng[i].type === "collab") {
+            //////17
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkcollab";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "collab" + allTasksEng[i].row;
+            optionInput.classList.add("form-check-label");
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - קולבוריישן יוטיוב - ";
             optionInput.classList.add("form-check-input");
             optionBut=document.createElement("button");
             optionBut.innerHTML="ביצוע";

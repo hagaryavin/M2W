@@ -38,7 +38,7 @@ var fullTexts = [[]];
 var chainDataURL =
   "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
 var taskurl =
-    "https://script.google.com/macros/s/AKfycbyJhNnSvjZNUli92EpQjAuZYMHsnVlfjFO_gg5pTMBx_WLZG0fn5mzkD8SUc1hAghbVYw/exec";
+    "https://script.google.com/macros/s/AKfycbyvhDh5-34oX-jdg6yeqVCsx99O2dNgCaHWC_dEO6Dyf977fQH5WGhIWVTvdnTIkPi8LA/exec";
 getChainData();
 getData();
 function getData() {
@@ -709,7 +709,7 @@ function changeDate(){
         alert("נא לבחור מישהו מהטבלה כדי לשנות");
     }
     var messesTypes=[
-        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send","premessemail","community","dana"
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","clipscreate","clip1send","clip2send","subs","clip3send","premessemail","community","dana","collab"
     ];
     for(var i=0;i<messesTypes.length;i++){
         console.log("col: "+messesTypes[i]);
@@ -740,7 +740,7 @@ function deleteDate(id){
         sendData(temp, dataElement,"crm");
     }
     var messesTypes=[
-        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send","premessemail","community","dana","frame"
+        "premess","rightaftermess","postmess","postmessinvite","socialpost","confirm","addcreator","clipscreate","clip1send","clip2send","subs","clip3send","premessemail","community","dana","frame","collab"
     ];
     for(var i=0;i<messesTypes.length;i++){
         console.log("col: "+messesTypes[i]);
