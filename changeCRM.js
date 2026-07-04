@@ -73,6 +73,7 @@ function getData() {
           link55yt: ele.linkshortyt,
             collab555:ele.collab555,
             collabfull:ele.collabfull,
+            ytchannel:ele.ytchannel,
           linkfull: ele.linkfull,
           linkspotify: ele.linkspotify,
           linksc: ele.linksc,
@@ -299,6 +300,8 @@ setTimeout(() => {
   loader0.style.display = "none";
 }, 2050);
 function clearValues() {
+ document.getElementById("ytchannelB4").innerHTML =""; 
+document.getElementById("ytchannel").style.display="none";      
   document.getElementById("metaAllChange").style.visibility="hidden";
   document.getElementById("deleteDate").style.visibility="visible";
    document.getElementById("professional").style.display="none";
@@ -405,7 +408,14 @@ function submitData() {
           }
             
         }
-      document.getElementById("link555B4").innerHTML = allPeople[i].link555;
+        if(allPeople[i].ytchannel!==""){
+                 document.getElementById("ytchannel").style.display="block";        
+                  document.getElementById("ytchannelB4").innerHTML = "ערוץ היוטיוב של "+allPeople[i].name+": "+allPeople[i].ytchannel;        
+        }
+        if(allPeople[i].ytchannel===""){
+                  document.getElementById("ytchannel").style.display="none";        
+        }
+          document.getElementById("link555B4").innerHTML = allPeople[i].link555;
         document.getElementById("linkembed555B4").innerHTML = allPeople[i].linkembed555;
          document.getElementById("linkembedfullB4").innerHTML = allPeople[i].linkembedfull;
         document.getElementById("linkzoomB4").innerHTML = allPeople[i].linkzoom;

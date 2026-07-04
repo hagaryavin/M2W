@@ -421,26 +421,26 @@ function getData(x) {
                                 );
                             }
                         }
-                        if (
-                            getTasksDataFromPersonCont(newPerson.row, "collab") === "not yet"&&!nullTask.includes("collab")&&newPerson.ytchannel!==""&&newPerson.conference===false
-                        ) {
-                            newTask = {
-                                name: newPerson.name,
-                                interviewername: newPerson.interviewername,
-                                recordingdate: newPerson.recordingdate,
-                                chain: newPerson.chain,
-                                chainCreator: newPerson.chainCreator,
-                                chainCreatorEmail: newPerson.chainCreatorEmail,
-                                type: "collab",
-                                row: newPerson.row,
-                            };
-                            if (!taskAlreadyExist(newTask)) {
-                                console.log("new task!");
-                                console.log(newTask);
-                                allTasks.push(newTask);
-                                changeStatus(newPerson.row, newTask.type, "add");
-                            }
-                        }
+//                        if (
+//                            getTasksDataFromPersonCont(newPerson.row, "collab") === "not yet"&&!nullTask.includes("collab")&&newPerson.ytchannel!==""&&newPerson.conference===false
+//                        ) {
+//                            newTask = {
+//                                name: newPerson.name,
+//                                interviewername: newPerson.interviewername,
+//                                recordingdate: newPerson.recordingdate,
+//                                chain: newPerson.chain,
+//                                chainCreator: newPerson.chainCreator,
+//                                chainCreatorEmail: newPerson.chainCreatorEmail,
+//                                type: "collab",
+//                                row: newPerson.row,
+//                            };
+//                            if (!taskAlreadyExist(newTask)) {
+//                                console.log("new task!");
+//                                console.log(newTask);
+//                                allTasks.push(newTask);
+//                                changeStatus(newPerson.row, newTask.type, "add");
+//                            }
+//                        }
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain))&&
                             getTasksDataFromPersonCont(newPerson.row, "socialpost") ===
@@ -854,27 +854,27 @@ function getDataEng(x) {
                                 );
                             }
                         }
-                          if (
-                             getTasksDataFromPersonContEng(newPerson.row, "collab") ===
-                            "not yet"&&newPerson.qa===false&&newPerson.ytchannel!==""&&!nullTask.includes("collab")
-                        ) {
-                            newTask = {
-                                name: newPerson.name,
-                                interviewername: newPerson.interviewername,
-                                recordingdate: newPerson.recordingdate,
-                                chain: newPerson.chain,
-                                chainCreator: newPerson.chainCreator,
-                                chainCreatorEmail: newPerson.chainCreatorEmail,
-                                type: "collab",
-                                row: newPerson.row,
-                            };
-                            if (!taskAlreadyExistEng(newTask)) {
-                                console.log("new task!");
-                                console.log(newTask);
-                                allTasksEng.push(newTask);
-                                changeStatusEng(newPerson.row, newTask.type, "add");
-                            }
-                        }
+//                          if (
+//                             getTasksDataFromPersonContEng(newPerson.row, "collab") ===
+//                            "not yet"&&newPerson.qa===false&&newPerson.ytchannel!==""&&!nullTask.includes("collab")
+//                        ) {
+//                            newTask = {
+//                                name: newPerson.name,
+//                                interviewername: newPerson.interviewername,
+//                                recordingdate: newPerson.recordingdate,
+//                                chain: newPerson.chain,
+//                                chainCreator: newPerson.chainCreator,
+//                                chainCreatorEmail: newPerson.chainCreatorEmail,
+//                                type: "collab",
+//                                row: newPerson.row,
+//                            };
+//                            if (!taskAlreadyExistEng(newTask)) {
+//                                console.log("new task!");
+//                                console.log(newTask);
+//                                allTasksEng.push(newTask);
+//                                changeStatusEng(newPerson.row, newTask.type, "add");
+//                            }
+//                        }
                         if (
                             some1tosend(newPerson.name,newPerson.interviewername,getCreatorFromChain(newPerson.chain)) &&
                             getTasksDataFromPersonContEng(newPerson.row, "socialpost") ===
