@@ -229,7 +229,7 @@ function submitData() {
         }
         if(allPeople[i].ytchannel!==""){
                  document.getElementById("ytchannel").style.display="block";        
-                  document.getElementById("ytchannelB4").innerHTML = "ערוץ היוטיוב של "+allPeople[i].name+": "+allPeople[i].ytchannel;        
+                  document.getElementById("ytchannelB4").innerHTML = allPeople[i].ytchannel;        
         }
         if(allPeople[i].ytchannel===""){
                   document.getElementById("ytchannel").style.display="none";        
