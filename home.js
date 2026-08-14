@@ -114,6 +114,7 @@ function getData(x) {
                     linkfull: ele.linkfull,
                     ytchannel:ele.ytchannel,
                     conference:false,
+                    inpanel:false,
                     id:ele.id
                 };
                 tableRow++;
@@ -149,11 +150,20 @@ function getData(x) {
                     newPerson.interviewername = ele.fixedinterviewername;
                 if (newPerson.chain === "") {
                     if (ele.chaintwo !== "") newPerson.chain = ele.chaintwo;
-                    if (ele.chainthree !== "") newPerson.chain = ele.chainthree;
+                    if (ele.chainthree !== "") {
+                        newPerson.chain = ele.chainthree;
+                        newPerson.inpanel=true;
+                    }
                     if (ele.chainfour !== "") newPerson.chain = ele.chainfour;
                     if (ele.chainsix !== "") newPerson.chain = ele.chainsix;
                 }
-                if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+                if (ele.fixedchain !== "") {
+                    newPerson.chain = ele.fixedchain;
+                    newPerson.inpanel=false;
+                    if(ele.fixedchain.includes("פאנל")){
+                        newPerson.inpanel=true;
+                    }
+                }
                 if(shortChainName(newPerson.chain).startsWith("כנס")&&!shortChainName(newPerson.chain).includes("TED")){
                     newPerson.conference=true;
                 }
@@ -469,15 +479,14 @@ function getData(x) {
                                 );
                             }
                         }
-                    }
-
+                    }                    
                     if (
                         (newPerson.postmessinvitedate < today ||
                             (newPerson.postmessinvitedate.getDate() === today.getDate() &&
                                 newPerson.postmessinvitedate.getMonth() === today.getMonth() &&
                                 newPerson.postmessinvitedate.getYear() === today.getYear())) &&
                         newPerson.linkfull !== "" &&getTasksDataFromPersonCont(newPerson.row, "postmessinvite") ===
-                        "not yet"&&!nullTask.includes("postmessinvite")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
+                        "not yet"&&!nullTask.includes("postmessinvite")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false&&newPerson.inpanel===false
                     ) {
                         /////////////////4 condition
                         newTask = {
