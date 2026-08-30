@@ -8,8 +8,10 @@ var firstNameInterviewer = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"Yael",
+                phone:"0528664495"};
 var newCrewMem;
+document.getElementById("crewList").value = "Yael"; 
 var modeParam = new URLSearchParams(window.location.search);
 var mode = modeParam.get('mode');
 if(mode||!mode){

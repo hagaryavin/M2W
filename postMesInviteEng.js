@@ -7,6 +7,7 @@ var firstName = "";
 var chainType = "long";
 var fullTextInvite = "";
 var wannaFixGuestPhone = true;
+document.getElementById("crewList").value = "Yael";
 //document.getElementById("longInvite").style.visibility = "hidden";
 const url =
    "https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
@@ -28,7 +29,8 @@ var currChain = {};
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"Yael",
+                phone:"0528664495"};
 var newCrewMem;
 var messes = [
   { name: "", lines: [] },

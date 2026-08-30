@@ -28,8 +28,10 @@ var currChain = {};
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"יעל",
+                phone:"0528664495"};
 var newCrewMem;
+document.getElementById("crewList").value = "יעל"; 
 var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },

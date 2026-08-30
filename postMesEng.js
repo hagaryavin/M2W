@@ -8,7 +8,9 @@ var firstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"Yael",
+                phone:"0528664495"};
+document.getElementById("crewList").value = "Yael"; 
 var newCrewMem;
 var messes = [
   { name: "", lines: [] },

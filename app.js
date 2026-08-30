@@ -1,11 +1,11 @@
 var url =
   "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
 var crewList = [];
-var currCrewName = "{}";
+var currCrewName = "יעל";
 var newCrewMem;
 getCrewData();
 document.getElementById("submit").style.visibility="hidden";
-
+document.getElementById("name").value = "יעל"; 
 function getCrewData() {
   fetch(url)
     .then((res) => {

@@ -6,9 +6,11 @@ var size = 0;
 var fullName = "";
 var firstName = "";
 var optionsCrew = document.getElementById("crew");
+document.getElementById("crewList").value = "יעל"; 
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"יעל",
+                phone:"0528664495"};
 var newCrewMem;
 var messes = [
   { name: "", lines: [] },

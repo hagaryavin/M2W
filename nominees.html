@@ -121,7 +121,7 @@
 
   </div>
 </div>
-    <div class="form-control input-group-text" role="group">
+    <div class="form-control input-group-text menu-group" role="group">
 
       <button
         onclick="window.location.href='./preMes.html';"
@@ -152,7 +152,7 @@
         לינקים להזמנת אורח
       </button>
       </div>
-      <div class="form-control input-group-text" role="group">
+      <div class="form-control input-group-text menu-group" role="group">
 
       <button
         onclick="window.location.href='./socialPost.html';"
@@ -183,7 +183,7 @@
         עדכון תוצרים ותיקונים
       </button>
     </div>
-      <div class="form-control input-group-text mb-3" role="group">
+      <div class="form-control input-group-text mb-3 menu-group" role="group">
           <button
         onclick="window.location.href='./nominees.html';"
         class="btn form-control btn-outline-secondary"
@@ -306,10 +306,20 @@
     <div class="container" id="nomineesMes" style="visibility: hidden;">
       <div class="col-auto">
     <h2 class="mb-2" id="nameB4also"></h2>
+          <div class="form-control mb-3">
+           <button
+      onclick="change('notnominee')"
+      class="btn form-control btn-outline-secondary"
+      id="notnomineeChange"
+    >
+    להוציא את החרוז מרשימת המועמדים
+  </button>
+          </div>
     <h2 class="mb-2"><u>תיקון פרטים</u></h2>
   </div>
   <div class="form-control mb-3">
   <p class="fs-5 fw-normal text-start" id="nameB4"></p>
+     
   <div class="input-group-text" role="group">
     <input type="text" id="name" class="form-control" placeholder="תיקון שם" autocomplete="off"/>
     <button
@@ -425,13 +435,7 @@
 </button>
 </div>
 </div>
-        <button
-      onclick="change('notnominee')"
-      class="btn form-control btn-outline-secondary"
-      id="notnomineeChange"
-    >
-    להוציא את החרוז מרשימת המועמדים
-  </button>
+        
     </div>
          
       </div>

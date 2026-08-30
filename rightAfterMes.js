@@ -8,12 +8,14 @@ var interFirstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"יעל",
+                phone:"0528664495"};
 var newCrewMem;
 var newPerson = {};
 var allChains = [];
 var newChain = {};
 var currChain = {};
+document.getElementById("crewList").value = "יעל"; 
 var messes = [
   { name: "", lines: [] },
   { name: "", lines: [] },

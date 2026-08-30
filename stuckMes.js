@@ -35,7 +35,9 @@ const url =
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"יעל",
+                phone:"0528664495"};
+document.getElementById("crewList").value = "יעל"; 
 var newCrewMem;
 var messes = [
   { name: "", lines: [] },

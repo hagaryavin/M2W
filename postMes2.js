@@ -9,8 +9,10 @@ var interFirstName = "";
 var optionsCrew = document.getElementById("crew");
 var crewOption;
 var crewList = [];
-var currCrew = {};
+var currCrew = {name:"יעל",
+                phone:"0528664495"};
 var newCrewMem;
+document.getElementById("crewList").value = "יעל"; 
 var modeParam = new URLSearchParams(window.location.search);
 var mode = modeParam.get('mode');
 if(mode||!mode){

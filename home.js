@@ -311,29 +311,29 @@ function getData(x) {
                                 changeStatus(newPerson.row, newTask.type, "add");
                             }
                         }
-                        if (
-                            newPerson.chainCreatorEmail !== "" &&
-                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
-                            getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
-                            "not yet"&&!nullTask.includes("addcreator")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
-                        ) {
-                            newTask = {
-                                name: newPerson.name,
-                                interviewername: newPerson.interviewername,
-                                recordingdate: newPerson.recordingdate,
-                                chain: newPerson.chain,
-                                chainCreator: newPerson.chainCreator,
-                                chainCreatorEmail: newPerson.chainCreatorEmail,
-                                type: "addcreator",
-                                row: newPerson.row,
-                            };
-                            if (!taskAlreadyExist(newTask)) {
-                                console.log("new task!");
-                                console.log(newTask);
-                                allTasks.push(newTask);
-                                changeStatus(newPerson.row, newTask.type, "add");
-                            }
-                        }
+//                        if (
+//                            newPerson.chainCreatorEmail !== "" &&
+//                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
+//                            getTasksDataFromPersonCont(newPerson.row, "addcreator") ===
+//                            "not yet"&&!nullTask.includes("addcreator")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false
+//                        ) {
+//                            newTask = {
+//                                name: newPerson.name,
+//                                interviewername: newPerson.interviewername,
+//                                recordingdate: newPerson.recordingdate,
+//                                chain: newPerson.chain,
+//                                chainCreator: newPerson.chainCreator,
+//                                chainCreatorEmail: newPerson.chainCreatorEmail,
+//                                type: "addcreator",
+//                                row: newPerson.row,
+//                            };
+//                            if (!taskAlreadyExist(newTask)) {
+//                                console.log("new task!");
+//                                console.log(newTask);
+//                                allTasks.push(newTask);
+//                                changeStatus(newPerson.row, newTask.type, "add");
+//                            }
+//                        }
                     }
 
                     if (
@@ -743,29 +743,29 @@ function getDataEng(x) {
                                 changeStatusEng(newPerson.row, newTask.type, "add");
                             }
                         }
-                        if (
-                            newPerson.chainCreatorEmail !== "" &&
-                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
-                            getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
-                            "not yet"&&newPerson.qa===false&&!nullTask.includes("addcreator")&&newPerson.livechain===false
-                        ) {
-                            newTask = {
-                                name: newPerson.name,
-                                interviewername: newPerson.interviewername,
-                                recordingdate: newPerson.recordingdate,
-                                chain: newPerson.chain,
-                                chainCreator: newPerson.chainCreator,
-                                chainCreatorEmail: newPerson.chainCreatorEmail,
-                                type: "addcreator",
-                                row: newPerson.row,
-                            };
-                            if (!taskAlreadyExistEng(newTask)) {
-                                console.log("new task!");
-                                console.log(newTask);
-                                allTasksEng.push(newTask);
-                                changeStatusEng(newPerson.row, newTask.type, "add");
-                            }
-                        }
+//                        if (
+//                            newPerson.chainCreatorEmail !== "" &&
+//                            cleanName(newPerson.name) !== cleanName(newPerson.chainCreator) &&
+//                            getTasksDataFromPersonContEng(newPerson.row, "addcreator") ===
+//                            "not yet"&&newPerson.qa===false&&!nullTask.includes("addcreator")&&newPerson.livechain===false
+//                        ) {
+//                            newTask = {
+//                                name: newPerson.name,
+//                                interviewername: newPerson.interviewername,
+//                                recordingdate: newPerson.recordingdate,
+//                                chain: newPerson.chain,
+//                                chainCreator: newPerson.chainCreator,
+//                                chainCreatorEmail: newPerson.chainCreatorEmail,
+//                                type: "addcreator",
+//                                row: newPerson.row,
+//                            };
+//                            if (!taskAlreadyExistEng(newTask)) {
+//                                console.log("new task!");
+//                                console.log(newTask);
+//                                allTasksEng.push(newTask);
+//                                changeStatusEng(newPerson.row, newTask.type, "add");
+//                            }
+//                        }
                     }
 
                     if (
