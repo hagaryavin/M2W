@@ -597,21 +597,19 @@ function fixPhoneData(phone) {
   return phone;
 }
 function email(id){
-  /*var link =
-    "https://mail.google.com/mail/?view=cm&to=" +
-    currPerson.email +
-    "&su=" +
-    encodeURIComponent("Invitation to Your Story555 Recording") +
-    "&body=" +
-    encodeURIComponent(fullTexts[id - 1]);*/
-    var link=
-        "https://mail.google.com/mail/u/555mystory555@gmail.com/?extsrc=mailto&url=mailto%3A"+
-        currPerson.email.replace("@","%40")+
-        "%3Fsubject%3D"+
-        encodeURIComponent("Invitation to Your Story555 Recording in "+document.getElementById("chainName").value+" Chain")+
-        "%26body%3D"+
-        encodeURIComponent(fullTexts[id - 1]);
-        
+    
+    const subject = encodeURIComponent(
+        "Invitation to Your Story555 Recording in " +
+        document.getElementById("chainName").value+" Chain"
+    );
+    
+
+    const body = encodeURIComponent(fullTexts[id - 1]);
+
+    const to = encodeURIComponent(currPerson.email);
+
+    var link= `https://mail.google.com/mail/?view=cm&fs=1&to=${to}&su=${subject}&body=${body}`;
+
   window.open(link, "_blank");
 }
 function sendBothPreMes() {

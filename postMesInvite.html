@@ -267,6 +267,32 @@
       </header>    
       <div class="container blog-post-meta py-3" id="postMes">
           <div class="col-auto">
+              <div
+        id="change"
+        class="form-control input-group-text col-auto"
+        role="group"
+      >
+        <input
+          type="text"
+          id="newInfo"
+          class="form-control"
+          autocomplete="off"
+        />
+        <button
+          type="button"
+          class="btn form-control btn-outline-secondary"
+          id="sendData"
+          onclick="changeLastMess()"
+        >
+הודעה חדשה        </button>
+           <button
+          type="button"
+          onclick="deleteLastMess()"
+          class="btn form-control btn-outline-secondary"
+          id="deleteData"
+        >מחיקת הודעה אחרונה
+        </button>
+      </div>
              <h3 class="mb-0"><u>הודעה משתנה</u></h3>
                <div id="text1"></div>
           <div class="form-control input-group-text col-auto mb-2" role="group">
@@ -387,32 +413,7 @@
             </button>
           </div>
           </div>
-         <div
-        id="change"
-        class="form-control input-group-text col-auto"
-        role="group"
-      >
-        <input
-          type="text"
-          id="newInfo"
-          class="form-control"
-          autocomplete="off"
-        />
-        <button
-          type="button"
-          class="btn form-control btn-outline-secondary"
-          id="sendData"
-          onclick="changeLastMess()"
-        >
-הודעה חדשה        </button>
-           <button
-          type="button"
-          onclick="deleteLastMess()"
-          class="btn form-control btn-outline-secondary"
-          id="deleteData"
-        >מחיקת הודעה אחרונה
-        </button>
-      </div>
+         
         </div>
         
     <script
