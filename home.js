@@ -2893,7 +2893,7 @@ function toSendAMes(guestName,interName,creatorName){
     return true;
 }
 function addDateConference(person){
-    var newDate="02/06/2026";
+    var newDate="12/18/2026";
     console.log(newDate);
      const obj = {
         text: newDate,
@@ -2920,7 +2920,7 @@ function addDateConference(person){
     return changeTimeZone(new Date(newDate), 'Asia/Jerusalem');
 }
 function addHourConference(person){
-    var newDate="09:30";
+    var newDate="10:00";
     console.log(newDate);
      const obj = {
         text: newDate,
