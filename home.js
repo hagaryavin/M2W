@@ -180,7 +180,7 @@ function getData(x) {
                 if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&newPerson.livechain===true){
                     newPerson.recordingdate=addDate(newPerson);
                  }
-                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&(newPerson.chain.includes("כנס.טראומה.וריפוי")||newPerson.chain.includes("כנס.צופים"))){
+                if(ele.recordingdate === ""&&ele.fixedrecordingdate === ""&&(newPerson.chain.includes("כנס.עתידנות")||newPerson.chain.includes("כנס.צופים"))){
                     newPerson.recordingdate=addDateConference(newPerson);
                  }
                 if(ele.name==="הגר יבין"){
