@@ -36,7 +36,7 @@ var messes = [
 ];
 var fullTexts = [[]];
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
+  "https://script.google.com/macros/s/AKfycbzFbVdweKuCEHE6V-KqBPHnQw1p0C32OC8E6G-T6-LtynS8Rhtxddakoosw9ONQLCgIMw/exec";
 var taskurl =
     "https://script.google.com/macros/s/AKfycbyvhDh5-34oX-jdg6yeqVCsx99O2dNgCaHWC_dEO6Dyf977fQH5WGhIWVTvdnTIkPi8LA/exec";
 getChainData();

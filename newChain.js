@@ -41,7 +41,7 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbyArBL8stwYc8YIm8sxBm86U0-pwc2kEFe6W5Pl71QO360zZfXsqeGOhxp7uLL4hwkbJQ/exec";
+  "https://script.google.com/macros/s/AKfycbzFbVdweKuCEHE6V-KqBPHnQw1p0C32OC8E6G-T6-LtynS8Rhtxddakoosw9ONQLCgIMw/exec";
 getChainData();
 getCrewData();
 getData();
@@ -100,6 +100,11 @@ function getChainData() {
             credit:ele.credit,
             table:"chains"
         };
+          
+          if(ele.panelplaylist!==""){
+              newChain.playlist=ele.panelplaylist;
+          }
+        console.log(chainRowCount);
           console.log(newChain);
         allChains.push(newChain);
         chainOption = document.createElement("option");
@@ -130,7 +135,12 @@ function getChainData() {
             credit:ele.credit,
             table:"chains-expired"
         };
+          if(ele.panelplaylist!==""){
+              newChain.playlist=ele.panelplaylist;
+          }
           console.log(newChain);
+                    console.log(chainRowCount);
+
         allChains.push(newChain);
         chainOption = document.createElement("option");
         chainOption.value = newChain.name;

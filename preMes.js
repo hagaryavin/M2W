@@ -48,8 +48,9 @@ var newChain = {};
 var currChain = {};
 var currPerson = {};
 var currChainCreator = {};
+var chainRowCount=2;
 var chainDataURL =
-  "https://script.google.com/macros/s/AKfycbye8Aq8q9R5EHO6_S1pwc71ogwBCt2XSYe5TVBbodwwuGc2ypMLBAvKi2IH749aP-Y78g/exec";
+  "https://script.google.com/macros/s/AKfycbzFbVdweKuCEHE6V-KqBPHnQw1p0C32OC8E6G-T6-LtynS8Rhtxddakoosw9ONQLCgIMw/exec";
 getCrewData();
 getChainData();
 getData();
@@ -167,12 +168,15 @@ function getChainData() {
           playlist: ele.playlist,
           description: ele.description,
           creator: ele.creator,
-          creatorPhone:ele.creatorphone
+          creatorPhone:ele.creatorphone,
+          row:chainRowCount,
+          nextbnum:ele.nextbnum
         };
         allChains.push(newChain);
         chainOption = document.createElement("option");
         chainOption.value = newChain.name;
         document.getElementById("chainsNames").append(chainOption);
+        chainRowCount++;
       });
     });
 }
@@ -770,6 +774,47 @@ function getRowFromName(name) {
     }
   }
   return rowNum;
+}
+function changeNextBNum(){
+    var newAmount=parseInt(currChain.nextbnum)+1;
+    
+    console.log(currChain.row+": "+currChain.nextbnum+" --> "+newAmount);
+    currChain.nextbnum++;
+    change("nextbnum");
+}
+function change(id) {
+  //var textEntered=document.getElementById(id).value;
+   // var dataElement=document.getElementById(id+"Change");
+    var chosenRow=currChain.row;
+    var chosenCol=id;
+  console.log("col: " + chosenCol);
+  if (chosenRow === 0) {
+    alert("נא לבחור מישהו מהטבלה כדי לשנות");
+  }
+  const temp = {
+    text: currChain.nextbnum,
+    row: chosenRow,
+    col: chosenCol,
+  };
+  if (chosenRow > 0) {
+    sendData(temp, "chains");
+    //dataElement.innerHTML="התעדכן";
+  }
+}
+
+function sendData(obj, table) {
+  let formData = new FormData();
+  formData.append("data", JSON.stringify(obj));
+  formData.append("table", table);
+
+  fetch(chainDataURL, {
+    method: "POST",
+    body: formData,
+  })
+    .then((rep) => rep.json())
+    .then((json) => {
+      console.log("Response:", json);
+    });
 }
 function submitData() {
   document.getElementById("interviewerPhone").value = "";

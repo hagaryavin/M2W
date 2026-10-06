@@ -24,7 +24,7 @@ var allChains = [];
 var newChain = {};
 var currChain = {};
 var chainDataURL=
-  "https://script.google.com/macros/s/AKfycbyEekfuBfk9W8aWqk9_uOa-Imynp5d3kKHjAebD6WuL-e7d2xN8RdBRsPefUJWcflgMsQ/exec";
+  "https://script.google.com/macros/s/AKfycbzFbVdweKuCEHE6V-KqBPHnQw1p0C32OC8E6G-T6-LtynS8Rhtxddakoosw9ONQLCgIMw/exec";
 var taskurl =
       "https://script.google.com/macros/s/AKfycbzOuB9etxSNw1C359vnhdJ6ZW9jcNsEJpcIgA651LJk8g2Oh9aCoPuBrUdgAxtb2nVX/exec";
 getChainData();
