@@ -41,9 +41,9 @@ const url =
     "https://script.google.com/macros/s/AKfycbyQXy8gZKTpDz9miNib4Vtx8vVz2Ank_TDXOuME6FFMoV3OjcsdIi7w1dPG-vZ5mjYVCw/exec";
 const urlEng="https://script.google.com/macros/s/AKfycbwif1D1ZdoI1iYaL2Hya5Jke8UIFaoPxMo2Jkvd3cNytK35UIGbJZ0NKwhiYJQgana8-A/exec";
 const taskurl =
-    "https://script.google.com/macros/s/AKfycbyvhDh5-34oX-jdg6yeqVCsx99O2dNgCaHWC_dEO6Dyf977fQH5WGhIWVTvdnTIkPi8LA/exec";
+    "https://script.google.com/macros/s/AKfycbzKttBZeAJS70Ti1-Z2uAFXZJcNtdochdp0nuCf4sJjO3ZhkB4AIlCRfjwyJyta5ZQSBw/exec";
 const taskurlEng=
-      "https://script.google.com/macros/s/AKfycbzOuB9etxSNw1C359vnhdJ6ZW9jcNsEJpcIgA651LJk8g2Oh9aCoPuBrUdgAxtb2nVX/exec";
+      "https://script.google.com/macros/s/AKfycbxQr2OCa9-iu_5zJ4W2CCR-AaRCiRf0eKbvJApjRbrxIN6fGNI9O7vB-JyU9pzniOT-/exec";
 const chainDataURL =
     "https://script.google.com/macros/s/AKfycbzh6afzt8FHJ8DC7eACCbofDucc-K5gupE09xeMpkbnveNbrWJZAkdqiShaYrb-AyiTlg/exec";
 
@@ -213,7 +213,7 @@ function getData(x) {
                             (newPerson.premessdate.getDate() === today.getDate() &&
                                 newPerson.premessdate.getMonth() === today.getMonth() &&
                                 newPerson.premessdate.getYear() === today.getYear())) 
-                        ){
+                        ){//1,13,19
                          if(getTasksDataFromPersonCont(newPerson.row, "premess") === "not yet"&&!nullTask.includes("premess")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false) {
                             //////1 condition
                             newTask = {
@@ -239,7 +239,7 @@ function getData(x) {
                             }
                         }
                          if(getTasksDataFromPersonCont(newPerson.row, "premessemail") === "not yet"&&!nullTask.includes("premessemail")&&newPerson.individ===false&&newPerson.livechain===false&&newPerson.conference===false) {
-                            //////1 condition
+                            //////13 condition
                             newTask = {
                                 name: newPerson.name,
                                 interviewername: newPerson.interviewername,
@@ -262,6 +262,30 @@ function getData(x) {
                                 );
                             }
                         }
+                        if(getTasksDataFromPersonCont(newPerson.row, "status") === "not yet"&&!nullTask.includes("status")&&newPerson.inpanel===true) {
+                            //////18 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "status",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
+                        }
                     }
 
                     if (
@@ -270,7 +294,7 @@ function getData(x) {
                             newPerson.timeformsent.getMonth() === today.getMonth() &&
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
-                        //////6,7,16 condition
+                        //////6,7,16,18 condition
                         if (
                             getTasksDataFromPersonCont(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")&&newPerson.livechain===false
                         ) {
@@ -302,6 +326,26 @@ function getData(x) {
                                 chainCreator: newPerson.chainCreator,
                                 chainCreatorEmail: newPerson.chainCreatorEmail,
                                 type: "frame",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExist(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasks.push(newTask);
+                                changeStatus(newPerson.row, newTask.type, "add");
+                            }
+                        }
+                        if (
+                            getTasksDataFromPersonCont(newPerson.row, "flair") === "not yet"&&!nullTask.includes("flair")&&newPerson.inpanel===true
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "flair",
                                 row: newPerson.row,
                             };
                             if (!taskAlreadyExist(newTask)) {
@@ -593,6 +637,7 @@ function getDataEng(x) {
                     linkfull: ele.linkfull,
                     livechain:false,
                     ytchannel:ele.ytchannel,
+                    inpanel:false,
                     qa:false
                 };
                 tableRowEng++;
@@ -607,6 +652,9 @@ function getDataEng(x) {
                 if (ele.fixedinterviewername !== "")
                     newPerson.interviewername = ele.fixedinterviewername;
                 if (ele.fixedchain !== "") newPerson.chain = ele.fixedchain;
+                if(newPerson.chain.includes("panel")||newPerson.chain.includes("Panel")){
+                    newPerson.inpanel=true;
+                }
                 if(newPerson.chain.includes("Q&A"))
                     newPerson.qa=true;
                 if (ele.recordingdate !== "")
@@ -694,6 +742,30 @@ function getDataEng(x) {
                                 );
                             }
                         }
+                        if(getTasksDataFromPersonContEng(newPerson.row, "status") === "not yet"&&!nullTask.includes("status")&&newPerson.inpanel===true&&newPerson.qa===false) {
+                            //////1 condition
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "status",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(
+                                    newPerson.row,
+                                    newTask.type,
+
+                                    "add"
+                                );
+                            }
+                        }
                 }
 
                     if (
@@ -702,7 +774,7 @@ function getDataEng(x) {
                             newPerson.timeformsent.getMonth() === today.getMonth() &&
                             newPerson.timeformsent.getYear() === today.getYear())
                     ) {
-                        //////6,7,16 condition
+                        //////6,7,16,18 condition
                         if (
                             getTasksDataFromPersonContEng(newPerson.row, "confirm") === "not yet"&&!nullTask.includes("confirm")&&newPerson.livechain===false
                         ) {
@@ -734,6 +806,26 @@ function getDataEng(x) {
                                 chainCreator: newPerson.chainCreator,
                                 chainCreatorEmail: newPerson.chainCreatorEmail,
                                 type: "frame",
+                                row: newPerson.row,
+                            };
+                            if (!taskAlreadyExistEng(newTask)) {
+                                console.log("new task!");
+                                console.log(newTask);
+                                allTasksEng.push(newTask);
+                                changeStatusEng(newPerson.row, newTask.type, "add");
+                            }
+                        }
+                        if (
+                            getTasksDataFromPersonContEng(newPerson.row, "flair") === "not yet"&&!nullTask.includes("flair")&&newPerson.inpanel===true&&newPerson.qa===false
+                        ) {
+                            newTask = {
+                                name: newPerson.name,
+                                interviewername: newPerson.interviewername,
+                                recordingdate: newPerson.recordingdate,
+                                chain: newPerson.chain,
+                                chainCreator: newPerson.chainCreator,
+                                chainCreatorEmail: newPerson.chainCreatorEmail,
+                                type: "flair",
                                 row: newPerson.row,
                             };
                             if (!taskAlreadyExistEng(newTask)) {
@@ -1005,7 +1097,9 @@ function getTasksDataFromPerson() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
-                    collabstatus:ele.collab17
+                    collabstatus:ele.collab17,
+                    flairstatus:ele.flair18,
+                    statusstatus:ele.status19
                 };
                 tasks4lols.push(tasks4personB4);
             });
@@ -1032,7 +1126,9 @@ function getTasksDataFromPersonEng() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
-                    collabstatus:ele.collab17
+                    collabstatus:ele.collab17,
+                    flairstatus:ele.flair18,
+                    statusstatus:ele.status19
                 };
                 tasks4lolsEng.push(tasks4personB4Eng);
             });
@@ -1058,6 +1154,9 @@ function getTasksDataFromPersonCont(row, type) {
             if (type === "socialpost") {
                 result = tasks4lols[i].socialpoststatus;
             }
+            if (type === "status") {
+                result = tasks4lols[i].statusstatus;
+            }
             if (type === "confirm") {
                 result = tasks4lols[i].confirmstatus;
             }
@@ -1078,6 +1177,9 @@ function getTasksDataFromPersonCont(row, type) {
             }
             if (type === "collab") {
                 result = tasks4lols[i].collabstatus;
+            }
+            if (type === "flair") {
+                result = tasks4lols[i].flairstatus;
             }
         }
     }
@@ -1111,6 +1213,9 @@ function getTasksDataFromPersonContEng(row, type) {
             if (type === "premessemail") {
                 result = tasks4lolsEng[i].premessemailstatus;
             }
+            if (type === "status") {
+                result = tasks4lolsEng[i].statusstatus;
+            }
             if (type === "community") {
                 result = tasks4lolsEng[i].communitystatus;
             }
@@ -1122,6 +1227,9 @@ function getTasksDataFromPersonContEng(row, type) {
             }
             if (type === "collab") {
                 result = tasks4lolsEng[i].collabstatus;
+            }
+            if (type === "flair") {
+                result = tasks4lolsEng[i].flairstatus;
             }
         }
     }
@@ -1149,7 +1257,10 @@ function taskData() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
-                    collabstatus:ele.collab17
+                    collabstatus:ele.collab17,
+                    flairstatus: ele.flair18,
+                    statusstatus:ele.status19
+                    
                 };
                 var currPerson = getPersonFromRow(tasks4person.row);
                 if (tasks4person.premessstatus === "active") {
@@ -1289,6 +1400,23 @@ function taskData() {
                         allTasks.push(newTask);
                     }
                 }
+                if (tasks4person.flairstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "flair",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
                 if (tasks4person.addcreatorstatus === "active") {
                     newTask = {
                         name: currPerson.name,
@@ -1315,6 +1443,23 @@ function taskData() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "premessemail",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExist(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasks.push(newTask);
+                    }
+                }
+                if (tasks4person.statusstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "status",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExist(newTask)) {
@@ -1388,7 +1533,9 @@ function taskDataEng() {
                     communitystatus: ele.community14,
                     danastatus: ele.dana15,
                     framestatus: ele.frame16,
-                    collabstatus:ele.collab17
+                    collabstatus:ele.collab17,
+                    flairstatus: ele.flair18,
+                    statusstatus:ele.status19
 
                 };
                 var currPerson = getPersonFromRowEng(tasks4personEng.row);
@@ -1545,6 +1692,23 @@ function taskDataEng() {
                         allTasksEng.push(newTask);
                     }
                 }
+                if (tasks4personEng.flairstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "flair",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
                 if (tasks4personEng.premessemailstatus === "active") {
                     newTask = {
                         name: currPerson.name,
@@ -1554,6 +1718,23 @@ function taskDataEng() {
                         chainCreator: currPerson.chainCreator,
                         chainCreatorEmail: currPerson.chainCreatorEmail,
                         type: "premessemail",
+                        row: currPerson.row,
+                    };
+                    if (!taskAlreadyExistEng(newTask)) {
+                        console.log("new task!");
+                        console.log(newTask);
+                        allTasksEng.push(newTask);
+                    }
+                }
+                if (tasks4personEng.statusstatus === "active") {
+                    newTask = {
+                        name: currPerson.name,
+                        interviewername: currPerson.interviewername,
+                        recordingdate: currPerson.recordingdate,
+                        chain: currPerson.chain,
+                        chainCreator: currPerson.chainCreator,
+                        chainCreatorEmail: currPerson.chainCreatorEmail,
+                        type: "status",
                         row: currPerson.row,
                     };
                     if (!taskAlreadyExistEng(newTask)) {
@@ -1681,6 +1862,28 @@ function createTasks() {
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+            if (allTasks[i].type === "status") {
+            /////19
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkstatus";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "status" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לפרסם סטטוס בוואטסאפ";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
@@ -2102,7 +2305,28 @@ function createTasks() {
             list.append(document.createElement("br"));
             size++;
         }
-        
+        if (allTasks[i].type === "flair") {
+            //////18
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasks[i].row + "Checkflair";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                check(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "flair" + allTasks[i].row;
+            optionList.innerHTML =
+                allTasks[i].name + " - " + recDate +" - "+shortChainName(allTasks[i].chain)+ " - לייצר פלייר לפאנל";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
     }
 }
 function createTasksEng() {
@@ -2167,6 +2391,28 @@ function createTasksEng() {
             });
             optionDiv.append(optionList);
             optionDiv.append(optionBut);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+            if (allTasksEng[i].type === "status") {
+            /////19
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkstatus";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "status" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לפרסם סטטוס בוואטסאפ";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
             list.append(optionDiv);
             list.append(document.createElement("br"));
             size++;
@@ -2567,6 +2813,28 @@ function createTasksEng() {
             optionList.id = "frame" + allTasksEng[i].row;
             optionList.innerHTML =
                 allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לייצר פריים יוטיוב+פרמייר55";
+            optionInput.classList.add("form-check-label");
+            optionDiv.append(optionList);
+            list.append(optionDiv);
+            list.append(document.createElement("br"));
+            size++;
+        }
+        if (allTasksEng[i].type === "flair") {
+            /////18
+            optionDiv = document.createElement("div");
+            optionDiv.classList.add("d-inline-flex", "flex-row", "gap-3", "align-items-center");
+            optionInput = document.createElement("input");
+            optionInput.id = allTasksEng[i].row + "Checkflair";
+            optionInput.type = "checkbox";
+            optionInput.classList.add("form-check-input");
+            optionInput.addEventListener("click", function () {
+                checkEng(this);
+            });
+            optionDiv.append(optionInput);
+            optionList = document.createElement("label");
+            optionList.id = "flair" + allTasksEng[i].row;
+            optionList.innerHTML =
+                allTasksEng[i].name + " - " + recDate +" - "+shortChainName(allTasksEng[i].chain)+ " - לייצר פלייר לפאנל";
             optionInput.classList.add("form-check-label");
             optionDiv.append(optionList);
             list.append(optionDiv);
